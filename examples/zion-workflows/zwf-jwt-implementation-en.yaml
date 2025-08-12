@@ -1,0 +1,232 @@
+flow_id: zwf-jwt-implementation-202401
+flow_name: Authentication Pattern Implementation
+triggered_by: work.proposed
+trigger_context: Need to implement secure authentication in product API
+team_context: Backend Squad - API Core
+timestamp_start: "2024-01-15 09:00:00"
+timestamp_end: "2024-01-15 16:30:00"
+
+# Initial Oracle Binding
+oracle_context:
+  motivating_ukis:
+    - unik-technical-jwt-authentication-pattern
+    - unik-business-security-requirements
+    - unik-culture-code-review-process
+    - unik-technical-api-error-handling
+
+# State Flow Execution
+flow_execution:
+
+  # State 1: INTAKE
+  - state: intake
+    timestamp: "2024-01-15 09:00:00"
+    signals:
+      context: "Received story: As a user, I want to authenticate with the API to access protected resources"
+      decision: "Validated need to implement authentication based on security requirements"
+      result: "Structured context: implement authentication solution with refresh capability"
+    actions_taken:
+      - Captured user story from sprint planning
+      - Validated acceptance criteria
+      - Identified non-functional security requirements
+    next_state: understand
+
+  # State 2: UNDERSTAND  
+  - state: understand
+    timestamp: "2024-01-15 09:30:00"
+    oracle_ukis_consulted:
+      - unik-technical-jwt-authentication-pattern
+      - unik-business-security-requirements
+      - unik-technical-token-expiration-policy
+    signals:
+      context: "Consulted authentication patterns and security policies in Oracle"
+      decision: "Identified Bearer Token pattern with refresh, expiration per business policy"
+      result: "Strategy: Access Token + Refresh Token with validation middleware"
+    oracle_guidance:
+      security_requirements: "Tokens must expire according to business policy"
+      authentication_pattern: "Use Bearer Token in authorization header"
+      error_handling: "Return appropriate codes for invalid tokens or unauthorized resources"
+    next_state: decide
+
+  # State 3: DECIDE
+  - state: decide  
+    timestamp: "2024-01-15 10:00:00"
+    reasoning_ukis:
+      - unik-technical-jwt-authentication-pattern
+      - unik-business-vendor-approval-policy
+    signals:
+      context: "Evaluated implementation options based on Oracle guidelines"
+      decision: "Chosen approach approved by vendor policy with custom middleware"
+      result: "Plan defined: implement authentication service + middleware + endpoints"
+    decision_rationale: |
+      Approach chosen because:
+      - It's on the list of organizationally approved patterns
+      - Supports algorithms according to security standard
+      - Has active support and good documentation
+      - Integrates well with our current architecture
+    implementation_plan:
+      - Create authentication service for generation/validation
+      - Implement authentication middleware
+      - Create login and refresh endpoints
+      - Add unit and integration tests
+    next_state: act
+
+  # State 4: ACT
+  - state: act
+    timestamp: "2024-01-15 10:30:00"
+    signals:
+      context: "Started authentication solution implementation"
+      decision: "Executed implementation following team culture standards"
+      result: "Solution implemented according to Oracle-defined pattern"
+    conceptual_execution:
+      approach_taken: "Oracle UKI-guided implementation"
+      team_practices_applied: "Team quality standards followed"
+      knowledge_validation: "Solution validated against Oracle guidelines"
+    next_state: review
+
+  # State 5: REVIEW (Optional)
+  - state: review
+    timestamp: "2024-01-15 14:00:00"
+    signals:
+      context: "Submitted solution for validation according to team process"
+      decision: "Approved after adjustments based on Oracle UKIs"
+      result: "Solution validated and refined according to guidelines"
+    conceptual_validation:
+      oracle_ukis_applied:
+        - unik-culture-code-review-process
+        - unik-technical-api-error-handling
+      knowledge_refinements:
+        - Applied improvements based on Oracle patterns
+        - Documentation aligned with existing guidelines
+        - Solution validated against established knowledge
+      validation_outcome: "Compliant with ZWF standards"
+    next_state: enrich
+
+  # State 6: ENRICH ORACLE (Mandatory)
+  - state: enrich_oracle
+    timestamp: "2024-01-15 16:00:00"
+    signals:
+      context: "Authentication implementation completed successfully, learnings captured"
+      decision: "Document implementation as reusable example and update existing pattern"
+      result: "Created 2 UKIs: implementation example + pattern refinement"
+    new_ukis_created:
+      - id: unik-technical-authentication-implementation-example
+        type: example
+        domain: technical
+        context: implementation
+        version: "1.0.0"
+        created_date: "2024-01-15"
+        last_modified: "2024-01-15"
+        language: en_US
+        title: "Token-Based Authentication Implementation Example"
+        content: |
+          Authentication pattern implementation following Oracle guidelines.
+          
+          Conceptual components:
+          - Token service: generation and validation
+          - Authentication middleware: request interception
+          - Authentication endpoints: login and refresh
+          
+          Applied security guidelines:
+          - Tokens with expiration according to business policy
+          - Refresh tokens with controlled lifecycle
+          - Algorithms following established security standards
+          - Configurations aligned with organizational requirements
+          
+          Pattern application:
+          - Implementation of Oracle-defined architecture
+          - Validation against existing security guidelines
+          - Standardized authentication process
+        examples:
+          - input: "User logs in with valid credentials"
+            output: "Returns access token + refresh token"
+          - input: "Request with expired token"
+            output: "Appropriate response with refresh guidance"
+          - input: "Refresh request with valid token"
+            output: "New access token generated maintaining refresh token"
+        related_to:
+          - unik-technical-jwt-authentication-pattern
+          - unik-business-security-requirements
+          - unik-technical-api-error-handling
+        intent_of_use:
+          - generate_code
+          - understand_implementation
+          - standardize_process
+        use_case_stage:
+          - implementation
+          - peer_review
+          - documentation
+        last_validation: "2024-01-15"
+
+      - id: unik-technical-token-refresh-pattern
+        type: pattern
+        domain: technical
+        context: implementation
+        version: "1.0.0"
+        created_date: "2024-01-15"
+        last_modified: "2024-01-15"
+        language: en_US
+        title: "Token Refresh Pattern with Secure Storage"
+        content: |
+          Pattern for implementing token refresh using secure storage.
+          
+          Characteristics:
+          - Refresh tokens stored securely
+          - Structured keys for unique identification
+          - Automatic TTL for expiration
+          - Support for manual revocation
+          
+          Conceptual implementation:
+          1. On login, generate unique refresh token
+          2. Store securely with appropriate TTL
+          3. On refresh, validate existence and renew access token
+          4. Rotate refresh token periodically
+          
+          Benefits:
+          - Superior performance to conventional storage
+          - Automatic TTL avoids manual cleanup
+          - Horizontal scalability
+        examples:
+          - input: "User login"
+            output: "Secure storage of refresh token with TTL"
+          - input: "Refresh request"
+            output: "Validation and new access token generation"
+          - input: "Logout"
+            output: "Refresh token invalidated"
+        related_to:
+          - unik-technical-jwt-authentication-pattern
+          - unik-technical-authentication-implementation-example
+        intent_of_use:
+          - standardize_process
+          - improve_performance
+          - ensure_security
+        use_case_stage:
+          - implementation
+          - design
+        last_validation: "2024-01-15"
+
+# Conceptual Flow Reflection
+flow_reflection:
+  conceptual_completeness: "All canonical states were traversed"
+  oracle_integration: "Decisions based on existing UKIs"
+  knowledge_enrichment: "Knowledge returned to Oracle as specified"
+  explainability_maintained: "Context, decision and result signals recorded"
+
+# Conceptual Learnings
+flow_learnings:
+  - "Consulting Oracle before deciding technology avoids rework"
+  - "Documenting implementation during execution facilitates enrichment"
+  - "Optional review process useful for critical knowledge"
+  - "Relationships between UKIs essential for traceability"
+
+# ZWF Compliance
+zwf_compliance:
+  - "✅ Flow triggered by canonical event (work.proposed)"
+  - "✅ Consulted Oracle to support decisions"
+  - "✅ Recorded explainability signals in each state"
+  - "✅ Enriched Oracle with related UKIs"
+  - "✅ Maintained conceptual process traceability"
+
+# Related Flows
+related_flows:
+  - zwf-api-deployment-202401  # Next flow: API deployment
+  - zwf-frontend-auth-integration-202401  # Parallel flow: frontend integration

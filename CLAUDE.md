@@ -25,8 +25,8 @@ This repository contains comprehensive Matrix Protocol documentation and example
 ## Core Concepts
 
 ### Matrix Protocol Layers
-1. **Oracle Layer**: Strategic governance & knowledge base management
-2. **Zion Layer**: Integration between strategy and operations, intelligent agents
+1. **Oracle Layer**: Strategic governance & knowledge base management (MEF)
+2. **Zion Layer**: Conceptual workflow framework for AI-oriented teams (ZWF)
 3. **Operator Layer**: Practical execution and implementation by development teams
 
 ### MEF (Matrix Embedding Framework)
@@ -34,6 +34,13 @@ This repository contains comprehensive Matrix Protocol documentation and example
 - Structured with domains: `product`, `business`, `technical`, `strategy`, `culture`
 - Types: `business_rule`, `function`, `template`, `guideline`, `pattern`, `decision`, `example`
 - Contexts: `discovery`, `implementation`, `refinement`, `qa`, `documentation`, `support`
+
+### ZWF (Zion Workflow Framework)
+- Conceptual framework for AI-oriented workflows as state machines
+- Canonical states: `Intake → Understand → Decide → Act → Review → Enrich`
+- Events: `knowledge.added`, `work.proposed`, `work.refine.requested`, `assistance.requested`, `test.authored`, `feedback.submitted`
+- Technology-independent: defines "how to think" not "how to implement"
+- Always enriches Oracle with MEF UKIs at the end
 
 ## Working with This Repository
 
@@ -86,21 +93,28 @@ last_validation: [YYYY-MM-DD]
 
 ## Working with Examples
 
-The `examples/` directory contains comprehensive UKI demonstrations:
+The `examples/` directory contains comprehensive demonstrations:
 
-### Practical Examples Available
+### Oracle MEF Examples (`examples/oracle-mef/`)
 - **Technical**: JWT authentication patterns with security considerations
 - **Business**: Customer discount rules with calculation formulas
 - **Product**: Modal design guidelines with accessibility standards
 - **Strategy**: API evolution strategies with migration timelines
 - **Culture**: Code review processes with collaboration principles
+- **Format**: Separate PT/EN files (e.g., `unik-technical-auth-pt.yaml`, `unik-technical-auth-en.yaml`)
+
+### Zion ZWF Examples (`examples/zion-workflows/`)
+- **Request Flow**: Technical implementation following canonical states
+- **Refinement Flow**: Product optimization with incremental approach
+- **Ingestion Flow**: Knowledge processing from external sources
+- **Format**: Separate PT/EN files (e.g., `zwf-jwt-implementation-pt.yaml`, `zwf-jwt-implementation-en.yaml`)
 
 ### Using Examples
-- Reference templates for creating new UKIs
-- Study MEF field usage patterns
-- Understand versioning implementation
+- Reference templates for creating new UKIs and ZWF flows
+- Study MEF field usage patterns and ZWF state transitions
+- Understand versioning implementation and flow traceability
 - Learn bilingual documentation approaches
-- Validate MEF parser implementations
+- Validate MEF parser implementations and ZWF compliance
 
 ## AI Integration Considerations
 
@@ -113,3 +127,35 @@ This framework is designed for:
 - Version-aware knowledge recommendations
 
 The MEF format enables AI systems to understand not just the content but also the intent, context, evolution history, and relationships of knowledge units for more intelligent assistance.
+
+## ZWF Implementation
+
+When working with ZWF workflow specifications:
+
+### ZWF Flow Structure Example
+```yaml
+flow_id: zwf-[workflow-type]-[identifier]
+flow_name: "[Descriptive workflow name in PT/EN]"
+triggered_by: [knowledge.added|work.proposed|work.refine.requested|assistance.requested|test.authored|feedback.submitted]
+trigger_context: "[Context description in PT/EN]"
+team_context: "[Team/squad information]"
+
+oracle_context:
+  motivating_ukis:
+    - unik-[domain]-[related-knowledge]
+
+flow_execution:
+  - state: "intake"
+    signals:
+      context: "[What came in / O que entrou]"
+      decision: "[Why it transitioned / Por que transicionou]" 
+      result: "[What came out / O que saiu]"
+```
+
+### ZWF Guidelines
+- All flows must follow canonical states: Intake → Understand → Decide → Act → Review → Enrich
+- Always consult Oracle UKIs to justify decisions
+- Record explainability signals (context, decision, result) at each state
+- Must enrich Oracle with MEF UKIs at the end
+- Technology-independent: focus on "how to think" not "how to implement"
+- Separate PT/EN files for bilingual support

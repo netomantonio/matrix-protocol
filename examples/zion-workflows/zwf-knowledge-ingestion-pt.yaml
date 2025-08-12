@@ -1,0 +1,408 @@
+flow_id: zwf-knowledge-ingest-202401
+flow_name: Ingestão de Documentação Externa
+triggered_by: knowledge.added
+trigger_context: Nova documentação externa com mudanças significativas disponibilizada
+team_context: Squad Platform - Integrations Team
+timestamp_start: "2024-01-18 10:15:00"
+timestamp_end: "2024-01-18 15:45:00"
+
+# Vínculo inicial ao Oráculo
+oracle_context:
+  motivating_ukis:
+    - unik-technical-api-integration-standards
+    - unik-culture-knowledge-management-process
+    - unik-business-vendor-integration-policy
+    - unik-technical-documentation-standards
+
+# Fluxo de Estados
+flow_execution:
+
+  # Estado 1: INTAKE
+  - state: intake
+    timestamp: "2024-01-18 10:15:00"
+    signals:
+      context: "Recebida notificação sobre nova documentação com mudanças significativas"
+      decision: "Priorizada ingestão devido ao impacto em integrações críticas"
+      result: "Contexto estruturado: processar documentação e identificar impactos nas integrações"
+    conceptual_intake:
+      knowledge_source: "Documentação externa de API"
+      knowledge_type: "Atualização com mudanças significativas"
+      estimated_impact: "Mudanças que afetam integrações existentes"
+      priority_assessment: "Alto impacto baseado em UKIs de integração"
+    knowledge_characteristics:
+      content_scope: "Documentação estruturada de fornecedor"
+      change_types: "Modificações em contratos de API estabelecidos"
+      integration_impact: "Requer análise contra padrões existentes"
+    next_state: understand
+
+  # Estado 2: UNDERSTAND
+  - state: understand
+    timestamp: "2024-01-18 10:45:00"
+    oracle_ukis_consulted:
+      - unik-technical-api-integration-standards
+      - unik-business-vendor-integration-policy
+      - unik-technical-existing-integration-patterns
+    signals:
+      context: "Analisada documentação vs padrões internos e integração atual"
+      decision: "Identificados impactos críticos baseados em conhecimento do Oráculo"
+      result: "Estratégia: criar UKIs para mudanças críticas + plano de transição + guia de implementação"
+    analysis_performed:
+      documentation_review:
+        significant_changes_found: "Múltiplas mudanças impactantes identificadas"
+        new_capabilities_identified: "Novas funcionalidades disponíveis"
+        deprecation_timeline: "Cronograma de descontinuação estabelecido"
+      impact_assessment:
+        high_impact: "Mudanças que requerem atualização obrigatória"
+        medium_impact: "Novas funcionalidades que representam oportunidades"
+        low_impact: "Melhorias incrementais disponíveis"
+      integration_compatibility:
+        current_version: "Versão atual em uso"
+        compatibility_status: "Mudanças significativas requerem atualizações"
+        affected_areas: "Áreas do sistema que requerem adaptação"
+    next_state: decide
+
+  # Estado 3: DECIDE
+  - state: decide
+    timestamp: "2024-01-18 11:30:00"
+    reasoning_ukis:
+      - unik-technical-api-integration-standards
+      - unik-culture-knowledge-management-process
+    signals:
+      context: "Avaliadas opções baseadas em diretrizes do Oráculo"
+      decision: "Escolhida ingestão seletiva focada em mudanças críticas + guia de transição"
+      result: "Plano definido: UKIs específicas para impactos críticos + guia de transição"
+    decision_rationale: |
+      Ingestão seletiva escolhida por:
+      - Focar no conhecimento de maior impacto conforme padrões de integração
+      - Evitar sobrecarga de informação para a equipe
+      - Criar conhecimento acionável imediatamente
+      - Seguir processo de gestão de conhecimento da cultura organizacional
+    knowledge_structuring_plan:
+      critical_ukis_to_create:
+        - Mudanças em validação (business_rule)
+        - Padrão de migração (pattern)
+        - Estratégia de tratamento de limites (guideline)
+        - Exemplo de integração atualizada (example)
+      transition_guide:
+        - Guia passo-a-passo para transição (template)
+      content_organization:
+        domain: technical
+        contexts: [implementation, refinement]
+        priority_order: "Mudanças críticas → Novas funcionalidades → Otimizações"
+    next_state: act
+
+  # Estado 4: ACT
+  - state: act
+    timestamp: "2024-01-18 12:00:00"
+    signals:
+      context: "Iniciada criação estruturada das UKIs baseada na análise da documentação"
+      decision: "Executada estruturação seguindo padrões MEF com foco em aplicabilidade prática"
+      result: "UKIs criadas cobrindo todos os impactos críticos + guia de transição completo"
+    structured_content_created:
+      ukis_generated: "Múltiplas UKIs interrelacionadas"
+      content_coverage:
+        critical_changes: "Cobertura completa das mudanças críticas"
+        new_features: "Cobertura das funcionalidades de alto impacto"
+        best_practices: "Atualizadas com novos padrões"
+    quality_validation:
+      mef_compliance: "Todas as UKIs seguem estrutura MEF"
+      technical_accuracy: "Revisadas contra documentação original"
+      practical_applicability: "Todos os exemplos validados em ambiente de desenvolvimento"
+      team_review: "Estrutura de conteúdo aprovada pela liderança técnica"
+    next_state: enrich
+
+  # Estado 5: ENRICH ORACLE (Obrigatório)
+  - state: enrich_oracle
+    timestamp: "2024-01-18 15:00:00"
+    signals:
+      context: "UKIs estruturadas e validadas, processo de ingestão completo"
+      decision: "Adicionar todas as UKIs ao Oráculo com relacionamentos adequados"
+      result: "UKIs adicionadas ao Oráculo, conhecimento disponível para consulta da equipe"
+    new_ukis_created:
+      - id: unik-technical-api-validation-changes-2024
+        type: business_rule
+        domain: technical
+        context: implementation
+        version: "1.0.0"
+        created_date: "2024-01-18"
+        last_modified: "2024-01-18"
+        language: pt_BR
+        title: "Nova Regra de Validação de API Externa"
+        content: |
+          Regra crítica para validação atualizada conforme nova versão da API externa.
+          
+          MUDANÇA SIGNIFICATIVA: API externa alterou método de validação de requisições.
+          
+          Implementação obrigatória:
+          1. Atualizar endpoint de validação para usar novo método
+          2. Configurar nova chave no painel de configuração
+          3. Manter compatibilidade durante período de transição
+          4. Testar com ferramentas de desenvolvimento fornecidas
+          
+          Processo de validação atualizado:
+          - Novo método de assinatura deve ser implementado
+          - Validação de integridade usando algoritmo atualizado
+          - Tratamento de erros conforme nova especificação
+          
+          PRAZO: Implementar conforme cronograma de transição estabelecido
+        examples:
+          - input: "Requisição recebida com nova validação"
+            output: "Validação bem-sucedida com método atualizado"
+          - input: "Requisição com validação anterior"
+            output: "Fallback para método anterior durante período de transição"
+        related_to:
+          - unik-technical-api-integration-standards
+          - unik-technical-existing-integration-patterns
+        intent_of_use:
+          - ensure_security
+          - prevent_breaking_changes
+          - guide_migration
+        use_case_stage:
+          - implementation
+          - testing
+        last_validation: "2024-01-18"
+
+      - id: unik-technical-integration-migration-pattern
+        type: pattern
+        domain: technical
+        context: refinement
+        version: "1.0.0"
+        created_date: "2024-01-18"
+        last_modified: "2024-01-18"
+        language: pt_BR
+        title: "Padrão de Migração para Mudanças de API Externa"
+        content: |
+          Padrão para migrar integrações quando API externa introduz mudanças significativas.
+          
+          CONTEXTO: Campo específico será descontinuado na API externa
+          SUBSTITUTO: Novo campo com funcionalidade equivalente
+          
+          Estratégia de migração:
+          1. Mapear todos os usos atuais do campo antigo
+          2. Implementar lógica dual (ler ambos, escrever novo)
+          3. Migrar dados existentes via processo estruturado
+          4. Remover referências antigas após confirmação
+          
+          Implementação do padrão dual:
+          - Leitura compatível durante transição
+          - Escrita sempre usando novo formato
+          - Validação de dados em ambos os formatos
+          - Logs para monitoramento da transição
+          
+          Lista de verificação para migração:
+          - [ ] Identificar usos do campo antigo no código
+          - [ ] Implementar lógica dual de leitura
+          - [ ] Atualizar criação para usar novo campo
+          - [ ] Processo de migração de dados existentes
+          - [ ] Testes de regressão
+          - [ ] Remover código legacy após transição
+        examples:
+          - input: "Registro criado com campo antigo"
+            output: "Migração automática para novo campo"
+          - input: "Leitura de registro existente"
+            output: "Fallback para campo antigo se novo campo não existir"
+        related_to:
+          - unik-technical-existing-integration-patterns
+          - unik-technical-api-migration-best-practices
+        intent_of_use:
+          - guide_migration
+          - prevent_breaking_changes
+          - standardize_process
+        use_case_stage:
+          - refinement
+          - implementation
+        last_validation: "2024-01-18"
+
+      - id: unik-technical-api-rate-limiting-strategy
+        type: guideline
+        domain: technical
+        context: implementation
+        version: "1.0.0"
+        created_date: "2024-01-18"
+        last_modified: "2024-01-18"
+        language: pt_BR
+        title: "Estratégia para Novos Limites de Taxa da API Externa"
+        content: |
+          Diretrizes para lidar com mudanças nos limites de taxa da API externa.
+          
+          MUDANÇAS:
+          - Endpoints principais: limite reduzido
+          - Endpoints secundários: sem mudança
+          - Novos cabeçalhos disponíveis para monitoramento
+          
+          Estratégias de implementação:
+          1. Implementar repetição com backoff exponencial
+          2. Usar cabeçalhos para controle proativo
+          3. Cache agressivo para dados que mudam pouco
+          4. Operações em lote quando possível
+          
+          Implementação conceitual:
+          - Sistema de repetição inteligente
+          - Monitoramento proativo dos limites
+          - Cache estratégico baseado em padrões de uso
+          - Otimização de requisições por lote
+          
+          Monitoramento recomendado:
+          - Alertas para limite próximo ao máximo
+          - Métricas de taxa de repetição
+          - Painel de performance por endpoint
+        examples:
+          - input: "Erro de limite de taxa em endpoint principal"
+            output: "Repetição automática com backoff exponencial"
+          - input: "Cabeçalho indicando proximidade do limite"
+            output: "Pausar requisições preventivamente"
+        related_to:
+          - unik-technical-api-integration-standards
+          - unik-technical-error-handling-patterns
+        intent_of_use:
+          - prevent_errors
+          - optimize_performance
+          - guide_implementation
+        use_case_stage:
+          - implementation
+          - monitoring
+        last_validation: "2024-01-18"
+
+      - id: unik-technical-updated-integration-example
+        type: example
+        domain: technical
+        context: implementation
+        version: "1.0.0"
+        created_date: "2024-01-18"
+        last_modified: "2024-01-18"
+        language: pt_BR
+        title: "Exemplo de Integração Atualizada com Nova API"
+        content: |
+          Exemplo prático de implementação usando funcionalidades atualizadas da API externa.
+          
+          NOVO: API atualizada oferece maior controle e funcionalidades melhoradas.
+          
+          Fluxo recomendado:
+          1. Criar requisição usando nova estrutura
+          2. Confirmar no frontend com novos recursos
+          3. Processamento via webhook atualizado
+          
+          Implementação conceitual:
+          - Estrutura de requisição atualizada
+          - Processamento melhorado no frontend
+          - Tratamento de webhook com nova estrutura
+          - Tratamento de erros melhorado
+          
+          Vantagens vs versão anterior:
+          - Melhor experiência do usuário
+          - Suporte nativo a novas funcionalidades
+          - Controle mais granular do fluxo
+          - Repetição automática para falhas temporárias
+        examples:
+          - input: "Operação usando nova estrutura"
+            output: "Requisição processada com funcionalidades melhoradas"
+          - input: "Situação que requer tratamento especial"
+            output: "Sistema trata automaticamente usando novos recursos"
+        related_to:
+          - unik-technical-api-validation-changes-2024
+          - unik-business-integration-requirements
+        intent_of_use:
+          - generate_code
+          - understand_implementation
+          - replace_deprecated_functionality
+        use_case_stage:
+          - implementation
+          - testing
+        last_validation: "2024-01-18"
+
+      - id: unik-technical-api-migration-guide-2024
+        type: template
+        domain: technical
+        context: refinement
+        version: "1.0.0"
+        created_date: "2024-01-18"
+        last_modified: "2024-01-18"
+        language: pt_BR
+        title: "Template de Migração para API Externa Atualizada"
+        content: |
+          Template para migração estruturada para nova versão da API externa.
+          
+          CRONOGRAMA SUGERIDO: Baseado em fases estruturadas
+          
+          ## Fase 1: Preparação e Análise
+          - [ ] Auditoria de uso atual da API externa
+          - [ ] Identificação de mudanças críticas específicas
+          - [ ] Setup de ambiente de teste com nova versão
+          - [ ] Backup completo de configurações atuais
+          
+          ## Fase 2: Implementação Principal
+          - [ ] Atualizar validação conforme novos padrões
+          - [ ] Implementar lógica dual para campos alterados
+          - [ ] Configurar tratamento de limites com repetição
+          - [ ] Testes unitários para mudanças críticas
+          
+          ## Fase 3: Integração e Testes
+          - [ ] Migrar para funcionalidades atualizadas
+          - [ ] Testes de integração end-to-end
+          - [ ] Testes de performance com novos limites
+          - [ ] Testes de fallback e tratamento de erro
+          
+          ## Fase 4: Implementação e Monitoramento
+          - [ ] Implementação gradual (canary → staging → production)
+          - [ ] Monitoramento intensivo por período determinado
+          - [ ] Validação de funcionalidades críticas
+          - [ ] Documentação pós-migração
+          
+          ## Plano de Contingência
+          - Manter versão anterior em paralelo por período de segurança
+          - Scripts de rollback automático se taxa de erro aumentar
+          - Monitoria contínua durante primeira semana
+          
+          ## Lista de Validação
+          - [ ] Todas as integrações funcionando
+          - [ ] Processamento correto de todas as operações
+          - [ ] Limites de taxa respeitados
+          - [ ] Performance mantida ou melhorada
+          - [ ] Logs de erro limpos
+          - [ ] Documentação atualizada
+        examples:
+          - input: "Início da migração"
+            output: "Lista estruturada com tarefas específicas por fase"
+          - input: "Erro crítico durante migração"
+            output: "Rollback automático acionado"
+        related_to:
+          - unik-technical-api-validation-changes-2024
+          - unik-technical-integration-migration-pattern
+          - unik-technical-api-rate-limiting-strategy
+          - unik-technical-updated-integration-example
+        intent_of_use:
+          - guide_migration
+          - standardize_process
+          - ensure_quality
+        use_case_stage:
+          - planning
+          - implementation
+          - deployment
+        last_validation: "2024-01-18"
+
+# Reflexão Conceitual do Fluxo
+flow_reflection:
+  conceptual_completeness: "Padrão de ingestão seguido integralmente"
+  oracle_integration: "Padrões de integração consultados para priorização"
+  knowledge_enrichment: "Conhecimento crítico estruturado como UKIs interrelacionadas"
+  explainability_maintained: "Decisões de ingestão seletiva justificadas"
+
+# Aprendizados Conceituais
+flow_learnings:
+  - "Ingestão seletiva focada no Oráculo é mais eficaz"
+  - "Priorizar por impacto usando UKIs existentes otimiza valor"
+  - "Criar templates durante ingestão facilita replicação"
+  - "Relacionamentos semânticos essenciais para navegação"
+
+# Conformidade ZWF
+zwf_compliance:
+  - "✅ Fluxo iniciado por evento canônico (knowledge.added)"
+  - "✅ Consultou Oráculo para padrões de integração"
+  - "✅ Registrou sinais de explicabilidade para decisões de ingestão"
+  - "✅ Enriqueceu Oráculo com UKIs estruturadas e relacionadas"
+  - "✅ Manteve rastreabilidade do processo de ingestão"
+
+# Fluxos Relacionados
+related_flows:
+  - zwf-api-migration-implementation-202402  # Próximo fluxo: execução da migração
+  - zwf-integration-testing-automation-202401  # Fluxo paralelo: testes automatizados

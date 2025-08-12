@@ -1,0 +1,232 @@
+flow_id: zwf-jwt-implementation-202401
+flow_name: Implementação de Padrão de Autenticação
+triggered_by: work.proposed
+trigger_context: Necessidade de implementar autenticação segura na API do produto
+team_context: Squad Backend - API Core
+timestamp_start: "2024-01-15 09:00:00"
+timestamp_end: "2024-01-15 16:30:00"
+
+# Vínculo inicial ao Oráculo
+oracle_context:
+  motivating_ukis:
+    - unik-technical-jwt-authentication-pattern
+    - unik-business-security-requirements
+    - unik-culture-code-review-process
+    - unik-technical-api-error-handling
+
+# Fluxo de Estados
+flow_execution:
+
+  # Estado 1: INTAKE
+  - state: intake
+    timestamp: "2024-01-15 09:00:00"
+    signals:
+      context: "Recebida história: Como usuário, quero me autenticar na API para acessar recursos protegidos"
+      decision: "Validada necessidade de implementar autenticação baseado em requisitos de segurança"
+      result: "Contexto estruturado: implementar solução de autenticação com renovação"
+    actions_taken:
+      - Capturada história de usuário da sprint planning
+      - Validados critérios de aceitação
+      - Identificados requisitos não-funcionais de segurança
+    next_state: understand
+
+  # Estado 2: UNDERSTAND  
+  - state: understand
+    timestamp: "2024-01-15 09:30:00"
+    oracle_ukis_consulted:
+      - unik-technical-jwt-authentication-pattern
+      - unik-business-security-requirements
+      - unik-technical-token-expiration-policy
+    signals:
+      context: "Consultados padrões de autenticação e políticas de segurança no Oráculo"
+      decision: "Identificado padrão Bearer Token com renovação, expiração conforme política de negócio"
+      result: "Estratégia: Token de acesso + Token de renovação com middleware de validação"
+    oracle_guidance:
+      security_requirements: "Tokens devem expirar conforme política de negócio"
+      authentication_pattern: "Usar Bearer Token no header de autorização"
+      error_handling: "Retornar códigos apropriados para tokens inválidos ou recursos não autorizados"
+    next_state: decide
+
+  # Estado 3: DECIDE
+  - state: decide  
+    timestamp: "2024-01-15 10:00:00"
+    reasoning_ukis:
+      - unik-technical-jwt-authentication-pattern
+      - unik-business-vendor-approval-policy
+    signals:
+      context: "Avaliadas opções de implementação baseadas em diretrizes do Oráculo"
+      decision: "Escolhida abordagem aprovada pela política de vendors com middleware customizado"
+      result: "Plano definido: implementar serviço de autenticação + middleware + endpoints"
+    decision_rationale: |
+      Abordagem escolhida por:
+      - Está na lista de padrões aprovados pela política organizacional
+      - Suporta algoritmos conforme padrão de segurança
+      - Tem suporte ativo e boa documentação
+      - Integra bem com nossa arquitetura atual
+    implementation_plan:
+      - Criar serviço de autenticação para geração/validação
+      - Implementar middleware de autenticação
+      - Criar endpoints de entrada e renovação
+      - Adicionar testes unitários e integração
+    next_state: act
+
+  # Estado 4: ACT
+  - state: act
+    timestamp: "2024-01-15 10:30:00"
+    signals:
+      context: "Iniciada implementação da solução de autenticação"
+      decision: "Executada implementação seguindo padrões da cultura da equipe"
+      result: "Solução implementada conforme padrão definido pelo Oráculo"
+    conceptual_execution:
+      approach_taken: "Implementação guiada por UKIs do Oráculo"
+      team_practices_applied: "Seguidos padrões de qualidade da equipe"
+      knowledge_validation: "Solução validada contra diretrizes do Oráculo"
+    next_state: review
+
+  # Estado 5: REVIEW (Opcional)
+  - state: review
+    timestamp: "2024-01-15 14:00:00"
+    signals:
+      context: "Submetida solução para validação conforme processo da equipe"
+      decision: "Aprovado após ajustes baseados em UKIs do Oráculo"
+      result: "Solução validada e refinada conforme diretrizes"
+    conceptual_validation:
+      oracle_ukis_applied:
+        - unik-culture-code-review-process
+        - unik-technical-api-error-handling
+      knowledge_refinements:
+        - Aplicadas melhorias baseadas em padrões do Oráculo
+        - Documentação alinhada com diretrizes existentes
+        - Solução validada contra conhecimento estabelecido
+      validation_outcome: "Conforme padrões ZWF"
+    next_state: enrich
+
+  # Estado 6: ENRICH ORACLE (Obrigatório)
+  - state: enrich_oracle
+    timestamp: "2024-01-15 16:00:00"
+    signals:
+      context: "Implementação de autenticação concluída com sucesso, aprendizados capturados"
+      decision: "Documentar implementação como exemplo reutilizável e atualizar padrão existente"
+      result: "Criados 2 UKIs: exemplo de implementação + refinamento do padrão"
+    new_ukis_created:
+      - id: unik-technical-authentication-implementation-example
+        type: example
+        domain: technical
+        context: implementation
+        version: "1.0.0"
+        created_date: "2024-01-15"
+        last_modified: "2024-01-15"
+        language: pt_BR
+        title: "Exemplo de Implementação de Autenticação Baseada em Token"
+        content: |
+          Implementação de padrão de autenticação seguindo diretrizes do Oráculo.
+          
+          Componentes conceituais:
+          - Serviço de tokens: geração e validação
+          - Middleware de autenticação: interceptação de requisições
+          - Endpoints de autenticação: entrada e renovação
+          
+          Diretrizes de segurança aplicadas:
+          - Tokens com expiração conforme política de negócio
+          - Tokens de renovação com ciclo de vida controlado
+          - Algoritmos seguindo padrões de segurança estabelecidos
+          - Configurações alinhadas com requisitos organizacionais
+          
+          Aplicação do padrão:
+          - Implementação da arquitetura definida pelo Oráculo
+          - Validação contra diretrizes de segurança existentes
+          - Processo de autenticação padronizado
+        examples:
+          - input: "Usuário faz login com credenciais válidas"
+            output: "Retorna token de acesso + token de renovação"
+          - input: "Requisição com token expirado"
+            output: "Resposta apropriada com orientação para renovação"
+          - input: "Solicitação de renovação com token válido"
+            output: "Novo token de acesso gerado mantendo token de renovação"
+        related_to:
+          - unik-technical-jwt-authentication-pattern
+          - unik-business-security-requirements
+          - unik-technical-api-error-handling
+        intent_of_use:
+          - generate_code
+          - understand_implementation
+          - standardize_process
+        use_case_stage:
+          - implementation
+          - peer_review
+          - documentation
+        last_validation: "2024-01-15"
+
+      - id: unik-technical-token-refresh-pattern
+        type: pattern
+        domain: technical
+        context: implementation
+        version: "1.0.0"
+        created_date: "2024-01-15"
+        last_modified: "2024-01-15"
+        language: pt_BR
+        title: "Padrão de Renovação de Token com Armazenamento Seguro"
+        content: |
+          Padrão para implementar renovação de tokens usando armazenamento seguro.
+          
+          Características:
+          - Tokens de renovação armazenados de forma segura
+          - Chaves estruturadas para identificação única
+          - TTL automático para expiração
+          - Suporte a revogação manual
+          
+          Implementação conceitual:
+          1. Ao fazer login, gerar token de renovação único
+          2. Armazenar de forma segura com TTL apropriado
+          3. Na renovação, validar existência e renovar token de acesso
+          4. Rotacionar token de renovação periodicamente
+          
+          Benefícios:
+          - Performance superior ao armazenamento convencional
+          - TTL automático evita limpeza manual
+          - Escalabilidade horizontal
+        examples:
+          - input: "Login de usuário"
+            output: "Armazenamento seguro do token de renovação com TTL"
+          - input: "Solicitação de renovação"
+            output: "Validação e geração de novo token de acesso"
+          - input: "Logout"
+            output: "Token de renovação invalidado"
+        related_to:
+          - unik-technical-jwt-authentication-pattern
+          - unik-technical-authentication-implementation-example
+        intent_of_use:
+          - standardize_process
+          - improve_performance
+          - ensure_security
+        use_case_stage:
+          - implementation
+          - design
+        last_validation: "2024-01-15"
+
+# Reflexão Conceitual do Fluxo
+flow_reflection:
+  conceptual_completeness: "Todos os estados canônicos foram percorridos"
+  oracle_integration: "Decisões fundamentadas em UKIs existentes"
+  knowledge_enrichment: "Conhecimento devolvido ao Oráculo como especificado"
+  explainability_maintained: "Sinais de contexto, decisão e resultado registrados"
+
+# Aprendizados Conceituais
+flow_learnings:
+  - "Consultar Oráculo antes de decidir tecnologia evita retrabalho"
+  - "Documentar implementação durante execução facilita enriquecimento"
+  - "Processo de review opcional útil para conhecimento crítico"
+  - "Relacionamentos entre UKIs essenciais para rastreabilidade"
+
+# Conformidade ZWF
+zwf_compliance:
+  - "✅ Fluxo iniciado por evento canônico (work.proposed)"
+  - "✅ Consultou Oráculo para fundamentar decisões"
+  - "✅ Registrou sinais de explicabilidade em cada estado"
+  - "✅ Enriqueceu Oráculo com UKIs relacionadas"
+  - "✅ Manteve rastreabilidade conceitual do processo"
+
+# Fluxos Relacionados
+related_flows:
+  - zwf-api-deployment-202401  # Próximo fluxo: deploy da API
+  - zwf-frontend-auth-integration-202401  # Fluxo paralelo: integração frontend
