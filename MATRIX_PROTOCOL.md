@@ -38,54 +38,57 @@ Aqui nasce e é embebida a orientação, as diretrizes estratégicas e os padrõ
 
 ### Principais Responsabilidades
 
-#### 📏 Governança Estratégica
+#### 📏 Governança Estratégica através do MEF
 
-* Definir diretrizes fundamentais do protocolo.
-* Estabelecer métricas de sucesso para a colaboração humano-IA.
-* Alinhar práticas ágeis aos objetivos estratégicos.
+* Definir diretrizes fundamentais através de **UKIs do domínio strategy** versionadas e rastreáveis.
+* Estabelecer métricas de sucesso para colaboração humano-IA como **UKIs de business_rule**.
+* Criar **UKIs de decision** para registrar alinhamentos de práticas ágeis aos objetivos estratégicos.
+* Garantir que toda decisão estratégica seja capturada, versionada e relacionada semanticamente no MEF.
 
-#### 📃 Base de Conhecimento Embebida (MEF)
+#### 📃 Base de Conhecimento Embebida como Governança Ativa
 
-* Centralizar informações técnicas, operacionais e estratégicas através do **Matrix Embedding Framework (MEF)**.
-* Estruturar **UKIs (Units of Knowledge Interlinked)** versionadas e semânticamente relacionadas.
-* Garantir embeddings reutilizáveis para Zion e Operador através de formato YAML padronizado.
-* Atualizar continuamente os **Knowledge Sources** com insights das demais camadas usando versionamento semântico.
+* Implementar **governança através de UKIs**: cada diretriz, regra e padrão é uma UKI versionada e rastreável.
+* Estruturar **Knowledge Sources governados** onde mudanças estratégicas propagam automaticamente.
+* Garantir **rastreabilidade de decisões** através de relacionamentos semânticos entre UKIs estratégicas.
+* Criar **ciclo de governança MEF**: Strategy UKIs → Technical UKIs → Business UKIs → Culture UKIs.
 
-#### 🔧 Estruturação de Padrões (MEF Implementation)
+#### 🔧 Estruturação de Padrões com Governança Integrada
 
-* Implementar **templates MEF** padronizados para todos os domínios (technical, business, product, strategy, culture).
-* Definir **critérios de validação** baseados na especificação MEF antes do embedamento.
-* Estabelecer **relacionamentos semânticos** entre UKIs para navegação inteligente.
-* Manter **histórico de evolução** através de versionamento controlado.
+* Aplicar **governance templates MEF** onde cada padrão técnico está ligado a decisões estratégicas.
+* Implementar **validation chains**: Technical UKIs devem referenciar Strategy UKIs que as justificam.
+* Estabelecer **semantic governance**: mudanças em Strategy UKIs invalidam Technical UKIs relacionadas.
+* Garantir **compliance via relacionamentos**: toda UKI técnica rastreia sua origem estratégica.
 
-#### 👁️ Diretrizes de Iteração
+#### 👁️ Diretrizes de Iteração Governadas
 
-* Estabelecer práticas recomendadas para colaboração humano-IA.
-* Garantir adaptabilidade do protocolo sem perder integridade.
+* Implementar **governance workflows** através de UKIs de culture domain para práticas de colaboração.
+* Criar **adaptation rules** como UKIs que definem como o protocolo evolui mantendo governança.
+* Estabelecer **feedback loops** onde insights das camadas Zion/Operador atualizam UKIs estratégicas.
 
 ### Ferramentas & Componentes
 
 | Componente              | Função/Exemplo                                                    |
 | ----------------------- | ----------------------------------------------------------------- |
-| **MEF Knowledge Sources** | Repositórios de UKIs estruturadas seguindo especificação MEF. |
-| **UKI Templates** | Modelos MEF para diferentes domínios e tipos de conhecimento. |
-| **MEF Validator** | Sistema de validação de conformidade com especificação MEF. |
-| **Semantic Navigator** | Navegação inteligente através de relacionamentos entre UKIs. |
-| **Version Manager** | Controle de evolução e versionamento semântico das UKIs. |
-| **Framework de Governança** | Regras MEF para validar conformidade das camadas. |
-| **Métricas Zion-Oráculo** | Indicadores da eficácia da tradução estratégica via MEF. |
+| **Governed Knowledge Sources** | Repositórios MEF com governança estratégica integrada via relacionamentos. |
+| **Governance Templates** | Templates MEF que incluem obrigatoriedade de linkagem estratégica. |
+| **Compliance Validator** | Validação de conformidade MEF + verificação de rastreabilidade estratégica. |
+| **Governance Navigator** | Navegação semântica que mostra cadeias de decisão Strategy → Technical. |
+| **Strategic Version Manager** | Versionamento que propaga mudanças estratégicas para UKIs dependentes. |
+| **Decision Traceability** | Rastreamento completo de decisões estratégicas até implementação técnica. |
+| **Governance Metrics** | Métricas de cobertura, conformidade e evolução da governança via MEF. |
 
-#### Exemplo Prático com MEF
+#### Exemplo Prático com Governança MEF Integrada
 
-> Durante um planejamento estratégico, o Oráculo define diretrizes de segurança em desenvolvimento.
+> Durante um planejamento estratégico, o Oráculo redefine diretrizes de segurança em desenvolvimento.
 > 
-> **Passo 1**: Criação de UKI `unik-technical-security-pattern` no domínio técnico
-> **Passo 2**: Estruturação em formato MEF com exemplos, relacionamentos e versionamento
-> **Passo 3**: Validação automática via MEF Validator antes do embedamento
-> **Passo 4**: Indexação nos Knowledge Sources com metadados semânticos
-> **Passo 5**: Consulta pela Zion através de busca semântica durante implementação
+> **Passo 1**: Criação/atualização de UKI estratégica `unik-strategy-security-policy` (v2.0.0)
+> **Passo 2**: Sistema identifica automaticamente UKIs técnicas relacionadas que precisam atualização
+> **Passo 3**: UKI `unik-technical-security-pattern` é marcada como "outdated" pela mudança estratégica
+> **Passo 4**: Governance Validator exige atualização de UKIs técnicas para conformidade
+> **Passo 5**: UKIs atualizadas mantêm rastreabilidade via `related_to` para decisão estratégica
+> **Passo 6**: Zion consulta UKIs governadas com garantia de alinhamento estratégico
 > 
-> O resultado? Um fluxo mais seguro, com padrões claros, versionados e rastreáveis aplicados na prática.
+> O resultado? Governança ativa onde mudanças estratégicas propagam automaticamente, mantendo todas as camadas alinhadas e rastreáveis.
 
 ---
 
@@ -283,54 +286,57 @@ It is the protocol that proactively promotes consistency, accessibility, and con
 
 ### Main Responsibilities
 
-#### 📏 Strategic Governance
+#### 📏 Strategic Governance through MEF
 
-* Define fundamental protocol guidelines.
-* Establish success metrics for human-AI collaboration.
-* Align agile practices with strategic objectives.
+* Define fundamental guidelines through **versioned and traceable Strategy domain UKIs**.
+* Establish human-AI collaboration success metrics as **business_rule UKIs**.
+* Create **decision UKIs** to record strategic alignments between agile practices and objectives.
+* Ensure every strategic decision is captured, versioned, and semantically related in MEF.
 
-#### 📃 Embedded Knowledge Base (MEF)
+#### 📃 Embedded Knowledge Base as Active Governance
 
-* Centralize technical, operational, and strategic information through the **Matrix Embedding Framework (MEF)**.
-* Structure **UKIs (Units of Knowledge Interlinked)** with versioning and semantic relationships.
-* Ensure reusable embeddings for Zion and Operator through standardized YAML format.
-* Continuously update **Knowledge Sources** with insights from other layers using semantic versioning.
+* Implement **governance through UKIs**: every guideline, rule, and pattern is a versioned and traceable UKI.
+* Structure **governed Knowledge Sources** where strategic changes propagate automatically.
+* Ensure **decision traceability** through semantic relationships between strategic UKIs.
+* Create **MEF governance cycle**: Strategy UKIs → Technical UKIs → Business UKIs → Culture UKIs.
 
-#### 🔧 Pattern Structuring (MEF Implementation)
+#### 🔧 Pattern Structuring with Integrated Governance
 
-* Implement **MEF templates** standardized for all domains (technical, business, product, strategy, culture).
-* Define **validation criteria** based on MEF specification before embedding.
-* Establish **semantic relationships** between UKIs for intelligent navigation.
-* Maintain **evolution history** through controlled versioning.
+* Apply **governance templates MEF** where every technical pattern links to strategic decisions.
+* Implement **validation chains**: Technical UKIs must reference Strategy UKIs that justify them.
+* Establish **semantic governance**: changes in Strategy UKIs invalidate related Technical UKIs.
+* Ensure **compliance via relationships**: every technical UKI traces its strategic origin.
 
-#### 👁️ Iteration Guidelines
+#### 👁️ Governed Iteration Guidelines
 
-* Establish recommended practices for human-AI collaboration.
-* Ensure protocol adaptability without losing integrity.
+* Implement **governance workflows** through culture domain UKIs for collaboration practices.
+* Create **adaptation rules** as UKIs that define how the protocol evolves while maintaining governance.
+* Establish **feedback loops** where Zion/Operator insights update strategic UKIs.
 
 ### Tools & Components
 
 | Component               | Function/Example                                                  |
 | ----------------------- | ----------------------------------------------------------------- |
-| **MEF Knowledge Sources** | Repositories of structured UKIs following MEF specification. |
-| **UKI Templates** | MEF models for different domains and knowledge types. |
-| **MEF Validator** | System for validating compliance with MEF specification. |
-| **Semantic Navigator** | Intelligent navigation through UKI relationships. |
-| **Version Manager** | Control of evolution and semantic versioning of UKIs. |
-| **Governance Framework** | MEF rules to validate layer compliance. |
-| **Zion-Oracle Metrics** | Indicators of strategic translation effectiveness via MEF. |
+| **Governed Knowledge Sources** | MEF repositories with integrated strategic governance via relationships. |
+| **Governance Templates** | MEF templates requiring mandatory strategic linkage. |
+| **Compliance Validator** | MEF compliance validation + strategic traceability verification. |
+| **Governance Navigator** | Semantic navigation showing Strategy → Technical decision chains. |
+| **Strategic Version Manager** | Versioning that propagates strategic changes to dependent UKIs. |
+| **Decision Traceability** | Complete tracking from strategic decisions to technical implementation. |
+| **Governance Metrics** | Metrics for coverage, compliance, and governance evolution via MEF. |
 
-#### Practical Example with MEF
+#### Practical Example with Integrated MEF Governance
 
-> During strategic planning, Oracle defines security guidelines for development.
+> During strategic planning, Oracle redefines security guidelines for development.
 > 
-> **Step 1**: Creation of UKI `unik-technical-security-pattern` in technical domain
-> **Step 2**: Structuring in MEF format with examples, relationships, and versioning
-> **Step 3**: Automatic validation via MEF Validator before embedding
-> **Step 4**: Indexing in Knowledge Sources with semantic metadata
-> **Step 5**: Query by Zion through semantic search during implementation
+> **Step 1**: Creation/update of strategic UKI `unik-strategy-security-policy` (v2.0.0)
+> **Step 2**: System automatically identifies related technical UKIs requiring updates
+> **Step 3**: UKI `unik-technical-security-pattern` is marked as "outdated" by strategic change
+> **Step 4**: Governance Validator requires technical UKI updates for compliance
+> **Step 5**: Updated UKIs maintain traceability via `related_to` to strategic decision
+> **Step 6**: Zion queries governed UKIs with guaranteed strategic alignment
 > 
-> The result? A more secure flow with clear, versioned, and traceable standards applied in practice.
+> The result? Active governance where strategic changes propagate automatically, keeping all layers aligned and traceable.
 
 ---
 
