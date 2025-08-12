@@ -12,17 +12,17 @@
 
 > Matrix Embedding Framework
 
-**Versão:** 1.0 (inicial)
+**Versão:** 1.0
 **Status:** Ativo
-**Finalidade:** Especificar de forma integral, padronizada e internacionalizada a estrutura mínima e completa de conhecimento embebido a ser utilizada por pessoas e agentes inteligentes no contexto do Protocolo Matrix.
+**Finalidade:** Especificar de forma integral, padronizada e internacionalizada a estrutura mínima e completa de conhecimento embebido versionado a ser utilizada por pessoas e agentes inteligentes no contexto do Protocolo Matrix.
 
 ---
 
 ## 📟️ VISÃO GERAL
 
-O Protocolo Matrix MEF define um **modelo padronizado de estruturação do conhecimento** que permite que qualquer membro de um time multidisciplinar (desenvolvedores, PMs, analistas, tech leads etc.) possa criar, registrar, interligar e utilizar unidades mínimas de conhecimento — chamadas de **UKIs (Units of Knowledge Interlinked)**.
+O Protocolo Matrix MEF define um **modelo padronizado de estruturação do conhecimento versionado** que permite que qualquer membro de um time multidisciplinar (desenvolvedores, PMs, analistas, tech leads etc.) possa criar, registrar, interligar e utilizar unidades mínimas de conhecimento — chamadas de **UKIs (Units of Knowledge Interlinked)**.
 
-Essas unidades são embebidas e consumidas por agentes inteligentes, garantindo rastreabilidade, aplicabilidade e inteligência contextual em tempo real.
+Essas unidades são embebidas e consumidas por agentes inteligentes, garantindo rastreabilidade, aplicabilidade, evolução controlada e inteligência contextual em tempo real.
 
 ---
 
@@ -304,22 +304,19 @@ Essa separação garante organização semântica, versionamento independente po
 
 # ✅ DIRETRIZES DE USO
 
-- Toda UKI deve ser modular e clara.
+- Toda UKI deve ser modular, clara e versionada adequadamente.
 - Relacionamentos entre UKIs são essenciais para navegação semântica e raciocínio dos agentes.
 - Os campos `intent_of_use` e `use_case_stage` são obrigatórios e são chave para inteligência contextual.
 - `language` ajuda agentes a priorizar, traduzir ou adaptar sugestões.
 - Sempre que possível, utilizar sintaxe `mermaid` para diagramas textuais.
-
-## Diretrizes de Versionamento
-
-- **Iniciar sempre com versão 1.0.0** para a primeira versão de uma UKI.
-- **Incrementar MAJOR** quando houver mudanças que alterem significativamente o significado ou aplicação.
-- **Incrementar MINOR** para adições compatíveis (novos exemplos, refinamentos, clarificações).
-- **Incrementar PATCH** para correções menores (typos, ajustes de formatação, pequenas clarificações).
-- **Sempre preencher `change_summary`** descrevendo claramente o que foi alterado.
-- **Manter `previous_version`** para rastreabilidade da evolução do conhecimento.
-- **Atualizar `last_modified`** sempre que uma nova versão for criada.
-- **Considerar impacto em UKIs relacionadas** ao fazer mudanças MAJOR ou MINOR.
+- Versionamento semântico garante evolução controlada e rastreabilidade do conhecimento.
+- Iniciar sempre com versão 1.0.0 para novas UKIs.
+- Incrementar MAJOR para mudanças que alterem significativamente o significado ou aplicação.
+- Incrementar MINOR para adições compatíveis (novos exemplos, refinamentos, clarificações).
+- Incrementar PATCH para correções menores (typos, ajustes de formatação, pequenas clarificações).
+- Sempre documentar mudanças no campo `change_summary` para versões posteriores à 1.0.0.
+- Manter rastreabilidade através do campo `previous_version`.
+- Considerar impacto em UKIs relacionadas ao fazer mudanças significativas.
 
 ---
 
@@ -368,17 +365,17 @@ Esse modelo garante que a Matrix se expanda como uma base de conhecimento orgân
 
 > Matrix Embedding Framework
 
-**Version:** 1.0 (initial)
+**Version:** 1.0
 **Status:** Active
-**Purpose:** To specify in an integral, standardized and internationalized way the minimum and complete structure of embedded knowledge to be used by people and intelligent agents in the context of the Matrix Protocol.
+**Purpose:** To specify in an integral, standardized and internationalized way the minimum and complete structure of versioned embedded knowledge to be used by people and intelligent agents in the context of the Matrix Protocol.
 
 ---
 
 ## 📟️ OVERVIEW
 
-The Matrix MEF Protocol defines a **standardized knowledge structuring model** that allows any member of a multidisciplinary team (developers, PMs, analysts, tech leads, etc.) to create, register, interlink and use minimal knowledge units — called **UKIs (Units of Knowledge Interlinked)**.
+The Matrix MEF Protocol defines a **standardized versioned knowledge structuring model** that allows any member of a multidisciplinary team (developers, PMs, analysts, tech leads, etc.) to create, register, interlink and use minimal knowledge units — called **UKIs (Units of Knowledge Interlinked)**.
 
-These units are embedded and consumed by intelligent agents, ensuring traceability, applicability and contextual intelligence in real time.
+These units are embedded and consumed by intelligent agents, ensuring traceability, applicability, controlled evolution and contextual intelligence in real time.
 
 ---
 
@@ -489,6 +486,76 @@ Development or usage context. **Accepted values:**
 | `qa` | Quality, testing, validation | Quality assurance |
 | `documentation` | Documentation, knowledge sharing | Documentation and training |
 | `support` | Support, maintenance, operation | Post-production |
+
+### 🔹 `version`
+**Required** | **String**
+
+Semantic versioning following `MAJOR.MINOR.PATCH` format for UKI evolution control.
+
+**Rules:**
+- `MAJOR`: Changes that break compatibility or alter fundamental meaning
+- `MINOR`: Compatible additions (new examples, refinements, clarifications)
+- `PATCH`: Minor corrections (typos, formatting adjustments, small clarifications)
+
+**Examples:**
+- `"1.0.0"` - Initial version
+- `"1.2.0"` - Added new examples
+- `"2.0.0"` - Fundamental change in approach
+
+### 🔹 `created_date`
+**Required** | **Date (YYYY-MM-DD)**
+
+Date when the first version (1.0.0) of the UKI was created.
+
+**Purpose:**
+- Track UKI lifecycle
+- Historical reference
+- Age-based relevance assessment
+
+### 🔹 `last_modified`
+**Required** | **Date (YYYY-MM-DD)**
+
+Date of the last modification corresponding to the current version.
+
+**Purpose:**
+- Version consistency verification
+- Change tracking
+- Content freshness indication
+
+### 🔹 `change_summary`
+**Required for versions > 1.0.0** | **String**
+
+Clear summary of changes implemented in the current version.
+
+**Guidelines:**
+- Be specific and actionable
+- Describe what was changed, not why
+- Keep concise but informative
+- Use past tense
+
+**Examples:**
+- `"Added timeout handling example and improved error code documentation"`
+- `"Fixed typo in business rule calculation"`
+- `"Restructured content organization for clarity"`
+
+### 🔹 `change_impact`
+**Required for versions > 1.0.0** | **Enum**
+
+Classification of the change impact for the current version.
+
+**Accepted values:**
+- `major`: Significant change affecting understanding or application
+- `minor`: Compatible addition or improvement that maintains compatibility
+- `patch`: Minor correction that doesn't alter meaning
+
+### 🔹 `previous_version`
+**Optional** | **String**
+
+Reference to the immediately previous version for evolution traceability.
+
+**Format:** `MAJOR.MINOR.PATCH`
+**Usage:** Only required for versions > 1.0.0
+**Purpose:** Enable version navigation and rollback capabilities
 
 ### 🔹 `content`
 **Required** | **String (multiline)**
