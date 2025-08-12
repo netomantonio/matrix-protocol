@@ -181,43 +181,60 @@ stateDiagram-v2
 
 ## 🪯 Camada Operador
 
-### Fluxo Operacional
+### Framework de Inteligência Operador (OIF)
 
 > "Não pense que você é. Saiba que você é." — Morpheus
 
 ### Função
 
-A Camada Operador é onde tudo acontece na prática.
+A Camada Operador é onde a **inteligência artificial se materializa** como colaboradora do humano.
 
-Aqui, as squads utilizam as ferramentas criadas pela Zion para implementar soluções técnicas sob as diretrizes do Oráculo.
+Ela é implementada através do **OIF (Operator Intelligence Framework)** - um framework conceitual que define **arquétipos de inteligência** necessários para que o conhecimento do Oráculo e os fluxos de Zion ganhem vida através de agentes que pensam, decidem e agem junto aos humanos, mantendo a essência do protocolo independente de como cada organização escolhe materializar essas inteligências.
 
 ### Principais Responsabilidades
 
-#### ✅ Execução Prática
+#### 🧠 Definição de Arquétipos via OIF
 
-* Aplicar diretrizes do Oráculo usando sistemas da Zion.
+* **Knowledge Agent (Oracle Intelligence)** - arquétipo especializado em compreensão, organização e relacionamento de conhecimento estruturado MEF.
+* **Workflow Agent (Zion Intelligence)** - arquétipo especializado em orquestração de fluxos conceituais ZWF e materialização de intenções em ações.
+* **Arquétipos Especializados** - metodologia para criação de inteligências customizadas para domínios específicos.
 
-#### 🤖 Interação Direta com Agentes
+#### 🔧 Especificações Conceituais via OIF
 
-* Utilizar agentes em IDEs ou pipelines CI/CD para suporte em tempo real.
+* **Capacidades Mínimas** - cada arquétipo possui capacidades essenciais definidas independente de tecnologia.
+* **Templates de Comunicação** - padrões de prompt e interação para cada tipo de inteligência.
+* **Fluxos de Colaboração** - como diferentes arquétipos interagem semanticamente para realizar trabalho conjunto.
 
-#### ♻️ Retroalimentação Contínua
+#### 🎯 Implementação Agnóstica via OIF
 
-* Registrar insights práticos nos **Knowledge Sources**, gerando aprendizado cíclico.
+* **Independência Tecnológica** - especificações conceituais implementáveis em qualquer stack tecnológico.
+* **Adaptabilidade Cultural** - metodologia para adaptar arquétipos ao contexto organizacional específico.
+* **Evolução Orgânica** - processo de expansão e refinamento contínuo dos arquétipos conforme necessidades emergem.
 
 ### Ferramentas & Componentes
 
-| Componente                  | Função/Exemplo                               |
-| --------------------------- | -------------------------------------------- |
-| Extensões de IDE Integradas | Extensões para interação direta com agentes. |
-| Pipelines CI/CD            | Deploys automatizados via CI/CD.             |
-| AI Functions               | Validações rápidas nas operações práticas via IA. |
+| Componente                 | Função/Exemplo                                                    |
+| -------------------------- | ----------------------------------------------------------------- |
+| **OIF Framework Specification** | Especificação completa dos arquétipos de inteligência e suas capacidades mínimas. |
+| **Agent Archetype Templates** | Templates conceituais para Knowledge Agent e Workflow Agent com padrões de comunicação. |
+| **Collaboration Patterns** | Padrões de interação semântica entre diferentes tipos de arquétipos. |
+| **Specialization Methodology** | Metodologia para criação de arquétipos especializados para domínios específicos. |
+| **Cultural Adaptation Framework** | Framework para adaptar arquétipos ao contexto e cultura organizacional. |
+| **Evolution Governance** | Processo de expansão orgânica e refinamento contínuo dos arquétipos. |
 
-#### Exemplo Prático
+#### Exemplo Prático: Implementação JWT via OIF
 
-> Durante uma sprint:
-> O desenvolvedor usa IDE integrada com IA para receber sugestões dos **Knowledge Sources**.
-> Valida padrões do Oráculo enquanto implementa histórias, garantindo conformidade.
+> **Workflow Agent** (seguindo especificação OIF) inicia orquestração de `work.proposed` para JWT
+> 
+> **Estado Understand:** Workflow Agent aciona capacidade `search()` do Knowledge Agent via padrão de colaboração OIF
+> 
+> **Knowledge Agent** (seguindo template OIF) retorna UKIs relevantes usando capacidade `search()` semântica
+> 
+> **Estado Decide:** Workflow Agent usa capacidade `contextualize()` para processar UKIs e decidir abordagem
+> 
+> **Estado Enrich:** Workflow Agent coordena via `enrich()` para que Knowledge Agent execute `synthesize()` + `relate()`
+> 
+> **Resultado:** Implementação concluída + Oracle enriquecido seguindo padrões de colaboração OIF
 
 ---
 
@@ -262,7 +279,7 @@ O Protocolo Matrix serve como framework fundamental para organizações implemen
 
 - **Camada Oráculo** → **Sistemas de Gestão de Conhecimento**: Governança estruturada através do MEF (UKIs versionadas)
 - **Camada Zion** → **Framework Conceitual de Workflows**: Padrões ZWF independentes de tecnologia para fluxos orientados a IA
-- **Camada Operador** → **Plataforma de Integração**: Implementação prática usando ferramentas específicas da equipe
+- **Camada Operador** → **Framework de Inteligência de Agentes**: Especificações OIF de arquétipos com capacidades mínimas e padrões de colaboração
 
 ### **Benefícios do Framework**
 
@@ -270,7 +287,8 @@ Este framework filosófico e técnico fornece às organizações:
 - **Arquitetura Clara**: Camadas bem definidas para diferentes responsabilidades
 - **Conhecimento Padronizado**: MEF garante representação consistente do conhecimento
 - **Workflows Conceituais**: ZWF orienta "como pensar" fluxos orientados a IA
-- **Independência Tecnológica**: ZWF permite flexibilidade de implementação mantendo consistência conceitual
+- **Especificações de Agentes**: OIF define arquétipos de inteligência mínimos necessários sem prescrever tecnologias específicas
+- **Independência Tecnológica**: Todas as camadas permitem flexibilidade de ferramentas mantendo consistência conceitual
 - **Rastreabilidade Completa**: Relacionamentos semânticos entre conhecimento e decisões
 - **Implementação Escalável**: De equipes individuais à adoção empresarial
 - **Estrutura Pronta para IA**: Construída para sistemas inteligentes e colaboração humano-IA
@@ -467,43 +485,60 @@ stateDiagram-v2
 
 ## 🪯 Operator Layer
 
-### Operational Flow
+### Operator Intelligence Framework (OIF)
 
 > "Don't think you are. Know you are." — Morpheus
 
 ### Function
 
-The Operator Layer is where everything happens in practice.
+The Operator Layer is where **artificial intelligence materializes** as a human collaborator.
 
-Here, squads use tools created by Zion to implement technical solutions under Oracle guidelines.
+It is implemented through the **OIF (Operator Intelligence Framework)** - a conceptual framework that defines **intelligence archetypes** necessary for Oracle knowledge and Zion workflows to come alive through agents that think, decide, and act alongside humans, maintaining the protocol's essence independent of how each organization chooses to materialize these intelligences.
 
 ### Main Responsibilities
 
-#### ✅ Practical Execution
+#### 🧠 Archetype Definition via OIF
 
-* Apply Oracle guidelines using Zion systems.
+* **Knowledge Agent (Oracle Intelligence)** - archetype specialized in comprehension, organization, and relationship of structured MEF knowledge.
+* **Workflow Agent (Zion Intelligence)** - archetype specialized in orchestration of conceptual ZWF flows and materialization of intentions into actions.
+* **Specialized Archetypes** - methodology for creating customized intelligences for specific domains.
 
-#### 🤖 Direct Agent Interaction
+#### 🔧 Conceptual Specifications via OIF
 
-* Use agents in IDEs or CI/CD pipelines for real-time support.
+* **Minimum Capabilities** - each archetype possesses essential capabilities defined independent of technology.
+* **Communication Templates** - prompt and interaction patterns for each intelligence type.
+* **Collaboration Flows** - how different archetypes interact semantically to perform joint work.
 
-#### ♻️ Continuous Feedback
+#### 🎯 Agnostic Implementation via OIF
 
-* Register practical insights in **Knowledge Sources**, generating cyclical learning.
+* **Technology Independence** - conceptual specifications implementable in any technology stack.
+* **Cultural Adaptability** - methodology for adapting archetypes to specific organizational context.
+* **Organic Evolution** - process of continuous expansion and refinement of archetypes as needs emerge.
 
 ### Tools & Components
 
-| Component                   | Function/Example                             |
-| --------------------------- | -------------------------------------------- |
-| Integrated IDE Extensions   | Extensions for direct agent interaction.    |
-| CI/CD Pipelines            | Automated deployments via CI/CD.            |
-| AI Functions               | Quick validations in practical operations via AI. |
+| Component                    | Function/Example                                                  |
+| ---------------------------- | ----------------------------------------------------------------- |
+| **OIF Framework Specification** | Complete specification of intelligence archetypes and their minimum capabilities. |
+| **Agent Archetype Templates** | Conceptual templates for Knowledge Agent and Workflow Agent with communication patterns. |
+| **Collaboration Patterns** | Semantic interaction patterns between different archetype types. |
+| **Specialization Methodology** | Methodology for creating specialized archetypes for specific domains. |
+| **Cultural Adaptation Framework** | Framework for adapting archetypes to organizational context and culture. |
+| **Evolution Governance** | Process for organic expansion and continuous archetype refinement. |
 
-#### Practical Example
+#### Practical Example: JWT Implementation via OIF
 
-> During a sprint:
-> The developer uses AI-integrated IDE to receive suggestions from **Knowledge Sources**.
-> Validates Oracle patterns while implementing stories, ensuring compliance.
+> **Workflow Agent** (following OIF specification) initiates orchestration of `work.proposed` for JWT
+> 
+> **Understand State:** Workflow Agent triggers Knowledge Agent's `search()` capability via OIF collaboration pattern
+> 
+> **Knowledge Agent** (following OIF template) returns relevant UKIs using semantic `search()` capability
+> 
+> **Decide State:** Workflow Agent uses `contextualize()` capability to process UKIs and decide approach
+> 
+> **Enrich State:** Workflow Agent coordinates via `enrich()` for Knowledge Agent to execute `synthesize()` + `relate()`
+> 
+> **Result:** Implementation completed + Oracle enriched following OIF collaboration patterns
 
 ---
 
@@ -548,7 +583,7 @@ The Matrix Protocol serves as a foundational framework for organizations impleme
 
 - **Oracle Layer** → **Knowledge Management Systems**: Structured governance through MEF (versioned and traceable UKIs)
 - **Zion Layer** → **Conceptual Workflow Framework**: ZWF patterns for technology-independent AI-oriented workflows
-- **Operator Layer** → **Integration Platform**: Practical implementation using team-specific tools
+- **Operator Layer** → **Agent Intelligence Framework**: OIF archetype specifications with minimum capabilities and collaboration patterns
 
 ### **Framework Benefits**
 
@@ -556,7 +591,8 @@ This philosophical and technical framework provides organizations with:
 - **Clear Architecture**: Well-defined layers for different responsibilities
 - **Standardized Knowledge**: MEF ensures consistent knowledge representation
 - **Conceptual Workflows**: ZWF guides "how to think" about AI-oriented flows without prescribing "how to implement"
-- **Technology Independence**: ZWF allows tool flexibility while maintaining conceptual consistency
+- **Agent Specifications**: OIF defines minimum intelligence archetypes needed without prescribing specific technologies
+- **Technology Independence**: All layers allow tool flexibility while maintaining conceptual consistency
 - **Complete Traceability**: Semantic relationships between knowledge and decisions
 - **Scalable Implementation**: From individual teams to enterprise-wide adoption
 - **AI-Ready Structure**: Built for intelligent systems and human-AI collaboration
