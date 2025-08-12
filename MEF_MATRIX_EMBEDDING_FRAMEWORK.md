@@ -64,149 +64,256 @@ last_validation: [YYYY-MM-DD]  # Data da última revisão e validação de conte
 # 📘 DESCRIÇÃO DOS CAMPOS
 
 ### 🔹 `id`
+**Obrigatório** | **String** | **Único**
 
-* **Formato:** `unik-[domain]-[slug_ou_id]`
-* **Descrição:** Identificador único da UKI no repositório.
-* **Função:** Permitir referência, rastreabilidade e conexão entre unidades.
+Identificador único seguindo o padrão `unik-[domain]-[identifier]`:
+- **unik**: Prefixo fixo indicando uma Unidade de Conhecimento
+- **domain**: Um dos domínios aceitos (product, business, technical, strategy, culture)
+- **identifier**: Slug descritivo ou código único
+
+**Exemplos:**
+- `unik-technical-jwt-authentication`
+- `unik-business-pricing-strategy`
+- `unik-product-user-onboarding`
 
 ### 🔹 `title`
+**Obrigatório** | **String**
 
-* **Formato:** String curta e descritiva.
-* **Descrição:** Nome da UKI, que indica claramente o assunto ou objetivo.
+Título claro, objetivo e descritivo que resume a unidade de conhecimento em uma frase.
+
+**Diretrizes:**
+- Máximo 80 caracteres
+- Evitar jargão técnico quando possível
+- Ser específico e acionável
+- Usar formato imperativo ou descritivo
+
+**Exemplos:**
+- "Padrão de Implementação de Token JWT"
+- "Regra de Cálculo de Precificação"
+- "Fluxo de Onboarding de Usuário"
 
 ### 🔹 `domain`
+**Obrigatório** | **Enum**
 
-* **Tipo:** Enum (valores fixos)
-* **Valores permitidos:**
+Classificação do domínio de conhecimento. **Valores aceitos:**
 
-  * `product`
-  * `business`
-  * `technical`
-  * `strategy`
-  * `culture`
+| Domínio | Descrição | Exemplos |
+|---------|-----------|----------|
+| `product` | Funcionalidades do produto, UX/UI, fluxos do usuário | Interfaces, jornadas do usuário, features |
+| `business` | Regras de negócio, processos, estratégias | Precificação, políticas, processos de negócio |
+| `technical` | Código, arquitetura, infraestrutura | APIs, bancos de dados, deployment |
+| `strategy` | Decisões de alto nível, planejamento | Roadmaps, decisões estratégicas |
+| `culture` | Processos, metodologia, práticas da equipe | Cerimônias, diretrizes, valores |
 
 ### 🔹 `type`
+**Obrigatório** | **Enum**
 
-* **Tipo:** Enum (valores fixos)
-* **Valores permitidos:**
+Classificação funcional do conteúdo. **Valores aceitos:**
 
-  * `business_rule`
-  * `function`
-  * `template`
-  * `guideline`
-  * `pattern`
-  * `decision`
-  * `example`
+| Tipo | Descrição | Uso |
+|------|-----------|-----|
+| `business_rule` | Regra de negócio ou restrição | Validação, lógica de decisão |
+| `function` | Função ou procedimento reutilizável | Implementação de código |
+| `template` | Estrutura ou padrão reutilizável | Criação de documentos, padronização |
+| `guideline` | Diretriz ou boa prática | Orientação de processos |
+| `pattern` | Padrão de design ou arquitetural | Soluções técnicas |
+| `decision` | Registro de decisão importante | Contexto e justificativa |
+| `example` | Exemplo prático ou caso de uso | Aprendizado, demonstração |
 
 ### 🔹 `context`
+**Obrigatório** | **Enum**
 
-* **Tipo:** Enum (valores fixos)
-* **Valores permitidos:**
+Contexto de desenvolvimento ou uso. **Valores aceitos:**
 
-  * `discovery`
-  * `refinement`
-  * `implementation`
-  * `qa`
-  * `documentation`
-  * `support`
+| Contexto | Descrição | Quando usar |
+|----------|-----------|-------------|
+| `discovery` | Pesquisa, análise, requisitos | Fases iniciais do projeto |
+| `implementation` | Desenvolvimento, construção | Desenvolvimento ativo |
+| `refinement` | Melhoria, otimização | Manutenção e evolução |
+| `qa` | Qualidade, testes, validação | Garantia de qualidade |
+| `documentation` | Documentação, compartilhamento de conhecimento | Documentação e treinamento |
+| `support` | Suporte, manutenção, operação | Pós-produção |
 
 ### 🔹 `version`
+**Obrigatório** | **String**
 
-* **Formato:** Versionamento semântico `MAJOR.MINOR.PATCH`
-* **Obrigatório:** Sim
-* **Descrição:** Controle de versão da UKI seguindo convenções semânticas.
-* **Regras:**
-  * `MAJOR`: Mudanças que quebram compatibilidade ou alteram significado fundamental
-  * `MINOR`: Adições que mantêm compatibilidade (novos exemplos, refinamentos)
-  * `PATCH`: Correções e ajustes menores (typos, clarificações)
+Versionamento semântico seguindo formato `MAJOR.MINOR.PATCH` para controle de evolução da UKI.
+
+**Regras:**
+- `MAJOR`: Mudanças que quebram compatibilidade ou alteram significado fundamental
+- `MINOR`: Adições compatíveis (novos exemplos, refinamentos, clarificações)
+- `PATCH`: Correções menores (typos, ajustes de formatação, pequenas clarificações)
+
+**Exemplos:**
+- `"1.0.0"` - Versão inicial
+- `"1.2.0"` - Adicionados novos exemplos
+- `"2.0.0"` - Mudança fundamental na abordagem
 
 ### 🔹 `created_date`
+**Obrigatório** | **Data (YYYY-MM-DD)**
 
-* **Formato:** `YYYY-MM-DD`
-* **Obrigatório:** Sim
-* **Descrição:** Data de criação da primeira versão da UKI (versão 1.0.0).
+Data de criação da primeira versão (1.0.0) da UKI.
+
+**Propósito:**
+- Rastrear ciclo de vida da UKI
+- Referência histórica
+- Avaliação de relevância baseada na idade
 
 ### 🔹 `last_modified`
+**Obrigatório** | **Data (YYYY-MM-DD)**
 
-* **Formato:** `YYYY-MM-DD`
-* **Obrigatório:** Sim
-* **Descrição:** Data da última modificação correspondente à versão atual.
+Data da última modificação correspondente à versão atual.
+
+**Propósito:**
+- Verificação de consistência de versão
+- Rastreamento de mudanças
+- Indicação de atualização do conteúdo
 
 ### 🔹 `change_summary`
+**Obrigatório para versões > 1.0.0** | **String**
 
-* **Formato:** String descritiva
-* **Obrigatório:** Sim (exceto para versão 1.0.0)
-* **Descrição:** Resumo claro das mudanças implementadas na versão atual.
-* **Exemplo:** "Adicionado exemplo de edge case para timeout de sessão"
+Resumo claro das mudanças implementadas na versão atual.
+
+**Diretrizes:**
+- Ser específico e acionável
+- Descrever o que foi alterado, não o porquê
+- Manter conciso mas informativo
+- Usar tempo passado
+
+**Exemplos:**
+- `"Adicionado exemplo de timeout e melhorada documentação de códigos de erro"`
+- `"Corrigido erro de digitação no cálculo da regra de negócio"`
+- `"Reestruturada organização do conteúdo para maior clareza"`
 
 ### 🔹 `change_impact`
+**Obrigatório para versões > 1.0.0** | **Enum**
 
-* **Tipo:** Enum (valores fixos)
-* **Obrigatório:** Sim (exceto para versão 1.0.0)
-* **Valores permitidos:**
-  * `major`: Mudança significativa que afeta compreensão ou aplicação
-  * `minor`: Adição ou melhoria que mantém compatibilidade
-  * `patch`: Correção menor que não altera o significado
+Classificação do impacto da mudança para a versão atual.
+
+**Valores aceitos:**
+- `major`: Mudança significativa que afeta compreensão ou aplicação
+- `minor`: Adição ou melhoria compatível que mantém compatibilidade
+- `patch`: Correção menor que não altera o significado
 
 ### 🔹 `previous_version`
+**Opcional** | **String**
 
-* **Formato:** String no formato `MAJOR.MINOR.PATCH`
-* **Obrigatório:** Não (apenas para versões > 1.0.0)
-* **Descrição:** Referência à versão anterior para rastreabilidade de evolução.
+Referência à versão imediatamente anterior para rastreabilidade de evolução.
+
+**Formato:** `MAJOR.MINOR.PATCH`
+**Uso:** Obrigatório apenas para versões > 1.0.0
+**Propósito:** Permitir navegação de versões e capacidades de rollback
 
 ### 🔹 `intent_of_use`
+**Opcional** | **Lista de Strings**
 
-* **Tipo:** Lista (keywords)
-* **Exemplos recomendados:**
+Lista de intenções ou propósitos específicos para usar esta UKI.
 
-  * `understand_rule`
-  * `validate_pattern`
-  * `generate_story`
-  * `refine_specification`
-  * `compare_alternatives`
-  * `suggest_improvement`
-  * `detect_dependency`
+**Valores comuns:**
+- `validate_implementation`
+- `generate_code`
+- `understand_context`
+- `make_decision`
+- `solve_problem`
+- `create_documentation`
+- `train_team`
+- `standardize_process`
 
 ### 🔹 `use_case_stage`
+**Opcional** | **Lista de Strings**
 
-* **Tipo:** Lista de enums (valores fixos)
-* **Valores recomendados:**
+Lista de estágios de desenvolvimento ou projeto onde esta UKI é mais útil.
 
-  * `business_refinement`
-  * `technical_refinement`
-  * `planning`
-  * `implementation`
-  * `qa`
-  * `onboarding`
-  * `peer_review`
-  * `incident_analysis`
-  * `retrospective`
+**Valores comuns:**
+- `planning`
+- `design`
+- `implementation`
+- `testing`
+- `deployment`
+- `maintenance`
+- `peer_review`
+- `documentation`
+- `training`
 
 ### 🔹 `language`
+**Opcional** | **String** | **Padrão: en_US**
 
-* **Tipo:** ISO 639-1 + região (opcional)
-* **Exemplo:** `pt_BR` ou `en_US`
+Idioma do conteúdo textual.
+
+**Valores aceitos:**
+- `pt_BR` (Português - Brasil)
+- `en_US` (Inglês - Estados Unidos)
+- `es_ES` (Espanhol - Espanha)
+- `fr_FR` (Francês - França)
+- *Outros códigos ISO conforme necessário*
 
 ### 🔹 `content`
+**Obrigatório** | **String (multilinha)**
 
-* **Tipo:** Texto estruturado e objetivo
-* **Descrição:** Corpo principal da UKI. Explica o conceito, apresenta as regras, discute implicações, apresenta padrões ou outros elementos relevantes.
-* **Nota:** Sempre que possível, utilize representações visuais em formato textual como `mermaid` para fluxos, diagramas ou sequências. Isso permite que agentes e humanos compreendam graficamente o conhecimento embebido sem depender de arquivos binários externos.
+Conteúdo principal da UKI em **texto claro e estruturado**:
+
+**Sugestões de estrutura:**
+1. **Descrição breve** (1-2 frases)
+2. **Detalhes e contexto** (parágrafos)
+3. **Implementação** (se aplicável)
+4. **Considerações importantes** (se aplicável)
+
+**Diretrizes:**
+- Usar linguagem clara e objetiva
+- Incluir detalhes práticos
+- Evitar jargão técnico excessivo
+- Ser abrangente mas conciso
+- Usar markdown para formatação se necessário
 
 ### 🔹 `examples`
+**Opcional** | **Lista de Objetos**
 
-* **Tipo:** Lista de pares `input` → `output`
-* **Descrição:** Demonstrações práticas de como a UKI se aplica.
+Lista de exemplos práticos mostrando entrada e saída esperada.
+
+**Estrutura:**
+```yaml
+examples:
+  - input: "Descrição da entrada ou situação"
+    output: "Resultado ou ação esperada"
+  - input: "Outro exemplo de entrada"
+    output: "Outra saída esperada"
+```
+
+**Diretrizes:**
+- Fornecer exemplos realistas
+- Cobrir diferentes cenários se possível
+- Ser específico e acionável
+- Incluir casos extremos quando relevante
 
 ### 🔹 `related_to`
+**Opcional** | **Lista de Strings**
 
-* **Tipo:** Lista de `id`s de outras UKIs
-* **Descrição:** Indica dependências semânticas, implementações correspondentes ou origens conceituais.
+Lista de IDs de outras UKIs que são semanticamente relacionadas.
+
+**Diretrizes:**
+- Usar IDs completos (`unik-domain-identifier`)
+- Criar redes semânticas
+- Evitar conexões excessivas
+- Priorizar relacionamentos diretos
+
+**Exemplos:**
+```yaml
+related_to:
+  - unik-technical-oauth-implementation
+  - unik-business-user-authentication-policy
+  - unik-product-login-flow
+```
 
 ### 🔹 `last_validation`
+**Opcional** | **Data (YYYY-MM-DD)**
 
-* **Formato:** `YYYY-MM-DD`
-* **Descrição:** Data da última revisão e validação do conteúdo por humano ou agente.
+Data da última revisão e validação do conteúdo.
+
+**Propósito:**
+- Controle de qualidade
+- Atualização do conteúdo
+- Planejamento de manutenção
+- Indicação de confiabilidade
 
 ---
 
@@ -858,11 +965,11 @@ related_to:
 
 ---
 
-# 🚀 IMPLEMENTATION IN SYNAPSTOR
+# 🚀 IMPLEMENTATION GUIDELINES
 
-## Creating MEF Files
+## Organizing MEF Files
 
-### File Structure
+### Recommended File Structure
 ```
 knowledge-base/
 ├── technical/
@@ -876,37 +983,15 @@ knowledge-base/
     └── unik-product-design-system.yaml
 ```
 
-### Indexing with MEF
-```bash
-# Enable MEF processing
-synapstor-indexer --project knowledge-base --path ./knowledge-base -m
+### Implementation Considerations
 
-# Strict validation mode
-synapstor-indexer --project knowledge-base --path ./knowledge-base -m -e
-```
+Organizations implementing MEF should consider:
 
-### Querying MEF Data
-MEF documents are automatically enhanced with structured metadata, allowing for sophisticated queries:
-
-```python
-# Search by domain
-results = qdrant_client.search(
-    collection_name="knowledge-base",
-    query_vector=embedding,
-    query_filter={
-        "must": [{"key": "mef_domain", "match": {"value": "technical"}}]
-    }
-)
-
-# Search by intent
-results = qdrant_client.search(
-    collection_name="knowledge-base",
-    query_vector=embedding,
-    query_filter={
-        "must": [{"key": "mef_intent_of_use", "match": {"any": ["validate_implementation"]}}]
-    }
-)
-```
+- **Validation**: Implement validation against MEF specification before storing UKIs
+- **Indexing**: Extract structured metadata from UKI fields for search capabilities  
+- **Versioning**: Track UKI evolution through the version control fields
+- **Relationships**: Build semantic navigation through `related_to` connections
+- **Domains**: Organize content by the five MEF domains for better discovery
 
 ---
 
