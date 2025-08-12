@@ -94,7 +94,7 @@ Aqui nasce e é embebida a orientação, as diretrizes estratégicas e os padrõ
 
 ## 🔬 Camada Zion
 
-### Integração Estratégica
+### Framework Conceitual de Workflows Orientados a IA (ZWF)
 
 > "Zion é a ponte entre o mundo das ideias e o mundo da ação."
 
@@ -102,45 +102,80 @@ Aqui nasce e é embebida a orientação, as diretrizes estratégicas e os padrõ
 
 A Camada Zion é o elo vital entre estratégia (Oráculo) e operação (Operador).
 
-Ela transforma diretrizes em ferramentas práticas, agentes inteligentes e fluxos automatizados, dando suporte real ao dia a dia das squads.
+Ela transforma diretrizes em workflows conceituais através do **ZWF (Zion Workflow Framework)** - um modelo de máquinas de estado independentes de tecnologia que orienta **como pensar** os fluxos de trabalho orientados a IA, sem prescrever **como implementar**.
 
 ### Principais Responsabilidades
 
-#### 🔨 Implementação das Diretrizes
+#### 🔨 Estruturação Conceitual via ZWF
 
-* Construir sistemas que implementem os padrões do Oráculo.
-* Automatizar tarefas críticas de captura, validação e enriquecimento dos **Knowledge Sources**.
+* **Definir padrões de fluxo** seguindo estados canônicos: `Intake → Understand → Decide → Act → Review → Enrich`
+* **Catalogar eventos canônicos** que iniciam workflows: `knowledge.added`, `work.proposed`, `work.refine.requested`, `assistance.requested`, `test.authored`, `feedback.submitted`
+* **Garantir ciclo fechado**: sempre consultar Oráculo → agir → enriquecer Oráculo
 
-#### 🧬 Gestão Inteligente
+#### 🧬 Explicabilidade e Rastreabilidade
 
-* Desenvolver agentes especializados (ex: Validator, Connector).
-* Integrar ferramentas externas sem redundância.
+* **Sinais de explicabilidade** em cada estado: contexto (o que entrou) → decisão (por que transicionou) → resultado (o que saiu)
+* **Fundamentação em UKIs** do Oráculo para todas as decisões críticas
+* **Relacionamentos semânticos** entre UKIs motivadoras e UKIs geradas
 
-#### 🚧 Orquestração Operacional
+#### 🚧 Orquestração Conceitual
 
-* Coordenar interações entre agentes primordiais e operadores.
-* Garantir alinhamento dos fluxos com as diretrizes estratégicas.
+* **Independência tecnológica**: ZWF define "como pensar" não "como implementar"
+* **Flexibilidade de ferramentas**: cada equipe implementa com suas tecnologias preferidas
+* **Padronização de raciocínio**: mesmo padrão conceitual independente da implementação
 
-#### ♻️ Enriquecimento Contínuo
+#### ♻️ Enriquecimento Obrigatório do Oráculo
 
-* Alimentar **Knowledge Sources** com dados validados pelo Operador.
-* Promover retroalimentação para aprendizado iterativo.
+* **Toda execução ZWF** deve gerar/atualizar UKIs MEF relacionadas às UKIs motivadoras
+* **Aprendizados estruturados** capturados como conhecimento reutilizável
+* **Evolução contínua** da base de conhecimento através dos workflows
 
-### Ferramentas & Componentes
+### Padrões de Workflow ZWF
 
-| Componente           | Função/Exemplo                                 |
-| -------------------- | ---------------------------------------------- |
-| AI Functions         | Execução ágil de tarefas específicas via IA.   |
-| Specialized Agents   | Agentes como Validator, Connector, Enricher.   |
-| MCP Tools           | Integração com ferramentas via Model Context Protocol. |
-| Agent Orchestrator  | Coordena interações entre agentes especializados. |
+| Padrão ZWF | Evento Gatilho | Exemplo de Aplicação |
+|------------|----------------|---------------------|
+| **Request Flow** | `work.proposed` | Implementação de nova funcionalidade seguindo estados canônicos |
+| **Refinement Flow** | `work.refine.requested` | Otimização de processo existente com abordagem incremental |  
+| **Ingestion Flow** | `knowledge.added` | Processamento de documentação externa em UKIs estruturadas |
+| **Assistance Flow** | `assistance.requested` | Suporte técnico ou pair programming estruturado |
+| **Testing Flow** | `test.authored` | Criação de cenários de teste baseados em conhecimento |
+| **Feedback Flow** | `feedback.submitted` | Processamento de correções e aprendizados |
 
-#### Exemplo Prático
+### Estados Canônicos ZWF
 
-> Em um refinamento técnico:
-> **Specialized Agent Validator** analisa uma história do Oráculo em busca de inconsistências.
-> **Specialized Agent Connector** consulta os embeddings para identificar dependências.
-> As informações são enviadas ao Operador, garantindo execução precisa.
+```mermaid
+stateDiagram-v2
+    [*] --> Intake
+    Intake --> Understand
+    Understand --> Decide  
+    Decide --> Act
+    Act --> Review
+    Act --> Enrich
+    Review --> Enrich
+    Enrich --> [*]
+    
+    note right of Understand
+      Consulta obrigatória 
+      ao Oráculo (UKIs)
+    end note
+    
+    note right of Enrich
+      Enriquecimento obrigatório
+      do Oráculo (UKIs MEF)
+    end note
+```
+
+#### Exemplo Prático: Implementação de Autenticação via ZWF
+
+> **Evento:** `work.proposed` - Nova necessidade de autenticação JWT  
+> **Intake:** Captura história e contexto, organiza requisitos  
+> **Understand:** Consulta `unik-technical-jwt-authentication-pattern`, `unik-business-security-requirements`  
+> **Decide:** Escolhe biblioteca baseada em `unik-business-vendor-approval-policy`  
+> **Act:** Implementa solução usando ferramentas da equipe  
+> **Review:** Validação opcional seguindo `unik-culture-code-review-process`  
+> **Enrich:** Cria `unik-technical-auth-implementation-example` e `unik-technical-token-refresh-pattern`
+>
+> **Resultado:** Solução implementada + conhecimento estruturado devolvido ao Oráculo para reuso futuro
 
 ---
 
@@ -186,19 +221,6 @@ Aqui, as squads utilizam as ferramentas criadas pela Zion para implementar solu�
 
 ---
 
-# ✨ O Despertar na Matrix
-
-> "A resposta está aí, te procurando. E vai te encontrar, se você quiser." — Trinity
-
-O momento da escolha chegou.
-Você **cruzou camadas**, **decifrou códigos** e agora está diante da porta.
-O próximo passo **só pode ser dado por você**.
-
-**A Matrix está pronta para ser reprogramada.**
-**Você está pronto para descobrir até onde vai a toca do coelho?**
-
----
-
 ## 🔗 Integração Matrix Embedding Framework (MEF)
 
 O Protocolo Matrix é implementado através do **Matrix Embedding Framework (MEF)**, que fornece a estrutura concreta para as camadas conceituais:
@@ -238,20 +260,36 @@ O Protocolo Matrix serve como framework fundamental para organizações implemen
 
 ### **Mapeamento de Implementação**
 
-- **Camada Oráculo** → **Sistemas de Gestão de Conhecimento**: Governança estruturada através do MEF
-- **Camada Zion** → **Engine de Processamento IA**: Capacidades de processamento inteligente e busca semântica
-- **Camada Operador** → **Plataforma de Integração**: Implementação prática através de APIs e ferramentas
+- **Camada Oráculo** → **Sistemas de Gestão de Conhecimento**: Governança estruturada através do MEF (UKIs versionadas)
+- **Camada Zion** → **Framework Conceitual de Workflows**: Padrões ZWF independentes de tecnologia para fluxos orientados a IA
+- **Camada Operador** → **Plataforma de Integração**: Implementação prática usando ferramentas específicas da equipe
 
 ### **Benefícios do Framework**
 
 Este framework filosófico e técnico fornece às organizações:
 - **Arquitetura Clara**: Camadas bem definidas para diferentes responsabilidades
 - **Conhecimento Padronizado**: MEF garante representação consistente do conhecimento
+- **Workflows Conceituais**: ZWF orienta "como pensar" fluxos orientados a IA
+- **Independência Tecnológica**: ZWF permite flexibilidade de implementação mantendo consistência conceitual
+- **Rastreabilidade Completa**: Relacionamentos semânticos entre conhecimento e decisões
 - **Implementação Escalável**: De equipes individuais à adoção empresarial
 - **Estrutura Pronta para IA**: Construída para sistemas inteligentes e colaboração humano-IA
-- **Design Evolutivo**: Melhoria contínua através de ciclos de feedback
+- **Design Evolutivo**: Melhoria contínua através de ciclos de feedback e enriquecimento obrigatório
 
 As organizações podem adaptar o Protocolo Matrix às suas necessidades específicas mantendo os princípios fundamentais de colaboração humano-IA estruturada.
+
+---
+
+# ✨ O Despertar na Matrix
+
+> "A resposta está aí, te procurando. E vai te encontrar, se você quiser." — Trinity
+
+O momento da escolha chegou.
+Você **cruzou camadas**, **decifrou códigos** e agora está diante da porta.
+O próximo passo **só pode ser dado por você**.
+
+**A Matrix está pronta para ser reprogramada.**
+**Você está pronto para descobrir até onde vai a toca do coelho?**
 
 ---
 
@@ -342,7 +380,7 @@ It is the protocol that proactively promotes consistency, accessibility, and con
 
 ## 🔬 Zion Layer
 
-### Strategic Integration
+### AI-Oriented Workflow Conceptual Framework (ZWF)
 
 > "Zion is the bridge between the world of ideas and the world of action."
 
@@ -350,45 +388,80 @@ It is the protocol that proactively promotes consistency, accessibility, and con
 
 The Zion Layer is the vital link between strategy (Oracle) and operation (Operator).
 
-It transforms guidelines into practical tools, intelligent agents, and automated flows, providing real support for squads' daily work.
+It transforms guidelines into conceptual workflows through the **ZWF (Zion Workflow Framework)** - a technology-independent state machine model that guides **how to think** about AI-oriented workflows, without prescribing **how to implement**.
 
 ### Main Responsibilities
 
-#### 🔨 Guideline Implementation
+#### 🔨 Conceptual Structuring via ZWF
 
-* Build systems that implement Oracle patterns.
-* Automate critical tasks for capturing, validating, and enriching **Knowledge Sources**.
+* **Define flow patterns** following canonical states: `Intake → Understand → Decide → Act → Review → Enrich`
+* **Catalog canonical events** that initiate workflows: `knowledge.added`, `work.proposed`, `work.refine.requested`, `assistance.requested`, `test.authored`, `feedback.submitted`
+* **Ensure closed loop**: always consult Oracle → act → enrich Oracle
 
-#### 🧬 Intelligent Management
+#### 🧬 Explainability and Traceability
 
-* Develop specialized agents (e.g., Validator, Connector).
-* Integrate external tools without redundancy.
+* **Explainability signals** in each state: context (what came in) → decision (why it transitioned) → result (what came out)
+* **UKI-based reasoning** from Oracle for all critical decisions
+* **Semantic relationships** between motivating UKIs and generated UKIs
 
-#### 🚧 Operational Orchestration
+#### 🚧 Conceptual Orchestration
 
-* Coordinate interactions between primordial agents and operators.
-* Ensure flow alignment with strategic guidelines.
+* **Technology independence**: ZWF defines "how to think" not "how to implement"
+* **Tool flexibility**: each team implements with their preferred technologies
+* **Reasoning standardization**: same conceptual pattern regardless of implementation
 
-#### ♻️ Continuous Enrichment
+#### ♻️ Mandatory Oracle Enrichment
 
-* Feed **Knowledge Sources** with data validated by the Operator.
-* Promote feedback for iterative learning.
+* **Every ZWF execution** must generate/update MEF UKIs related to motivating UKIs
+* **Structured learnings** captured as reusable knowledge
+* **Continuous evolution** of knowledge base through workflows
 
-### Tools & Components
+### ZWF Workflow Patterns
 
-| Component            | Function/Example                              |
-| -------------------- | --------------------------------------------- |
-| AI Functions         | Agile execution of specific tasks via AI.    |
-| Specialized Agents   | Agents like Validator, Connector, Enricher.  |
-| MCP Tools           | Integration with tools via Model Context Protocol. |
-| Agent Orchestrator  | Coordinates interactions between specialized agents. |
+| ZWF Pattern | Trigger Event | Application Example |
+|-------------|---------------|---------------------|
+| **Request Flow** | `work.proposed` | New functionality implementation following canonical states |
+| **Refinement Flow** | `work.refine.requested` | Existing process optimization with incremental approach |  
+| **Ingestion Flow** | `knowledge.added` | External documentation processing into structured UKIs |
+| **Assistance Flow** | `assistance.requested` | Structured technical support or pair programming |
+| **Testing Flow** | `test.authored` | Test scenario creation based on knowledge |
+| **Feedback Flow** | `feedback.submitted` | Processing corrections and learnings |
 
-#### Practical Example
+### ZWF Canonical States
 
-> In technical refinement:
-> **Specialized Agent Validator** analyzes an Oracle story for inconsistencies.
-> **Specialized Agent Connector** queries embeddings to identify dependencies.
-> Information is sent to the Operator, ensuring precise execution.
+```mermaid
+stateDiagram-v2
+    [*] --> Intake
+    Intake --> Understand
+    Understand --> Decide  
+    Decide --> Act
+    Act --> Review
+    Act --> Enrich
+    Review --> Enrich
+    Enrich --> [*]
+    
+    note right of Understand
+      Mandatory Oracle 
+      consultation (UKIs)
+    end note
+    
+    note right of Enrich
+      Mandatory Oracle
+      enrichment (MEF UKIs)
+    end note
+```
+
+#### Practical Example: JWT Authentication Implementation via ZWF
+
+> **Event:** `work.proposed` - New JWT authentication requirement  
+> **Intake:** Captures story and context, organizes requirements  
+> **Understand:** Consults `unik-technical-jwt-authentication-pattern`, `unik-business-security-requirements`  
+> **Decide:** Chooses library based on `unik-business-vendor-approval-policy`  
+> **Act:** Implements solution using team tools  
+> **Review:** Optional validation following `unik-culture-code-review-process`  
+> **Enrich:** Creates `unik-technical-auth-implementation-example` and `unik-technical-token-refresh-pattern`
+>
+> **Result:** Solution implemented + structured knowledge returned to Oracle for future reuse
 
 ---
 
@@ -434,19 +507,6 @@ Here, squads use tools created by Zion to implement technical solutions under Or
 
 ---
 
-# ✨ Awakening in the Matrix
-
-> "The answer is out there, looking for you. And it will find you, if you want it to." — Trinity
-
-The moment of choice has arrived.
-You have **crossed layers**, **deciphered codes**, and now stand before the door.
-The next step **can only be taken by you**.
-
-**The Matrix is ready to be reprogrammed.**
-**Are you ready to discover how deep the rabbit hole goes?**
-
----
-
 ## 🔗 Matrix Embedding Framework (MEF) Integration
 
 The Matrix Protocol is implemented through the **Matrix Embedding Framework (MEF)**, which provides the concrete structure for the conceptual layers:
@@ -486,17 +546,35 @@ The Matrix Protocol serves as a foundational framework for organizations impleme
 
 ### **Implementation Mapping**
 
-- **Oracle Layer** → **Knowledge Management Systems**: Structured knowledge governance through MEF
-- **Zion Layer** → **AI Processing Engine**: Intelligent processing and semantic search capabilities  
-- **Operator Layer** → **Integration Platform**: Practical implementation through APIs and tools
+- **Oracle Layer** → **Knowledge Management Systems**: Structured governance through MEF (versioned and traceable UKIs)
+- **Zion Layer** → **Conceptual Workflow Framework**: ZWF patterns for technology-independent AI-oriented workflows
+- **Operator Layer** → **Integration Platform**: Practical implementation using team-specific tools
 
 ### **Framework Benefits**
 
 This philosophical and technical framework provides organizations with:
 - **Clear Architecture**: Well-defined layers for different responsibilities
 - **Standardized Knowledge**: MEF ensures consistent knowledge representation
+- **Conceptual Workflows**: ZWF guides "how to think" about AI-oriented flows without prescribing "how to implement"
+- **Technology Independence**: ZWF allows tool flexibility while maintaining conceptual consistency
+- **Complete Traceability**: Semantic relationships between knowledge and decisions
 - **Scalable Implementation**: From individual teams to enterprise-wide adoption
 - **AI-Ready Structure**: Built for intelligent systems and human-AI collaboration
-- **Evolutionary Design**: Continuous improvement through feedback loops
+- **Evolutionary Design**: Continuous improvement through feedback loops and mandatory Oracle enrichment
 
 Organizations can adapt the Matrix Protocol to their specific needs while maintaining the core principles of structured human-AI collaboration.
+
+---
+
+# ✨ Awakening in the Matrix
+
+> "The answer is out there, looking for you. And it will find you, if you want it to." — Trinity
+
+The moment of choice has arrived.
+You have **crossed layers**, **deciphered codes**, and now stand before the door.
+The next step **can only be taken by you**.
+
+**The Matrix is ready to be reprogrammed.**
+**Are you ready to discover how deep the rabbit hole goes?**
+
+---
