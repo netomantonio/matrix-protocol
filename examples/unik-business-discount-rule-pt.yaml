@@ -1,0 +1,69 @@
+id: unik-business-discount-rule
+title: Regra de Cálculo de Desconto por Fidelidade
+domain: business
+type: business_rule
+context: implementation
+version: "1.0.0"
+created_date: "2024-08-12"
+last_modified: "2024-08-12"
+intent_of_use:
+  - validate_pricing_logic
+  - implement_discount_system
+  - train_customer_service
+  - ensure_compliance
+use_case_stage:
+  - implementation
+  - testing
+  - training
+  - documentation
+language: pt_BR
+content: |
+  Regra de negócio para cálculo de descontos baseado no nível de fidelidade do cliente e valor da compra.
+  
+  Esta regra define como aplicar descontos de forma consistente e justa, maximizando a retenção de clientes.
+  
+  ## Níveis de Fidelidade
+  
+  | Nível | Pontos Acumulados | Desconto Base | Valor Mínimo |
+  |-------|-------------------|---------------|--------------|
+  | Bronze | 0 - 999 | 5% | R$ 100,00 |
+  | Prata | 1.000 - 4.999 | 10% | R$ 50,00 |
+  | Ouro | 5.000+ | 15% | Sem mínimo |
+  
+  ## Condições Especiais
+  
+  - **Primeira compra**: +5% adicional para novos clientes
+  - **Compras acima de R$ 500**: +2% adicional
+  - **Desconto máximo**: 25% do valor total
+  - **Produtos em promoção**: Não acumulam com desconto de fidelidade
+  
+  ## Fórmula de Cálculo
+  
+  ```
+  Desconto Final = MIN(
+    (Desconto Base + Bônus Primeira Compra + Bônus Alto Valor),
+    25%
+  )
+  ```
+  
+  ## Regras de Aplicação
+  
+  1. Verificar elegibilidade do cliente
+  2. Aplicar desconto base conforme nível
+  3. Adicionar bônus aplicáveis
+  4. Respeitar limite máximo de 25%
+  5. Registrar desconto aplicado para auditoria
+examples:
+  - input: "Cliente Ouro (6.000 pontos) comprando R$ 300"
+    output: "Desconto de 15% = R$ 45,00"
+  - input: "Novo cliente Bronze comprando R$ 150"
+    output: "Desconto de 10% (5% base + 5% primeira compra) = R$ 15,00"
+  - input: "Cliente Prata comprando R$ 600"
+    output: "Desconto de 12% (10% base + 2% alto valor) = R$ 72,00"
+  - input: "Cliente Bronze comprando R$ 80"
+    output: "Sem desconto (valor abaixo do mínimo R$ 100)"
+related_to:
+  - unik-business-loyalty-program
+  - unik-product-checkout-flow
+  - unik-technical-pricing-api
+last_validation: "2024-08-12"

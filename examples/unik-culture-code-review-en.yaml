@@ -1,0 +1,94 @@
+id: unik-culture-code-review
+title: Collaborative Code Review Process
+domain: culture
+type: guideline
+context: implementation
+version: "1.0.0"
+created_date: "2024-08-12"
+last_modified: "2024-08-12"
+intent_of_use:
+  - improve_code_quality
+  - foster_collaboration
+  - share_knowledge
+  - maintain_standards
+use_case_stage:
+  - implementation
+  - peer_review
+  - onboarding
+  - training
+language: en_US
+content: |
+  Structured code review process that promotes collaboration, quality, and professional growth within the team.
+  
+  This process aims to create a culture of continuous improvement and mutual learning through constructive reviews.
+  
+  ## Core Principles
+  
+  1. **Constructiveness**: Comments always aim for improvements, not personal criticism
+  2. **Mutual Learning**: Opportunity for both author and reviewer to learn
+  3. **Quality**: Focus on maintainability and code robustness
+  4. **Speed**: Agile reviews that don't impede development flow
+  5. **Inclusion**: Everyone participates, regardless of seniority level
+  
+  ## Review Process
+  
+  ### For the Author
+  
+  1. **Preparation**: Self-review before submitting
+  2. **Context**: Clearly describe changes and motivation
+  3. **Size**: Small PRs (maximum 400 lines)
+  4. **Tests**: Include relevant tests
+  5. **Documentation**: Update docs when necessary
+  
+  ### For the Reviewer
+  
+  1. **Speed**: Respond within 24h (business days)
+  2. **Focus**: Prioritize logic, security, and maintainability
+  3. **Clarity**: Explain suggestions with examples
+  4. **Positivity**: Acknowledge good practices
+  5. **Teaching**: Share knowledge when relevant
+  
+  ## Review Checklist
+  
+  ### Technical Aspects
+  - [ ] Logic is correct and efficient
+  - [ ] Proper error handling
+  - [ ] Tests cover relevant scenarios
+  - [ ] No security vulnerabilities
+  - [ ] Code is readable and well documented
+  
+  ### Cultural Aspects
+  - [ ] Follows team standards
+  - [ ] Names are descriptive
+  - [ ] Complexity is appropriate
+  - [ ] Reuses existing code when possible
+  - [ ] Considers performance impact
+  
+  ## Comment Types
+  
+  | Prefix | Meaning | Example |
+  |--------|---------|---------|
+  | **Suggestion:** | Optional improvement | "Suggestion: consider using map() here for better readability" |
+  | **Question:** | Doubt about implementation | "Question: does this validation cover case X?" |
+  | **Issue:** | Must be fixed | "Issue: possible null pointer exception on line 42" |
+  | **Kudos:** | Recognition | "Kudos: excellent abstraction of this functionality!" |
+  
+  ## Conflict Resolution
+  
+  1. **Discussion**: Talk about disagreements
+  2. **Context**: Understand motivations from each side
+  3. **Decision**: Author decides but considers feedback
+  4. **Escalation**: Tech lead intervenes if necessary
+  5. **Learning**: Document decisions for the future
+examples:
+  - input: "PR with 800 lines of code changed"
+    output: "Request breaking into smaller PRs for easier review"
+  - input: "Comment: 'This code is terrible'"
+    output: "Rephrase to: 'Suggestion: we can improve readability by extracting a function here'"
+  - input: "Review pending for 3 days"
+    output: "Notify reviewer and seek alternative if necessary"
+related_to:
+  - unik-technical-code-standards
+  - unik-culture-team-collaboration
+  - unik-culture-continuous-learning
+last_validation: "2024-08-12"

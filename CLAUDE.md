@@ -10,10 +10,17 @@ The project includes the **Matrix Embedding Framework (MEF)** - a standardized k
 
 ## Repository Structure
 
-This is a documentation-only repository containing:
+This repository contains comprehensive Matrix Protocol documentation and examples:
 
 - `MATRIX_PROTOCOL.md` - Complete Matrix Protocol specification (Portuguese/English)
 - `MEF_MATRIX_EMBEDDING_FRAMEWORK.md` - MEF technical specification and implementation guide
+- `examples/` - Practical UKI examples demonstrating MEF implementation across all domains
+  - Technical domain examples (JWT authentication patterns)
+  - Business domain examples (discount calculation rules)
+  - Product domain examples (modal design guidelines)
+  - Strategy domain examples (API evolution strategies)
+  - Culture domain examples (code review processes)
+  - Bilingual examples (Portuguese and English)
 
 ## Core Concepts
 
@@ -53,6 +60,12 @@ title: [Descriptive title]
 domain: [product|business|technical|strategy|culture]
 type: [business_rule|function|template|guideline|pattern|decision|example]
 context: [discovery|implementation|refinement|qa|documentation|support]
+version: [MAJOR.MINOR.PATCH]  # Semantic versioning
+created_date: [YYYY-MM-DD]  # Creation date
+last_modified: [YYYY-MM-DD]  # Last modification
+change_summary: [Summary of changes]  # For versions > 1.0.0
+change_impact: [major|minor|patch]  # Impact classification
+previous_version: [MAJOR.MINOR.PATCH]  # Previous version reference
 content: |
   [Main content with clear structure]
 examples:
@@ -66,16 +79,37 @@ last_validation: [YYYY-MM-DD]
 ### Knowledge Organization
 - Organize by domain directories (`technical/`, `business/`, `product/`, etc.)
 - Use semantic IDs following `unik-domain-identifier` pattern
+- Implement semantic versioning for knowledge evolution tracking
 - Maintain bidirectional relationships between related concepts
 - Regular validation of content freshness and accuracy
+- Document change impact and maintain version history
+
+## Working with Examples
+
+The `examples/` directory contains comprehensive UKI demonstrations:
+
+### Practical Examples Available
+- **Technical**: JWT authentication patterns with security considerations
+- **Business**: Customer discount rules with calculation formulas
+- **Product**: Modal design guidelines with accessibility standards
+- **Strategy**: API evolution strategies with migration timelines
+- **Culture**: Code review processes with collaboration principles
+
+### Using Examples
+- Reference templates for creating new UKIs
+- Study MEF field usage patterns
+- Understand versioning implementation
+- Learn bilingual documentation approaches
+- Validate MEF parser implementations
 
 ## AI Integration Considerations
 
 This framework is designed for:
 - Semantic search and knowledge discovery
-- Context-aware AI assistance
-- Automated knowledge validation
+- Context-aware AI assistance with versioned knowledge
+- Automated knowledge validation and evolution tracking
 - Cross-domain relationship mapping
-- Knowledge graph construction
+- Knowledge graph construction with temporal awareness
+- Version-aware knowledge recommendations
 
-The MEF format enables AI systems to understand not just the content but also the intent, context, and relationships of knowledge units for more intelligent assistance.
+The MEF format enables AI systems to understand not just the content but also the intent, context, evolution history, and relationships of knowledge units for more intelligent assistance.

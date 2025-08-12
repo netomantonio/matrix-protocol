@@ -1,0 +1,70 @@
+id: unik-technical-authentication-pattern
+title: JWT Authentication Implementation Pattern
+domain: technical
+type: pattern
+context: implementation
+version: "1.0.0"
+created_date: "2024-08-12"
+last_modified: "2024-08-12"
+intent_of_use:
+  - validate_implementation
+  - generate_code
+  - standardize_process
+  - ensure_security
+use_case_stage:
+  - implementation
+  - peer_review
+  - testing
+  - documentation
+language: en_US
+content: |
+  Standard implementation pattern for JWT (JSON Web Token) authentication in web applications.
+  
+  This pattern ensures secure, stateless authentication with proper token management and validation.
+  
+  ## Key Components
+  
+  1. **Token Generation**: Create signed JWT tokens upon successful login
+  2. **Token Validation**: Verify token signature and expiration on each request
+  3. **Refresh Mechanism**: Implement token refresh to maintain sessions
+  4. **Secure Storage**: Store tokens securely on client side
+  
+  ## Implementation Flow
+  
+  ```mermaid
+  sequenceDiagram
+      Client->>Auth Service: Login Request
+      Auth Service->>Database: Validate Credentials
+      Database-->>Auth Service: User Valid
+      Auth Service->>Auth Service: Generate JWT
+      Auth Service-->>Client: Return JWT Token
+      Client->>API: Request with JWT Header
+      API->>API: Validate JWT
+      API-->>Client: Protected Resource
+  ```
+  
+  ## Security Considerations
+  
+  - Use strong signing algorithms (RS256 recommended)
+  - Set appropriate token expiration times (15-30 minutes for access tokens)
+  - Implement refresh token rotation
+  - Validate token on every protected endpoint
+  - Never store sensitive data in token payload
+  
+  ## Error Handling
+  
+  - 401 Unauthorized: Invalid or expired token
+  - 403 Forbidden: Valid token but insufficient permissions
+  - Provide clear error messages for debugging
+examples:
+  - input: "User logs in with valid credentials"
+    output: "System generates JWT token with user claims and 30-minute expiration"
+  - input: "Client sends request with expired JWT token"
+    output: "API returns 401 Unauthorized with token refresh instruction"
+  - input: "Invalid token signature detected"
+    output: "System logs security event and returns 401 Unauthorized"
+related_to:
+  - unik-technical-api-security-standards
+  - unik-technical-session-management
+  - unik-business-user-authentication-policy
+last_validation: "2024-08-12"

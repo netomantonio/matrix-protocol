@@ -1,0 +1,94 @@
+id: unik-culture-code-review
+title: Processo de Code Review Colaborativo
+domain: culture
+type: guideline
+context: implementation
+version: "1.0.0"
+created_date: "2024-08-12"
+last_modified: "2024-08-12"
+intent_of_use:
+  - improve_code_quality
+  - foster_collaboration
+  - share_knowledge
+  - maintain_standards
+use_case_stage:
+  - implementation
+  - peer_review
+  - onboarding
+  - training
+language: pt_BR
+content: |
+  Processo estruturado de code review que promove colaboração, qualidade e crescimento profissional da equipe.
+  
+  Este processo visa criar uma cultura de melhoria contínua e aprendizado mútuo através de revisões construtivas.
+  
+  ## Princípios Fundamentais
+  
+  1. **Construtividade**: Comentários sempre visam melhorias, não críticas pessoais
+  2. **Aprendizado Mútuo**: Oportunidade para autor e revisor aprenderem
+  3. **Qualidade**: Foco na manutenibilidade e robustez do código
+  4. **Velocidade**: Revisões ágeis que não impedem o fluxo de desenvolvimento
+  5. **Inclusão**: Todos participam, independente do nível de senioridade
+  
+  ## Processo de Review
+  
+  ### Para o Autor
+  
+  1. **Preparação**: Auto-revisão antes de submeter
+  2. **Contexto**: Descrever claramente as mudanças e motivação
+  3. **Tamanho**: PRs pequenos (máximo 400 linhas)
+  4. **Testes**: Incluir testes relevantes
+  5. **Documentação**: Atualizar docs quando necessário
+  
+  ### Para o Revisor
+  
+  1. **Rapidez**: Responder em até 24h (dias úteis)
+  2. **Foco**: Priorizar lógica, segurança e manutenibilidade
+  3. **Clareza**: Explicar sugestões com exemplos
+  4. **Positividade**: Reconhecer boas práticas
+  5. **Ensino**: Compartilhar conhecimento quando relevante
+  
+  ## Checklist de Review
+  
+  ### Aspectos Técnicos
+  - [ ] Lógica está correta e eficiente
+  - [ ] Tratamento adequado de erros
+  - [ ] Testes cobrem cenários relevantes
+  - [ ] Não há vazamentos de segurança
+  - [ ] Código é legível e bem documentado
+  
+  ### Aspectos Culturais
+  - [ ] Segue padrões da equipe
+  - [ ] Nomes são descritivos
+  - [ ] Complexidade é apropriada
+  - [ ] Reutiliza código existente quando possível
+  - [ ] Considera impacto em performance
+  
+  ## Tipos de Comentários
+  
+  | Prefixo | Significado | Exemplo |
+  |---------|-------------|---------|
+  | **Sugestão:** | Melhoria opcional | "Sugestão: considere usar map() aqui para melhor legibilidade" |
+  | **Questão:** | Dúvida sobre implementação | "Questão: esta validação cobre o caso X?" |
+  | **Problema:** | Deve ser corrigido | "Problema: possível null pointer exception na linha 42" |
+  | **Parabéns:** | Reconhecimento | "Parabéns: excelente abstração desta funcionalidade!" |
+  
+  ## Resolução de Conflitos
+  
+  1. **Discussão**: Conversar sobre divergências
+  2. **Contexto**: Entender motivações de cada lado
+  3. **Decisão**: Autor decide, mas considera feedback
+  4. **Escalação**: Tech lead intervém se necessário
+  5. **Aprendizado**: Documentar decisões para o futuro
+examples:
+  - input: "PR com 800 linhas de código alterado"
+    output: "Solicitar quebra em PRs menores para facilitar review"
+  - input: "Comentário: 'Este código está horrível'"
+    output: "Reformular para: 'Sugestão: podemos melhorar a legibilidade extraindo uma função aqui'"
+  - input: "Review pendente há 3 dias"
+    output: "Notificar reviewer e buscar alternativo se necessário"
+related_to:
+  - unik-technical-code-standards
+  - unik-culture-team-collaboration
+  - unik-culture-continuous-learning
+last_validation: "2024-08-12"
