@@ -63,7 +63,13 @@ examples:
   - input: "Bronze customer purchasing $80"
     output: "No discount (below minimum $100)"
 related_to:
-  - unik-business-loyalty-program
-  - unik-product-checkout-flow
-  - unik-technical-pricing-api
+  - target: unik-business-loyalty-program
+    relation_type: implements
+    description: Implements loyalty program rules
+  - target: unik-product-checkout-flow
+    relation_type: relates_to
+    description: Applied during checkout flow
+  - target: unik-technical-pricing-api
+    relation_type: depends_on
+    description: Depends on pricing API for calculations
 last_validation: "2024-08-12"

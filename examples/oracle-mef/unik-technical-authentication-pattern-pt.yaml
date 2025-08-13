@@ -64,7 +64,13 @@ examples:
   - input: "Assinatura de token inválida detectada"
     output: "Sistema registra evento de segurança e retorna 401 Unauthorized"
 related_to:
-  - unik-technical-api-security-standards
-  - unik-technical-session-management
-  - unik-business-user-authentication-policy
+  - target: unik-technical-api-security-standards
+    relation_type: complies_with
+    description: Segue padrões de segurança para APIs
+  - target: unik-technical-session-management
+    relation_type: relates_to
+    description: Complementa estratégias de gerenciamento de sessão
+  - target: unik-business-user-authentication-policy
+    relation_type: implements
+    description: Implementa política organizacional de autenticação
 last_validation: "2024-08-12"

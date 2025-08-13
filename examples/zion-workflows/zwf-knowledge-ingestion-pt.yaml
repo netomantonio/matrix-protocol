@@ -151,8 +151,12 @@ flow_execution:
           - input: "Requisição com validação anterior"
             output: "Fallback para método anterior durante período de transição"
         related_to:
-          - unik-technical-api-integration-standards
-          - unik-technical-existing-integration-patterns
+          - target: unik-technical-api-integration-standards
+            relation_type: complies_with
+            description: Segue padrões de integração de API
+          - target: unik-technical-existing-integration-patterns
+            relation_type: extends
+            description: Estende padrões existentes de integração
         intent_of_use:
           - ensure_security
           - prevent_breaking_changes
@@ -202,8 +206,12 @@ flow_execution:
           - input: "Leitura de registro existente"
             output: "Fallback para campo antigo se novo campo não existir"
         related_to:
-          - unik-technical-existing-integration-patterns
-          - unik-technical-api-migration-best-practices
+          - target: unik-technical-existing-integration-patterns
+            relation_type: derives_from
+            description: Derivada de padrões existentes de integração
+          - target: unik-technical-api-migration-best-practices
+            relation_type: implements
+            description: Implementa melhores práticas de migração
         intent_of_use:
           - guide_migration
           - prevent_breaking_changes
@@ -252,8 +260,12 @@ flow_execution:
           - input: "Cabeçalho indicando proximidade do limite"
             output: "Pausar requisições preventivamente"
         related_to:
-          - unik-technical-api-integration-standards
-          - unik-technical-error-handling-patterns
+          - target: unik-technical-api-integration-standards
+            relation_type: complies_with
+            description: Segue padrões de integração de API
+          - target: unik-technical-error-handling-patterns
+            relation_type: relates_to
+            description: Relaciona-se com padrões de tratamento de erros
         intent_of_use:
           - prevent_errors
           - optimize_performance
@@ -299,8 +311,12 @@ flow_execution:
           - input: "Situação que requer tratamento especial"
             output: "Sistema trata automaticamente usando novos recursos"
         related_to:
-          - unik-technical-api-validation-changes-2024
-          - unik-business-integration-requirements
+          - target: unik-technical-api-validation-changes-2024
+            relation_type: implements
+            description: Implementa mudanças de validação de API 2024
+          - target: unik-business-integration-requirements
+            relation_type: complies_with
+            description: Atende requisitos de integração do negócio
         intent_of_use:
           - generate_code
           - understand_implementation
@@ -366,10 +382,18 @@ flow_execution:
           - input: "Erro crítico durante migração"
             output: "Rollback automático acionado"
         related_to:
-          - unik-technical-api-validation-changes-2024
-          - unik-technical-integration-migration-pattern
-          - unik-technical-api-rate-limiting-strategy
-          - unik-technical-updated-integration-example
+          - target: unik-technical-api-validation-changes-2024
+            relation_type: extends
+            description: Estende mudanças de validação com melhorias
+          - target: unik-technical-integration-migration-pattern
+            relation_type: implements
+            description: Implementa padrão de migração de integração
+          - target: unik-technical-api-rate-limiting-strategy
+            relation_type: relates_to
+            description: Relaciona-se com estratégia de rate limiting
+          - target: unik-technical-updated-integration-example
+            relation_type: replaces
+            description: Substitui exemplo anterior de integração
         intent_of_use:
           - guide_migration
           - standardize_process

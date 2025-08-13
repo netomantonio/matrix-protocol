@@ -88,7 +88,13 @@ examples:
   - input: "Review pendente há 3 dias"
     output: "Notificar reviewer e buscar alternativo se necessário"
 related_to:
-  - unik-technical-code-standards
-  - unik-culture-team-collaboration
-  - unik-culture-continuous-learning
+  - target: unik-technical-code-standards
+    relation_type: implements
+    description: Implementa padrões técnicos de qualidade de código
+  - target: unik-culture-team-collaboration
+    relation_type: extends
+    description: Estende práticas de colaboração em equipe
+  - target: unik-culture-continuous-learning
+    relation_type: relates_to
+    description: Contribui para cultura de aprendizado contínuo
 last_validation: "2024-08-12"

@@ -88,7 +88,13 @@ examples:
   - input: "Review pending for 3 days"
     output: "Notify reviewer and seek alternative if necessary"
 related_to:
-  - unik-technical-code-standards
-  - unik-culture-team-collaboration
-  - unik-culture-continuous-learning
+  - target: unik-technical-code-standards
+    relation_type: implements
+    description: Implements technical code quality standards
+  - target: unik-culture-team-collaboration
+    relation_type: extends
+    description: Extends team collaboration practices
+  - target: unik-culture-continuous-learning
+    relation_type: relates_to
+    description: Contributes to continuous learning culture
 last_validation: "2024-08-12"

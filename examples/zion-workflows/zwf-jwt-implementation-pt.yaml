@@ -144,9 +144,15 @@ flow_execution:
           - input: "Solicitação de renovação com token válido"
             output: "Novo token de acesso gerado mantendo token de renovação"
         related_to:
-          - unik-technical-jwt-authentication-pattern
-          - unik-business-security-requirements
-          - unik-technical-api-error-handling
+          - target: unik-technical-jwt-authentication-pattern
+            relation_type: derives_from
+            description: Derivada do padrão técnico de autenticação JWT
+          - target: unik-business-security-requirements
+            relation_type: implements
+            description: Implementa requisitos de segurança do negócio
+          - target: unik-technical-api-error-handling
+            relation_type: relates_to
+            description: Relaciona-se com padrões de tratamento de erros
         intent_of_use:
           - generate_code
           - understand_implementation
@@ -193,8 +199,12 @@ flow_execution:
           - input: "Logout"
             output: "Token de renovação invalidado"
         related_to:
-          - unik-technical-jwt-authentication-pattern
-          - unik-technical-authentication-implementation-example
+          - target: unik-technical-jwt-authentication-pattern
+            relation_type: extends
+            description: Estende o padrão com exemplo de melhoria
+          - target: unik-technical-authentication-implementation-example
+            relation_type: replaces
+            description: Substitui implementação anterior com melhorias
         intent_of_use:
           - standardize_process
           - improve_performance

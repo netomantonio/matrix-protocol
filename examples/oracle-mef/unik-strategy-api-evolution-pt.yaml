@@ -89,7 +89,13 @@ examples:
   - input: "Descoberta vulnerabilidade de segurança crítica"
     output: "Patch imediato em todas as versões ativas, comunicação urgente aos clientes"
 related_to:
-  - unik-technical-api-versioning-standards
-  - unik-business-client-communication-policy
-  - unik-technical-microservices-architecture
+  - target: unik-technical-api-versioning-standards
+    relation_type: implements
+    description: Implementa padrões técnicos de versionamento
+  - target: unik-business-client-communication-policy
+    relation_type: complies_with
+    description: Segue política de comunicação com clientes
+  - target: unik-technical-microservices-architecture
+    relation_type: relates_to
+    description: Aplica-se à arquitetura de microsserviços
 last_validation: "2024-08-12"

@@ -64,7 +64,13 @@ examples:
   - input: "Invalid token signature detected"
     output: "System logs security event and returns 401 Unauthorized"
 related_to:
-  - unik-technical-api-security-standards
-  - unik-technical-session-management
-  - unik-business-user-authentication-policy
+  - target: unik-technical-api-security-standards
+    relation_type: complies_with
+    description: Follows API security standards
+  - target: unik-technical-session-management
+    relation_type: relates_to
+    description: Complements session management strategies
+  - target: unik-business-user-authentication-policy
+    relation_type: implements
+    description: Implements organizational authentication policy
 last_validation: "2024-08-12"

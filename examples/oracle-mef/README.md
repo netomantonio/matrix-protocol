@@ -37,13 +37,15 @@ Estes exemplos demonstram:
 - **Complete MEF Structure**: All required and optional fields properly filled
 - **Bilingual Support**: Same concepts in Portuguese and English
 - **Domain Variety**: Examples across all MEF domains
-- **Best Practices**: Proper use of versioning, examples, and relationships
+- **Typed Semantic Relationships**: Demonstrates the new typed relationship format
+- **Best Practices**: Proper use of versioning, examples, and semantic connections
 - **Real-world Scenarios**: Practical situations teams face daily
 
 - **Estrutura MEF Completa**: Todos os campos obrigatórios e opcionais preenchidos adequadamente
 - **Suporte Bilíngue**: Mesmos conceitos em português e inglês
 - **Variedade de Domínios**: Exemplos em todos os domínios MEF
-- **Melhores Práticas**: Uso adequado de versionamento, exemplos e relacionamentos
+- **Relacionamentos Semânticos Tipados**: Demonstra o novo formato de relacionamentos tipados
+- **Melhores Práticas**: Uso adequado de versionamento, exemplos e conexões semânticas
 - **Cenários Reais**: Situações práticas que equipes enfrentam diariamente
 
 ## 🚀 Usage | Uso
@@ -60,6 +62,26 @@ Use estes exemplos como:
 2. **Material de Aprendizado**: Compreensão dos conceitos MEF
 3. **Validação**: Teste de implementações MEF
 4. **Treinamento**: Integração de membros da equipe ao MEF
+
+## 🔗 Typed Semantic Relationships | Relacionamentos Semânticos Tipados
+
+All examples demonstrate the new typed relationship format:
+Todos os exemplos demonstram o novo formato de relacionamentos tipados:
+
+```yaml
+related_to:
+  - target: unik-target-id
+    relation_type: implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to
+    description: Clear description of the relationship
+```
+
+### Relationship Types Used | Tipos de Relacionamento Utilizados
+
+- **`implements`**: Implements patterns, guidelines, or rules | Implementa padrões, diretrizes ou regras
+- **`complies_with`**: Follows policies or standards | Segue políticas ou padrões  
+- **`depends_on`**: Requires other knowledge to function | Requer outro conhecimento para funcionar
+- **`extends`**: Extends or enhances existing concepts | Estende ou aprimora conceitos existentes
+- **`relates_to`**: General contextual relationship | Relacionamento contextual geral
 
 ## 🔗 Related Documentation | Documentação Relacionada
 

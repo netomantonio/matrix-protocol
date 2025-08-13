@@ -139,9 +139,15 @@ flow_execution:
           - input: "First week of use"
             output: "Progressive collection: additional info via micro-interactions"
         related_to:
-          - unik-business-conversion-optimization
-          - unik-strategy-user-retention-goals
-          - unik-product-incremental-refinement-pattern
+          - target: unik-business-conversion-optimization
+            relation_type: implements
+            description: Implements conversion optimization strategies
+          - target: unik-strategy-user-retention-goals
+            relation_type: complies_with
+            description: Meets strategic user retention goals
+          - target: unik-product-incremental-refinement-pattern
+            relation_type: extends
+            description: Extends incremental refinement pattern
         intent_of_use:
           - guide_product_design
           - optimize_conversion
@@ -196,9 +202,15 @@ flow_execution:
           - input: "Indicator worsens in validation"
             output: "Automatic rollback to previous version"
         related_to:
-          - unik-product-user-onboarding-flow
-          - unik-business-conversion-optimization
-          - unik-product-validation-methodology
+          - target: unik-product-user-onboarding-flow
+            relation_type: extends
+            description: Extends onboarding flow with improvements
+          - target: unik-business-conversion-optimization
+            relation_type: implements
+            description: Implements validated conversion optimizations
+          - target: unik-product-validation-methodology
+            relation_type: derives_from
+            description: Derived from validation methodology
         intent_of_use:
           - guide_product_improvement
           - standardize_testing

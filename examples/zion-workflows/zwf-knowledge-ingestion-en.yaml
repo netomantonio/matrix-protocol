@@ -151,8 +151,12 @@ flow_execution:
           - input: "Request with previous validation"
             output: "Fallback to previous method during transition period"
         related_to:
-          - unik-technical-api-integration-standards
-          - unik-technical-existing-integration-patterns
+          - target: unik-technical-api-integration-standards
+            relation_type: complies_with
+            description: Follows API integration standards
+          - target: unik-technical-existing-integration-patterns
+            relation_type: extends
+            description: Extends existing integration patterns
         intent_of_use:
           - ensure_security
           - prevent_breaking_changes
@@ -202,8 +206,12 @@ flow_execution:
           - input: "Reading existing record"
             output: "Fallback to old field if new field doesn't exist"
         related_to:
-          - unik-technical-existing-integration-patterns
-          - unik-technical-api-migration-best-practices
+          - target: unik-technical-existing-integration-patterns
+            relation_type: derives_from
+            description: Derived from existing integration patterns
+          - target: unik-technical-api-migration-best-practices
+            relation_type: implements
+            description: Implements API migration best practices
         intent_of_use:
           - guide_migration
           - prevent_breaking_changes
@@ -252,8 +260,12 @@ flow_execution:
           - input: "Header indicating limit proximity"
             output: "Preventively pause requests"
         related_to:
-          - unik-technical-api-integration-standards
-          - unik-technical-error-handling-patterns
+          - target: unik-technical-api-integration-standards
+            relation_type: complies_with
+            description: Follows API integration standards
+          - target: unik-technical-error-handling-patterns
+            relation_type: relates_to
+            description: Relates to error handling patterns
         intent_of_use:
           - prevent_errors
           - optimize_performance
@@ -299,8 +311,12 @@ flow_execution:
           - input: "Situation requiring special handling"
             output: "System handles automatically using new resources"
         related_to:
-          - unik-technical-api-validation-changes-2024
-          - unik-business-integration-requirements
+          - target: unik-technical-api-validation-changes-2024
+            relation_type: implements
+            description: Implements API validation changes 2024
+          - target: unik-business-integration-requirements
+            relation_type: complies_with
+            description: Meets business integration requirements
         intent_of_use:
           - generate_code
           - understand_implementation
@@ -366,10 +382,18 @@ flow_execution:
           - input: "Critical error during migration"
             output: "Automatic rollback triggered"
         related_to:
-          - unik-technical-api-validation-changes-2024
-          - unik-technical-integration-migration-pattern
-          - unik-technical-api-rate-limiting-strategy
-          - unik-technical-updated-integration-example
+          - target: unik-technical-api-validation-changes-2024
+            relation_type: extends
+            description: Extends validation changes with improvements
+          - target: unik-technical-integration-migration-pattern
+            relation_type: implements
+            description: Implements integration migration pattern
+          - target: unik-technical-api-rate-limiting-strategy
+            relation_type: relates_to
+            description: Relates to rate limiting strategy
+          - target: unik-technical-updated-integration-example
+            relation_type: replaces
+            description: Replaces previous integration example
         intent_of_use:
           - guide_migration
           - standardize_process

@@ -144,9 +144,15 @@ flow_execution:
           - input: "Refresh request with valid token"
             output: "New access token generated maintaining refresh token"
         related_to:
-          - unik-technical-jwt-authentication-pattern
-          - unik-business-security-requirements
-          - unik-technical-api-error-handling
+          - target: unik-technical-jwt-authentication-pattern
+            relation_type: derives_from
+            description: Derived from JWT technical authentication pattern
+          - target: unik-business-security-requirements
+            relation_type: implements
+            description: Implements business security requirements
+          - target: unik-technical-api-error-handling
+            relation_type: relates_to
+            description: Relates to error handling patterns
         intent_of_use:
           - generate_code
           - understand_implementation
@@ -193,8 +199,12 @@ flow_execution:
           - input: "Logout"
             output: "Refresh token invalidated"
         related_to:
-          - unik-technical-jwt-authentication-pattern
-          - unik-technical-authentication-implementation-example
+          - target: unik-technical-jwt-authentication-pattern
+            relation_type: extends
+            description: Extends the pattern with improvement example
+          - target: unik-technical-authentication-implementation-example
+            relation_type: replaces
+            description: Replaces previous implementation with improvements
         intent_of_use:
           - standardize_process
           - improve_performance

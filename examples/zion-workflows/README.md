@@ -75,7 +75,24 @@ Mostra como processar conhecimento externo estruturadamente:
 ### Relacionamentos com Oráculo
 - **Entrada:** Consulta de UKIs para fundamentar decisões
 - **Saída:** Criação/atualização de UKIs relacionados
-- **Rastreabilidade:** Campo `related_to` conectando aprendizados
+- **Rastreabilidade:** Campo `related_to` com relacionamentos semânticos tipados
+
+### Relacionamentos Semânticos Tipados
+Todos os exemplos demonstram o novo formato de relacionamentos tipados:
+
+```yaml
+related_to:
+  - target: unik-target-id
+    relation_type: implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to
+    description: Descrição clara da relação
+```
+
+**Tipos utilizados nos exemplos:**
+- `implements` - Implementa padrões ou regras
+- `complies_with` - Segue políticas ou padrões
+- `extends` - Estende conceitos existentes
+- `derives_from` - Derivado de conhecimento base
+- `relates_to` - Relacionamento contextual geral
 
 ---
 
@@ -217,7 +234,24 @@ Shows how to process external knowledge in a structured way:
 ### Oracle Relationships
 - **Input:** UKI queries to support decisions
 - **Output:** Creation/update of related UKIs
-- **Traceability:** `related_to` field connecting learnings
+- **Traceability:** `related_to` field with typed semantic relationships
+
+### Typed Semantic Relationships
+All examples demonstrate the new typed relationship format:
+
+```yaml
+related_to:
+  - target: unik-target-id
+    relation_type: implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to
+    description: Clear description of the relationship
+```
+
+**Types used in examples:**
+- `implements` - Implements patterns or rules
+- `complies_with` - Follows policies or standards
+- `extends` - Extends existing concepts
+- `derives_from` - Derived from base knowledge
+- `relates_to` - General contextual relationship
 
 ---
 

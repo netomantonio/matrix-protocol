@@ -79,7 +79,9 @@ examples:
   - input: [Real scenario]
     output: [Expected result]
 related_to:
-  - unik-[other-related-units]
+  - target: unik-[target-uki-id]
+    relation_type: [implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to]
+    description: [Specific description of the relationship]
 last_validation: [YYYY-MM-DD]
 ```
 
@@ -87,7 +89,7 @@ last_validation: [YYYY-MM-DD]
 - Organize by domain directories (`technical/`, `business/`, `product/`, etc.)
 - Use semantic IDs following `unik-domain-identifier` pattern
 - Implement semantic versioning for knowledge evolution tracking
-- Maintain bidirectional relationships between related concepts
+- Maintain bidirectional relationships between related concepts using typed semantic relationships
 - Regular validation of content freshness and accuracy
 - Document change impact and maintain version history
 

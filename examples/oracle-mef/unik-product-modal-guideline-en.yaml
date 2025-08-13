@@ -78,7 +78,13 @@ examples:
   - input: "View detailed report"
     output: "Large modal with tabular data and 'Close' button"
 related_to:
-  - unik-product-design-system
-  - unik-technical-accessibility-standards
-  - unik-product-component-library
+  - target: unik-product-design-system
+    relation_type: implements
+    description: Implements design system guidelines
+  - target: unik-technical-accessibility-standards
+    relation_type: complies_with
+    description: Follows technical accessibility standards
+  - target: unik-product-component-library
+    relation_type: extends
+    description: Extends standard component library
 last_validation: "2024-08-12"

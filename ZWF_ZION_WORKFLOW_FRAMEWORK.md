@@ -221,6 +221,178 @@ timestamp: "2024-01-15 14:30:22"
 
 ---
 
+## ⚖️ INVARIANTES DE ESTADO (FORMAL)
+
+Para garantir a execução robusta e determinística, cada estado ZWF deve atender invariantes conceituais que podem ser implementados por engines duráveis:
+
+### 📋 **Invariantes por Estado**
+
+#### 📨 **Intake State**
+```yaml
+preconditions:
+  - trigger_event: defined
+  - event_type: valid_canonical_event
+postconditions:
+  - context_structured: true
+  - trigger_validated: true
+  - oracle_context_prepared: true
+validation:
+  required_fields: [flow_id, triggered_by, oracle_context]
+  context_format: structured
+```
+
+#### 🧠 **Understand State**
+```yaml
+preconditions:
+  - intake_completed: true
+  - context_structured: true
+postconditions:
+  - oracle_consulted: true
+  - ukis_identified: min_1
+  - strategy_defined: true
+validation:
+  required_ukis: min_1
+  oracle_response: structured
+  understanding_documented: true
+```
+
+#### ⚖️ **Decide State**
+```yaml
+preconditions:
+  - understanding_completed: true
+  - oracle_knowledge_available: true
+postconditions:
+  - decision_made: true
+  - reasoning_documented: true
+  - action_plan_defined: true
+validation:
+  decision_rationale: required
+  reasoning_ukis: min_1
+  action_plan: structured
+```
+
+#### 🎯 **Act State**
+```yaml
+preconditions:
+  - decision_made: true
+  - action_plan_defined: true
+postconditions:
+  - action_executed: true
+  - execution_result: documented
+  - learning_context_captured: true
+validation:
+  execution_evidence: required
+  result_documentation: structured
+  error_handling: documented
+```
+
+#### 👁️ **Review State (Optional)**
+```yaml
+preconditions:
+  - action_executed: true
+  - review_required: true
+postconditions:
+  - validation_completed: true
+  - approval_status: defined
+  - feedback_documented: true
+validation:
+  review_criteria: defined
+  reviewer_input: documented
+  outcome_clear: true
+```
+
+#### 🔄 **Enrich State (Mandatory)**
+```yaml
+preconditions:
+  - workflow_completed: true
+  - learning_captured: true
+postconditions:
+  - uki_created: true
+  - oracle_updated: true
+  - relationships_established: true
+validation:
+  uki_format: mef_compliant
+  related_to: motivating_ukis_referenced
+  content_meaningful: true
+```
+
+### 🔄 **Invariantes de Transição**
+
+#### **Estado para Estado**
+```yaml
+# Regras gerais de transição
+transition_rules:
+  intake_to_understand:
+    condition: context_structured AND oracle_context_prepared
+  understand_to_decide:
+    condition: oracle_consulted AND strategy_defined
+  decide_to_act:
+    condition: decision_made AND action_plan_defined
+  act_to_review:
+    condition: action_executed AND review_required
+  act_to_enrich:
+    condition: action_executed AND NOT review_required
+  review_to_enrich:
+    condition: validation_completed
+```
+
+#### **Idempotência**
+```yaml
+# Garantias de execução segura
+idempotency_rules:
+  state_reentry: safe_if_postconditions_unmet
+  oracle_consultation: cacheable_within_session
+  enrichment: atomic_uki_creation
+```
+
+### 🚨 **Tratamento de Falhas**
+
+#### **Comportamento em Erro**
+```yaml
+error_handling:
+  oracle_unavailable:
+    action: defer_until_available
+    fallback: use_cached_ukis_if_recent
+  invalid_state_transition:
+    action: revert_to_last_valid_state
+    log: violation_details
+  enrichment_failure:
+    action: mandatory_retry
+    escalation: human_intervention
+```
+
+#### **Recuperação de Estado**
+```yaml
+recovery_patterns:
+  partial_execution:
+    action: resume_from_last_valid_checkpoint
+  data_corruption:
+    action: reconstruct_from_audit_trail
+  timeout_exceeded:
+    action: graceful_degradation_with_logging
+```
+
+### 📊 **Verificação de Consistência**
+
+#### **Validações Automáticas**
+```yaml
+consistency_checks:
+  oracle_binding:
+    - motivating_ukis_exist
+    - reasoning_ukis_accessible
+    - enrichment_ukis_valid
+  explainability:
+    - signals_complete_per_state
+    - decision_rationale_traceable
+    - oracle_consultation_documented
+  workflow_integrity:
+    - all_mandatory_states_executed
+    - enrichment_always_final
+    - relationships_bidirectional
+```
+
+---
+
 ## 🎪 PADRÕES DE FLUXO (COBERTURA MÍNIMA)
 
 ### 📥 **Ingest (knowledge.added)**
@@ -558,6 +730,178 @@ oracle_ukis_used:
   - unik-technical-jwt-authentication-pattern
   - unik-business-token-expiration-policy
 timestamp: "2024-01-15 14:30:22"
+```
+
+---
+
+## ⚖️ STATE INVARIANTS (FORMAL)
+
+To ensure robust and deterministic execution, each ZWF state must meet conceptual invariants that can be implemented by durable engines:
+
+### 📋 **Invariants per State**
+
+#### 📨 **Intake State**
+```yaml
+preconditions:
+  - trigger_event: defined
+  - event_type: valid_canonical_event
+postconditions:
+  - context_structured: true
+  - trigger_validated: true
+  - oracle_context_prepared: true
+validation:
+  required_fields: [flow_id, triggered_by, oracle_context]
+  context_format: structured
+```
+
+#### 🧠 **Understand State**
+```yaml
+preconditions:
+  - intake_completed: true
+  - context_structured: true
+postconditions:
+  - oracle_consulted: true
+  - ukis_identified: min_1
+  - strategy_defined: true
+validation:
+  required_ukis: min_1
+  oracle_response: structured
+  understanding_documented: true
+```
+
+#### ⚖️ **Decide State**
+```yaml
+preconditions:
+  - understanding_completed: true
+  - oracle_knowledge_available: true
+postconditions:
+  - decision_made: true
+  - reasoning_documented: true
+  - action_plan_defined: true
+validation:
+  decision_rationale: required
+  reasoning_ukis: min_1
+  action_plan: structured
+```
+
+#### 🎯 **Act State**
+```yaml
+preconditions:
+  - decision_made: true
+  - action_plan_defined: true
+postconditions:
+  - action_executed: true
+  - execution_result: documented
+  - learning_context_captured: true
+validation:
+  execution_evidence: required
+  result_documentation: structured
+  error_handling: documented
+```
+
+#### 👁️ **Review State (Optional)**
+```yaml
+preconditions:
+  - action_executed: true
+  - review_required: true
+postconditions:
+  - validation_completed: true
+  - approval_status: defined
+  - feedback_documented: true
+validation:
+  review_criteria: defined
+  reviewer_input: documented
+  outcome_clear: true
+```
+
+#### 🔄 **Enrich State (Mandatory)**
+```yaml
+preconditions:
+  - workflow_completed: true
+  - learning_captured: true
+postconditions:
+  - uki_created: true
+  - oracle_updated: true
+  - relationships_established: true
+validation:
+  uki_format: mef_compliant
+  related_to: motivating_ukis_referenced
+  content_meaningful: true
+```
+
+### 🔄 **Transition Invariants**
+
+#### **State to State**
+```yaml
+# General transition rules
+transition_rules:
+  intake_to_understand:
+    condition: context_structured AND oracle_context_prepared
+  understand_to_decide:
+    condition: oracle_consulted AND strategy_defined
+  decide_to_act:
+    condition: decision_made AND action_plan_defined
+  act_to_review:
+    condition: action_executed AND review_required
+  act_to_enrich:
+    condition: action_executed AND NOT review_required
+  review_to_enrich:
+    condition: validation_completed
+```
+
+#### **Idempotency**
+```yaml
+# Safe execution guarantees
+idempotency_rules:
+  state_reentry: safe_if_postconditions_unmet
+  oracle_consultation: cacheable_within_session
+  enrichment: atomic_uki_creation
+```
+
+### 🚨 **Failure Handling**
+
+#### **Error Behavior**
+```yaml
+error_handling:
+  oracle_unavailable:
+    action: defer_until_available
+    fallback: use_cached_ukis_if_recent
+  invalid_state_transition:
+    action: revert_to_last_valid_state
+    log: violation_details
+  enrichment_failure:
+    action: mandatory_retry
+    escalation: human_intervention
+```
+
+#### **State Recovery**
+```yaml
+recovery_patterns:
+  partial_execution:
+    action: resume_from_last_valid_checkpoint
+  data_corruption:
+    action: reconstruct_from_audit_trail
+  timeout_exceeded:
+    action: graceful_degradation_with_logging
+```
+
+### 📊 **Consistency Verification**
+
+#### **Automatic Validations**
+```yaml
+consistency_checks:
+  oracle_binding:
+    - motivating_ukis_exist
+    - reasoning_ukis_accessible
+    - enrichment_ukis_valid
+  explainability:
+    - signals_complete_per_state
+    - decision_rationale_traceable
+    - oracle_consultation_documented
+  workflow_integrity:
+    - all_mandatory_states_executed
+    - enrichment_always_final
+    - relationships_bidirectional
 ```
 
 ---

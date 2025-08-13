@@ -55,7 +55,9 @@ examples:
   - input: [Exemplo de entrada real ou simulada]
     output: [Resultado esperado ou consequência]
 related_to:
-  - unik-[id de outras UKIs relacionadas semanticamente]
+  - target: unik-[target-uki-id]
+    relation_type: [implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to]
+    description: [Descrição específica da relação]
 last_validation: [YYYY-MM-DD]  # Data da última revisão e validação de conteúdo
 ```
 
@@ -286,22 +288,35 @@ examples:
 - Incluir casos extremos quando relevante
 
 ### 🔹 `related_to`
-**Opcional** | **Lista de Strings**
+**Opcional** | **Lista de Objetos**
 
-Lista de IDs de outras UKIs que são semanticamente relacionadas.
+Lista de relacionamentos semânticos tipados com outras UKIs. Cada relacionamento especifica o tipo de conexão e sua descrição para construção de grafos de conhecimento.
 
-**Diretrizes:**
-- Usar IDs completos (`unik-domain-identifier`)
-- Criar redes semânticas
-- Evitar conexões excessivas
-- Priorizar relacionamentos diretos
+**Tipos de Relação Semântica:**
 
-**Exemplos:**
+| Tipo | Descrição | Uso |
+|------|-----------|-----|
+| `implements` | Implementa um padrão, guideline ou especificação | Códigos que seguem padrões |
+| `depends_on` | Depende de outro conhecimento para funcionar | Dependências técnicas/conceituais |
+| `extends` | Estende ou especializa um conceito base | Heranças, refinamentos |
+| `replaces` | Substitui conhecimento anterior | Evoluções, migrações |
+| `complies_with` | Segue uma política, regra ou standard | Conformidade regulatória |
+| `conflicts_with` | Conflita ou é incompatível com outro conhecimento | Identificação de incompatibilidades |
+| `derives_from` | Derivado ou baseado em outro conhecimento | Conhecimento originado |
+| `relates_to` | Relacionamento genérico | Relacionamentos contextuais |
+
+**Formato:**
 ```yaml
 related_to:
-  - unik-technical-oauth-implementation
-  - unik-business-user-authentication-policy
-  - unik-product-login-flow
+  - target: unik-technical-oauth-implementation
+    relation_type: extends
+    description: Estende implementação OAuth com JWT
+  - target: unik-business-user-authentication-policy
+    relation_type: complies_with
+    description: Segue política de autenticação corporativa
+  - target: unik-product-login-flow
+    relation_type: implements
+    description: Implementa fluxo de login do produto
 ```
 
 ### 🔹 `last_validation`
@@ -467,6 +482,250 @@ Esse modelo garante que a Matrix se expanda como uma base de conhecimento orgân
 
 ---
 
+# 📋 EXEMPLOS PRÁTICOS DE UKIs
+
+## Exemplo 1: Padrão Técnico
+```yaml
+id: unik-technical-api-error-handling
+title: Padrão de Tratamento de Erros em API
+domain: technical
+type: pattern
+context: implementation
+version: "1.0.0"
+created_date: "2024-01-15"
+last_modified: "2024-01-15"
+intent_of_use:
+  - standardize_error_responses
+  - improve_api_consistency
+  - facilitate_debugging
+use_case_stage:
+  - implementation
+  - peer_review
+  - testing
+language: pt_BR
+content: |
+  Padrão padronizado para tratamento e retorno de erros em APIs REST.
+  
+  Estrutura de resposta de erro:
+  '''json
+  {
+    "error": {
+      "code": "VALIDATION_ERROR",
+      "message": "Dados inválidos fornecidos",
+      "details": [
+        {
+          "field": "email",
+          "message": "Email deve ter formato válido"
+        }
+      ],
+      "timestamp": "2024-01-15T10:30:00Z",
+      "request_id": "uuid-123-456"
+    }
+  }
+  '''
+ ``` 
+---
+  Códigos de status HTTP:
+  - 400: Erro de validação ou request malformado
+  - 401: Não autenticado
+  - 403: Não autorizado
+  - 404: Recurso não encontrado
+  - 500: Erro interno do servidor
+examples:
+  - input: "Erro de validação de email inválido"
+    output: "Status 400 com código VALIDATION_ERROR e detalhes do campo email"
+  - input: "Tentativa de acesso sem token JWT"
+    output: "Status 401 com código AUTHENTICATION_REQUIRED"
+related_to:
+  - target: unik-technical-api-response-format
+    relation_type: implements
+    description: Implementa formato padrão de resposta da API
+  - target: unik-technical-logging-standards
+    relation_type: complies_with
+    description: Segue padrões de logging para auditoria
+last_validation: "2024-01-15"
+```
+
+## Exemplo 2: Regra de Negócio
+```yaml
+id: unik-business-discount-calculation
+title: Regra de Cálculo de Desconto de Cliente
+domain: business
+type: business_rule
+context: implementation
+version: "1.2.0"
+created_date: "2024-01-10"
+last_modified: "2024-01-15"
+change_summary: "Adicionado desconto para clientes premium e limite máximo"
+change_impact: "minor"
+previous_version: "1.1.0"
+intent_of_use:
+  - calculate_customer_discounts
+  - ensure_pricing_consistency
+  - automate_business_logic
+use_case_stage:
+  - implementation
+  - testing
+  - training
+language: pt_BR
+content: |
+  Regra para calcular desconto automático baseado no perfil e histórico do cliente.
+  
+  Cálculo de desconto:
+  1. Cliente Novo (< 3 meses): 5%
+  2. Cliente Regular (3-12 meses): 10%
+  3. Cliente Fiel (> 12 meses): 15%
+  4. Cliente Premium: +5% adicional
+  5. Desconto máximo: 25%
+  
+  Fórmula:
+  ```
+  desconto_base = perfil_cliente.desconto_percentual
+  desconto_premium = cliente.is_premium ? 5 : 0
+  desconto_total = min(desconto_base + desconto_premium, 25)
+  valor_final = valor_original * (1 - desconto_total/100)
+  ```
+examples:
+  - input: "Cliente fiel premium comprando R$ 1000"
+    output: "Desconto 20% (15% + 5%), valor final R$ 800"
+  - input: "Cliente novo comprando R$ 500"
+    output: "Desconto 5%, valor final R$ 475"
+related_to:
+  - target: unik-business-loyalty-program
+    relation_type: implements
+    description: Implementa regras do programa de fidelidade
+  - target: unik-product-checkout-flow
+    relation_type: relates_to
+    description: Aplicado durante o processo de checkout
+last_validation: "2024-01-15"
+```
+
+## Exemplo 3: Diretriz de Produto
+```yaml
+id: unik-product-modal-design
+title: Diretrizes de Design para Modais
+domain: product
+type: guideline
+context: design
+version: "1.0.0"
+created_date: "2024-01-08"
+last_modified: "2024-01-08"
+intent_of_use:
+  - standardize_ui_components
+  - guide_design_decisions
+  - ensure_accessibility
+use_case_stage:
+  - design
+  - implementation
+  - peer_review
+language: pt_BR
+content: |
+  Diretrizes para criar modais consistentes e acessíveis na aplicação.
+  
+  Princípios fundamentais:
+  1. Use modais moderadamente - apenas para ações críticas ou informações importantes
+  2. Sempre forneça uma forma clara de fechar (botão X + tecla ESC)
+  3. Inclua ação primária e secundária quando apropriado
+  4. Use tamanhos apropriados (pequeno: 400px, médio: 600px, grande: 800px)
+  5. Centre vertical e horizontalmente
+  6. Inclua gestão adequada de foco para acessibilidade
+  
+  Estrutura do modal:
+  - Cabeçalho: Título + botão fechar
+  - Corpo: Conteúdo principal com hierarquia clara
+  - Rodapé: Botões de ação (primário à direita, secundário à esquerda)
+examples:
+  - input: "Confirmar ação de exclusão"
+    output: "Modal médio com botões 'Excluir' (perigo) e 'Cancelar'"
+  - input: "Exibir informações do perfil do usuário"
+    output: "Modal grande com botões 'Editar Perfil' e 'Fechar'"
+related_to:
+  - target: unik-product-design-system
+    relation_type: implements
+    description: Implementa componentes do sistema de design
+  - target: unik-technical-accessibility-standards
+    relation_type: complies_with
+    description: Segue padrões de acessibilidade técnica
+last_validation: "2024-01-08"
+```
+
+---
+
+# 🔄 RELACIONAMENTOS SEMÂNTICOS
+
+## Relacionamentos Semânticos Tipados
+
+O MEF utiliza relacionamentos semânticos tipados para construir grafos de conhecimento ricos e habilitar governança automatizada entre UKIs.
+
+### 🏗️ **Dependências de Implementação** (`implements` / `depends_on`)
+UKIs que implementam padrões ou dependem de outros conhecimentos para funcionalidade.
+
+**Exemplos:**
+```yaml
+# unik-technical-jwt-implementation
+related_to:
+  - target: unik-technical-jwt-validation
+    relation_type: depends_on
+    description: Requer lógica de validação JWT para funcionar adequadamente
+  - target: unik-technical-authentication-pattern
+    relation_type: implements
+    description: Implementa o padrão de autenticação padronizado
+```
+
+### 🌿 **Evolução do Conhecimento** (`extends` / `derives_from` / `replaces`)
+UKIs que representam evolução, especialização ou substituição de conhecimento.
+
+**Exemplos:**
+```yaml
+# unik-technical-oauth2-implementation
+related_to:
+  - target: unik-technical-oauth-basic
+    relation_type: extends
+    description: Estende OAuth básico com PKCE e refresh tokens
+  - target: unik-technical-legacy-auth
+    relation_type: replaces
+    description: Substitui método de autenticação descontinuado
+```
+
+### 🛡️ **Relacionamentos de Conformidade** (`complies_with` / `conflicts_with`)
+UKIs que seguem políticas ou identificam incompatibilidades.
+
+**Exemplos:**
+```yaml
+# unik-technical-encryption-standard
+related_to:
+  - target: unik-business-data-protection-policy
+    relation_type: complies_with
+    description: Segue requisitos de proteção de dados corporativos
+  - target: unik-technical-legacy-encryption
+    relation_type: conflicts_with
+    description: Incompatível com métodos de criptografia descontinuados
+```
+
+### 🌐 **Associações Contextuais** (`relates_to`)
+Relacionamentos genéricos para conexões contextuais que não se encaixam em tipos específicos.
+
+**Exemplo:**
+```yaml
+# unik-product-user-onboarding
+related_to:
+  - target: unik-technical-user-registration-api
+    relation_type: relates_to
+    description: Compartilha contexto no domínio de gestão de usuários
+  - target: unik-business-user-retention-strategy
+    relation_type: relates_to
+    description: Contribui para estratégia de retenção de usuários
+```
+
+## Diretrizes de Relacionamento
+
+1. **Precisão Semântica**: Use tipos específicos de relação quando aplicável
+2. **Consistência Bidirecional**: Garanta que relacionamentos reversos façam sentido semântico
+3. **Descrições Claras**: Sempre forneça descrições significativas para cada relacionamento
+4. **Governança Habilitada**: Relacionamentos tipados permitem análise de impacto e validação automatizada
+
+---
+
 <a name="english"></a>
 # English 🇺🇸
 
@@ -515,7 +774,9 @@ examples:
   - input: [Real or simulated input example]
     output: [Expected result or consequence]
 related_to:
-  - unik-[id of other semantically related UKIs]
+  - target: unik-[target-uki-id]
+    relation_type: [implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to]
+    description: [Specific description of the relationship]
 last_validation: [YYYY-MM-DD]  # Date of last content review and validation
 ```
 
@@ -746,22 +1007,35 @@ Language of the textual content.
 - *Other ISO codes as needed*
 
 ### 🔹 `related_to`
-**Optional** | **List of Strings**
+**Optional** | **List of Objects**
 
-List of IDs of other UKIs that are semantically related.
+List of typed semantic relationships with other UKIs. Each relationship specifies the connection type and description for knowledge graph construction.
 
-**Guidelines:**
-- Use complete IDs (`unik-domain-identifier`)
-- Create semantic networks
-- Avoid excessive connections
-- Prioritize direct relationships
+**Semantic Relation Types:**
 
-**Examples:**
+| Type | Description | Usage |
+|------|-------------|-------|
+| `implements` | Implements a pattern, guideline or specification | Code following patterns |
+| `depends_on` | Depends on other knowledge to function | Technical/conceptual dependencies |
+| `extends` | Extends or specializes a base concept | Inheritance, refinements |
+| `replaces` | Replaces previous knowledge | Evolutions, migrations |
+| `complies_with` | Follows a policy, rule or standard | Regulatory compliance |
+| `conflicts_with` | Conflicts or is incompatible with other knowledge | Incompatibility identification |
+| `derives_from` | Derived or based on other knowledge | Originated knowledge |
+| `relates_to` | Generic relationship | Contextual relationships |
+
+**Format:**
 ```yaml
 related_to:
-  - unik-technical-oauth-implementation
-  - unik-business-user-authentication-policy
-  - unik-product-login-flow
+  - target: unik-technical-oauth-implementation
+    relation_type: extends
+    description: Extends OAuth implementation with JWT
+  - target: unik-business-user-authentication-policy
+    relation_type: complies_with
+    description: Follows corporate authentication policy
+  - target: unik-product-login-flow
+    relation_type: implements
+    description: Implements product login flow
 ```
 
 ### 🔹 `last_validation`
@@ -922,46 +1196,76 @@ last_validation: 2024-01-08
 
 # 🔄 SEMANTIC RELATIONSHIPS
 
-## Types of Relationships
+## Typed Semantic Relationships
 
-### 🔗 **Direct Dependencies**
-UKIs that depend directly on each other for complete understanding.
+MEF uses typed semantic relationships to build rich knowledge graphs and enable automated governance between UKIs.
 
-**Example:**
+### 🏗️ **Implementation Dependencies** (`implements` / `depends_on`)
+UKIs that implement patterns or depend on other knowledge for functionality.
+
+**Examples:**
 ```yaml
 # unik-technical-jwt-implementation
 related_to:
-  - unik-technical-jwt-validation  # Direct dependency
+  - target: unik-technical-jwt-validation
+    relation_type: depends_on
+    description: Requires JWT validation logic to function properly
+  - target: unik-technical-authentication-pattern
+    relation_type: implements
+    description: Implements the standardized authentication pattern
 ```
 
-### 🌐 **Contextual Associations**
-UKIs that share context or work domain but are not directly dependent.
+### 🌿 **Knowledge Evolution** (`extends` / `derives_from` / `replaces`)
+UKIs that represent knowledge evolution, specialization or replacement.
+
+**Examples:**
+```yaml
+# unik-technical-oauth2-implementation
+related_to:
+  - target: unik-technical-oauth-basic
+    relation_type: extends
+    description: Extends basic OAuth with PKCE and refresh tokens
+  - target: unik-technical-legacy-auth
+    relation_type: replaces
+    description: Replaces deprecated authentication method
+```
+
+### 🛡️ **Compliance Relationships** (`complies_with` / `conflicts_with`)
+UKIs that follow policies or identify incompatibilities.
+
+**Examples:**
+```yaml
+# unik-technical-encryption-standard
+related_to:
+  - target: unik-business-data-protection-policy
+    relation_type: complies_with
+    description: Follows corporate data protection requirements
+  - target: unik-technical-legacy-encryption
+    relation_type: conflicts_with
+    description: Incompatible with deprecated encryption methods
+```
+
+### 🌐 **Contextual Associations** (`relates_to`)
+Generic relationships for contextual connections that don't fit specific types.
 
 **Example:**
 ```yaml
 # unik-product-user-onboarding
 related_to:
-  - unik-business-user-retention-strategy  # Same context
-  - unik-technical-user-registration-api   # Same domain
-```
-
-### 📚 **Knowledge Hierarchies**
-Parent-child relationships where one UKI is a specialization of another.
-
-**Example:**
-```yaml
-# unik-technical-api-authentication (parent)
-related_to:
-  - unik-technical-jwt-authentication     # Specialization
-  - unik-technical-oauth-authentication   # Specialization
+  - target: unik-technical-user-registration-api
+    relation_type: relates_to
+    description: Shares context in user management domain
+  - target: unik-business-user-retention-strategy
+    relation_type: relates_to
+    description: Contributes to user retention strategy
 ```
 
 ## Relationship Guidelines
 
-1. **Bidirectional**: If A relates to B, consider if B should relate to A
-2. **Relevant**: Only include relationships that add real value
-3. **Maintained**: Update relationships when UKIs are modified or removed
-4. **Discoverable**: Relationships should help in knowledge navigation
+1. **Semantic Precision**: Use specific relation types when applicable
+2. **Bidirectional Consistency**: Ensure reverse relationships make semantic sense
+3. **Clear Descriptions**: Always provide meaningful descriptions for each relationship
+4. **Governance Enabled**: Typed relationships enable automated impact analysis and validation
 
 ---
 
