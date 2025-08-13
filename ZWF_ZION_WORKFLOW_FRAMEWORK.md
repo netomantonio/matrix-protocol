@@ -221,6 +221,109 @@ timestamp: "2024-01-15 14:30:22"
 
 ---
 
+## 📊 MÉTRICAS CANÔNICAS DE TELEMETRIA
+
+Para observabilidade e monitoramento efetivo de workflows ZWF, estabelecemos métricas padronizadas que devem ser coletadas durante a execução de cada fluxo.
+
+### 🕘 **Métricas de Tempo entre Estados**
+```yaml
+state_transition_duration:
+  intake_to_understand: 
+    timestamp_start: "2024-01-15T14:30:22Z"
+    timestamp_end: "2024-01-15T14:32:15Z"
+    duration_seconds: 113
+  understand_to_decide:
+    timestamp_start: "2024-01-15T14:32:15Z"
+    timestamp_end: "2024-01-15T14:35:48Z"
+    duration_seconds: 213
+  decide_to_act:
+    timestamp_start: "2024-01-15T14:35:48Z"
+    timestamp_end: "2024-01-15T14:45:30Z"
+    duration_seconds: 582
+  act_to_review:
+    timestamp_start: "2024-01-15T14:45:30Z"
+    timestamp_end: "2024-01-15T14:48:12Z"
+    duration_seconds: 162
+  review_to_enrich:
+    timestamp_start: "2024-01-15T14:48:12Z"
+    timestamp_end: "2024-01-15T14:50:05Z"
+    duration_seconds: 113
+```
+
+### 📈 **Métricas de Qualidade de Transições**
+```yaml
+transition_quality_score:
+  overall_workflow_score: 85  # 0-100
+  state_scores:
+    intake: 90     # Completude da captura de contexto
+    understand: 88 # Qualidade da consulta ao Oráculo
+    decide: 82     # Fundamentação das decisões
+    act: 85        # Eficácia da execução
+    review: 95     # Qualidade da validação
+    enrich: 78     # Qualidade do UKI gerado
+  quality_factors:
+    oracle_coverage: 85      # % de decisões fundamentadas em UKIs
+    explainability_depth: 90 # Detalhamento dos sinais
+    relationship_clarity: 80 # Clareza dos related_to
+```
+
+### 🏥 **Métricas de Health do Workflow**
+```yaml
+workflow_health_metrics:
+  completion_status: "successful"  # successful | failed | partial
+  error_count: 0
+  warning_count: 2
+  retry_count: 1
+  state_coverage: 
+    total_states: 6
+    executed_states: 6
+    skipped_states: 0
+  oracle_availability: "available"  # available | degraded | unavailable
+  enrichment_success: true
+```
+
+### 🔮 **Métricas de Eficiência do Enriquecimento**
+```yaml
+oracle_enrichment_metrics:
+  ukis_consulted: 5
+  ukis_created: 1
+  ukis_updated: 0
+  relationship_count: 3
+  knowledge_domains_touched:
+    - technical
+    - business
+  semantic_coherence_score: 87  # 0-100
+  reusability_potential: "high"  # low | medium | high
+```
+
+### 📋 **Template Completo de Métricas**
+```yaml
+telemetry:
+  workflow_id: "zwf-jwt-implementation-001"
+  execution_start: "2024-01-15T14:30:22Z"
+  execution_end: "2024-01-15T14:50:05Z"
+  total_duration_seconds: 1183
+  
+  state_transition_duration: [estrutura acima]
+  transition_quality_score: [estrutura acima]
+  workflow_health_metrics: [estrutura acima]
+  oracle_enrichment_metrics: [estrutura acima]
+  
+  performance_indicators:
+    throughput_score: 85        # Velocidade vs. qualidade
+    efficiency_ratio: 0.73      # Tempo útil / tempo total
+    oracle_hit_rate: 0.89       # UKIs encontrados / UKIs buscados
+    decision_confidence: 0.85   # Confiança nas decisões tomadas
+  
+  observability_tags:
+    team: "backend-squad"
+    trigger_type: "work.proposed"
+    complexity_level: "medium"   # low | medium | high
+    ai_assistance_level: "high"  # none | low | medium | high
+```
+
+---
+
 ## ⚖️ INVARIANTES DE ESTADO (FORMAL)
 
 Para garantir a execução robusta e determinística, cada estado ZWF deve atender invariantes conceituais que podem ser implementados por engines duráveis:
@@ -390,6 +493,215 @@ consistency_checks:
     - enrichment_always_final
     - relationships_bidirectional
 ```
+
+---
+
+## 🔍 ESQUEMAS DE EXPLICABILIDADE VERIFICÁVEIS
+
+Para garantir a qualidade e consistência dos sinais de explicabilidade, o ZWF define schemas JSON formais para validação automática dos campos `context`, `decision` e `result` em cada estado do workflow.
+
+### 📋 **Schema Base para Sinais**
+
+#### **Schema para Context (O que entrou)**
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "context": {
+      "type": "string",
+      "pattern": "^O que entrou: .+",
+      "minLength": 20,
+      "maxLength": 500,
+      "description": "Descrição clara e objetiva do input recebido no estado"
+    }
+  },
+  "required": ["context"],
+  "additionalProperties": false
+}
+```
+
+#### **Schema para Decision (Por que transicionou)**
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object", 
+  "properties": {
+    "decision": {
+      "type": "string",
+      "pattern": "^Por que transicionou: .+baseado.+(unik-[a-z0-9-]+).+",
+      "minLength": 30,
+      "maxLength": 800,
+      "description": "Justificativa da transição referenciando UKIs do Oráculo"
+    }
+  },
+  "required": ["decision"],
+  "additionalProperties": false
+}
+```
+
+#### **Schema para Result (O que saiu)**
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "result": {
+      "type": "string",
+      "pattern": "^O que saiu: .+",
+      "minLength": 15,
+      "maxLength": 600,
+      "description": "Descrição clara do output produzido pelo estado"
+    }
+  },
+  "required": ["result"],
+  "additionalProperties": false
+}
+```
+
+### 🔗 **Schema Completo de Explicabilidade**
+
+#### **Schema Integrado para Validação de Estado**
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "flow_step": {
+      "type": "string",
+      "enum": ["intake", "understand", "decide", "act", "review", "enrich"]
+    },
+    "signals": {
+      "type": "object",
+      "properties": {
+        "context": {
+          "type": "string",
+          "pattern": "^O que entrou: .+",
+          "minLength": 20,
+          "maxLength": 500
+        },
+        "decision": {
+          "type": "string", 
+          "pattern": "^Por que transicionou: .+baseado.+(unik-[a-z0-9-]+).+",
+          "minLength": 30,
+          "maxLength": 800
+        },
+        "result": {
+          "type": "string",
+          "pattern": "^O que saiu: .+",
+          "minLength": 15,
+          "maxLength": 600
+        }
+      },
+      "required": ["context", "decision", "result"],
+      "additionalProperties": false
+    },
+    "oracle_ukis_used": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^unik-[a-z0-9-]+$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$"
+    }
+  },
+  "required": ["flow_step", "signals", "oracle_ukis_used", "timestamp"],
+  "additionalProperties": false
+}
+```
+
+### ✅ **Exemplos de Validação Bem-Sucedida**
+
+#### **Exemplo Válido - Estado Decide**
+```yaml
+# Input que PASSA na validação
+flow_step: "decide"
+signals:
+  context: "O que entrou: solicitação para implementar autenticação JWT na API principal"
+  decision: "Por que transicionou: escolhido padrão bearer token baseado no unik-technical-jwt-authentication-pattern que especifica melhores práticas de segurança"
+  result: "O que saiu: definido usar biblioteca jsonwebtoken com configuração de expiração de 15 minutos"
+oracle_ukis_used:
+  - unik-technical-jwt-authentication-pattern
+  - unik-business-token-expiration-policy
+timestamp: "2024-01-15 14:30:22"
+```
+
+#### **Exemplo Válido - Estado Act**
+```yaml
+# Input que PASSA na validação
+flow_step: "act"
+signals:
+  context: "O que entrou: plano de implementação de JWT com biblioteca jsonwebtoken aprovado"
+  decision: "Por que transicionou: executada implementação baseado no unik-technical-code-standards que define estrutura de middleware"
+  result: "O que saiu: middleware de autenticação implementado e testado com 100% de cobertura"
+oracle_ukis_used:
+  - unik-technical-code-standards
+  - unik-culture-testing-requirements
+timestamp: "2024-01-15 15:45:10"
+```
+
+### ❌ **Exemplos de Validação com Falha**
+
+#### **Falha 1: Context muito curto**
+```yaml
+# Input que FALHA na validação
+flow_step: "decide"
+signals:
+  context: "O que entrou: JWT"  # ERRO: menos de 20 caracteres
+  decision: "Por que transicionou: baseado no unik-technical-jwt padrão de segurança"
+  result: "O que saiu: biblioteca definida"
+# ERRO DE VALIDAÇÃO: context deve ter mínimo 20 caracteres
+```
+
+#### **Falha 2: Decision sem referência a UKI**
+```yaml
+# Input que FALHA na validação
+flow_step: "understand"
+signals:
+  context: "O que entrou: documentação de requisitos de autenticação para análise"
+  decision: "Por que transicionou: analisados os requisitos e decidido prosseguir"  # ERRO: não referencia UKI
+  result: "O que saiu: compreensão dos requisitos de segurança necessários"
+# ERRO DE VALIDAÇÃO: decision deve conter referência a UKI (padrão "baseado.+unik-")
+```
+
+#### **Falha 3: UKI malformado**
+```yaml
+# Input que FALHA na validação
+flow_step: "enrich"
+signals:
+  context: "O que entrou: implementação JWT completa para documentação"
+  decision: "Por que transicionou: criado UKI baseado no unik-technical-implementation-pattern"
+  result: "O que saiu: novo UKI documentando padrão de implementação JWT"
+oracle_ukis_used:
+  - invalid-uki-format  # ERRO: deve seguir padrão unik-[a-z0-9-]+
+  - unik-technical-valid
+# ERRO DE VALIDAÇÃO: UKI deve seguir formato unik-[dominio]-[identificador]
+```
+
+### 🛡️ **Uso para Auditoria e Compliance**
+
+#### **Validação Automática em Pipelines**
+```bash
+# Exemplo de validação em CI/CD
+jsonschema -i workflow_step.yaml zwf_explainability_schema.json
+if [ $? -eq 0 ]; then
+  echo "✅ Sinais de explicabilidade válidos"
+else
+  echo "❌ Falha na validação - workflow não conforme"
+  exit 1
+fi
+```
+
+#### **Métricas de Qualidade**
+- **Taxa de Conformidade**: % de sinais que passam na validação
+- **Rastreabilidade**: 100% das decisões devem referenciar UKIs
+- **Completude**: todos os campos obrigatórios preenchidos
+- **Qualidade Descritiva**: comprimentos mínimos respeitados
 
 ---
 
@@ -734,6 +1046,109 @@ timestamp: "2024-01-15 14:30:22"
 
 ---
 
+## 📊 CANONICAL TELEMETRY METRICS
+
+For effective observability and monitoring of ZWF workflows, we establish standardized metrics that should be collected during the execution of each flow.
+
+### 🕘 **State Transition Duration Metrics**
+```yaml
+state_transition_duration:
+  intake_to_understand: 
+    timestamp_start: "2024-01-15T14:30:22Z"
+    timestamp_end: "2024-01-15T14:32:15Z"
+    duration_seconds: 113
+  understand_to_decide:
+    timestamp_start: "2024-01-15T14:32:15Z"
+    timestamp_end: "2024-01-15T14:35:48Z"
+    duration_seconds: 213
+  decide_to_act:
+    timestamp_start: "2024-01-15T14:35:48Z"
+    timestamp_end: "2024-01-15T14:45:30Z"
+    duration_seconds: 582
+  act_to_review:
+    timestamp_start: "2024-01-15T14:45:30Z"
+    timestamp_end: "2024-01-15T14:48:12Z"
+    duration_seconds: 162
+  review_to_enrich:
+    timestamp_start: "2024-01-15T14:48:12Z"
+    timestamp_end: "2024-01-15T14:50:05Z"
+    duration_seconds: 113
+```
+
+### 📈 **Transition Quality Metrics**
+```yaml
+transition_quality_score:
+  overall_workflow_score: 85  # 0-100
+  state_scores:
+    intake: 90     # Context capture completeness
+    understand: 88 # Oracle consultation quality
+    decide: 82     # Decision foundation strength
+    act: 85        # Execution effectiveness
+    review: 95     # Validation quality
+    enrich: 78     # Generated UKI quality
+  quality_factors:
+    oracle_coverage: 85      # % of decisions founded on UKIs
+    explainability_depth: 90 # Signal detail level
+    relationship_clarity: 80 # related_to clarity
+```
+
+### 🏥 **Workflow Health Metrics**
+```yaml
+workflow_health_metrics:
+  completion_status: "successful"  # successful | failed | partial
+  error_count: 0
+  warning_count: 2
+  retry_count: 1
+  state_coverage: 
+    total_states: 6
+    executed_states: 6
+    skipped_states: 0
+  oracle_availability: "available"  # available | degraded | unavailable
+  enrichment_success: true
+```
+
+### 🔮 **Oracle Enrichment Efficiency Metrics**
+```yaml
+oracle_enrichment_metrics:
+  ukis_consulted: 5
+  ukis_created: 1
+  ukis_updated: 0
+  relationship_count: 3
+  knowledge_domains_touched:
+    - technical
+    - business
+  semantic_coherence_score: 87  # 0-100
+  reusability_potential: "high"  # low | medium | high
+```
+
+### 📋 **Complete Metrics Template**
+```yaml
+telemetry:
+  workflow_id: "zwf-jwt-implementation-001"
+  execution_start: "2024-01-15T14:30:22Z"
+  execution_end: "2024-01-15T14:50:05Z"
+  total_duration_seconds: 1183
+  
+  state_transition_duration: [structure above]
+  transition_quality_score: [structure above]
+  workflow_health_metrics: [structure above]
+  oracle_enrichment_metrics: [structure above]
+  
+  performance_indicators:
+    throughput_score: 85        # Speed vs. quality balance
+    efficiency_ratio: 0.73      # Useful time / total time
+    oracle_hit_rate: 0.89       # UKIs found / UKIs searched
+    decision_confidence: 0.85   # Confidence in decisions made
+  
+  observability_tags:
+    team: "backend-squad"
+    trigger_type: "work.proposed"
+    complexity_level: "medium"   # low | medium | high
+    ai_assistance_level: "high"  # none | low | medium | high
+```
+
+---
+
 ## ⚖️ STATE INVARIANTS (FORMAL)
 
 To ensure robust and deterministic execution, each ZWF state must meet conceptual invariants that can be implemented by durable engines:
@@ -903,6 +1318,215 @@ consistency_checks:
     - enrichment_always_final
     - relationships_bidirectional
 ```
+
+---
+
+## 🔍 VERIFIABLE EXPLAINABILITY SCHEMAS
+
+To ensure quality and consistency of explainability signals, ZWF defines formal JSON schemas for automatic validation of `context`, `decision` and `result` fields in each workflow state.
+
+### 📋 **Base Schemas for Signals**
+
+#### **Schema for Context (What came in)**
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "context": {
+      "type": "string",
+      "pattern": "^What came in: .+",
+      "minLength": 20,
+      "maxLength": 500,
+      "description": "Clear and objective description of the input received in the state"
+    }
+  },
+  "required": ["context"],
+  "additionalProperties": false
+}
+```
+
+#### **Schema for Decision (Why it transitioned)**
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object", 
+  "properties": {
+    "decision": {
+      "type": "string",
+      "pattern": "^Why it transitioned: .+based.+(unik-[a-z0-9-]+).+",
+      "minLength": 30,
+      "maxLength": 800,
+      "description": "Transition justification referencing Oracle UKIs"
+    }
+  },
+  "required": ["decision"],
+  "additionalProperties": false
+}
+```
+
+#### **Schema for Result (What came out)**
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "result": {
+      "type": "string",
+      "pattern": "^What came out: .+",
+      "minLength": 15,
+      "maxLength": 600,
+      "description": "Clear description of the output produced by the state"
+    }
+  },
+  "required": ["result"],
+  "additionalProperties": false
+}
+```
+
+### 🔗 **Complete Explainability Schema**
+
+#### **Integrated Schema for State Validation**
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "flow_step": {
+      "type": "string",
+      "enum": ["intake", "understand", "decide", "act", "review", "enrich"]
+    },
+    "signals": {
+      "type": "object",
+      "properties": {
+        "context": {
+          "type": "string",
+          "pattern": "^What came in: .+",
+          "minLength": 20,
+          "maxLength": 500
+        },
+        "decision": {
+          "type": "string", 
+          "pattern": "^Why it transitioned: .+based.+(unik-[a-z0-9-]+).+",
+          "minLength": 30,
+          "maxLength": 800
+        },
+        "result": {
+          "type": "string",
+          "pattern": "^What came out: .+",
+          "minLength": 15,
+          "maxLength": 600
+        }
+      },
+      "required": ["context", "decision", "result"],
+      "additionalProperties": false
+    },
+    "oracle_ukis_used": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^unik-[a-z0-9-]+$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$"
+    }
+  },
+  "required": ["flow_step", "signals", "oracle_ukis_used", "timestamp"],
+  "additionalProperties": false
+}
+```
+
+### ✅ **Successful Validation Examples**
+
+#### **Valid Example - Decide State**
+```yaml
+# Input that PASSES validation
+flow_step: "decide"
+signals:
+  context: "What came in: request to implement JWT authentication in the main API"
+  decision: "Why it transitioned: chosen bearer token pattern based on unik-technical-jwt-authentication-pattern specifying security best practices"
+  result: "What came out: defined to use jsonwebtoken library with 15-minute expiration configuration"
+oracle_ukis_used:
+  - unik-technical-jwt-authentication-pattern
+  - unik-business-token-expiration-policy
+timestamp: "2024-01-15 14:30:22"
+```
+
+#### **Valid Example - Act State**
+```yaml
+# Input that PASSES validation
+flow_step: "act"
+signals:
+  context: "What came in: JWT implementation plan with jsonwebtoken library approved"
+  decision: "Why it transitioned: executed implementation based on unik-technical-code-standards defining middleware structure"
+  result: "What came out: authentication middleware implemented and tested with 100% coverage"
+oracle_ukis_used:
+  - unik-technical-code-standards
+  - unik-culture-testing-requirements
+timestamp: "2024-01-15 15:45:10"
+```
+
+### ❌ **Validation Failure Examples**
+
+#### **Failure 1: Context too short**
+```yaml
+# Input that FAILS validation
+flow_step: "decide"
+signals:
+  context: "What came in: JWT"  # ERROR: less than 20 characters
+  decision: "Why it transitioned: based on unik-technical-jwt security pattern"
+  result: "What came out: library defined"
+# VALIDATION ERROR: context must have minimum 20 characters
+```
+
+#### **Failure 2: Decision without UKI reference**
+```yaml
+# Input that FAILS validation
+flow_step: "understand"
+signals:
+  context: "What came in: authentication requirements documentation for analysis"
+  decision: "Why it transitioned: analyzed requirements and decided to proceed"  # ERROR: no UKI reference
+  result: "What came out: understanding of necessary security requirements"
+# VALIDATION ERROR: decision must contain UKI reference (pattern "based.+unik-")
+```
+
+#### **Failure 3: Malformed UKI**
+```yaml
+# Input that FAILS validation
+flow_step: "enrich"
+signals:
+  context: "What came in: complete JWT implementation for documentation"
+  decision: "Why it transitioned: created UKI based on unik-technical-implementation-pattern"
+  result: "What came out: new UKI documenting JWT implementation pattern"
+oracle_ukis_used:
+  - invalid-uki-format  # ERROR: must follow unik-[a-z0-9-]+ pattern
+  - unik-technical-valid
+# VALIDATION ERROR: UKI must follow unik-[domain]-[identifier] format
+```
+
+### 🛡️ **Usage for Audit and Compliance**
+
+#### **Automatic Validation in Pipelines**
+```bash
+# Example validation in CI/CD
+jsonschema -i workflow_step.yaml zwf_explainability_schema.json
+if [ $? -eq 0 ]; then
+  echo "✅ Valid explainability signals"
+else
+  echo "❌ Validation failed - non-compliant workflow"
+  exit 1
+fi
+```
+
+#### **Quality Metrics**
+- **Compliance Rate**: % of signals that pass validation
+- **Traceability**: 100% of decisions must reference UKIs
+- **Completeness**: all required fields filled
+- **Descriptive Quality**: minimum lengths respected
 
 ---
 

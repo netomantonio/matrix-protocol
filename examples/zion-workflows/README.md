@@ -142,6 +142,68 @@ Estes exemplos são **independentes de tecnologia**. Cada equipe pode implementa
 
 ---
 
+## 📊 Métricas Canônicas de Telemetria
+
+Todos os exemplos incluem **métricas de telemetria padronizadas** para observabilidade e monitoramento de workflows ZWF.
+
+### 🕘 Métricas de Tempo entre Estados
+- **Timestamps precisos:** Início e fim de cada transição
+- **Duração em segundos:** Tempo real gasto em cada estado
+- **Tempo total:** Duração completa do workflow
+
+### 📈 Métricas de Qualidade de Transições
+- **Score geral:** 0-100 indicando qualidade do workflow
+- **Scores por estado:** Avaliação individual de cada estado canônico
+- **Fatores de qualidade:**
+  - `oracle_coverage`: % de decisões fundamentadas em UKIs
+  - `explainability_depth`: Nível de detalhamento dos sinais
+  - `relationship_clarity`: Clareza dos relacionamentos `related_to`
+
+### 🏥 Métricas de Health do Workflow
+- **Status de conclusão:** successful | failed | partial
+- **Contadores:** Erros, warnings, retries
+- **Cobertura de estados:** Estados executados vs. esperados
+- **Disponibilidade do Oráculo:** Estado da consulta a UKIs
+- **Sucesso do enriquecimento:** Confirmação da atualização
+
+### 🔮 Métricas de Eficiência do Enriquecimento
+- **UKIs consultadas vs. criadas:** Proporção entrada/saída
+- **Contagem de relacionamentos:** Densidade semântica
+- **Domínios tocados:** Abrangência do conhecimento
+- **Score de coerência semântica:** 0-100 para qualidade
+- **Potencial de reutilização:** Estimativa de valor futuro
+
+### 🎯 Indicadores de Performance
+- **Throughput score:** Balanceamento velocidade vs. qualidade
+- **Efficiency ratio:** Tempo útil sobre tempo total
+- **Oracle hit rate:** Taxa de UKIs encontrados
+- **Decision confidence:** Confiança nas decisões tomadas
+
+### 🏷️ Tags de Observabilidade
+- **Team:** Identificação da equipe
+- **Trigger type:** Tipo de evento inicial
+- **Complexity level:** Estimativa de complexidade
+- **AI assistance level:** Nível de assistência de IA
+- **Feature/business criticality:** Criticidade do negócio
+
+### Estrutura Completa
+```yaml
+telemetry:
+  workflow_id: "identificador-unico"
+  execution_start: "2024-01-15T09:00:00Z"
+  execution_end: "2024-01-15T16:30:00Z"
+  total_duration_seconds: 27000
+  
+  state_transition_duration: [tempos por transição]
+  transition_quality_score: [scores de qualidade]
+  workflow_health_metrics: [indicadores de saúde]
+  oracle_enrichment_metrics: [métricas de enriquecimento]
+  performance_indicators: [indicadores de performance]
+  observability_tags: [tags para categorização]
+```
+
+---
+
 ## 📊 Elementos Conceituais Demonstrados
 
 ### Conformidade com ZWF
@@ -298,6 +360,68 @@ These examples are **technology-independent**. Each team can implement using:
 - Confluence (pages with metadata)
 - Obsidian (markdown with semantic links)
 - Databases (PostgreSQL + embeddings)
+
+---
+
+## 📊 Canonical Telemetry Metrics
+
+All examples include **standardized telemetry metrics** for ZWF workflow observability and monitoring.
+
+### 🕘 State Transition Duration Metrics
+- **Precise timestamps:** Start and end of each transition
+- **Duration in seconds:** Real time spent in each state
+- **Total time:** Complete workflow duration
+
+### 📈 Transition Quality Metrics
+- **Overall score:** 0-100 indicating workflow quality
+- **State scores:** Individual evaluation of each canonical state
+- **Quality factors:**
+  - `oracle_coverage`: % of decisions founded on UKIs
+  - `explainability_depth`: Signal detail level
+  - `relationship_clarity`: Clarity of `related_to` relationships
+
+### 🏥 Workflow Health Metrics
+- **Completion status:** successful | failed | partial
+- **Counters:** Errors, warnings, retries
+- **State coverage:** Executed vs. expected states
+- **Oracle availability:** UKI consultation status
+- **Enrichment success:** Update confirmation
+
+### 🔮 Oracle Enrichment Efficiency Metrics
+- **UKIs consulted vs. created:** Input/output ratio
+- **Relationship count:** Semantic density
+- **Domains touched:** Knowledge breadth
+- **Semantic coherence score:** 0-100 for quality
+- **Reusability potential:** Future value estimate
+
+### 🎯 Performance Indicators
+- **Throughput score:** Speed vs. quality balance
+- **Efficiency ratio:** Useful time over total time
+- **Oracle hit rate:** Rate of UKIs found
+- **Decision confidence:** Confidence in decisions made
+
+### 🏷️ Observability Tags
+- **Team:** Team identification
+- **Trigger type:** Initial event type
+- **Complexity level:** Complexity estimate
+- **AI assistance level:** Level of AI assistance
+- **Feature/business criticality:** Business criticality
+
+### Complete Structure
+```yaml
+telemetry:
+  workflow_id: "unique-identifier"
+  execution_start: "2024-01-15T09:00:00Z"
+  execution_end: "2024-01-15T16:30:00Z"
+  total_duration_seconds: 27000
+  
+  state_transition_duration: [times per transition]
+  transition_quality_score: [quality scores]
+  workflow_health_metrics: [health indicators]
+  oracle_enrichment_metrics: [enrichment metrics]
+  performance_indicators: [performance indicators]
+  observability_tags: [categorization tags]
+```
 
 ---
 

@@ -58,6 +58,18 @@ related_to:
   - target: unik-[target-uki-id]
     relation_type: [implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to]
     description: [Descrição específica da relação]
+governance:
+  criticality: [critical | high | medium | low]  # Nível de criticidade para governança
+  auto_propagation: [automatic | semi_automatic | manual]  # Modo de propagação automática
+  validation_frequency: [30 | 60 | 90]  # Frequência de validação em dias
+  impact_analysis:
+    structural_changes: [breaking | compatible | additive]  # Impacto estrutural
+    dependent_ukis: [number]  # Número estimado de UKIs dependentes
+    propagation_scope: [immediate | scheduled | informative]  # Escopo de propagação
+  propagation_rules:
+    on_major_change: [notify_all | validate_dependencies | manual_review]
+    on_minor_change: [suggest_updates | validate_compatibility | auto_notify]
+    on_patch_change: [auto_propagate | inform_dependents | track_only]
 last_validation: [YYYY-MM-DD]  # Data da última revisão e validação de conteúdo
 ```
 
@@ -329,6 +341,55 @@ Data da última revisão e validação do conteúdo.
 - Atualização do conteúdo
 - Planejamento de manutenção
 - Indicação de confiabilidade
+
+### 🔹 `governance`
+**Opcional** | **Objeto**
+
+Configurações de governança ativa para controle automático de propagação e impacto.
+
+**Estrutura:**
+```yaml
+governance:
+  criticality: [critical | high | medium | low]
+  auto_propagation: [automatic | semi_automatic | manual]
+  validation_frequency: [30 | 60 | 90]
+  impact_analysis:
+    structural_changes: [breaking | compatible | additive]
+    dependent_ukis: [number]
+    propagation_scope: [immediate | scheduled | informative]
+  propagation_rules:
+    on_major_change: [notify_all | validate_dependencies | manual_review]
+    on_minor_change: [suggest_updates | validate_compatibility | auto_notify]
+    on_patch_change: [auto_propagate | inform_dependents | track_only]
+```
+
+#### **`criticality`** - Nível de Criticidade
+- `critical`: UKI essencial para funcionamento básico do sistema
+- `high`: UKI importante com impacto significativo em implementações
+- `medium`: UKI padrão com relevância moderada
+- `low`: UKI informativa ou de baixo impacto
+
+#### **`auto_propagation`** - Modo de Propagação
+- `automatic`: Propagação automática para todas as mudanças
+- `semi_automatic`: Proposta automática com aprovação manual
+- `manual`: Processo totalmente manual de propagação
+
+#### **`validation_frequency`** - Frequência de Validação
+Número de dias entre revisões obrigatórias do conteúdo.
+
+#### **`impact_analysis`** - Análise de Impacto
+- `structural_changes`: Tipo de impacto estrutural esperado
+- `dependent_ukis`: Estimativa de UKIs que dependem desta
+- `propagation_scope`: Escopo necessário de propagação
+
+#### **`propagation_rules`** - Regras de Propagação
+Define comportamento específico para cada tipo de mudança de versão.
+
+**Propósito:**
+- Automatizar governança de conhecimento
+- Controlar propagação de mudanças
+- Manter consistência entre UKIs relacionadas
+- Priorizar revisões baseadas em criticidade
 
 ---
 
@@ -724,9 +785,234 @@ related_to:
 3. **Descrições Claras**: Sempre forneça descrições significativas para cada relacionamento
 4. **Governança Habilitada**: Relacionamentos tipados permitem análise de impacto e validação automatizada
 
----
+# 🎛️ GOVERNANÇA ATIVA E PROPAGAÇÃO AUTOMÁTICA
 
-<a name="english"></a>
+O MEF implementa um sistema de **governança ativa** que utiliza relacionamentos semânticos tipados para propagar automaticamente mudanças e manter consistência em redes de conhecimento interconectadas.
+
+## 🔄 Regras de Propagação por Tipo de Relacionamento
+
+### 📋 **`implements`** - Propagação de Padrões
+**Regra:** Mudanças em padrões/diretrizes devem ser propagadas para suas implementações.
+
+**Comportamento:**
+- **MAJOR**: Notificar implementações sobre incompatibilidade
+- **MINOR**: Sugerir adoção de melhorias opcionais
+- **PATCH**: Informar correções aplicáveis
+
+**Algoritmo:**
+```yaml
+quando: mudança em UKI-base (padrão/diretriz)
+propagação:
+  para: UKIs que { relation_type: implements, target: UKI-base }
+  ação: 
+    - major: marcar como "requer_revisão"
+    - minor: marcar como "melhoria_disponível"
+    - patch: marcar como "correção_disponível"
+```
+
+### 🏗️ **`depends_on`** - Validação de Dependências
+**Regra:** Mudanças em dependências devem validar compatibilidade dos dependentes.
+
+**Comportamento:**
+- **MAJOR**: Verificar quebra de compatibilidade
+- **MINOR**: Validar funcionamento continuado
+- **PATCH**: Verificar se correção afeta dependente
+
+**Algoritmo:**
+```yaml
+quando: mudança em UKI-dependência
+propagação:
+  para: UKIs que { relation_type: depends_on, target: UKI-dependência }
+  ação:
+    - major: executar "análise_compatibilidade"
+    - minor: executar "validação_funcional"
+    - patch: executar "verificação_impacto"
+```
+
+### 🌿 **`extends`** - Atualização de Extensões
+**Regra:** Mudanças em conceitos base devem ser avaliadas para extensões.
+
+**Comportamento:**
+- **MAJOR**: Avaliar se extensão ainda é válida
+- **MINOR**: Considerar incorporação de melhorias
+- **PATCH**: Verificar relevância da correção
+
+**Algoritmo:**
+```yaml
+quando: mudança em UKI-base
+propagação:
+  para: UKIs que { relation_type: extends, target: UKI-base }
+  ação:
+    - major: marcar como "extensão_requer_revisão"
+    - minor: marcar como "considerar_incorporação"
+    - patch: marcar como "avaliar_relevância"
+```
+
+### 🔄 **`replaces`** - Deprecação Automática
+**Regra:** Mudanças em substitutos devem atualizar status de substituídos.
+
+**Comportamento:**
+- **MAJOR**: Marcar substituído como descontinuado
+- **MINOR**: Atualizar recomendação de migração
+- **PATCH**: Informar sobre melhorias do substituto
+
+**Algoritmo:**
+```yaml
+quando: mudança em UKI-substituto
+propagação:
+  para: UKIs que { relation_type: replaces, source: UKI-substituto }
+  ação:
+    - major: marcar como "descontinuado"
+    - minor: atualizar "plano_migração"
+    - patch: atualizar "motivos_substituição"
+```
+
+### 🛡️ **`complies_with`** - Validação de Conformidade
+**Regra:** Mudanças em políticas devem validar conformidade continuada.
+
+**Comportamento:**
+- **MAJOR**: Revisar toda conformidade
+- **MINOR**: Verificar conformidade continuada
+- **PATCH**: Confirmar que correção não afeta conformidade
+
+### ⚔️ **`conflicts_with`** - Detecção de Conflitos
+**Regra:** Mudanças podem resolver ou agravar conflitos existentes.
+
+**Comportamento:**
+- **MAJOR**: Reavaliar natureza do conflito
+- **MINOR**: Verificar se conflito persiste
+- **PATCH**: Confirmar que correção não cria novos conflitos
+
+## 🧠 Algoritmos de Análise de Impacto
+
+### 📊 Classificação de Impacto por Mudança
+
+```yaml
+análise_impacto:
+  escopo_mudança:
+    estrutural: "campos obrigatórios alterados"
+    semântica: "significado fundamental alterado"
+    implementação: "exemplos ou detalhes alterados"
+    correção: "typos ou clarificações menores"
+  
+  tipos_impacto:
+    crítico: "quebra funcionalidade existente"
+    alto: "requer adaptação de implementações"
+    médio: "recomenda revisão e adaptação"
+    baixo: "informacional, sem ação necessária"
+  
+  propagação_necessária:
+    imediata: "implementações críticas"
+    agendada: "melhorias planejadas"
+    informativa: "atualizações de conhecimento"
+```
+
+### 🎯 Matriz de Priorização de Propagação
+
+| Tipo Mudança | Relacionamento | Prioridade | Ação |
+|--------------|----------------|------------|------|
+| MAJOR | implements | CRÍTICA | Revisão obrigatória |
+| MAJOR | depends_on | CRÍTICA | Validação compatibilidade |
+| MAJOR | extends | ALTA | Revisão extensão |
+| MINOR | implements | MÉDIA | Considerar adoção |
+| MINOR | depends_on | MÉDIA | Validar funcionamento |
+| PATCH | qualquer | BAIXA | Informar disponibilidade |
+
+### 🔄 Algoritmo de Cascata de Versionamento
+
+```yaml
+versionamento_cascata:
+  trigger: "mudança em UKI-origem"
+  processo:
+    1. identificar_relacionados:
+        query: "SELECT * FROM ukis WHERE related_to.target = UKI-origem"
+    2. classificar_impacto:
+        para_cada: relacionamento
+        calcular: impacto_por_tipo[relacionamento.relation_type]
+    3. gerar_propostas:
+        para_cada: UKI-relacionado
+        propor: nova_versão_baseada_em_impacto
+    4. executar_propagação:
+        ordem: prioridade (crítica → alta → média → baixa)
+        modo: automático | semi-automático | manual
+```
+
+## 🚨 Detecção de Conflitos e Inconsistências
+
+### 🔍 Validações Automáticas
+
+```yaml
+validações:
+  consistência_semântica:
+    - "UKI que implements deve ser compatível com target"
+    - "UKI que replaces deve ter domain similar ao target"
+    - "UKI que extends deve manter compatibilidade base"
+  
+  integridade_referencias:
+    - "Todos related_to.target devem existir"
+    - "Versões previous_version devem existir"
+    - "Relacionamentos bidirecionais devem ser consistentes"
+  
+  qualidade_conteúdo:
+    - "Mudanças MAJOR devem ter change_summary detalhado"
+    - "UKIs críticos devem ter last_validation recente"
+    - "Exemplos devem ser consistentes com content"
+```
+
+### ⚠️ Alertas de Governança
+
+```yaml
+alertas:
+  propagação_pendente:
+    - "UKI-X foi atualizada, 5 implementações precisam de revisão"
+    - "Nova versão MAJOR de padrão crítico disponível"
+  
+  conflitos_detectados:
+    - "UKI-A conflicts_with UKI-B, mas ambas marcadas como ativas"
+    - "Dependência circular detectada: A→B→C→A"
+  
+  qualidade_degradada:
+    - "UKI crítica não validada há 90+ dias"
+    - "Relacionamento órfão: target não existe"
+```
+
+## 🎛️ Configuração de Governança
+
+### 📋 Configurações por Tipo de UKI
+
+```yaml
+governance_config:
+  critical_ukis:
+    domains: [business, technical]
+    types: [business_rule, pattern]
+    validation_frequency: 30  # dias
+    auto_propagation: semi-automatic
+  
+  standard_ukis:
+    domains: [product, culture, strategy]
+    types: [guideline, template, example]
+    validation_frequency: 90  # dias
+    auto_propagation: manual
+```
+
+### 🔄 Modos de Propagação
+
+```yaml
+propagation_modes:
+  automatic:
+    description: "Propagação automática para mudanças PATCH"
+    scope: "Correções menores e atualizações informativas"
+  
+  semi_automatic:
+    description: "Proposta automática, aprovação manual"
+    scope: "Mudanças MINOR em UKIs críticas"
+  
+  manual:
+    description: "Processo totalmente manual"
+    scope: "Mudanças MAJOR e decisões estratégicas"
+```
+
+---
 # English 🇺🇸
 
 > Matrix Embedding Framework
@@ -777,6 +1063,18 @@ related_to:
   - target: unik-[target-uki-id]
     relation_type: [implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to]
     description: [Specific description of the relationship]
+governance:
+  criticality: [critical | high | medium | low]  # Criticality level for governance
+  auto_propagation: [automatic | semi_automatic | manual]  # Automatic propagation mode
+  validation_frequency: [30 | 60 | 90]  # Validation frequency in days
+  impact_analysis:
+    structural_changes: [breaking | compatible | additive]  # Structural impact
+    dependent_ukis: [number]  # Estimated number of dependent UKIs
+    propagation_scope: [immediate | scheduled | informative]  # Propagation scope
+  propagation_rules:
+    on_major_change: [notify_all | validate_dependencies | manual_review]
+    on_minor_change: [suggest_updates | validate_compatibility | auto_notify]
+    on_patch_change: [auto_propagate | inform_dependents | track_only]
 last_validation: [YYYY-MM-DD]  # Date of last content review and validation
 ```
 
@@ -1049,6 +1347,55 @@ Date of last content review and validation.
 - Maintenance planning
 - Trust indication
 
+### 🔹 `governance`
+**Optional** | **Object**
+
+Active governance configurations for automatic propagation and impact control.
+
+**Structure:**
+```yaml
+governance:
+  criticality: [critical | high | medium | low]
+  auto_propagation: [automatic | semi_automatic | manual]
+  validation_frequency: [30 | 60 | 90]
+  impact_analysis:
+    structural_changes: [breaking | compatible | additive]
+    dependent_ukis: [number]
+    propagation_scope: [immediate | scheduled | informative]
+  propagation_rules:
+    on_major_change: [notify_all | validate_dependencies | manual_review]
+    on_minor_change: [suggest_updates | validate_compatibility | auto_notify]
+    on_patch_change: [auto_propagate | inform_dependents | track_only]
+```
+
+#### **`criticality`** - Criticality Level
+- `critical`: Essential UKI for basic system functionality
+- `high`: Important UKI with significant impact on implementations
+- `medium`: Standard UKI with moderate relevance
+- `low`: Informational or low-impact UKI
+
+#### **`auto_propagation`** - Propagation Mode
+- `automatic`: Automatic propagation for all changes
+- `semi_automatic`: Automatic proposal with manual approval
+- `manual`: Fully manual propagation process
+
+#### **`validation_frequency`** - Validation Frequency
+Number of days between mandatory content reviews.
+
+#### **`impact_analysis`** - Impact Analysis
+- `structural_changes`: Expected type of structural impact
+- `dependent_ukis`: Estimate of UKIs that depend on this one
+- `propagation_scope`: Required propagation scope
+
+#### **`propagation_rules`** - Propagation Rules
+Defines specific behavior for each type of version change.
+
+**Purpose:**
+- Automate knowledge governance
+- Control change propagation
+- Maintain consistency between related UKIs
+- Prioritize reviews based on criticality
+
 ---
 
 # 🎯 PRACTICAL USAGE EXAMPLES
@@ -1266,6 +1613,233 @@ related_to:
 2. **Bidirectional Consistency**: Ensure reverse relationships make semantic sense
 3. **Clear Descriptions**: Always provide meaningful descriptions for each relationship
 4. **Governance Enabled**: Typed relationships enable automated impact analysis and validation
+
+# 🎛️ ACTIVE GOVERNANCE AND AUTOMATIC PROPAGATION
+
+MEF implements an **active governance** system that uses typed semantic relationships to automatically propagate changes and maintain consistency in interconnected knowledge networks.
+
+## 🔄 Propagation Rules by Relationship Type
+
+### 📋 **`implements`** - Pattern Propagation
+**Rule:** Changes in patterns/guidelines should be propagated to their implementations.
+
+**Behavior:**
+- **MAJOR**: Notify implementations about incompatibility
+- **MINOR**: Suggest adoption of optional improvements
+- **PATCH**: Inform applicable corrections
+
+**Algorithm:**
+```yaml
+when: change in base-UKI (pattern/guideline)
+propagation:
+  to: UKIs where { relation_type: implements, target: base-UKI }
+  action: 
+    - major: mark as "requires_review"
+    - minor: mark as "improvement_available"
+    - patch: mark as "correction_available"
+```
+
+### 🏗️ **`depends_on`** - Dependency Validation
+**Rule:** Changes in dependencies should validate compatibility of dependents.
+
+**Behavior:**
+- **MAJOR**: Check for compatibility breaking
+- **MINOR**: Validate continued functionality
+- **PATCH**: Check if correction affects dependent
+
+**Algorithm:**
+```yaml
+when: change in dependency-UKI
+propagation:
+  to: UKIs where { relation_type: depends_on, target: dependency-UKI }
+  action:
+    - major: execute "compatibility_analysis"
+    - minor: execute "functional_validation"
+    - patch: execute "impact_verification"
+```
+
+### 🌿 **`extends`** - Extension Updates
+**Rule:** Changes in base concepts should be evaluated for extensions.
+
+**Behavior:**
+- **MAJOR**: Evaluate if extension is still valid
+- **MINOR**: Consider incorporating improvements
+- **PATCH**: Check relevance of correction
+
+**Algorithm:**
+```yaml
+when: change in base-UKI
+propagation:
+  to: UKIs where { relation_type: extends, target: base-UKI }
+  action:
+    - major: mark as "extension_requires_review"
+    - minor: mark as "consider_incorporation"
+    - patch: mark as "assess_relevance"
+```
+
+### 🔄 **`replaces`** - Automatic Deprecation
+**Rule:** Changes in replacements should update status of replaced items.
+
+**Behavior:**
+- **MAJOR**: Mark replaced as discontinued
+- **MINOR**: Update migration recommendation
+- **PATCH**: Inform about replacement improvements
+
+**Algorithm:**
+```yaml
+when: change in replacement-UKI
+propagation:
+  to: UKIs where { relation_type: replaces, source: replacement-UKI }
+  action:
+    - major: mark as "discontinued"
+    - minor: update "migration_plan"
+    - patch: update "replacement_reasons"
+```
+
+### 🛡️ **`complies_with`** - Compliance Validation
+**Rule:** Changes in policies should validate continued compliance.
+
+**Behavior:**
+- **MAJOR**: Review all compliance
+- **MINOR**: Verify continued compliance
+- **PATCH**: Confirm correction doesn't affect compliance
+
+### ⚔️ **`conflicts_with`** - Conflict Detection
+**Rule:** Changes may resolve or aggravate existing conflicts.
+
+**Behavior:**
+- **MAJOR**: Reevaluate nature of conflict
+- **MINOR**: Check if conflict persists
+- **PATCH**: Confirm correction doesn't create new conflicts
+
+## 🧠 Impact Analysis Algorithms
+
+### 📊 Change Impact Classification
+
+```yaml
+impact_analysis:
+  change_scope:
+    structural: "mandatory fields altered"
+    semantic: "fundamental meaning altered"
+    implementation: "examples or details altered"
+    correction: "typos or minor clarifications"
+  
+  impact_types:
+    critical: "breaks existing functionality"
+    high: "requires implementation adaptation"
+    medium: "recommends review and adaptation"
+    low: "informational, no action needed"
+  
+  propagation_needed:
+    immediate: "critical implementations"
+    scheduled: "planned improvements"
+    informative: "knowledge updates"
+```
+
+### 🎯 Propagation Prioritization Matrix
+
+| Change Type | Relationship | Priority | Action |
+|-------------|--------------|----------|--------|
+| MAJOR | implements | CRITICAL | Mandatory review |
+| MAJOR | depends_on | CRITICAL | Compatibility validation |
+| MAJOR | extends | HIGH | Extension review |
+| MINOR | implements | MEDIUM | Consider adoption |
+| MINOR | depends_on | MEDIUM | Validate functionality |
+| PATCH | any | LOW | Inform availability |
+
+### 🔄 Cascade Versioning Algorithm
+
+```yaml
+cascade_versioning:
+  trigger: "change in source-UKI"
+  process:
+    1. identify_related:
+        query: "SELECT * FROM ukis WHERE related_to.target = source-UKI"
+    2. classify_impact:
+        for_each: relationship
+        calculate: impact_by_type[relationship.relation_type]
+    3. generate_proposals:
+        for_each: related-UKI
+        propose: new_version_based_on_impact
+    4. execute_propagation:
+        order: priority (critical → high → medium → low)
+        mode: automatic | semi-automatic | manual
+```
+
+## 🚨 Conflict and Inconsistency Detection
+
+### 🔍 Automatic Validations
+
+```yaml
+validations:
+  semantic_consistency:
+    - "UKI that implements must be compatible with target"
+    - "UKI that replaces must have similar domain to target"
+    - "UKI that extends must maintain base compatibility"
+  
+  reference_integrity:
+    - "All related_to.target must exist"
+    - "All previous_version versions must exist"
+    - "Bidirectional relationships must be consistent"
+  
+  content_quality:
+    - "MAJOR changes must have detailed change_summary"
+    - "Critical UKIs must have recent last_validation"
+    - "Examples must be consistent with content"
+```
+
+### ⚠️ Governance Alerts
+
+```yaml
+alerts:
+  pending_propagation:
+    - "UKI-X was updated, 5 implementations need review"
+    - "New MAJOR version of critical pattern available"
+  
+  detected_conflicts:
+    - "UKI-A conflicts_with UKI-B, but both marked as active"
+    - "Circular dependency detected: A→B→C→A"
+  
+  degraded_quality:
+    - "Critical UKI not validated for 90+ days"
+    - "Orphan relationship: target doesn't exist"
+```
+
+## 🎛️ Governance Configuration
+
+### 📋 Configuration by UKI Type
+
+```yaml
+governance_config:
+  critical_ukis:
+    domains: [business, technical]
+    types: [business_rule, pattern]
+    validation_frequency: 30  # days
+    auto_propagation: semi-automatic
+  
+  standard_ukis:
+    domains: [product, culture, strategy]
+    types: [guideline, template, example]
+    validation_frequency: 90  # days
+    auto_propagation: manual
+```
+
+### 🔄 Propagation Modes
+
+```yaml
+propagation_modes:
+  automatic:
+    description: "Automatic propagation for PATCH changes"
+    scope: "Minor corrections and informative updates"
+  
+  semi_automatic:
+    description: "Automatic proposal, manual approval"
+    scope: "MINOR changes in critical UKIs"
+  
+  manual:
+    description: "Fully manual process"
+    scope: "MAJOR changes and strategic decisions"
+```
 
 ---
 

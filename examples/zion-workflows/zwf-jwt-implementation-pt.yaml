@@ -214,6 +214,91 @@ flow_execution:
           - design
         last_validation: "2024-01-15"
 
+# Métricas de Telemetria
+telemetry:
+  workflow_id: "zwf-jwt-implementation-202401"
+  execution_start: "2024-01-15T09:00:00Z"
+  execution_end: "2024-01-15T16:30:00Z"
+  total_duration_seconds: 27000
+  
+  state_transition_duration:
+    intake_to_understand:
+      timestamp_start: "2024-01-15T09:00:00Z"
+      timestamp_end: "2024-01-15T09:30:00Z"
+      duration_seconds: 1800
+    understand_to_decide:
+      timestamp_start: "2024-01-15T09:30:00Z"
+      timestamp_end: "2024-01-15T10:00:00Z"
+      duration_seconds: 1800
+    decide_to_act:
+      timestamp_start: "2024-01-15T10:00:00Z"
+      timestamp_end: "2024-01-15T10:30:00Z"
+      duration_seconds: 1800
+    act_to_review:
+      timestamp_start: "2024-01-15T10:30:00Z"
+      timestamp_end: "2024-01-15T14:00:00Z"
+      duration_seconds: 12600
+    review_to_enrich:
+      timestamp_start: "2024-01-15T14:00:00Z"
+      timestamp_end: "2024-01-15T16:00:00Z"
+      duration_seconds: 7200
+    enrich_duration:
+      timestamp_start: "2024-01-15T16:00:00Z"
+      timestamp_end: "2024-01-15T16:30:00Z"
+      duration_seconds: 1800
+
+  transition_quality_score:
+    overall_workflow_score: 92
+    state_scores:
+      intake: 95        # Captura completa de requisitos
+      understand: 90    # Consulta abrangente ao Oráculo
+      decide: 88        # Decisões bem fundamentadas
+      act: 94           # Implementação eficaz
+      review: 96        # Validação rigorosa
+      enrich: 89        # UKIs de qualidade
+    quality_factors:
+      oracle_coverage: 94       # 100% decisões fundamentadas em UKIs
+      explainability_depth: 92  # Sinais detalhados
+      relationship_clarity: 85  # Clareza dos related_to
+
+  workflow_health_metrics:
+    completion_status: "successful"
+    error_count: 0
+    warning_count: 1
+    retry_count: 0
+    state_coverage:
+      total_states: 6
+      executed_states: 6
+      skipped_states: 0
+    oracle_availability: "available"
+    enrichment_success: true
+
+  oracle_enrichment_metrics:
+    ukis_consulted: 5
+    ukis_created: 2
+    ukis_updated: 0
+    relationship_count: 6
+    knowledge_domains_touched:
+      - technical
+      - business
+      - culture
+    semantic_coherence_score: 88
+    reusability_potential: "high"
+
+  performance_indicators:
+    throughput_score: 87          # Velocidade vs. qualidade
+    efficiency_ratio: 0.78        # Tempo útil / tempo total
+    oracle_hit_rate: 1.0          # UKIs encontrados / UKIs buscados
+    decision_confidence: 0.91     # Confiança nas decisões tomadas
+
+  observability_tags:
+    team: "backend-squad"
+    trigger_type: "work.proposed"
+    complexity_level: "medium"
+    ai_assistance_level: "high"
+    feature_type: "authentication"
+    business_criticality: "high"
+
 # Reflexão Conceitual do Fluxo
 flow_reflection:
   conceptual_completeness: "Todos os estados canônicos foram percorridos"

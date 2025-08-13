@@ -97,4 +97,16 @@ related_to:
   - target: unik-culture-continuous-learning
     relation_type: relates_to
     description: Contribui para cultura de aprendizado contínuo
+governance:
+  criticality: medium
+  auto_propagation: manual
+  validation_frequency: 90
+  impact_analysis:
+    structural_changes: compatible
+    dependent_ukis: 4
+    propagation_scope: informative
+  propagation_rules:
+    on_major_change: manual_review
+    on_minor_change: auto_notify
+    on_patch_change: track_only
 last_validation: "2024-08-12"

@@ -87,4 +87,16 @@ related_to:
   - target: unik-product-component-library
     relation_type: extends
     description: Estende biblioteca de componentes padrão
+governance:
+  criticality: medium
+  auto_propagation: manual
+  validation_frequency: 90
+  impact_analysis:
+    structural_changes: additive
+    dependent_ukis: 3
+    propagation_scope: informative
+  propagation_rules:
+    on_major_change: manual_review
+    on_minor_change: auto_notify
+    on_patch_change: track_only
 last_validation: "2024-08-12"

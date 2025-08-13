@@ -72,4 +72,16 @@ related_to:
   - target: unik-technical-pricing-api
     relation_type: depends_on
     description: Depende da API de precificação para cálculos
+governance:
+  criticality: high
+  auto_propagation: semi_automatic
+  validation_frequency: 60
+  impact_analysis:
+    structural_changes: compatible
+    dependent_ukis: 5
+    propagation_scope: scheduled
+  propagation_rules:
+    on_major_change: notify_all
+    on_minor_change: suggest_updates
+    on_patch_change: inform_dependents
 last_validation: "2024-08-12"

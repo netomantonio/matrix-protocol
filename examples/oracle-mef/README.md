@@ -38,6 +38,7 @@ Estes exemplos demonstram:
 - **Bilingual Support**: Same concepts in Portuguese and English
 - **Domain Variety**: Examples across all MEF domains
 - **Typed Semantic Relationships**: Demonstrates the new typed relationship format
+- **Active Governance**: Implementation of automatic propagation and impact control
 - **Best Practices**: Proper use of versioning, examples, and semantic connections
 - **Real-world Scenarios**: Practical situations teams face daily
 
@@ -45,6 +46,7 @@ Estes exemplos demonstram:
 - **Suporte Bilíngue**: Mesmos conceitos em português e inglês
 - **Variedade de Domínios**: Exemplos em todos os domínios MEF
 - **Relacionamentos Semânticos Tipados**: Demonstra o novo formato de relacionamentos tipados
+- **Governança Ativa**: Implementação de propagação automática e controle de impacto
 - **Melhores Práticas**: Uso adequado de versionamento, exemplos e conexões semânticas
 - **Cenários Reais**: Situações práticas que equipes enfrentam diariamente
 
@@ -82,6 +84,54 @@ related_to:
 - **`depends_on`**: Requires other knowledge to function | Requer outro conhecimento para funcionar
 - **`extends`**: Extends or enhances existing concepts | Estende ou aprimora conceitos existentes
 - **`relates_to`**: General contextual relationship | Relacionamento contextual geral
+
+## 🎛️ Active Governance Examples | Exemplos de Governança Ativa
+
+All examples now include the new `governance` field that enables automatic change propagation and impact analysis:
+Todos os exemplos agora incluem o novo campo `governance` que habilita propagação automática de mudanças e análise de impacto:
+
+```yaml
+governance:
+  criticality: [critical | high | medium | low]
+  auto_propagation: [automatic | semi_automatic | manual]
+  validation_frequency: [30 | 60 | 90]  # days
+  impact_analysis:
+    structural_changes: [breaking | compatible | additive]
+    dependent_ukis: [number]
+    propagation_scope: [immediate | scheduled | informative]
+  propagation_rules:
+    on_major_change: [notify_all | validate_dependencies | manual_review]
+    on_minor_change: [suggest_updates | validate_compatibility | auto_notify]
+    on_patch_change: [auto_propagate | inform_dependents | track_only]
+```
+
+### Governance Configurations by Domain | Configurações de Governança por Domínio
+
+| Domain | Criticality | Auto Propagation | Validation Frequency |
+|--------|-------------|------------------|---------------------|
+| **Technical** | Critical | Semi-automatic | 30 days |
+| **Business** | High | Semi-automatic | 60 days |
+| **Strategy** | High | Manual | 60 days |
+| **Product** | Medium | Manual | 90 days |
+| **Culture** | Medium | Manual | 90 days |
+
+| Domínio | Criticidade | Propagação Automática | Frequência de Validação |
+|---------|-------------|----------------------|------------------------|
+| **Technical** | Crítica | Semi-automática | 30 dias |
+| **Business** | Alta | Semi-automática | 60 dias |
+| **Strategy** | Alta | Manual | 60 dias |
+| **Product** | Média | Manual | 90 dias |
+| **Culture** | Média | Manual | 90 dias |
+
+### Impact Analysis Examples | Exemplos de Análise de Impacto
+
+- **Breaking Changes**: Technical authentication patterns (8 dependent UKIs)
+- **Compatible Changes**: Business discount rules (5 dependent UKIs) 
+- **Additive Changes**: Product design guidelines (3 dependent UKIs)
+
+- **Mudanças Críticas**: Padrões de autenticação técnica (8 UKIs dependentes)
+- **Mudanças Compatíveis**: Regras de desconto de negócio (5 UKIs dependentes)
+- **Mudanças Aditivas**: Diretrizes de design de produto (3 UKIs dependentes)
 
 ## 🔗 Related Documentation | Documentação Relacionada
 

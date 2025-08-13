@@ -221,6 +221,87 @@ flow_execution:
           - optimization
         last_validation: "2024-01-22"
 
+# Telemetry Metrics
+telemetry:
+  workflow_id: "zwf-onboarding-refinement-202401"
+  execution_start: "2024-01-20T14:00:00Z"
+  execution_end: "2024-01-22T17:30:00Z"
+  total_duration_seconds: 185400
+  
+  state_transition_duration:
+    intake_to_understand:
+      timestamp_start: "2024-01-20T14:00:00Z"
+      timestamp_end: "2024-01-20T14:30:00Z"
+      duration_seconds: 1800
+    understand_to_decide:
+      timestamp_start: "2024-01-20T14:30:00Z"
+      timestamp_end: "2024-01-20T16:00:00Z"
+      duration_seconds: 5400
+    decide_to_act:
+      timestamp_start: "2024-01-20T16:00:00Z"
+      timestamp_end: "2024-01-21T09:00:00Z"
+      duration_seconds: 61200
+    act_to_enrich:
+      timestamp_start: "2024-01-21T09:00:00Z"
+      timestamp_end: "2024-01-22T16:00:00Z"
+      duration_seconds: 111600
+    enrich_duration:
+      timestamp_start: "2024-01-22T16:00:00Z"
+      timestamp_end: "2024-01-22T17:30:00Z"
+      duration_seconds: 5400
+
+  transition_quality_score:
+    overall_workflow_score: 88
+    state_scores:
+      intake: 92        # Comprehensive opportunity analysis
+      understand: 90    # Detailed Oracle consultation
+      decide: 85        # UX-founded decisions
+      act: 86           # Effective incremental implementation
+      enrich: 89        # Well-structured UKIs
+    quality_factors:
+      oracle_coverage: 92       # Decisions founded on UKIs
+      explainability_depth: 88  # Data-based signals
+      relationship_clarity: 84  # Clarity of related_to
+
+  workflow_health_metrics:
+    completion_status: "successful"
+    error_count: 0
+    warning_count: 0
+    retry_count: 0
+    state_coverage:
+      total_states: 5
+      executed_states: 5
+      skipped_states: 0
+    oracle_availability: "available"
+    enrichment_success: true
+
+  oracle_enrichment_metrics:
+    ukis_consulted: 4
+    ukis_created: 2
+    ukis_updated: 1
+    relationship_count: 7
+    knowledge_domains_touched:
+      - product
+      - business
+      - strategy
+    semantic_coherence_score: 91
+    reusability_potential: "high"
+
+  performance_indicators:
+    throughput_score: 79          # Speed vs. refinement quality
+    efficiency_ratio: 0.82        # Useful time / total time
+    oracle_hit_rate: 1.0          # UKIs found / UKIs searched
+    decision_confidence: 0.87     # Confidence in refinement decisions
+
+  observability_tags:
+    team: "product-squad"
+    trigger_type: "work.refine.requested"
+    complexity_level: "medium"
+    ai_assistance_level: "medium"
+    feature_type: "onboarding_optimization"
+    business_criticality: "high"
+    refinement_type: "incremental"
+
 # Conceptual Flow Reflection
 flow_reflection:
   conceptual_completeness: "Canonical states traversed according to refinement pattern"

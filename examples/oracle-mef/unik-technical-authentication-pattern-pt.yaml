@@ -73,4 +73,16 @@ related_to:
   - target: unik-business-user-authentication-policy
     relation_type: implements
     description: Implementa política organizacional de autenticação
+governance:
+  criticality: critical
+  auto_propagation: semi_automatic
+  validation_frequency: 30
+  impact_analysis:
+    structural_changes: breaking
+    dependent_ukis: 8
+    propagation_scope: immediate
+  propagation_rules:
+    on_major_change: validate_dependencies
+    on_minor_change: suggest_updates
+    on_patch_change: auto_propagate
 last_validation: "2024-08-12"
