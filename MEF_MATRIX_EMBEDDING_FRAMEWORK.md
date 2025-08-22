@@ -37,8 +37,8 @@ Cada arquivo representa uma **única UKI**.
 
 id: unik:[domain]:[type]:[slug_or_id]
 title: [Título objetivo e descritivo da unidade]
-domain: [product | business | technical | strategy | culture]
-type: [business_rule | function | template | guideline | pattern | decision | example]
+domain: [strategy | operations | ethics | finance | security | governance | communication | automation | intelligence]
+type: [concept | rule | metric | policy | procedure | glossary | constraint]
 context: [discovery | implementation | refinement | qa | documentation | support]
 version: [MAJOR.MINOR.PATCH]  # Versionamento semântico da UKI
 created_date: [YYYY-MM-DD]  # Data de criação da primeira versão
@@ -49,15 +49,12 @@ previous_version: [MAJOR.MINOR.PATCH]  # Versão anterior (opcional para versão
 
 status: [active | deprecated | archived]  # OBRIGATÓRIO: controle de ciclo de vida
 
-domain_of_influence: [strategy | finance | ethics | operations]  # RECOMENDADO: área de impacto
+domain_of_influence: [strategy | operations | ethics | finance | security | governance | communication | automation | intelligence]  # RECOMENDADO: área de impacto
 
 relationships:  # OBRIGATÓRIO: ontologia formal com tipos padronizados
-  - type: [overrides | conflicts_with | complements | amends | depends_on]
+  - type: [depends_on | overrides | conflicts_with | complements | amends | precedes | equivalent_to]
     target: unik:[domain]:[type]:[identifier]
     description: [Descrição específica da relação ontológica]
-  - type: [implements | extends | replaces | derives_from | relates_to]
-    target: unik:[domain]:[type]:[identifier]
-    description: [Descrição específica da relação semântica]
 
 impact_analysis:  # OPCIONAL: análise de cadeia de impacto
   chain_preview:
@@ -142,11 +139,15 @@ Classificação do domínio de conhecimento. **Valores aceitos:**
 
 | Domínio | Descrição | Exemplos |
 |---------|-----------|----------|
-| `product` | Funcionalidades do produto, UX/UI, fluxos do usuário | Interfaces, jornadas do usuário, features |
-| `business` | Regras de negócio, processos, estratégias | Precificação, políticas, processos de negócio |
-| `technical` | Código, arquitetura, infraestrutura | APIs, bancos de dados, deployment |
-| `strategy` | Decisões de alto nível, planejamento | Roadmaps, decisões estratégicas |
-| `culture` | Processos, metodologia, práticas da equipe | Cerimônias, diretrizes, valores |
+| `strategy` | Decisões de alto nível, planejamento estratégico | Roadmaps, decisões estratégicas, direcionamento organizacional |
+| `operations` | Processos operacionais, execução e procedimentos | Fluxos de trabalho, procedimentos operacionais, execução de tarefas |
+| `ethics` | Considerações éticas, compliance e responsabilidade | Políticas de conduta, conformidade regulatória, responsabilidade social |
+| `finance` | Aspectos financeiros, orçamentários e econômicos | Custos, receitas, ROI, decisões de investimento |
+| `security` | Segurança, proteção e gerenciamento de riscos | Políticas de segurança, controles de acesso, gestão de vulnerabilidades |
+| `governance` | Governança, controle e supervisão | Políticas de governança, estruturas de controle, supervisão organizacional |
+| `communication` | Comunicação, colaboração e relacionamentos | Protocolos de comunicação, fluxos informativos, relacionamentos |
+| `automation` | Automação, eficiência e otimização de processos | Processos automatizados, otimizações, eficiência operacional |
+| `intelligence` | Inteligência, análise e tomada de decisão | Análises estratégicas, insights, suporte à decisão |
 
 ### 🔹 `type`
 **Obrigatório** | **Enum**
@@ -155,13 +156,13 @@ Classificação funcional do conteúdo. **Valores aceitos:**
 
 | Tipo | Descrição | Uso |
 |------|-----------|-----|
-| `business_rule` | Regra de negócio ou restrição | Validação, lógica de decisão |
-| `function` | Função ou procedimento reutilizável | Implementação de código |
-| `template` | Estrutura ou padrão reutilizável | Criação de documentos, padronização |
-| `guideline` | Diretriz ou boa prática | Orientação de processos |
-| `pattern` | Padrão de design ou arquitetural | Soluções técnicas |
-| `decision` | Registro de decisão importante | Contexto e justificativa |
-| `example` | Exemplo prático ou caso de uso | Aprendizado, demonstração |
+| `concept` | Definição ou modelo teórico | Conceituação, estruturas de pensamento |
+| `rule` | Regra operacional ou normativa | Validação, lógica de decisão, normas |
+| `metric` | Indicador quantitativo | Medição, avaliação, monitoramento |
+| `policy` | Diretriz institucional ou adaptativa | Orientação organizacional, políticas |
+| `procedure` | Sequência operacional | Processos, fluxos de trabalho, execução |
+| `glossary` | Definição de termos ou padrões | Padronização terminológica, referências |
+| `constraint` | Limitação formal aplicada | Restrições, limitações, controles |
 
 ### 🔹 `context`
 **Obrigatório** | **Enum**
@@ -368,34 +369,31 @@ Ontologia formal de relacionamentos tipados com outras UKIs, substituindo relaci
 
 **Tipos de Relação Ontológica Formalizada:**
 
-| Tipo | Descrição | Uso | Categoria |
-|------|-----------|-----|----------|
-| `overrides` | Sobrescreve ou substitui outra UKI | Substituições diretas | Ontológica |
-| `conflicts_with` | Conflita ou é incompatível | Incompatibilidades | Ontológica |
-| `complements` | Complementa ou adiciona informação | Extensões colaborativas | Ontológica |
-| `amends` | Modifica ou corrige parcialmente | Correções e ajustes | Ontológica |
-| `depends_on` | Depende funcionalmente de outra UKI | Dependências estruturais | Ontológica |
-| `implements` | Implementa um padrão ou especificação | Códigos que seguem padrões | Semântica |
-| `extends` | Estende ou especializa um conceito | Heranças, refinamentos | Semântica |
-| `replaces` | Substitui conhecimento anterior | Evoluções, migrações | Semântica |
-| `derives_from` | Derivado ou baseado em outro conhecimento | Conhecimento originado | Semântica |
-| `relates_to` | Relacionamento contextual genérico | Associações contextuais | Semântica |
+| Tipo | Descrição | Uso |
+|------|-----------|-----|
+| `depends_on` | Depende semanticamente de outra UKI | Dependências estruturais |
+| `overrides` | Substitui ou anula o conteúdo de outra UKI | Substituições diretas |
+| `conflicts_with` | Contradiz propositalmente outra UKI | Incompatibilidades intencionais |
+| `complements` | Expande ou detalha outra UKI | Extensões colaborativas |
+| `amends` | Corrige ou atualiza parcialmente | Correções e ajustes |
+| `precedes` | Estabelece ordem ou prioridade | Sequências e hierarquias |
+| `equivalent_to` | Representa equivalência semântica | Equivalências e sinônimos |
 
 **Formato Ontológico Padronizado:**
 ```yaml
 relationships:
   - type: overrides
-    target: unik:technical:pattern:legacy-auth
-    description: Substitui método de autenticação legado por JWT
+    target: unik:security:rule:legacy-auth
+    description: Substitui método de autenticação legado
   - type: depends_on
-    target: unik:technical:function:crypto-library
-    description: Requer biblioteca de criptografia para validação de tokens
-  - type: implements
-    target: unik:technical:pattern:oauth-implementation
-    description: Implementa padrão OAuth2 com PKCE para segurança
+    target: unik:security:procedure:crypto-validation
+    description: Requer procedimento de validação criptográfica
   - type: complements
-    target: unik:technical:pattern:session-management
-    description: Complementa gerenciamento de sessão com persistência
+    target: unik:governance:policy:session-management
+    description: Complementa política de gerenciamento de sessão
+  - type: precedes
+    target: unik:operations:procedure:user-verification
+    description: Deve ser executado antes da verificação do usuário
 ```
 
 **Diretrizes de Uso:**
@@ -1300,23 +1298,27 @@ Esta seção define o vocabulário controlado aceito para os campos `domain`, `t
 
 | Domínio | Descrição | Exemplos |
 |---------|-----------|----------|
-| `product` | Design de produto, experiência do usuário e especificações de interface | Diretrizes de interface, padrões de design, padrões de acessibilidade, definições de jornada do usuário |
-| `business` | Regras de negócio, processos e conhecimento operacional | Cálculos de preços, regras de desconto, definições de workflow, especificações de lógica de negócio |
-| `technical` | Implementações técnicas, arquitetura e padrões de código | Padrões de autenticação, especificações de API, schemas de banco de dados, templates de código |
-| `strategy` | Decisões estratégicas, roadmaps e planejamento de longo prazo | Estratégias de evolução de API, planos de migração de tecnologia, decisões de arquitetura, prioridades de investimento |
-| `culture` | Cultura de equipe, processos de colaboração e conhecimento organizacional | Processos de code review, diretrizes de comunicação da equipe, procedimentos de onboarding, padrões de qualidade |
+| `strategy` | Decisões de alto nível, planejamento estratégico | Roadmaps, decisões estratégicas, direcionamento organizacional |
+| `operations` | Processos operacionais, execução e procedimentos | Fluxos de trabalho, procedimentos operacionais, execução de tarefas |
+| `ethics` | Considerações éticas, compliance e responsabilidade | Políticas de conduta, conformidade regulatória, responsabilidade social |
+| `finance` | Aspectos financeiros, orçamentários e econômicos | Custos, receitas, ROI, decisões de investimento |
+| `security` | Segurança, proteção e gerenciamento de riscos | Políticas de segurança, controles de acesso, gestão de vulnerabilidades |
+| `governance` | Governança, controle e supervisão | Políticas de governança, estruturas de controle, supervisão organizacional |
+| `communication` | Comunicação, colaboração e relacionamentos | Protocolos de comunicação, fluxos informativos, relacionamentos |
+| `automation` | Automação, eficiência e otimização de processos | Processos automatizados, otimizações, eficiência operacional |
+| `intelligence` | Inteligência, análise e tomada de decisão | Análises estratégicas, insights, suporte à decisão |
 
 ### Tipos (`type`)
 
-| Tipo | Descrição | Domínios Aplicáveis |
-|------|-----------|---------------------|
-| `business_rule` | Lógica de negócio formal e regras operacionais | business, product, strategy |
-| `function` | Funções executáveis, algoritmos e procedimentos computacionais | technical, business |
-| `template` | Templates reutilizáveis e formatos padronizados | technical, product, culture |
-| `guideline` | Melhores práticas e abordagens recomendadas | product, technical, culture, strategy |
-| `pattern` | Soluções recorrentes e padrões de design | technical, product, business |
-| `decision` | Decisões estratégicas e escolhas arquiteturais | strategy, technical, business |
-| `example` | Exemplos concretos e amostras de implementação | technical, product, business, culture, strategy |
+| Tipo | Descrição | Uso |
+|------|-----------|-----|
+| `concept` | Definição ou modelo teórico | Conceituação, estruturas de pensamento |
+| `rule` | Regra operacional ou normativa | Validação, lógica de decisão, normas |
+| `metric` | Indicador quantitativo | Medição, avaliação, monitoramento |
+| `policy` | Diretriz institucional ou adaptativa | Orientação organizacional, políticas |
+| `procedure` | Sequência operacional | Processos, fluxos de trabalho, execução |
+| `glossary` | Definição de termos ou padrões | Padronização terminológica, referências |
+| `constraint` | Limitação formal aplicada | Restrições, limitações, controles |
 
 ### Níveis de Severidade (`severity`)
 
@@ -1329,21 +1331,15 @@ Esta seção define o vocabulário controlado aceito para os campos `domain`, `t
 
 ### Tipos de Relacionamento (`relationships.type`)
 
-#### Ontológicos
-| Tipo | Descrição | Direcionalidade |
-|------|-----------|-----------------|
-| `implements` | UKI alvo fornece implementação concreta de conceito abstrato | unidirecional |
-| `depends_on` | UKI origem requer UKI alvo para funcionamento adequado | unidirecional |
-| `extends` | UKI origem constrói sobre e expande UKI alvo | unidirecional |
-| `replaces` | UKI origem substitui e supera UKI alvo | unidirecional |
-| `complies_with` | UKI origem adere aos padrões definidos no UKI alvo | unidirecional |
-| `conflicts_with` | UKI origem contradiz ou é incompatível com UKI alvo | bidirecional |
-
-#### Semânticos
-| Tipo | Descrição | Direcionalidade |
-|------|-----------|-----------------|
-| `derives_from` | UKI origem origina-se de ou é baseado no UKI alvo | unidirecional |
-| `relates_to` | Relacionamento semântico geral sem hierarquia específica | bidirecional |
+| Tipo | Descrição | Uso |
+|------|-----------|-----|
+| `depends_on` | Depende semanticamente de outra UKI | Dependências estruturais |
+| `overrides` | Substitui ou anula o conteúdo de outra UKI | Substituições diretas |
+| `conflicts_with` | Contradiz propositalmente outra UKI | Incompatibilidades intencionais |
+| `complements` | Expande ou detalha outra UKI | Extensões colaborativas |
+| `amends` | Corrige ou atualiza parcialmente | Correções e ajustes |
+| `precedes` | Estabelece ordem ou prioridade | Sequências e hierarquias |
+| `equivalent_to` | Representa equivalência semântica | Equivalências e sinônimos |
 
 ### Níveis de Maturidade (`maturity_level`)
 
@@ -1430,8 +1426,8 @@ Each file represents a **single UKI**.
 
 id: unik:[domain]:[type]:[slug_or_id]
 title: [Objective and descriptive title of the unit]
-domain: [product | business | technical | strategy | culture]
-type: [business_rule | function | template | guideline | pattern | decision | example]
+domain: [strategy | operations | ethics | finance | security | governance | communication | automation | intelligence]
+type: [concept | rule | metric | policy | procedure | glossary | constraint]
 context: [discovery | implementation | refinement | qa | documentation | support]
 version: [MAJOR.MINOR.PATCH]  # Semantic versioning of the UKI
 created_date: [YYYY-MM-DD]  # Date of first version creation
@@ -1441,7 +1437,7 @@ change_impact: [major | minor | patch]  # Type of change impact
 previous_version: [MAJOR.MINOR.PATCH]  # Previous version (optional for 1.0.0)
 
 status: [active | deprecated | archived]  # Lifecycle control
-domain_of_influence: [strategy | finance | ethics | operations]  # Strategic impact area
+domain_of_influence: [strategy | operations | ethics | finance | security | governance | communication | automation | intelligence]  # Strategic impact area
 
 relationships:  # Formal ontology of typed relationships
   - type: [overrides | conflicts_with | complements | amends | depends_on]
@@ -1758,34 +1754,31 @@ Formal ontology of typed relationships with other UKIs, replacing free-form rela
 
 **Formalized Ontological Relation Types:**
 
-| Type | Description | Usage | Category |
-|------|-------------|-------|----------|
-| `overrides` | Overrides or replaces another UKI | Direct replacements | Ontological |
-| `conflicts_with` | Conflicts or is incompatible | Incompatibilities | Ontological |
-| `complements` | Complements or adds information | Collaborative extensions | Ontological |
-| `amends` | Modifies or partially corrects | Corrections and adjustments | Ontological |
-| `depends_on` | Functionally depends on another UKI | Structural dependencies | Ontological |
-| `implements` | Implements a pattern or specification | Code following patterns | Semantic |
-| `extends` | Extends or specializes a concept | Inheritance, refinements | Semantic |
-| `replaces` | Replaces previous knowledge | Evolutions, migrations | Semantic |
-| `derives_from` | Derived or based on other knowledge | Originated knowledge | Semantic |
-| `relates_to` | Generic contextual relationship | Contextual associations | Semantic |
+| Type | Description | Usage |
+|------|-------------|-------|
+| `depends_on` | Semantically depends on another UKI | Structural dependencies |
+| `overrides` | Replaces or nullifies content of another UKI | Direct replacements |
+| `conflicts_with` | Intentionally contradicts another UKI | Intentional incompatibilities |
+| `complements` | Expands or details another UKI | Collaborative extensions |
+| `amends` | Corrects or partially updates | Corrections and adjustments |
+| `precedes` | Establishes order or priority | Sequences and hierarchies |
+| `equivalent_to` | Represents semantic equivalence | Equivalences and synonyms |
 
 **Standardized Ontological Format:**
 ```yaml
 relationships:
   - type: overrides
-    target: unik:technical:pattern:legacy-auth
-    description: Replaces legacy authentication method with JWT
+    target: unik:security:rule:legacy-auth
+    description: Replaces legacy authentication method
   - type: depends_on
-    target: unik:technical:function:crypto-library
-    description: Requires cryptography library for token validation
-  - type: implements
-    target: unik:technical:pattern:oauth-implementation
-    description: Implements OAuth2 pattern with PKCE for security
+    target: unik:security:procedure:crypto-validation
+    description: Requires cryptographic validation procedure
   - type: complements
-    target: unik:technical:pattern:session-management
-    description: Complements session management with persistence
+    target: unik:governance:policy:session-management
+    description: Complements session management policy
+  - type: precedes
+    target: unik:operations:procedure:user-verification
+    description: Must be executed before user verification
 ```
 
 **Usage Guidelines:**
@@ -2503,23 +2496,27 @@ This section defines the accepted controlled vocabulary for `domain`, `type`, `s
 
 | Domain | Description | Examples |
 |--------|-------------|----------|
-| `product` | Product design, user experience, and interface specifications | User interface guidelines, design patterns, accessibility standards, user journey definitions |
-| `business` | Business rules, processes, and operational knowledge | Pricing calculations, discount rules, workflow definitions, business logic specifications |
-| `technical` | Technical implementations, architecture, and code patterns | Authentication patterns, API specifications, database schemas, code templates |
-| `strategy` | Strategic decisions, roadmaps, and long-term planning | API evolution strategies, technology migration plans, architecture decisions, investment priorities |
-| `culture` | Team culture, collaboration processes, and organizational knowledge | Code review processes, team communication guidelines, onboarding procedures, quality standards |
+| `strategy` | High-level decisions, strategic planning | Roadmaps, strategic decisions, organizational direction |
+| `operations` | Operational processes, execution and procedures | Workflows, operational procedures, task execution |
+| `ethics` | Ethical considerations, compliance and responsibility | Conduct policies, regulatory compliance, social responsibility |
+| `finance` | Financial, budgetary and economic aspects | Costs, revenue, ROI, investment decisions |
+| `security` | Security, protection and risk management | Security policies, access controls, vulnerability management |
+| `governance` | Governance, control and oversight | Governance policies, control structures, organizational oversight |
+| `communication` | Communication, collaboration and relationships | Communication protocols, information flows, relationships |
+| `automation` | Automation, efficiency and process optimization | Automated processes, optimizations, operational efficiency |
+| `intelligence` | Intelligence, analysis and decision making | Strategic analysis, insights, decision support |
 
 ### Types (`type`)
 
-| Type | Description | Applicable Domains |
-|------|-------------|-------------------|
-| `business_rule` | Formal business logic and operational rules | business, product, strategy |
-| `function` | Executable functions, algorithms, and computational procedures | technical, business |
-| `template` | Reusable templates and standardized formats | technical, product, culture |
-| `guideline` | Best practices and recommended approaches | product, technical, culture, strategy |
-| `pattern` | Recurring solutions and design patterns | technical, product, business |
-| `decision` | Strategic decisions and architectural choices | strategy, technical, business |
-| `example` | Concrete examples and implementation samples | technical, product, business, culture, strategy |
+| Type | Description | Usage |
+|------|-------------|-------|
+| `concept` | Definition or theoretical model | Conceptualization, thought structures |
+| `rule` | Operational or normative rule | Validation, decision logic, standards |
+| `metric` | Quantitative indicator | Measurement, evaluation, monitoring |
+| `policy` | Institutional or adaptive guideline | Organizational guidance, policies |
+| `procedure` | Operational sequence | Processes, workflows, execution |
+| `glossary` | Definition of terms or standards | Terminological standardization, references |
+| `constraint` | Formal limitation applied | Restrictions, limitations, controls |
 
 ### Severity Levels (`severity`)
 
@@ -2532,21 +2529,15 @@ This section defines the accepted controlled vocabulary for `domain`, `type`, `s
 
 ### Relationship Types (`relationships.type`)
 
-#### Ontological
-| Type | Description | Directionality |
-|------|-------------|----------------|
-| `implements` | Target UKI provides concrete implementation of abstract concept | unidirectional |
-| `depends_on` | Source UKI requires target UKI for proper functioning | unidirectional |
-| `extends` | Source UKI builds upon and expands target UKI | unidirectional |
-| `replaces` | Source UKI supersedes and substitutes target UKI | unidirectional |
-| `complies_with` | Source UKI adheres to standards defined in target UKI | unidirectional |
-| `conflicts_with` | Source UKI contradicts or is incompatible with target UKI | bidirectional |
-
-#### Semantic
-| Type | Description | Directionality |
-|------|-------------|----------------|
-| `derives_from` | Source UKI originates from or is based on target UKI | unidirectional |
-| `relates_to` | General semantic relationship without specific hierarchy | bidirectional |
+| Type | Description | Usage |
+|------|-------------|-------|
+| `depends_on` | Semantically depends on another UKI | Structural dependencies |
+| `overrides` | Replaces or nullifies content of another UKI | Direct replacements |
+| `conflicts_with` | Intentionally contradicts another UKI | Intentional incompatibilities |
+| `complements` | Expands or details another UKI | Collaborative extensions |
+| `amends` | Corrects or partially updates | Corrections and adjustments |
+| `precedes` | Establishes order or priority | Sequences and hierarchies |
+| `equivalent_to` | Represents semantic equivalence | Equivalences and synonyms |
 
 ### Maturity Levels (`maturity_level`)
 
