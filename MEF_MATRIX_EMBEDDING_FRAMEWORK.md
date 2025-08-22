@@ -35,7 +35,7 @@ Cada arquivo representa uma **única UKI**.
 
 ```yaml
 
-schema: "2.0"
+schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "[MAJOR.MINOR.PATCH]"
 
@@ -792,7 +792,7 @@ Esse modelo garante que a Matrix se expanda como uma base de conhecimento orgân
 ## Exemplo 1: Padrão Técnico
 
 ```yaml
-schema: "2.0"
+schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.0.0"
 
@@ -877,7 +877,7 @@ last_validation: "2024-01-15"
 
 ## Exemplo 2: Regra de Negócio
 ```yaml
-schema: "2.0"
+schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.2.0"
 
@@ -958,7 +958,7 @@ last_validation: "2024-01-15"
 
 ## Exemplo 3: Diretriz de Produto
 ```yaml
-schema: "2.0"
+schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.0.0"
 
@@ -1472,7 +1472,7 @@ Each file represents a **single UKI**.
 
 ```yaml
 
-schema: "2.0"
+schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "[MAJOR.MINOR.PATCH]"
 
@@ -2021,7 +2021,7 @@ Defines specific behavior for each type of version change.
 
 ## Example 1: Technical Pattern
 ```yaml
-schema: "2.0"
+schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.2.0"
 
@@ -2098,7 +2098,7 @@ last_validation: 2024-01-15
 
 ## Example 2: Business Rule
 ```yaml
-schema: "2.0"
+schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.0.0"
 
@@ -2168,7 +2168,7 @@ last_validation: 2024-01-10
 
 ## Example 3: Product Guideline
 ```yaml
-schema: "2.0"
+schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "2.1.0"
 

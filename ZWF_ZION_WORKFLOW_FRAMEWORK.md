@@ -158,7 +158,7 @@ As saídas devem referenciar UKIs motivadores através do campo `relationships`:
 
 ```yaml
 # Exemplo de UKI gerada no enriquecimento
-schema: "2.0"
+schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.0.0"
 
@@ -998,7 +998,7 @@ Outputs must reference motivating UKIs through the `relationships` field:
 
 ```yaml
 # Example of UKI generated in enrichment
-schema: "2.0"
+schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.0.0"
 
