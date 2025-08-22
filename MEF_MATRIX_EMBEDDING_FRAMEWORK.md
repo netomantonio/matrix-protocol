@@ -1,5 +1,6 @@
 # 📜 MATRIX MEF PROTOCOL | PROTOCOLO MATRIX MEF
 
+
 ## 🌎 Idioma / Language
 
 - [Português 🇧🇷](#português)
@@ -33,7 +34,8 @@ Essas unidades são embebidas e consumidas por agentes inteligentes, garantindo 
 Cada arquivo representa uma **única UKI**.
 
 ```yaml
-id: unik-[domain]-[slug_or_id]
+
+id: unik:[domain]:[type]:[slug_or_id]
 title: [Título objetivo e descritivo da unidade]
 domain: [product | business | technical | strategy | culture]
 type: [business_rule | function | template | guideline | pattern | decision | example]
@@ -41,9 +43,33 @@ context: [discovery | implementation | refinement | qa | documentation | support
 version: [MAJOR.MINOR.PATCH]  # Versionamento semântico da UKI
 created_date: [YYYY-MM-DD]  # Data de criação da primeira versão
 last_modified: [YYYY-MM-DD]  # Data da última modificação
-change_summary: [Resumo das mudanças na versão atual]  # Opcional para versão 1.0.0
+change_summary: [Resumo das mudanças na versão atual]  # Opcional para versão inicial
 change_impact: [major | minor | patch]  # Tipo de impacto da mudança
-previous_version: [MAJOR.MINOR.PATCH]  # Versão anterior (opcional para 1.0.0)
+previous_version: [MAJOR.MINOR.PATCH]  # Versão anterior (opcional para versão inicial)
+
+status: [active | deprecated | archived]  # OBRIGATÓRIO: controle de ciclo de vida
+
+domain_of_influence: [strategy | finance | ethics | operations]  # RECOMENDADO: área de impacto
+
+relationships:  # OBRIGATÓRIO: ontologia formal com tipos padronizados
+  - type: [overrides | conflicts_with | complements | amends | depends_on]
+    target: unik:[domain]:[type]:[identifier]
+    description: [Descrição específica da relação ontológica]
+  - type: [implements | extends | replaces | derives_from | relates_to]
+    target: unik:[domain]:[type]:[identifier]
+    description: [Descrição específica da relação semântica]
+
+impact_analysis:  # OPCIONAL: análise de cadeia de impacto
+  chain_preview:
+    - unik:domain:type:item-a → unik:domain:type:item-b → unik:domain:type:item-c  # Cadeia de propagação prevista
+  severity: [low | medium | high | critical]  # Severidade do impacto
+  affected_domains: [lista de domínios afetados]
+  propagation_estimate: [número estimado de UKIs impactadas]
+
+sunset_policy: |  # OPCIONAL: política de revisão ou descontinuidade
+  [Texto livre descrevendo condições de revisão, critérios de obsolescência,
+   frequência de validação, ou condições para descontinuidade desta UKI]
+
 intent_of_use:
   - [Lista de intenções específicas de uso desta UKI]
 use_case_stage:
@@ -54,10 +80,6 @@ content: |
 examples:
   - input: [Exemplo de entrada real ou simulada]
     output: [Resultado esperado ou consequência]
-related_to:
-  - target: unik-[target-uki-id]
-    relation_type: [implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to]
-    description: [Descrição específica da relação]
 governance:
   criticality: [critical | high | medium | low]  # Nível de criticidade para governança
   auto_propagation: [automatic | semi_automatic | manual]  # Modo de propagação automática
@@ -70,6 +92,13 @@ governance:
     on_major_change: [notify_all | validate_dependencies | manual_review]
     on_minor_change: [suggest_updates | validate_compatibility | auto_notify]
     on_patch_change: [auto_propagate | inform_dependents | track_only]
+provenance:  # OPCIONAL: histórico ou fonte da UKI
+  author: [Nome ou identificador do criador da UKI]
+  formulation_date: [YYYY-MM-DD]  # Data de formulação original
+  original_instance: [Referência à fonte ou documento original]
+  organization: [Organização ou equipe que criou a UKI]
+  source_type: [meeting | document | interview | observation | analysis | experiment]
+maturity_level: [draft | validated | endorsed | deprecated | experimental]  # OPCIONAL: nível de confiabilidade epistemológica
 last_validation: [YYYY-MM-DD]  # Data da última revisão e validação de conteúdo
 ```
 
@@ -80,15 +109,15 @@ last_validation: [YYYY-MM-DD]  # Data da última revisão e validação de conte
 ### 🔹 `id`
 **Obrigatório** | **String** | **Único**
 
-Identificador único seguindo o padrão `unik-[domain]-[identifier]`:
+Identificador único seguindo o padrão `unik:[domain]:[type]:[identifier]`:
 - **unik**: Prefixo fixo indicando uma Unidade de Conhecimento
 - **domain**: Um dos domínios aceitos (product, business, technical, strategy, culture)
 - **identifier**: Slug descritivo ou código único
 
 **Exemplos:**
-- `unik-technical-jwt-authentication`
-- `unik-business-pricing-strategy`
-- `unik-product-user-onboarding`
+- `unik:technical:pattern:jwt-authentication`
+- `unik:business:rule:pricing-strategy`
+- `unik:product:guideline:user-onboarding`
 
 ### 🔹 `title`
 **Obrigatório** | **String**
@@ -184,9 +213,9 @@ Data da última modificação correspondente à versão atual.
 - Indicação de atualização do conteúdo
 
 ### 🔹 `change_summary`
-**Obrigatório para versões > 1.0.0** | **String**
+**Obrigatório para versões versionadas** | **String**
 
-Resumo claro das mudanças implementadas na versão atual.
+Resumo das alterações realizadas na UKI.
 
 **Diretrizes:**
 - Ser específico e acionável
@@ -200,7 +229,7 @@ Resumo claro das mudanças implementadas na versão atual.
 - `"Reestruturada organização do conteúdo para maior clareza"`
 
 ### 🔹 `change_impact`
-**Obrigatório para versões > 1.0.0** | **Enum**
+**Obrigatório para versões versionadas** | **Enum**
 
 Classificação do impacto da mudança para a versão atual.
 
@@ -215,7 +244,7 @@ Classificação do impacto da mudança para a versão atual.
 Referência à versão imediatamente anterior para rastreabilidade de evolução.
 
 **Formato:** `MAJOR.MINOR.PATCH`
-**Uso:** Obrigatório apenas para versões > 1.0.0
+**Uso:** Obrigatório para UKIs versionadas
 **Propósito:** Permitir navegação de versões e capacidades de rollback
 
 ### 🔹 `intent_of_use`
@@ -299,37 +328,165 @@ examples:
 - Ser específico e acionável
 - Incluir casos extremos quando relevante
 
-### 🔹 `related_to`
-**Opcional** | **Lista de Objetos**
+### 🔹 `status`
+**Obrigatório** | **Enum**
 
-Lista de relacionamentos semânticos tipados com outras UKIs. Cada relacionamento especifica o tipo de conexão e sua descrição para construção de grafos de conhecimento.
+Controle de ciclo de vida da UKI para rastreabilidade e governança.
 
-**Tipos de Relação Semântica:**
+**Valores aceitos:**
+- `active`: UKI ativa e em uso normal
+- `deprecated`: UKI descontinuada mas ainda referenciada
+- `archived`: UKI arquivada para consulta histórica
 
-| Tipo | Descrição | Uso |
-|------|-----------|-----|
-| `implements` | Implementa um padrão, guideline ou especificação | Códigos que seguem padrões |
-| `depends_on` | Depende de outro conhecimento para funcionar | Dependências técnicas/conceituais |
-| `extends` | Estende ou especializa um conceito base | Heranças, refinamentos |
-| `replaces` | Substitui conhecimento anterior | Evoluções, migrações |
-| `complies_with` | Segue uma política, regra ou standard | Conformidade regulatória |
-| `conflicts_with` | Conflita ou é incompatível com outro conhecimento | Identificação de incompatibilidades |
-| `derives_from` | Derivado ou baseado em outro conhecimento | Conhecimento originado |
-| `relates_to` | Relacionamento genérico | Relacionamentos contextuais |
+**Propósito:**
+- Controlar ciclo de vida das UKIs
+- Facilitar governança automatizada
+- Evitar uso de conhecimento obsoleto
+- Manter rastreabilidade histórica
 
-**Formato:**
+### 🔹 `domain_of_influence`
+**Recomendado** | **Enum**
+
+Área de impacto estratégico da UKI para análise de governança avançada.
+
+**Valores aceitos:**
+- `strategy`: Impacto em decisões estratégicas
+- `finance`: Impacto em aspectos financeiros
+- `ethics`: Impacto em questões éticas ou compliance
+- `operations`: Impacto em operações e processos
+
+**Propósito:**
+- Classificar impacto organizacional
+- Priorizar revisões baseadas em área de influência
+- Facilitar análise de riscos
+- Orientar processos de aprovação
+
+### 🔹 `relationships`
+**Obrigatório** | **Lista de Objetos**
+
+Ontologia formal de relacionamentos tipados com outras UKIs, substituindo relacionamentos livres por estrutura padronizada.
+
+**Tipos de Relação Ontológica Formalizada:**
+
+| Tipo | Descrição | Uso | Categoria |
+|------|-----------|-----|----------|
+| `overrides` | Sobrescreve ou substitui outra UKI | Substituições diretas | Ontológica |
+| `conflicts_with` | Conflita ou é incompatível | Incompatibilidades | Ontológica |
+| `complements` | Complementa ou adiciona informação | Extensões colaborativas | Ontológica |
+| `amends` | Modifica ou corrige parcialmente | Correções e ajustes | Ontológica |
+| `depends_on` | Depende funcionalmente de outra UKI | Dependências estruturais | Ontológica |
+| `implements` | Implementa um padrão ou especificação | Códigos que seguem padrões | Semântica |
+| `extends` | Estende ou especializa um conceito | Heranças, refinamentos | Semântica |
+| `replaces` | Substitui conhecimento anterior | Evoluções, migrações | Semântica |
+| `derives_from` | Derivado ou baseado em outro conhecimento | Conhecimento originado | Semântica |
+| `relates_to` | Relacionamento contextual genérico | Associações contextuais | Semântica |
+
+**Formato Ontológico Padronizado:**
 ```yaml
-related_to:
-  - target: unik-technical-oauth-implementation
-    relation_type: extends
-    description: Estende implementação OAuth com JWT
-  - target: unik-business-user-authentication-policy
-    relation_type: complies_with
-    description: Segue política de autenticação corporativa
-  - target: unik-product-login-flow
-    relation_type: implements
-    description: Implementa fluxo de login do produto
+relationships:
+  - type: overrides
+    target: unik:technical:pattern:legacy-auth
+    description: Substitui método de autenticação legado por JWT
+  - type: depends_on
+    target: unik:technical:function:crypto-library
+    description: Requer biblioteca de criptografia para validação de tokens
+  - type: implements
+    target: unik:technical:pattern:oauth-implementation
+    description: Implementa padrão OAuth2 com PKCE para segurança
+  - type: complements
+    target: unik:technical:pattern:session-management
+    description: Complementa gerenciamento de sessão com persistência
 ```
+
+**Diretrizes de Uso:**
+- Sempre usar formato `unik:[domain]:[type]:[identifier]` para referências
+- Evitar duplicação de relacionamentos em outros campos
+- Manter consistência ontológica entre tipos
+- Documentar claramente a natureza específica da relação
+
+### 🔹 `impact_analysis`
+**Opcional** | **Objeto**
+
+Análise de cadeia de impacto para prever propagação de mudanças.
+
+**Estrutura:**
+```yaml
+impact_analysis:
+  chain_preview:
+    - unik:technical:pattern:auth → unik:product:template:login → unik:technical:pattern:session
+    - unik:technical:pattern:auth → unik:technical:guideline:api-security
+  severity: high
+  affected_domains: [technical, business, product]
+  propagation_estimate: 12
+```
+
+**Campos:**
+- `chain_preview`: Cadeias de propagação previstas
+- `severity`: Severidade do impacto (low, medium, high, critical)
+- `affected_domains`: Domínios potencialmente afetados
+- `propagation_estimate`: Número estimado de UKIs impactadas
+
+**Propósito:**
+- Antecipar impactos de mudanças
+- Facilitar planejamento de atualizações
+- Priorizar revisões baseadas em severidade
+- Orientar estratégias de comunicação
+
+### 🔹 `sunset_policy`
+**Opcional** | **String (multilinha)**
+
+Política de revisão, avaliação ou descontinuidade em texto livre.
+
+**Exemplos de Uso:**
+```yaml
+sunset_policy: |
+  Esta UKI deve ser revisada trimestralmente devido ao impacto em segurança.
+  Considerar deprecação se novas tecnologias de autenticação forem adotadas.
+  Critérios para arquivamento: substituição completa por OAuth3 ou similar.
+```
+
+**Conteúdo Recomendado:**
+- Frequência de revisão específica
+- Critérios para deprecação
+- Condições para arquivamento
+- Marcos tecnológicos ou organizacionais relevantes
+
+**Propósito:**
+- Definir ciclo de vida específico da UKI
+- Orientar decisões de manutenção
+- Facilitar planejamento de descontinuidade
+- Documentar dependências de contexto externo
+
+### 🔹 `provenance`
+**Opcional** | **Objeto**
+
+Histórico ou fonte da UKI para rastreamento de origem e autoria.
+
+**Campos:**
+- `author`: Nome ou identificador do criador
+- `formulation_date`: Data de formulação original 
+- `original_instance`: Referência à fonte original
+- `organization`: Organização ou equipe criadora
+- `source_type`: Tipo de fonte (meeting, document, interview, observation, analysis, experiment)
+
+**Propósito:**
+- Rastreabilidade de conhecimento
+- Atribuição de autoria
+- Contexto histórico
+- Validação de fonte
+
+### 🔹 `maturity_level`
+**Opcional** | **Enum**
+
+Nível de confiabilidade epistemológica da UKI. **Valores aceitos:**
+
+| Nível | Descrição | Confiança | Recomendação de Uso |
+|-------|-----------|-----------|---------------------|
+| `draft` | Formulação inicial, sujeita a revisão | Baixa | Usar com cautela, verificar independentemente |
+| `validated` | Revisado por especialistas do domínio | Média | Confiável para implementação com verificação padrão |
+| `endorsed` | Oficialmente aprovado pela organização | Alta | Fonte autoritativa, usar como referência padrão |
+| `deprecated` | Não recomendado, substituído | Baixa | Evitar uso, referir a UKI substituta |
+| `experimental` | Em avaliação, implementação piloto | Variável | Usar apenas em ambientes controlados |
 
 ### 🔹 `last_validation`
 **Opcional** | **Data (YYYY-MM-DD)**
@@ -461,7 +618,7 @@ content: |
 - **Tratamento necessário:**
   - Separação em unidades atômicas de conhecimento.
   - Limpeza de ruídos, redundâncias e linguagem informal.
-- **Conversão para UKI:**
+- **Conversão para unik-**
   - Estruturar como `content:` com exemplos e campos semânticos preenchidos.
 
 ---
@@ -487,8 +644,9 @@ Essa separação garante organização semântica, versionamento independente po
 
 # ✅ DIRETRIZES DE USO
 
+## 📋 Diretrizes Gerais
+
 - Toda UKI deve ser modular, clara e versionada adequadamente.
-- Relacionamentos entre UKIs são essenciais para navegação semântica e raciocínio dos agentes.
 - Os campos `intent_of_use` e `use_case_stage` são obrigatórios e são chave para inteligência contextual.
 - `language` ajuda agentes a priorizar, traduzir ou adaptar sugestões.
 - Sempre que possível, utilizar sintaxe `mermaid` para diagramas textuais.
@@ -497,9 +655,58 @@ Essa separação garante organização semântica, versionamento independente po
 - Incrementar MAJOR para mudanças que alterem significativamente o significado ou aplicação.
 - Incrementar MINOR para adições compatíveis (novos exemplos, refinamentos, clarificações).
 - Incrementar PATCH para correções menores (typos, ajustes de formatação, pequenas clarificações).
-- Sempre documentar mudanças no campo `change_summary` para versões posteriores à 1.0.0.
+- Documentar mudanças no campo `change_summary` quando aplicável.
 - Manter rastreabilidade através do campo `previous_version`.
-- Considerar impacto em UKIs relacionadas ao fazer mudanças significativas.
+
+## 🔥 Diretrizes para Campos Estruturais
+
+### 🎯 **Campo `status` (Obrigatório)**
+- **SEMPRE** definir status inicial como `active` para novas UKIs
+- Usar `deprecated` quando UKI não deve mais ser usada mas ainda é referenciada
+- Usar `archived` apenas para UKIs descontinuadas mantidas para consulta histórica
+- **NUNCA** deletar UKIs - apenas mudar status para manter rastreabilidade
+
+### 🔗 **Campo `relationships` (Obrigatório)**
+- Usar formato `unik:[domain]:[type]:[identifier]` para referências
+- **Escolher tipos precisos**: ontológicos para relações estruturais, semânticos para conceituais
+- **EVITAR** relacionamento `relates_to` - preferir tipos específicos
+- **VALIDAR** que target existe antes de criar relacionamento
+- **DOCUMENTAR** claramente a natureza específica de cada relação
+
+### 🌍 **Campo `domain_of_influence` (Recomendado)**
+- Usar para UKIs com impacto organizacional significativo
+- `strategy`: para decisões de alto nível e direcionamento
+- `finance`: para regras que impactam custos, preços ou receita
+- `ethics`: para questões de compliance, privacidade ou conduta
+- `operations`: para processos operacionais e eficiência
+
+### 📊 **Campo `impact_analysis` (Opcional)**
+- **MAPEAR** cadeias de propagação previstas antes de mudanças MAJOR
+- Estimar número realista de UKIs impactadas
+- Usar severity `critical` apenas para UKIs que quebram funcionalidade básica
+- **ATUALIZAR** quando relacionamentos mudarem significativamente
+
+### 📅 **Campo `sunset_policy` (Opcional)**
+- **DEFINIR** para UKIs críticas ou que dependem de tecnologias externas
+- Incluir critérios objetivos para revisão e descontinuidade
+- **MENCIONAR** marcos tecnológicos ou organizacionais relevantes
+- Ser específico sobre frequência de revisão (trimestral, semestral, anual)
+
+## ⚠️ Diretrizes de Coerência Semântica
+
+- **EVITAR** duplicação de informações entre campos `relationships` e outros campos
+- **MANTER** consistência ontológica: se A `overrides` B, então B deve estar `deprecated`
+- **VALIDAR** que UKIs com status `deprecated` não sejam target de novos relacionamentos `implements`
+- **VERIFICAR** que `domain_of_influence` seja coerente com `domain` e `type`
+- **GARANTIR** que `impact_analysis.severity` seja proporcional ao número de relacionamentos
+
+## 🔄 Governança de Mudanças
+
+- **ANALISAR** impacto em UKIs relacionadas antes de mudanças MAJOR
+- **PROPAGAR** mudanças seguindo a ontologia de relacionamentos
+- **NOTIFICAR** stakeholders baseado em `domain_of_influence`
+- **REAVALIAR** `sunset_policy` quando contexto organizacional mudar
+- **MANTER** histórico de versões para auditoria e rollback
 
 ---
 
@@ -546,8 +753,9 @@ Esse modelo garante que a Matrix se expanda como uma base de conhecimento orgân
 # 📋 EXEMPLOS PRÁTICOS DE UKIs
 
 ## Exemplo 1: Padrão Técnico
+
 ```yaml
-id: unik-technical-api-error-handling
+id: unik:technical:pattern:api-error-handling
 title: Padrão de Tratamento de Erros em API
 domain: technical
 type: pattern
@@ -555,6 +763,34 @@ context: implementation
 version: "1.0.0"
 created_date: "2024-01-15"
 last_modified: "2024-01-15"
+
+status: active
+domain_of_influence: operations
+
+relationships:
+  - type: implements
+    target: unik:technical:template:api-response-format
+    description: Implementa formato padrão de resposta da API com estrutura de erro
+  - type: complements
+    target: unik:technical:guideline:logging-standards
+    description: Complementa padrões de logging para auditoria e debugging
+  - type: depends_on
+    target: unik:[domain]:[type]:[identifier]
+    description: Depende de definições padronizadas de códigos HTTP
+
+impact_analysis:
+  chain_preview:
+    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+  severity: medium
+  affected_domains: [technical, product]
+  propagation_estimate: 8
+
+sunset_policy: |
+  Revisar anualmente ou quando novos padrões de API forem adotados.
+  Considerar deprecação se GraphQL ou outras tecnologias substituirem REST.
+  Arquivar apenas após migração completa de todas as APIs.
+
 intent_of_use:
   - standardize_error_responses
   - improve_api_consistency
@@ -584,8 +820,7 @@ content: |
     }
   }
   '''
- ``` 
----
+  
   Códigos de status HTTP:
   - 400: Erro de validação ou request malformado
   - 401: Não autenticado
@@ -597,19 +832,12 @@ examples:
     output: "Status 400 com código VALIDATION_ERROR e detalhes do campo email"
   - input: "Tentativa de acesso sem token JWT"
     output: "Status 401 com código AUTHENTICATION_REQUIRED"
-related_to:
-  - target: unik-technical-api-response-format
-    relation_type: implements
-    description: Implementa formato padrão de resposta da API
-  - target: unik-technical-logging-standards
-    relation_type: complies_with
-    description: Segue padrões de logging para auditoria
 last_validation: "2024-01-15"
 ```
 
 ## Exemplo 2: Regra de Negócio
 ```yaml
-id: unik-business-discount-calculation
+id: unik:business:rule:discount-calculation
 title: Regra de Cálculo de Desconto de Cliente
 domain: business
 type: business_rule
@@ -620,6 +848,37 @@ last_modified: "2024-01-15"
 change_summary: "Adicionado desconto para clientes premium e limite máximo"
 change_impact: "minor"
 previous_version: "1.1.0"
+
+status: active
+domain_of_influence: finance
+
+relationships:
+  - type: implements
+    target: unik:[domain]:[type]:[identifier]
+    description: Implementa regras do programa de fidelidade para cálculo automático
+  - type: complements
+    target: unik:[domain]:[type]:[identifier]
+    description: Complementa processo de checkout com lógica de preço final
+  - type: depends_on
+    target: unik:[domain]:[type]:[identifier]
+    description: Depende de classificação de perfil de cliente para funcionar
+  - type: overrides
+    target: unik:[domain]:[type]:[identifier]
+    description: Substitui regras de desconto manuais anteriores
+
+impact_analysis:
+  chain_preview:
+    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+  severity: high
+  affected_domains: [business, finance, product]
+  propagation_estimate: 15
+
+sunset_policy: |
+  Revisar trimestralmente devido ao impacto financeiro direto.
+  Reavaliar se novos modelos de fidelidade forem implementados.
+  Arquivar apenas após substituição por sistema de pricing dinâmico.
+
 intent_of_use:
   - calculate_customer_discounts
   - ensure_pricing_consistency
@@ -651,19 +910,12 @@ examples:
     output: "Desconto 20% (15% + 5%), valor final R$ 800"
   - input: "Cliente novo comprando R$ 500"
     output: "Desconto 5%, valor final R$ 475"
-related_to:
-  - target: unik-business-loyalty-program
-    relation_type: implements
-    description: Implementa regras do programa de fidelidade
-  - target: unik-product-checkout-flow
-    relation_type: relates_to
-    description: Aplicado durante o processo de checkout
 last_validation: "2024-01-15"
 ```
 
 ## Exemplo 3: Diretriz de Produto
 ```yaml
-id: unik-product-modal-design
+id: unik:product:guideline:modal-design
 title: Diretrizes de Design para Modais
 domain: product
 type: guideline
@@ -671,6 +923,34 @@ context: design
 version: "1.0.0"
 created_date: "2024-01-08"
 last_modified: "2024-01-08"
+
+status: active
+domain_of_influence: operations
+
+relationships:
+  - type: implements
+    target: unik:[domain]:[type]:[identifier]
+    description: Implementa componentes padronizados do sistema de design
+  - type: depends_on
+    target: unik:[domain]:[type]:[identifier]
+    description: Depende de padrões de acessibilidade para compliance
+  - type: complements
+    target: unik:[domain]:[type]:[identifier]
+    description: Complementa biblioteca de componentes com especificações de modal
+
+impact_analysis:
+  chain_preview:
+    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+  severity: medium
+  affected_domains: [product, technical]
+  propagation_estimate: 6
+
+sunset_policy: |
+  Revisar semestralmente com time de design e acessibilidade.
+  Reavaliar quando novos frameworks de UI forem adotados.
+  Considerar atualização major se padrões de acessibilidade mudarem.
+
 intent_of_use:
   - standardize_ui_components
   - guide_design_decisions
@@ -700,13 +980,6 @@ examples:
     output: "Modal médio com botões 'Excluir' (perigo) e 'Cancelar'"
   - input: "Exibir informações do perfil do usuário"
     output: "Modal grande com botões 'Editar Perfil' e 'Fechar'"
-related_to:
-  - target: unik-product-design-system
-    relation_type: implements
-    description: Implementa componentes do sistema de design
-  - target: unik-technical-accessibility-standards
-    relation_type: complies_with
-    description: Segue padrões de acessibilidade técnica
 last_validation: "2024-01-08"
 ```
 
@@ -723,13 +996,13 @@ UKIs que implementam padrões ou dependem de outros conhecimentos para funcional
 
 **Exemplos:**
 ```yaml
-# unik-technical-jwt-implementation
-related_to:
-  - target: unik-technical-jwt-validation
-    relation_type: depends_on
+# unik:technical:function:jwt-implementation
+relationships:
+  - target: unik:technical:function:jwt-validation
+    type: depends_on
     description: Requer lógica de validação JWT para funcionar adequadamente
-  - target: unik-technical-authentication-pattern
-    relation_type: implements
+  - target: unik:technical:pattern:authentication
+    type: implements
     description: Implementa o padrão de autenticação padronizado
 ```
 
@@ -738,13 +1011,13 @@ UKIs que representam evolução, especialização ou substituição de conhecime
 
 **Exemplos:**
 ```yaml
-# unik-technical-oauth2-implementation
-related_to:
-  - target: unik-technical-oauth-basic
-    relation_type: extends
+# unik:technical:function:oauth2-implementation
+relationships:
+  - target: unik:technical:pattern:oauth-basic
+    type: extends
     description: Estende OAuth básico com PKCE e refresh tokens
-  - target: unik-technical-legacy-auth
-    relation_type: replaces
+  - target: unik:technical:pattern:legacy-auth
+    type: replaces
     description: Substitui método de autenticação descontinuado
 ```
 
@@ -753,13 +1026,13 @@ UKIs que seguem políticas ou identificam incompatibilidades.
 
 **Exemplos:**
 ```yaml
-# unik-technical-encryption-standard
-related_to:
-  - target: unik-business-data-protection-policy
-    relation_type: complies_with
+# unik:technical:guideline:encryption-standard
+relationships:
+  - target: unik:business:policy:data-protection
+    type: complies_with
     description: Segue requisitos de proteção de dados corporativos
-  - target: unik-technical-legacy-encryption
-    relation_type: conflicts_with
+  - target: unik:technical:pattern:legacy-encryption
+    type: conflicts_with
     description: Incompatível com métodos de criptografia descontinuados
 ```
 
@@ -768,13 +1041,13 @@ Relacionamentos genéricos para conexões contextuais que não se encaixam em ti
 
 **Exemplo:**
 ```yaml
-# unik-product-user-onboarding
-related_to:
-  - target: unik-technical-user-registration-api
-    relation_type: relates_to
+# unik:product:guideline:user-onboarding
+relationships:
+  - target: unik:technical:function:user-registration-api
+    type: relates_to
     description: Compartilha contexto no domínio de gestão de usuários
-  - target: unik-business-user-retention-strategy
-    relation_type: relates_to
+  - target: unik:business:rule:user-retention-strategy
+    type: relates_to
     description: Contribui para estratégia de retenção de usuários
 ```
 
@@ -801,13 +1074,13 @@ O MEF implementa um sistema de **governança ativa** que utiliza relacionamentos
 
 **Algoritmo:**
 ```yaml
-quando: mudança em UKI-base (padrão/diretriz)
-propagação:
-  para: UKIs que { relation_type: implements, target: UKI-base }
-  ação: 
-    - major: marcar como "requer_revisão"
-    - minor: marcar como "melhoria_disponível"
-    - patch: marcar como "correção_disponível"
+when: change in base-UKI (pattern/guideline)
+propagation:
+  to: UKIs where { type: implements, target: base-UKI }
+  action: 
+    - major: mark as "requires_review"
+    - minor: mark as "improvement_available"
+    - patch: mark as "correction_available"
 ```
 
 ### 🏗️ **`depends_on`** - Validação de Dependências
@@ -820,16 +1093,16 @@ propagação:
 
 **Algoritmo:**
 ```yaml
-quando: mudança em UKI-dependência
-propagação:
-  para: UKIs que { relation_type: depends_on, target: UKI-dependência }
-  ação:
-    - major: executar "análise_compatibilidade"
-    - minor: executar "validação_funcional"
-    - patch: executar "verificação_impacto"
+when: change in dependency-UKI
+propagation:
+  to: UKIs where { type: depends_on, target: dependency-UKI }
+  action:
+    - major: execute "compatibility_analysis"
+    - minor: execute "functional_validation"
+    - patch: execute "impact_verification"
 ```
 
-### 🌿 **`extends`** - Atualização de Extensões
+### 🌿 **`extends`** - Extensões
 **Regra:** Mudanças em conceitos base devem ser avaliadas para extensões.
 
 **Comportamento:**
@@ -839,13 +1112,13 @@ propagação:
 
 **Algoritmo:**
 ```yaml
-quando: mudança em UKI-base
-propagação:
-  para: UKIs que { relation_type: extends, target: UKI-base }
-  ação:
-    - major: marcar como "extensão_requer_revisão"
-    - minor: marcar como "considerar_incorporação"
-    - patch: marcar como "avaliar_relevância"
+when: change in base-UKI
+propagation:
+  to: UKIs where { type: extends, target: base-UKI }
+  action:
+    - major: mark as "extension_requires_review"
+    - minor: mark as "consider_incorporation"
+    - patch: mark as "assess_relevance"
 ```
 
 ### 🔄 **`replaces`** - Deprecação Automática
@@ -858,13 +1131,13 @@ propagação:
 
 **Algoritmo:**
 ```yaml
-quando: mudança em UKI-substituto
-propagação:
-  para: UKIs que { relation_type: replaces, source: UKI-substituto }
-  ação:
-    - major: marcar como "descontinuado"
-    - minor: atualizar "plano_migração"
-    - patch: atualizar "motivos_substituição"
+when: change in replacement-UKI
+propagation:
+  to: UKIs where { type: replaces, source: replacement-UKI }
+  action:
+    - major: mark as "discontinued"
+    - minor: update "migration_plan"
+    - patch: update "replacement_reasons"
 ```
 
 ### 🛡️ **`complies_with`** - Validação de Conformidade
@@ -888,23 +1161,23 @@ propagação:
 ### 📊 Classificação de Impacto por Mudança
 
 ```yaml
-análise_impacto:
-  escopo_mudança:
-    estrutural: "campos obrigatórios alterados"
-    semântica: "significado fundamental alterado"
-    implementação: "exemplos ou detalhes alterados"
-    correção: "typos ou clarificações menores"
+impact_analysis:
+  change_scope:
+    structural: "mandatory fields changed"
+    semantic: "fundamental meaning changed"
+    implementation: "examples or details changed"
+    correction: "typos or minor clarifications"
   
-  tipos_impacto:
-    crítico: "quebra funcionalidade existente"
-    alto: "requer adaptação de implementações"
-    médio: "recomenda revisão e adaptação"
-    baixo: "informacional, sem ação necessária"
+  impact_types:
+    critical: "breaks existing functionality"
+    high: "requires implementation adaptation"
+    medium: "recommends review and adaptation"
+    low: "informational, no action needed"
   
-  propagação_necessária:
-    imediata: "implementações críticas"
-    agendada: "melhorias planejadas"
-    informativa: "atualizações de conhecimento"
+  required_propagation:
+    immediate: "critical implementations"
+    scheduled: "planned improvements"
+    informative: "knowledge updates"
 ```
 
 ### 🎯 Matriz de Priorização de Propagação
@@ -921,20 +1194,20 @@ análise_impacto:
 ### 🔄 Algoritmo de Cascata de Versionamento
 
 ```yaml
-versionamento_cascata:
-  trigger: "mudança em UKI-origem"
-  processo:
-    1. identificar_relacionados:
-        query: "SELECT * FROM ukis WHERE related_to.target = UKI-origem"
-    2. classificar_impacto:
-        para_cada: relacionamento
-        calcular: impacto_por_tipo[relacionamento.relation_type]
-    3. gerar_propostas:
-        para_cada: UKI-relacionado
-        propor: nova_versão_baseada_em_impacto
-    4. executar_propagação:
-        ordem: prioridade (crítica → alta → média → baixa)
-        modo: automático | semi-automático | manual
+cascade_versioning:
+  trigger: "change in source-UKI"
+  process:
+    1. identify_related:
+        query: "SELECT * FROM ukis WHERE relationships.target = source-UKI"
+    2. classify_impact:
+        for_each: relationship
+        calculate: impact_by_type[relationship.type]
+    3. generate_proposals:
+        for_each: related-UKI
+        propose: new_version_based_on_impact
+    4. execute_propagation:
+        order: priority (critical → high → medium → low)
+        mode: automatic | semi-automatic | manual
 ```
 
 ## 🚨 Detecção de Conflitos e Inconsistências
@@ -942,18 +1215,18 @@ versionamento_cascata:
 ### 🔍 Validações Automáticas
 
 ```yaml
-validações:
-  consistência_semântica:
+validations:
+  semantic_consistency:
     - "UKI que implements deve ser compatível com target"
     - "UKI que replaces deve ter domain similar ao target"
     - "UKI que extends deve manter compatibilidade base"
   
-  integridade_referencias:
-    - "Todos related_to.target devem existir"
+  reference_integrity:
+    - "Todos relationships.target devem existir"
     - "Versões previous_version devem existir"
     - "Relacionamentos bidirecionais devem ser consistentes"
   
-  qualidade_conteúdo:
+  content_quality:
     - "Mudanças MAJOR devem ter change_summary detalhado"
     - "UKIs críticos devem ter last_validation recente"
     - "Exemplos devem ser consistentes com content"
@@ -962,16 +1235,16 @@ validações:
 ### ⚠️ Alertas de Governança
 
 ```yaml
-alertas:
-  propagação_pendente:
+alerts:
+  pending_propagation:
     - "UKI-X foi atualizada, 5 implementações precisam de revisão"
     - "Nova versão MAJOR de padrão crítico disponível"
   
-  conflitos_detectados:
+  detected_conflicts:
     - "UKI-A conflicts_with UKI-B, mas ambas marcadas como ativas"
     - "Dependência circular detectada: A→B→C→A"
   
-  qualidade_degradada:
+  degraded_quality:
     - "UKI crítica não validada há 90+ dias"
     - "Relacionamento órfão: target não existe"
 ```
@@ -1038,7 +1311,8 @@ These units are embedded and consumed by intelligent agents, ensuring traceabili
 Each file represents a **single UKI**.
 
 ```yaml
-id: unik-[domain]-[slug_or_id]
+
+id: unik:[domain]:[type]:[slug_or_id]
 title: [Objective and descriptive title of the unit]
 domain: [product | business | technical | strategy | culture]
 type: [business_rule | function | template | guideline | pattern | decision | example]
@@ -1046,9 +1320,30 @@ context: [discovery | implementation | refinement | qa | documentation | support
 version: [MAJOR.MINOR.PATCH]  # Semantic versioning of the UKI
 created_date: [YYYY-MM-DD]  # Date of first version creation
 last_modified: [YYYY-MM-DD]  # Date of last modification
-change_summary: [Summary of changes in current version]  # Optional for version 1.0.0
+change_summary: [Summary of changes in current version]  # Optional for initial version
 change_impact: [major | minor | patch]  # Type of change impact
 previous_version: [MAJOR.MINOR.PATCH]  # Previous version (optional for 1.0.0)
+
+status: [active | deprecated | archived]  # Lifecycle control
+domain_of_influence: [strategy | finance | ethics | operations]  # Strategic impact area
+
+relationships:  # Formal ontology of typed relationships
+  - type: [overrides | conflicts_with | complements | amends | depends_on]
+    target: unik:[domain]:[type]:[identifier]
+    description: [Specific description of the ontological relationship]
+  - type: [implements | extends | replaces | derives_from | relates_to]
+    target: unik:[domain]:[type]:[identifier]
+    description: [Specific description of the semantic relationship]
+
+impact_analysis:  # Impact chain analysis
+  chain_preview:
+    - unik:domain:type:item-a → unik:domain:type:item-b → unik:domain:type:item-c  # Expected propagation chain
+  severity: [low | medium | high | critical]  # Impact severity
+  affected_domains: [list of affected domains]
+  propagation_estimate: [estimated number of impacted UKIs]
+
+sunset_policy: |
+  [Review policy, obsolescence criteria and discontinuation conditions]
 intent_of_use:
   - [List of specific intentions for using this UKI]
 use_case_stage:
@@ -1059,10 +1354,6 @@ content: |
 examples:
   - input: [Real or simulated input example]
     output: [Expected result or consequence]
-related_to:
-  - target: unik-[target-uki-id]
-    relation_type: [implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to]
-    description: [Specific description of the relationship]
 governance:
   criticality: [critical | high | medium | low]  # Criticality level for governance
   auto_propagation: [automatic | semi_automatic | manual]  # Automatic propagation mode
@@ -1075,6 +1366,13 @@ governance:
     on_major_change: [notify_all | validate_dependencies | manual_review]
     on_minor_change: [suggest_updates | validate_compatibility | auto_notify]
     on_patch_change: [auto_propagate | inform_dependents | track_only]
+provenance:  # OPTIONAL: UKI origin and authorship history
+  author: [Name or identifier of the UKI creator]
+  formulation_date: [YYYY-MM-DD]  # Date when knowledge was originally formulated
+  original_instance: [Reference to original source or document]
+  organization: [Organization or team that created the UKI]
+  source_type: [meeting | document | interview | observation | analysis | experiment]
+maturity_level: [draft | validated | endorsed | deprecated | experimental]  # OPTIONAL: epistemological reliability level
 last_validation: [YYYY-MM-DD]  # Date of last content review and validation
 ```
 
@@ -1085,15 +1383,15 @@ last_validation: [YYYY-MM-DD]  # Date of last content review and validation
 ### 🔹 `id`
 **Required** | **String** | **Unique**
 
-Unique identifier following the pattern `unik-[domain]-[identifier]`:
+Unique identifier following the pattern `unik:[domain]:[type]:[identifier]`:
 - **unik**: Fixed prefix indicating it's a Knowledge Unit
 - **domain**: One of the accepted domains (product, business, technical, strategy, culture)
 - **identifier**: Descriptive slug or unique code
 
 **Examples:**
-- `unik-technical-jwt-authentication`
-- `unik-business-pricing-strategy`
-- `unik-product-user-onboarding`
+- `unik:technical:pattern:jwt-authentication`
+- `unik:business:rule:pricing-strategy`
+- `unik:product:guideline:user-onboarding`
 
 ### 🔹 `title`
 **Required** | **String**
@@ -1189,9 +1487,9 @@ Date of the last modification corresponding to the current version.
 - Content freshness indication
 
 ### 🔹 `change_summary`
-**Required for versions > 1.0.0** | **String**
+**Required for versioned UKIs** | **String**
 
-Clear summary of changes implemented in the current version.
+Summary of changes made to the UKI.
 
 **Guidelines:**
 - Be specific and actionable
@@ -1205,7 +1503,7 @@ Clear summary of changes implemented in the current version.
 - `"Restructured content organization for clarity"`
 
 ### 🔹 `change_impact`
-**Required for versions > 1.0.0** | **Enum**
+**Required for versioned UKIs** | **Enum**
 
 Classification of the change impact for the current version.
 
@@ -1220,7 +1518,7 @@ Classification of the change impact for the current version.
 Reference to the immediately previous version for evolution traceability.
 
 **Format:** `MAJOR.MINOR.PATCH`
-**Usage:** Only required for versions > 1.0.0
+**Usage:** Required for versioned UKIs
 **Purpose:** Enable version navigation and rollback capabilities
 
 ### 🔹 `content`
@@ -1304,37 +1602,165 @@ Language of the textual content.
 - `fr_FR` (French - France)
 - *Other ISO codes as needed*
 
-### 🔹 `related_to`
-**Optional** | **List of Objects**
+### 🔹 `status`
+**Required** | **Enum**
 
-List of typed semantic relationships with other UKIs. Each relationship specifies the connection type and description for knowledge graph construction.
+UKI lifecycle control for traceability and governance.
 
-**Semantic Relation Types:**
+**Accepted values:**
+- `active`: UKI active and in normal use
+- `deprecated`: UKI discontinued but still referenced
+- `archived`: UKI archived for historical reference
 
-| Type | Description | Usage |
-|------|-------------|-------|
-| `implements` | Implements a pattern, guideline or specification | Code following patterns |
-| `depends_on` | Depends on other knowledge to function | Technical/conceptual dependencies |
-| `extends` | Extends or specializes a base concept | Inheritance, refinements |
-| `replaces` | Replaces previous knowledge | Evolutions, migrations |
-| `complies_with` | Follows a policy, rule or standard | Regulatory compliance |
-| `conflicts_with` | Conflicts or is incompatible with other knowledge | Incompatibility identification |
-| `derives_from` | Derived or based on other knowledge | Originated knowledge |
-| `relates_to` | Generic relationship | Contextual relationships |
+**Purpose:**
+- Control UKI lifecycle
+- Enable automated governance
+- Prevent use of obsolete knowledge
+- Maintain historical traceability
 
-**Format:**
+### 🔹 `domain_of_influence`
+**Recommended** | **Enum**
+
+UKI strategic impact area for advanced governance analysis.
+
+**Accepted values:**
+- `strategy`: Impact on strategic decisions
+- `finance`: Impact on financial aspects
+- `ethics`: Impact on ethics or compliance
+- `operations`: Impact on operations and processes
+
+**Purpose:**
+- Classify organizational impact
+- Prioritize reviews based on influence area
+- Facilitate risk analysis
+- Guide approval processes
+
+### 🔹 `relationships`
+**Required** | **List of Objects**
+
+Formal ontology of typed relationships with other UKIs, replacing free-form relationships with standardized structure.
+
+**Formalized Ontological Relation Types:**
+
+| Type | Description | Usage | Category |
+|------|-------------|-------|----------|
+| `overrides` | Overrides or replaces another UKI | Direct replacements | Ontological |
+| `conflicts_with` | Conflicts or is incompatible | Incompatibilities | Ontological |
+| `complements` | Complements or adds information | Collaborative extensions | Ontological |
+| `amends` | Modifies or partially corrects | Corrections and adjustments | Ontological |
+| `depends_on` | Functionally depends on another UKI | Structural dependencies | Ontological |
+| `implements` | Implements a pattern or specification | Code following patterns | Semantic |
+| `extends` | Extends or specializes a concept | Inheritance, refinements | Semantic |
+| `replaces` | Replaces previous knowledge | Evolutions, migrations | Semantic |
+| `derives_from` | Derived or based on other knowledge | Originated knowledge | Semantic |
+| `relates_to` | Generic contextual relationship | Contextual associations | Semantic |
+
+**Standardized Ontological Format:**
 ```yaml
-related_to:
-  - target: unik-technical-oauth-implementation
-    relation_type: extends
-    description: Extends OAuth implementation with JWT
-  - target: unik-business-user-authentication-policy
-    relation_type: complies_with
-    description: Follows corporate authentication policy
-  - target: unik-product-login-flow
-    relation_type: implements
-    description: Implements product login flow
+relationships:
+  - type: overrides
+    target: unik:technical:pattern:legacy-auth
+    description: Replaces legacy authentication method with JWT
+  - type: depends_on
+    target: unik:technical:function:crypto-library
+    description: Requires cryptography library for token validation
+  - type: implements
+    target: unik:technical:pattern:oauth-implementation
+    description: Implements OAuth2 pattern with PKCE for security
+  - type: complements
+    target: unik:technical:pattern:session-management
+    description: Complements session management with persistence
 ```
+
+**Usage Guidelines:**
+- Always use `unik:[domain]:[type]:[identifier]` format for references
+- Avoid relationship duplication in other fields
+- Maintain ontological consistency between types
+- Clearly document the specific nature of the relationship
+
+### 🔹 `impact_analysis`
+**Optional** | **Object**
+
+Impact chain analysis to predict change propagation.
+
+**Structure:**
+```yaml
+impact_analysis:
+  chain_preview:
+    - unik:technical:pattern:auth → unik:product:template:login → unik:technical:pattern:session
+    - unik:technical:pattern:auth → unik:technical:guideline:api-security
+  severity: high
+  affected_domains: [technical, business, product]
+  propagation_estimate: 12
+```
+
+**Fields:**
+- `chain_preview`: Expected propagation chains
+- `severity`: Impact severity (low, medium, high, critical)
+- `affected_domains`: Potentially affected domains
+- `propagation_estimate`: Estimated number of impacted UKIs
+
+**Purpose:**
+- Anticipate change impacts
+- Facilitate update planning
+- Prioritize reviews based on severity
+- Guide communication strategies
+
+### 🔹 `sunset_policy`
+**Optional** | **String (multiline)**
+
+Review, assessment or discontinuation policy in free text.
+
+**Usage Examples:**
+```yaml
+sunset_policy: |
+  This UKI should be reviewed quarterly due to security impact.
+  Consider deprecation if new authentication technologies are adopted.
+  Archival criteria: complete replacement by OAuth3 or similar.
+```
+
+**Recommended Content:**
+- Specific review frequency
+- Deprecation criteria
+- Archival conditions
+- Relevant technological or organizational milestones
+
+**Purpose:**
+- Define UKI-specific lifecycle
+- Guide maintenance decisions
+- Facilitate discontinuation planning
+- Document external context dependencies
+
+### 🔹 `provenance`
+**Optional** | **Object**
+
+UKI origin and authorship history for traceability tracking.
+
+**Fields:**
+- `author`: Name or identifier of the creator
+- `formulation_date`: Original formulation date
+- `original_instance`: Reference to original source
+- `organization`: Organization or team that created it
+- `source_type`: Source type (meeting, document, interview, observation, analysis, experiment)
+
+**Purpose:**
+- Knowledge traceability
+- Authorship attribution
+- Historical context
+- Source validation
+
+### 🔹 `maturity_level`
+**Optional** | **Enum**
+
+Epistemological reliability level of the UKI. **Accepted values:**
+
+| Level | Description | Confidence | Usage Recommendation |
+|-------|-------------|------------|---------------------|
+| `draft` | Initial formulation, subject to review | Low | Use with caution, verify independently |
+| `validated` | Reviewed by domain experts | Medium | Reliable for implementation with standard verification |
+| `endorsed` | Officially approved by organization | High | Authoritative source, use as standard reference |
+| `deprecated` | No longer recommended, superseded | Low | Avoid use, refer to replacement UKI |
+| `experimental` | Under evaluation, pilot implementation | Variable | Use in controlled environments only |
 
 ### 🔹 `last_validation`
 **Optional** | **Date (YYYY-MM-DD)**
@@ -1402,7 +1828,7 @@ Defines specific behavior for each type of version change.
 
 ## Example 1: Technical Pattern
 ```yaml
-id: unik-technical-api-error-handling
+id: unik:technical:pattern:api-error-handling
 title: Standardized API Error Handling Pattern
 domain: technical
 type: pattern
@@ -1413,6 +1839,34 @@ last_modified: "2024-01-15"
 change_summary: "Added timeout handling example and improved error code documentation"
 change_impact: "minor"
 previous_version: "1.1.0"
+
+status: active
+domain_of_influence: operations
+
+relationships:
+  - type: implements
+    target: unik:technical:template:api-response-format
+    description: Implements standard API response format with error structure
+  - type: complements
+    target: unik:technical:guideline:logging-standards
+    description: Complements logging standards for auditing and debugging
+  - type: depends_on
+    target: unik:[domain]:[type]:[identifier]
+    description: Depends on standardized HTTP status code definitions
+
+impact_analysis:
+  chain_preview:
+    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+  severity: medium
+  affected_domains: [technical, product]
+  propagation_estimate: 8
+
+sunset_policy: |
+  Review annually or when new API standards are adopted.
+  Consider deprecation if GraphQL or other technologies replace REST.
+  Archive only after complete migration of all APIs.
+
 language: en_US
 content: |
   Standard pattern for handling and returning errors in REST APIs.
@@ -1443,15 +1897,12 @@ use_case_stage:
   - implementation
   - peer_review
   - testing
-related_to:
-  - unik-technical-api-response-format
-  - unik-technical-logging-standards
 last_validation: 2024-01-15
 ```
 
 ## Example 2: Business Rule
 ```yaml
-id: unik-business-discount-calculation
+id: unik:business:rule:discount-calculation
 title: Customer Discount Calculation Rule
 domain: business
 type: business_rule
@@ -1459,6 +1910,34 @@ context: implementation
 version: "1.0.0"
 created_date: "2024-01-10"
 last_modified: "2024-01-10"
+
+status: active
+domain_of_influence: finance
+
+relationships:
+  - type: implements
+    target: unik:[domain]:[type]:[identifier]
+    description: Implements loyalty program rules for automatic calculation
+  - type: complements
+    target: unik:[domain]:[type]:[identifier]
+    description: Complements checkout process with final pricing logic
+  - type: depends_on
+    target: unik:[domain]:[type]:[identifier]
+    description: Depends on customer profile classification to function
+
+impact_analysis:
+  chain_preview:
+    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+  severity: high
+  affected_domains: [business, finance, product]
+  propagation_estimate: 12
+
+sunset_policy: |
+  Review quarterly due to direct financial impact.
+  Reevaluate if new loyalty models are implemented.
+  Archive only after replacement by dynamic pricing system.
+
 language: en_US
 content: |
   Business rule for calculating customer discounts based on loyalty tier and purchase amount.
@@ -1485,15 +1964,12 @@ use_case_stage:
   - implementation
   - testing
   - training
-related_to:
-  - unik-business-loyalty-program
-  - unik-product-checkout-flow
 last_validation: 2024-01-10
 ```
 
 ## Example 3: Product Guideline
 ```yaml
-id: unik-product-modal-design
+id: unik:product:guideline:modal-design
 title: Modal Dialog Design Guidelines
 domain: product
 type: guideline
@@ -1504,6 +1980,34 @@ last_modified: "2024-01-08"
 change_summary: "Added accessibility requirements and mobile responsiveness guidelines"
 change_impact: "minor"
 previous_version: "2.0.0"
+
+status: active
+domain_of_influence: operations
+
+relationships:
+  - type: implements
+    target: unik:[domain]:[type]:[identifier]
+    description: Implements standardized design system components
+  - type: depends_on
+    target: unik:[domain]:[type]:[identifier]
+    description: Depends on accessibility standards for compliance
+  - type: complements
+    target: unik:[domain]:[type]:[identifier]
+    description: Complements component library with modal specifications
+
+impact_analysis:
+  chain_preview:
+    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+  severity: medium
+  affected_domains: [product, technical]
+  propagation_estimate: 6
+
+sunset_policy: |
+  Review semi-annually with design and accessibility teams.
+  Reevaluate when new UI frameworks are adopted.
+  Consider major update if accessibility standards change.
+
 language: en_US
 content: |
   Design guidelines for creating consistent modal dialogs across the application.
@@ -1533,9 +2037,6 @@ use_case_stage:
   - design
   - implementation
   - peer_review
-related_to:
-  - unik-product-design-system
-  - unik-technical-accessibility-standards
 last_validation: 2024-01-08
 ```
 
@@ -1552,13 +2053,13 @@ UKIs that implement patterns or depend on other knowledge for functionality.
 
 **Examples:**
 ```yaml
-# unik-technical-jwt-implementation
-related_to:
-  - target: unik-technical-jwt-validation
-    relation_type: depends_on
+# unik:technical:function:jwt-implementation
+relationships:
+  - target: unik:technical:function:jwt-validation
+    type: depends_on
     description: Requires JWT validation logic to function properly
-  - target: unik-technical-authentication-pattern
-    relation_type: implements
+  - target: unik:technical:pattern:authentication
+    type: implements
     description: Implements the standardized authentication pattern
 ```
 
@@ -1567,13 +2068,13 @@ UKIs that represent knowledge evolution, specialization or replacement.
 
 **Examples:**
 ```yaml
-# unik-technical-oauth2-implementation
-related_to:
-  - target: unik-technical-oauth-basic
-    relation_type: extends
+# unik:technical:function:oauth2-implementation
+relationships:
+  - target: unik:technical:pattern:oauth-basic
+    type: extends
     description: Extends basic OAuth with PKCE and refresh tokens
-  - target: unik-technical-legacy-auth
-    relation_type: replaces
+  - target: unik:technical:pattern:legacy-auth
+    type: replaces
     description: Replaces deprecated authentication method
 ```
 
@@ -1582,13 +2083,13 @@ UKIs that follow policies or identify incompatibilities.
 
 **Examples:**
 ```yaml
-# unik-technical-encryption-standard
-related_to:
-  - target: unik-business-data-protection-policy
-    relation_type: complies_with
+# unik:technical:guideline:encryption-standard
+relationships:
+  - target: unik:business:policy:data-protection
+    type: complies_with
     description: Follows corporate data protection requirements
-  - target: unik-technical-legacy-encryption
-    relation_type: conflicts_with
+  - target: unik:technical:pattern:legacy-encryption
+    type: conflicts_with
     description: Incompatible with deprecated encryption methods
 ```
 
@@ -1597,13 +2098,13 @@ Generic relationships for contextual connections that don't fit specific types.
 
 **Example:**
 ```yaml
-# unik-product-user-onboarding
-related_to:
-  - target: unik-technical-user-registration-api
-    relation_type: relates_to
+# unik:product:guideline:user-onboarding
+relationships:
+  - target: unik:technical:function:user-registration-api
+    type: relates_to
     description: Shares context in user management domain
-  - target: unik-business-user-retention-strategy
-    relation_type: relates_to
+  - target: unik:business:rule:user-retention-strategy
+    type: relates_to
     description: Contributes to user retention strategy
 ```
 
@@ -1632,7 +2133,7 @@ MEF implements an **active governance** system that uses typed semantic relation
 ```yaml
 when: change in base-UKI (pattern/guideline)
 propagation:
-  to: UKIs where { relation_type: implements, target: base-UKI }
+  to: UKIs where { type: implements, target: base-UKI }
   action: 
     - major: mark as "requires_review"
     - minor: mark as "improvement_available"
@@ -1651,7 +2152,7 @@ propagation:
 ```yaml
 when: change in dependency-UKI
 propagation:
-  to: UKIs where { relation_type: depends_on, target: dependency-UKI }
+  to: UKIs where { type: depends_on, target: dependency-UKI }
   action:
     - major: execute "compatibility_analysis"
     - minor: execute "functional_validation"
@@ -1670,7 +2171,7 @@ propagation:
 ```yaml
 when: change in base-UKI
 propagation:
-  to: UKIs where { relation_type: extends, target: base-UKI }
+  to: UKIs where { type: extends, target: base-UKI }
   action:
     - major: mark as "extension_requires_review"
     - minor: mark as "consider_incorporation"
@@ -1689,7 +2190,7 @@ propagation:
 ```yaml
 when: change in replacement-UKI
 propagation:
-  to: UKIs where { relation_type: replaces, source: replacement-UKI }
+  to: UKIs where { type: replaces, source: replacement-UKI }
   action:
     - major: mark as "discontinued"
     - minor: update "migration_plan"
@@ -1754,10 +2255,10 @@ cascade_versioning:
   trigger: "change in source-UKI"
   process:
     1. identify_related:
-        query: "SELECT * FROM ukis WHERE related_to.target = source-UKI"
+        query: "SELECT * FROM ukis WHERE relationships.target = source-UKI"
     2. classify_impact:
         for_each: relationship
-        calculate: impact_by_type[relationship.relation_type]
+        calculate: impact_by_type[relationship.type]
     3. generate_proposals:
         for_each: related-UKI
         propose: new_version_based_on_impact
@@ -1778,7 +2279,7 @@ validations:
     - "UKI that extends must maintain base compatibility"
   
   reference_integrity:
-    - "All related_to.target must exist"
+    - "All relationships.target must exist"
     - "All previous_version versions must exist"
     - "Bidirectional relationships must be consistent"
   
@@ -1851,14 +2352,14 @@ propagation_modes:
 ```
 knowledge-base/
 ├── technical/
-│   ├── unik-technical-api-patterns.yaml
-│   └── unik-technical-database-schema.yaml
+│   ├── unik-technical-pattern-api.yaml
+│   └── unik-technical-template-database-schema.yaml
 ├── business/
-│   ├── unik-business-pricing-rules.yaml
-│   └── unik-business-customer-lifecycle.yaml
+│   ├── unik-business-rule-pricing-rules.yaml
+│   └── unik-business-rule-customer-lifecycle.yaml
 └── product/
-    ├── unik-product-user-flows.yaml
-    └── unik-product-design-system.yaml
+    ├── unik-product-template-user-flows.yaml
+    └── unik-product-guideline-design-system.yaml
 ```
 
 ### Implementation Considerations
@@ -1868,7 +2369,7 @@ Organizations implementing MEF should consider:
 - **Validation**: Implement validation against MEF specification before storing UKIs
 - **Indexing**: Extract structured metadata from UKI fields for search capabilities  
 - **Versioning**: Track UKI evolution through the version control fields
-- **Relationships**: Build semantic navigation through `related_to` connections
+- **Relationships**: Build semantic navigation through `relationships` connections
 - **Domains**: Organize content by the five MEF domains for better discovery
 
 ---
@@ -1922,3 +2423,161 @@ The Matrix Protocol can be implemented at different organizational layers, each 
 - Contents can be stored in **independent repositories**, but following the **same base framework**.
 
 This model ensures that the Matrix expands as an organic and contextual knowledge base, connecting different teams without sacrificing standardization and governance.
+
+---
+
+# 📚 ONTOLOGIA AUXILIAR / AUXILIARY ONTOLOGY
+
+## 🇧🇷 Português
+
+### Vocabulário Controlado para Campos MEF
+
+Esta seção define o vocabulário controlado aceito para os campos `domain`, `type`, `severity`, `relationship.type`, `maturity_level` e `provenance.source_type` para garantir consistência semântica em implementações de UKIs.
+
+#### Domínios (`domain`)
+
+| Domínio | Descrição | Exemplos |
+|---------|-----------|----------|
+| `product` | Design de produto, experiência do usuário e especificações de interface | Diretrizes de interface, padrões de design, padrões de acessibilidade, definições de jornada do usuário |
+| `business` | Regras de negócio, processos e conhecimento operacional | Cálculos de preços, regras de desconto, definições de workflow, especificações de lógica de negócio |
+| `technical` | Implementações técnicas, arquitetura e padrões de código | Padrões de autenticação, especificações de API, schemas de banco de dados, templates de código |
+| `strategy` | Decisões estratégicas, roadmaps e planejamento de longo prazo | Estratégias de evolução de API, planos de migração de tecnologia, decisões de arquitetura, prioridades de investimento |
+| `culture` | Cultura de equipe, processos de colaboração e conhecimento organizacional | Processos de code review, diretrizes de comunicação da equipe, procedimentos de onboarding, padrões de qualidade |
+
+#### Tipos (`type`)
+
+| Tipo | Descrição | Domínios Aplicáveis |
+|------|-----------|---------------------|
+| `business_rule` | Lógica de negócio formal e regras operacionais | business, product, strategy |
+| `function` | Funções executáveis, algoritmos e procedimentos computacionais | technical, business |
+| `template` | Templates reutilizáveis e formatos padronizados | technical, product, culture |
+| `guideline` | Melhores práticas e abordagens recomendadas | product, technical, culture, strategy |
+| `pattern` | Soluções recorrentes e padrões de design | technical, product, business |
+| `decision` | Decisões estratégicas e escolhas arquiteturais | strategy, technical, business |
+| `example` | Exemplos concretos e amostras de implementação | technical, product, business, culture, strategy |
+
+#### Níveis de Severidade (`severity`)
+
+| Nível | Descrição | Impacto |
+|-------|-----------|---------|
+| `low` | Impacto menor, informacional ou sugestões de melhoria | Impacto mínimo nos negócios ou técnico |
+| `medium` | Impacto moderado, afeta funcionalidades ou processos específicos | Impacto localizado na funcionalidade ou experiência do usuário |
+| `high` | Impacto significativo, afeta funcionalidades centrais ou operações de negócio | Impacto substancial na funcionalidade do sistema ou processos de negócio |
+| `critical` | Impacto crítico, falha do sistema ou grande disrupção de negócio | Impacto severo causando falha do sistema ou grande disrupção de negócio |
+
+#### Tipos de Relacionamento (`relationships.type`)
+
+##### Ontológicos
+| Tipo | Descrição | Direcionalidade |
+|------|-----------|-----------------|
+| `implements` | UKI alvo fornece implementação concreta de conceito abstrato | unidirecional |
+| `depends_on` | UKI origem requer UKI alvo para funcionamento adequado | unidirecional |
+| `extends` | UKI origem constrói sobre e expande UKI alvo | unidirecional |
+| `replaces` | UKI origem substitui e supera UKI alvo | unidirecional |
+| `complies_with` | UKI origem adere aos padrões definidos no UKI alvo | unidirecional |
+| `conflicts_with` | UKI origem contradiz ou é incompatível com UKI alvo | bidirecional |
+
+##### Semânticos
+| Tipo | Descrição | Direcionalidade |
+|------|-----------|-----------------|
+| `derives_from` | UKI origem origina-se de ou é baseado no UKI alvo | unidirecional |
+| `relates_to` | Relacionamento semântico geral sem hierarquia específica | bidirecional |
+
+#### Níveis de Maturidade (`maturity_level`)
+
+| Nível | Descrição | Confiança Epistemológica | Recomendação de Uso |
+|-------|-----------|--------------------------|---------------------|
+| `draft` | Formulação inicial, sujeita a revisão e validação | Baixa | Usar com cautela, verificar independentemente |
+| `validated` | Revisado e confirmado por especialistas do domínio | Média | Confiável para implementação com verificação padrão |
+| `endorsed` | Oficialmente aprovado e adotado pela organização | Alta | Fonte autoritativa, usar como referência padrão |
+| `deprecated` | Não mais recomendado, substituído por conhecimento mais recente | Baixa | Evitar uso, referir a UKI substituta |
+| `experimental` | Em avaliação, implementação experimental ou piloto | Variável | Usar apenas em ambientes controlados |
+
+#### Tipos de Fonte (`provenance.source_type`)
+
+| Tipo | Descrição |
+|------|-----------|
+| `meeting` | Reunião, workshop ou sessão colaborativa |
+| `document` | Documento formal, especificação ou manual |
+| `interview` | Entrevista ou conversa individual |
+| `observation` | Observação direta de processo ou comportamento |
+| `analysis` | Análise técnica, pesquisa ou investigação |
+| `experiment` | Teste controlado, prova de conceito ou piloto |
+
+---
+
+## 🇺🇸 English
+
+### Controlled Vocabulary for MEF Fields
+
+This section defines the accepted controlled vocabulary for `domain`, `type`, `severity`, `relationship.type`, `maturity_level`, and `provenance.source_type` fields to ensure semantic consistency across UKI implementations.
+
+#### Domains (`domain`)
+
+| Domain | Description | Examples |
+|--------|-------------|----------|
+| `product` | Product design, user experience, and interface specifications | User interface guidelines, design patterns, accessibility standards, user journey definitions |
+| `business` | Business rules, processes, and operational knowledge | Pricing calculations, discount rules, workflow definitions, business logic specifications |
+| `technical` | Technical implementations, architecture, and code patterns | Authentication patterns, API specifications, database schemas, code templates |
+| `strategy` | Strategic decisions, roadmaps, and long-term planning | API evolution strategies, technology migration plans, architecture decisions, investment priorities |
+| `culture` | Team culture, collaboration processes, and organizational knowledge | Code review processes, team communication guidelines, onboarding procedures, quality standards |
+
+#### Types (`type`)
+
+| Type | Description | Applicable Domains |
+|------|-------------|-------------------|
+| `business_rule` | Formal business logic and operational rules | business, product, strategy |
+| `function` | Executable functions, algorithms, and computational procedures | technical, business |
+| `template` | Reusable templates and standardized formats | technical, product, culture |
+| `guideline` | Best practices and recommended approaches | product, technical, culture, strategy |
+| `pattern` | Recurring solutions and design patterns | technical, product, business |
+| `decision` | Strategic decisions and architectural choices | strategy, technical, business |
+| `example` | Concrete examples and implementation samples | technical, product, business, culture, strategy |
+
+#### Severity Levels (`severity`)
+
+| Level | Description | Impact |
+|-------|-------------|--------|
+| `low` | Minor impact, informational or enhancement suggestions | Minimal business or technical impact |
+| `medium` | Moderate impact, affects specific functionality or processes | Localized impact on functionality or user experience |
+| `high` | Significant impact, affects core functionality or business operations | Substantial impact on system functionality or business processes |
+| `critical` | Critical impact, system failure or major business disruption | Severe impact causing system failure or major business disruption |
+
+#### Relationship Types (`relationships.type`)
+
+##### Ontological
+| Type | Description | Directionality |
+|------|-------------|----------------|
+| `implements` | Target UKI provides concrete implementation of abstract concept | unidirectional |
+| `depends_on` | Source UKI requires target UKI for proper functioning | unidirectional |
+| `extends` | Source UKI builds upon and expands target UKI | unidirectional |
+| `replaces` | Source UKI supersedes and substitutes target UKI | unidirectional |
+| `complies_with` | Source UKI adheres to standards defined in target UKI | unidirectional |
+| `conflicts_with` | Source UKI contradicts or is incompatible with target UKI | bidirectional |
+
+##### Semantic
+| Type | Description | Directionality |
+|------|-------------|----------------|
+| `derives_from` | Source UKI originates from or is based on target UKI | unidirectional |
+| `relates_to` | General semantic relationship without specific hierarchy | bidirectional |
+
+#### Maturity Levels (`maturity_level`)
+
+| Level | Description | Epistemological Confidence | Usage Recommendation |
+|-------|-------------|---------------------------|---------------------|
+| `draft` | Initial formulation, subject to review and validation | Low | Use with caution, verify independently |
+| `validated` | Reviewed and confirmed by domain experts | Medium | Reliable for implementation with standard verification |
+| `endorsed` | Officially approved and adopted by organization | High | Authoritative source, use as standard reference |
+| `deprecated` | No longer recommended, superseded by newer knowledge | Low | Avoid use, refer to replacement UKI |
+| `experimental` | Under evaluation, experimental or pilot implementation | Variable | Use in controlled environments only |
+
+#### Source Types (`provenance.source_type`)
+
+| Type | Description |
+|------|-------------|
+| `meeting` | Meeting, workshop, or collaborative session |
+| `document` | Formal document, specification, or manual |
+| `interview` | Individual interview or conversation |
+| `observation` | Direct observation of process or behavior |
+| `analysis` | Technical analysis, research, or investigation |
+| `experiment` | Controlled test, proof of concept, or pilot |
