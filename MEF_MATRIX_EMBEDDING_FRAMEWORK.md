@@ -35,17 +35,20 @@ Cada arquivo representa uma **única UKI**.
 
 ```yaml
 
+schema: "2.0"
+ontology_reference: "Ontology_MEF_Support v1.0"
+version: "[MAJOR.MINOR.PATCH]"
+
 id: unik:[domain]:[type]:[slug_or_id]
 title: [Título objetivo e descritivo da unidade]
 domain: [strategy | operations | ethics | finance | security | governance | communication | automation | intelligence]
 type: [concept | rule | metric | policy | procedure | glossary | constraint]
 context: [discovery | implementation | refinement | qa | documentation | support]
-version: [MAJOR.MINOR.PATCH]  # Versionamento semântico da UKI
 created_date: [YYYY-MM-DD]  # Data de criação da primeira versão
 last_modified: [YYYY-MM-DD]  # Data da última modificação
 change_summary: [Resumo das mudanças na versão atual]  # Opcional para versão inicial
 change_impact: [major | minor | patch]  # Tipo de impacto da mudança
-previous_version: [MAJOR.MINOR.PATCH]  # Versão anterior (opcional para versão inicial)
+previous_version: "[MAJOR.MINOR.PATCH]"  # Versão anterior (opcional para versão inicial)
 
 status: [active | deprecated | archived]  # OBRIGATÓRIO: controle de ciclo de vida
 
@@ -102,6 +105,42 @@ last_validation: [YYYY-MM-DD]  # Data da última revisão e validação de conte
 ---
 
 # 📘 DESCRIÇÃO DOS CAMPOS
+
+## 🎯 Campos de Metadados Estruturais
+
+### 🔹 `schema`
+**Obrigatório** | **String** | **"2.0"**
+
+Especifica a versão do **schema estrutural** (formato e layout YAML da UKI). Identifica mudanças no modelo de dados (novos campos, alterações obrigatórias, reorganização da estrutura).
+
+- **Propósito**: Controle de versão da estrutura do arquivo
+- **Usado para**: Validação de formato, migração automática, compatibilidade de parsers
+- **Formato**: String com versão em formato semântico
+- **Posição**: Primeiro campo do arquivo YAML
+
+### 🔹 `ontology_reference`
+**Obrigatório** | **String** | **"Ontology_MEF_Support v1.0"**
+
+Referência à versão do vocabulário/ontologia que regula os valores controlados como `type`, `domain`, `status`, `relationship_types`, etc.
+
+- **Propósito**: Garantir consistência semântica e validação automática
+- **Justificativa do formato completo**: Evita ambiguidade entre diferentes ontologias, garante portabilidade e legibilidade
+- **Formato**: `nome_da_ontologia + espaço + vX.Y`
+- **Posição**: Segundo campo, imediatamente após `schema`
+
+### 🔹 `version`
+**Obrigatório** | **String** | **"MAJOR.MINOR.PATCH"**
+
+Define a versão semântica da **UKI em si**, seguindo convenção de versionamento semântico para controle de mudanças conceituais.
+
+- **Propósito**: Controle de evolução do conteúdo semântico da UKI
+- **Diferente de**: `schema` (que versiona a estrutura do arquivo)
+- **Formato**: String obrigatoriamente entre aspas (evita erro de parsing YAML)
+- **Posição**: Terceiro campo, após `ontology_reference`
+
+---
+
+## 🎯 Campos de Identificação e Classificação
 
 ### 🔹 `id`
 **Obrigatório** | **String** | **Único**
@@ -667,7 +706,7 @@ Essa separação garante organização semântica, versionamento independente po
 ### 🔗 **Campo `relationships` (Obrigatório)**
 - Usar formato `unik:[domain]:[type]:[identifier]` para referências
 - **Escolher tipos precisos**: ontológicos para relações estruturais, semânticos para conceituais
-- **EVITAR** relacionamento `relates_to` - preferir tipos específicos
+- **USAR APENAS** tipos de relacionamento da ontologia: depends_on, overrides, conflicts_with, complements, amends, precedes, equivalent_to
 - **VALIDAR** que target existe antes de criar relacionamento
 - **DOCUMENTAR** claramente a natureza específica de cada relação
 
@@ -694,7 +733,7 @@ Essa separação garante organização semântica, versionamento independente po
 
 - **EVITAR** duplicação de informações entre campos `relationships` e outros campos
 - **MANTER** consistência ontológica: se A `overrides` B, então B deve estar `deprecated`
-- **VALIDAR** que UKIs com status `deprecated` não sejam target de novos relacionamentos `implements`
+- **VALIDAR** que UKIs com status `deprecated` não sejam target de novos relacionamentos `depends_on`
 - **VERIFICAR** que `domain_of_influence` seja coerente com `domain` e `type`
 - **GARANTIR** que `impact_analysis.severity` seja proporcional ao número de relacionamentos
 
@@ -753,12 +792,15 @@ Esse modelo garante que a Matrix se expanda como uma base de conhecimento orgân
 ## Exemplo 1: Padrão Técnico
 
 ```yaml
+schema: "2.0"
+ontology_reference: "Ontology_MEF_Support v1.0"
+version: "1.0.0"
+
 id: unik:technical:pattern:api-error-handling
 title: Padrão de Tratamento de Erros em API
 domain: technical
 type: pattern
 context: implementation
-version: "1.0.0"
 created_date: "2024-01-15"
 last_modified: "2024-01-15"
 
@@ -766,7 +808,7 @@ status: active
 domain_of_influence: operations
 
 relationships:
-  - type: implements
+  - type: depends_on
     target: unik:technical:template:api-response-format
     description: Implementa formato padrão de resposta da API com estrutura de erro
   - type: complements
@@ -835,12 +877,15 @@ last_validation: "2024-01-15"
 
 ## Exemplo 2: Regra de Negócio
 ```yaml
+schema: "2.0"
+ontology_reference: "Ontology_MEF_Support v1.0"
+version: "1.2.0"
+
 id: unik:business:rule:discount-calculation
 title: Regra de Cálculo de Desconto de Cliente
 domain: business
 type: business_rule
 context: implementation
-version: "1.2.0"
 created_date: "2024-01-10"
 last_modified: "2024-01-15"
 change_summary: "Adicionado desconto para clientes premium e limite máximo"
@@ -851,7 +896,7 @@ status: active
 domain_of_influence: finance
 
 relationships:
-  - type: implements
+  - type: depends_on
     target: unik:[domain]:[type]:[identifier]
     description: Implementa regras do programa de fidelidade para cálculo automático
   - type: complements
@@ -897,12 +942,12 @@ content: |
   5. Desconto máximo: 25%
   
   Fórmula:
-  ```
+
   desconto_base = perfil_cliente.desconto_percentual
   desconto_premium = cliente.is_premium ? 5 : 0
   desconto_total = min(desconto_base + desconto_premium, 25)
   valor_final = valor_original * (1 - desconto_total/100)
-  ```
+
 examples:
   - input: "Cliente fiel premium comprando R$ 1000"
     output: "Desconto 20% (15% + 5%), valor final R$ 800"
@@ -913,12 +958,15 @@ last_validation: "2024-01-15"
 
 ## Exemplo 3: Diretriz de Produto
 ```yaml
+schema: "2.0"
+ontology_reference: "Ontology_MEF_Support v1.0"
+version: "1.0.0"
+
 id: unik:product:guideline:modal-design
 title: Diretrizes de Design para Modais
 domain: product
 type: guideline
 context: design
-version: "1.0.0"
 created_date: "2024-01-08"
 last_modified: "2024-01-08"
 
@@ -926,7 +974,7 @@ status: active
 domain_of_influence: operations
 
 relationships:
-  - type: implements
+  - type: depends_on
     target: unik:[domain]:[type]:[identifier]
     description: Implementa componentes padronizados do sistema de design
   - type: depends_on
@@ -989,7 +1037,7 @@ last_validation: "2024-01-08"
 
 O MEF utiliza relacionamentos semânticos tipados para construir grafos de conhecimento ricos e habilitar governança automatizada entre UKIs.
 
-### 🏗️ **Dependências de Implementação** (`implements` / `depends_on`)
+### 🏗️ **Dependências de Implementação** (`depends_on`)
 UKIs que implementam padrões ou dependem de outros conhecimentos para funcionalidade.
 
 **Exemplos:**
@@ -1000,11 +1048,11 @@ relationships:
     type: depends_on
     description: Requer lógica de validação JWT para funcionar adequadamente
   - target: unik:technical:pattern:authentication
-    type: implements
+    type: depends_on
     description: Implementa o padrão de autenticação padronizado
 ```
 
-### 🌿 **Evolução do Conhecimento** (`extends` / `derives_from` / `replaces`)
+### 🌿 **Evolução do Conhecimento** (`complements` / `amends` / `overrides`)
 UKIs que representam evolução, especialização ou substituição de conhecimento.
 
 **Exemplos:**
@@ -1012,10 +1060,10 @@ UKIs que representam evolução, especialização ou substituição de conhecime
 # unik:technical:function:oauth2-implementation
 relationships:
   - target: unik:technical:pattern:oauth-basic
-    type: extends
+    type: complements
     description: Estende OAuth básico com PKCE e refresh tokens
   - target: unik:technical:pattern:legacy-auth
-    type: replaces
+    type: overrides
     description: Substitui método de autenticação descontinuado
 ```
 
@@ -1034,19 +1082,19 @@ relationships:
     description: Incompatível com métodos de criptografia descontinuados
 ```
 
-### 🌐 **Associações Contextuais** (`relates_to`)
-Relacionamentos genéricos para conexões contextuais que não se encaixam em tipos específicos.
+### 🌐 **Associações Contextuais** (`complements`)
+Relacionamentos para conexões contextuais que expandem ou detalham outras UKIs.
 
 **Exemplo:**
 ```yaml
-# unik:product:guideline:user-onboarding
+# unik:governance:policy:user-onboarding
 relationships:
-  - target: unik:technical:function:user-registration-api
-    type: relates_to
-    description: Compartilha contexto no domínio de gestão de usuários
-  - target: unik:business:rule:user-retention-strategy
-    type: relates_to
-    description: Contribui para estratégia de retenção de usuários
+  - target: unik:security:procedure:user-registration-api
+    type: complements
+    description: Expande contexto no domínio de gestão de usuários
+  - target: unik:strategy:rule:user-retention-strategy
+    type: depends_on
+    description: Fundamenta-se na estratégia de retenção de usuários
 ```
 
 ## Diretrizes de Relacionamento
@@ -1062,7 +1110,7 @@ O MEF implementa um sistema de **governança ativa** que utiliza relacionamentos
 
 ## 🔄 Regras de Propagação por Tipo de Relacionamento
 
-### 📋 **`implements`** - Propagação de Padrões
+### 📋 **`depends_on`** - Propagação de Padrões
 **Regra:** Mudanças em padrões/diretrizes devem ser propagadas para suas implementações.
 
 **Comportamento:**
@@ -1074,7 +1122,7 @@ O MEF implementa um sistema de **governança ativa** que utiliza relacionamentos
 ```yaml
 when: change in base-UKI (pattern/guideline)
 propagation:
-  to: UKIs where { type: implements, target: base-UKI }
+  to: UKIs where { type: depends_on, target: base-UKI }
   action: 
     - major: mark as "requires_review"
     - minor: mark as "improvement_available"
@@ -1100,7 +1148,7 @@ propagation:
     - patch: execute "impact_verification"
 ```
 
-### 🌿 **`extends`** - Extensões
+### 🌿 **`complements`** - Extensões
 **Regra:** Mudanças em conceitos base devem ser avaliadas para extensões.
 
 **Comportamento:**
@@ -1112,14 +1160,14 @@ propagation:
 ```yaml
 when: change in base-UKI
 propagation:
-  to: UKIs where { type: extends, target: base-UKI }
+  to: UKIs where { type: complements, target: base-UKI }
   action:
     - major: mark as "extension_requires_review"
     - minor: mark as "consider_incorporation"
     - patch: mark as "assess_relevance"
 ```
 
-### 🔄 **`replaces`** - Deprecação Automática
+### 🔄 **`overrides`** - Deprecação Automática
 **Regra:** Mudanças em substitutos devem atualizar status de substituídos.
 
 **Comportamento:**
@@ -1131,7 +1179,7 @@ propagation:
 ```yaml
 when: change in replacement-UKI
 propagation:
-  to: UKIs where { type: replaces, source: replacement-UKI }
+  to: UKIs where { type: overrides, source: replacement-UKI }
   action:
     - major: mark as "discontinued"
     - minor: update "migration_plan"
@@ -1187,10 +1235,10 @@ impact_analysis:
 
 | Tipo Mudança | Relacionamento | Prioridade | Ação |
 |--------------|----------------|------------|------|
-| MAJOR | implements | CRÍTICA | Revisão obrigatória |
+| MAJOR | depends_on | CRÍTICA | Revisão obrigatória |
 | MAJOR | depends_on | CRÍTICA | Validação compatibilidade |
-| MAJOR | extends | ALTA | Revisão extensão |
-| MINOR | implements | MÉDIA | Considerar adoção |
+| MAJOR | complements | ALTA | Revisão extensão |
+| MINOR | depends_on | MÉDIA | Considerar adoção |
 | MINOR | depends_on | MÉDIA | Validar funcionamento |
 | PATCH | qualquer | BAIXA | Informar disponibilidade |
 
@@ -1200,17 +1248,17 @@ impact_analysis:
 cascade_versioning:
   trigger: "change in source-UKI"
   process:
-    1. identify_related:
-        query: "SELECT * FROM ukis WHERE relationships.target = source-UKI"
-    2. classify_impact:
-        for_each: relationship
-        calculate: impact_by_type[relationship.type]
-    3. generate_proposals:
-        for_each: related-UKI
-        propose: new_version_based_on_impact
-    4. execute_propagation:
-        order: priority (critical → high → medium → low)
-        mode: automatic | semi-automatic | manual
+    identify_related:
+      query: "SELECT * FROM ukis WHERE relationships.target = source-UKI"
+    classify_impact:
+      for_each: relationship
+      calculate: impact_by_type[relationship.type]
+    generate_proposals:
+      for_each: related-UKI
+      propose: new_version_based_on_impact
+    execute_propagation:
+      order: priority (critical → high → medium → low)
+      mode: automatic | semi-automatic | manual
 ```
 
 ## 🚨 Detecção de Conflitos e Inconsistências
@@ -1220,9 +1268,9 @@ cascade_versioning:
 ```yaml
 validations:
   semantic_consistency:
-    - "UKI que implements deve ser compatível com target"
-    - "UKI que replaces deve ter domain similar ao target"
-    - "UKI que extends deve manter compatibilidade base"
+    - "UKI que depends_on deve ser compatível com target"
+    - "UKI que overrides deve ter domain similar ao target"
+    - "UKI que complements deve manter compatibilidade base"
   
   reference_integrity:
     - "Todos relationships.target devem existir"
@@ -1424,28 +1472,28 @@ Each file represents a **single UKI**.
 
 ```yaml
 
+schema: "2.0"
+ontology_reference: "Ontology_MEF_Support v1.0"
+version: "[MAJOR.MINOR.PATCH]"
+
 id: unik:[domain]:[type]:[slug_or_id]
 title: [Objective and descriptive title of the unit]
 domain: [strategy | operations | ethics | finance | security | governance | communication | automation | intelligence]
 type: [concept | rule | metric | policy | procedure | glossary | constraint]
 context: [discovery | implementation | refinement | qa | documentation | support]
-version: [MAJOR.MINOR.PATCH]  # Semantic versioning of the UKI
 created_date: [YYYY-MM-DD]  # Date of first version creation
 last_modified: [YYYY-MM-DD]  # Date of last modification
 change_summary: [Summary of changes in current version]  # Optional for initial version
 change_impact: [major | minor | patch]  # Type of change impact
-previous_version: [MAJOR.MINOR.PATCH]  # Previous version (optional for 1.0.0)
+previous_version: "[MAJOR.MINOR.PATCH]"  # Previous version (optional for 1.0.0)
 
 status: [active | deprecated | archived]  # Lifecycle control
 domain_of_influence: [strategy | operations | ethics | finance | security | governance | communication | automation | intelligence]  # Strategic impact area
 
-relationships:  # Formal ontology of typed relationships
-  - type: [overrides | conflicts_with | complements | amends | depends_on]
+relationships:  # Formal ontology of typed relationships from Ontology_MEF_Support v1.0
+  - type: [depends_on | overrides | conflicts_with | complements | amends | precedes | equivalent_to]
     target: unik:[domain]:[type]:[identifier]
-    description: [Specific description of the ontological relationship]
-  - type: [implements | extends | replaces | derives_from | relates_to]
-    target: unik:[domain]:[type]:[identifier]
-    description: [Specific description of the semantic relationship]
+    description: [Specific description of the relationship]
 
 impact_analysis:  # Impact chain analysis
   chain_preview:
@@ -1491,6 +1539,42 @@ last_validation: [YYYY-MM-DD]  # Date of last content review and validation
 ---
 
 # 📘 FIELD DESCRIPTIONS
+
+## 🎯 Structural Metadata Fields
+
+### 🔹 `schema`
+**Required** | **String** | **"2.0"**
+
+Specifies the **structural schema version** (YAML format and layout of the UKI). Identifies changes in the data model (new fields, mandatory changes, structure reorganization).
+
+- **Purpose**: Version control of file structure
+- **Used for**: Format validation, automatic migration, parser compatibility
+- **Format**: String with semantic version format
+- **Position**: First field in the YAML file
+
+### 🔹 `ontology_reference`
+**Required** | **String** | **"Ontology_MEF_Support v1.0"**
+
+Reference to the vocabulary/ontology version that regulates controlled values like `type`, `domain`, `status`, `relationship_types`, etc.
+
+- **Purpose**: Ensure semantic consistency and automatic validation
+- **Full format rationale**: Avoids ambiguity between different ontologies, ensures portability and readability
+- **Format**: `ontology_name + space + vX.Y`
+- **Position**: Second field, immediately after `schema`
+
+### 🔹 `version`
+**Required** | **String** | **"MAJOR.MINOR.PATCH"**
+
+Defines the semantic version of the **UKI itself**, following semantic versioning convention for conceptual content change control.
+
+- **Purpose**: Control evolution of UKI semantic content
+- **Different from**: `schema` (which versions the file structure)
+- **Format**: String mandatory in quotes (avoids YAML parsing error)
+- **Position**: Third field, after `ontology_reference`
+
+---
+
+## 🎯 Identification and Classification Fields
 
 ### 🔹 `id`
 **Required** | **String** | **Unique**
@@ -1937,12 +2021,15 @@ Defines specific behavior for each type of version change.
 
 ## Example 1: Technical Pattern
 ```yaml
+schema: "2.0"
+ontology_reference: "Ontology_MEF_Support v1.0"
+version: "1.2.0"
+
 id: unik:technical:pattern:api-error-handling
 title: Standardized API Error Handling Pattern
 domain: technical
 type: pattern
 context: implementation
-version: "1.2.0"
 created_date: "2024-01-01"
 last_modified: "2024-01-15"
 change_summary: "Added timeout handling example and improved error code documentation"
@@ -1953,7 +2040,7 @@ status: active
 domain_of_influence: operations
 
 relationships:
-  - type: implements
+  - type: depends_on
     target: unik:technical:template:api-response-format
     description: Implements standard API response format with error structure
   - type: complements
@@ -2011,12 +2098,15 @@ last_validation: 2024-01-15
 
 ## Example 2: Business Rule
 ```yaml
+schema: "2.0"
+ontology_reference: "Ontology_MEF_Support v1.0"
+version: "1.0.0"
+
 id: unik:business:rule:discount-calculation
 title: Customer Discount Calculation Rule
 domain: business
 type: business_rule
 context: implementation
-version: "1.0.0"
 created_date: "2024-01-10"
 last_modified: "2024-01-10"
 
@@ -2024,7 +2114,7 @@ status: active
 domain_of_influence: finance
 
 relationships:
-  - type: implements
+  - type: depends_on
     target: unik:[domain]:[type]:[identifier]
     description: Implements loyalty program rules for automatic calculation
   - type: complements
@@ -2078,12 +2168,15 @@ last_validation: 2024-01-10
 
 ## Example 3: Product Guideline
 ```yaml
+schema: "2.0"
+ontology_reference: "Ontology_MEF_Support v1.0"
+version: "2.1.0"
+
 id: unik:product:guideline:modal-design
 title: Modal Dialog Design Guidelines
 domain: product
 type: guideline
 context: design
-version: "2.1.0"
 created_date: "2023-12-01"
 last_modified: "2024-01-08"
 change_summary: "Added accessibility requirements and mobile responsiveness guidelines"
@@ -2094,7 +2187,7 @@ status: active
 domain_of_influence: operations
 
 relationships:
-  - type: implements
+  - type: depends_on
     target: unik:[domain]:[type]:[identifier]
     description: Implements standardized design system components
   - type: depends_on
@@ -2157,7 +2250,7 @@ last_validation: 2024-01-08
 
 MEF uses typed semantic relationships to build rich knowledge graphs and enable automated governance between UKIs.
 
-### 🏗️ **Implementation Dependencies** (`implements` / `depends_on`)
+### 🏗️ **Implementation Dependencies** (`depends_on`)
 UKIs that implement patterns or depend on other knowledge for functionality.
 
 **Examples:**
@@ -2168,11 +2261,11 @@ relationships:
     type: depends_on
     description: Requires JWT validation logic to function properly
   - target: unik:technical:pattern:authentication
-    type: implements
+    type: depends_on
     description: Implements the standardized authentication pattern
 ```
 
-### 🌿 **Knowledge Evolution** (`extends` / `derives_from` / `replaces`)
+### 🌿 **Knowledge Evolution** (`complements` / `amends` / `overrides`)
 UKIs that represent knowledge evolution, specialization or replacement.
 
 **Examples:**
@@ -2180,10 +2273,10 @@ UKIs that represent knowledge evolution, specialization or replacement.
 # unik:technical:function:oauth2-implementation
 relationships:
   - target: unik:technical:pattern:oauth-basic
-    type: extends
+    type: complements
     description: Extends basic OAuth with PKCE and refresh tokens
   - target: unik:technical:pattern:legacy-auth
-    type: replaces
+    type: overrides
     description: Replaces deprecated authentication method
 ```
 
@@ -2202,19 +2295,19 @@ relationships:
     description: Incompatible with deprecated encryption methods
 ```
 
-### 🌐 **Contextual Associations** (`relates_to`)
-Generic relationships for contextual connections that don't fit specific types.
+### 🌐 **Contextual Associations** (`complements`)
+Relationships for contextual connections that expand or detail other UKIs.
 
 **Example:**
 ```yaml
-# unik:product:guideline:user-onboarding
+# unik:governance:policy:user-onboarding
 relationships:
-  - target: unik:technical:function:user-registration-api
-    type: relates_to
-    description: Shares context in user management domain
-  - target: unik:business:rule:user-retention-strategy
-    type: relates_to
-    description: Contributes to user retention strategy
+  - target: unik:security:procedure:user-registration-api
+    type: complements
+    description: Expands context in user management domain
+  - target: unik:strategy:rule:user-retention-strategy
+    type: depends_on
+    description: Based on user retention strategy
 ```
 
 ## Relationship Guidelines
@@ -2230,7 +2323,7 @@ MEF implements an **active governance** system that uses typed semantic relation
 
 ## 🔄 Propagation Rules by Relationship Type
 
-### 📋 **`implements`** - Pattern Propagation
+### 📋 **`depends_on`** - Pattern Propagation
 **Rule:** Changes in patterns/guidelines should be propagated to their implementations.
 
 **Behavior:**
@@ -2242,7 +2335,7 @@ MEF implements an **active governance** system that uses typed semantic relation
 ```yaml
 when: change in base-UKI (pattern/guideline)
 propagation:
-  to: UKIs where { type: implements, target: base-UKI }
+  to: UKIs where { type: depends_on, target: base-UKI }
   action: 
     - major: mark as "requires_review"
     - minor: mark as "improvement_available"
@@ -2268,7 +2361,7 @@ propagation:
     - patch: execute "impact_verification"
 ```
 
-### 🌿 **`extends`** - Extension Updates
+### 🌿 **`complements`** - Extension Updates
 **Rule:** Changes in base concepts should be evaluated for extensions.
 
 **Behavior:**
@@ -2280,14 +2373,14 @@ propagation:
 ```yaml
 when: change in base-UKI
 propagation:
-  to: UKIs where { type: extends, target: base-UKI }
+  to: UKIs where { type: complements, target: base-UKI }
   action:
     - major: mark as "extension_requires_review"
     - minor: mark as "consider_incorporation"
     - patch: mark as "assess_relevance"
 ```
 
-### 🔄 **`replaces`** - Automatic Deprecation
+### 🔄 **`overrides`** - Automatic Deprecation
 **Rule:** Changes in replacements should update status of replaced items.
 
 **Behavior:**
@@ -2299,7 +2392,7 @@ propagation:
 ```yaml
 when: change in replacement-UKI
 propagation:
-  to: UKIs where { type: replaces, source: replacement-UKI }
+  to: UKIs where { type: overrides, source: replacement-UKI }
   action:
     - major: mark as "discontinued"
     - minor: update "migration_plan"
@@ -2355,10 +2448,10 @@ impact_analysis:
 
 | Change Type | Relationship | Priority | Action |
 |-------------|--------------|----------|--------|
-| MAJOR | implements | CRITICAL | Mandatory review |
+| MAJOR | depends_on | CRITICAL | Mandatory review |
 | MAJOR | depends_on | CRITICAL | Compatibility validation |
-| MAJOR | extends | HIGH | Extension review |
-| MINOR | implements | MEDIUM | Consider adoption |
+| MAJOR | complements | HIGH | Extension review |
+| MINOR | depends_on | MEDIUM | Consider adoption |
 | MINOR | depends_on | MEDIUM | Validate functionality |
 | PATCH | any | LOW | Inform availability |
 
@@ -2368,17 +2461,17 @@ impact_analysis:
 cascade_versioning:
   trigger: "change in source-UKI"
   process:
-    1. identify_related:
-        query: "SELECT * FROM ukis WHERE relationships.target = source-UKI"
-    2. classify_impact:
-        for_each: relationship
-        calculate: impact_by_type[relationship.type]
-    3. generate_proposals:
-        for_each: related-UKI
-        propose: new_version_based_on_impact
-    4. execute_propagation:
-        order: priority (critical → high → medium → low)
-        mode: automatic | semi-automatic | manual
+    identify_related:
+     query: "SELECT * FROM ukis WHERE relationships.target = source-UKI"
+    classify_impact:
+     for_each: relationship
+     calculate: impact_by_type[relationship.type]
+    generate_proposals:
+     for_each: related-UKI
+     propose: new_version_based_on_impact
+    execute_propagation:
+     order: priority (critical → high → medium → low)
+     mode: automatic | semi-automatic | manual
 ```
 
 ## 🚨 Conflict and Inconsistency Detection
@@ -2388,9 +2481,9 @@ cascade_versioning:
 ```yaml
 validations:
   semantic_consistency:
-    - "UKI that implements must be compatible with target"
-    - "UKI that replaces must have similar domain to target"
-    - "UKI that extends must maintain base compatibility"
+    - "UKI that depends_on must be compatible with target"
+    - "UKI that overrides must have similar domain to target"
+    - "UKI that complements must maintain base compatibility"
   
   reference_integrity:
     - "All relationships.target must exist"
