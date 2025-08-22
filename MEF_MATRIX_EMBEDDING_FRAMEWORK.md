@@ -62,7 +62,7 @@ relationships:  # OBRIGATÓRIO: ontologia formal com tipos padronizados
 impact_analysis:  # OPCIONAL: análise de cadeia de impacto
   chain_preview:
     - unik:domain:type:item-a → unik:domain:type:item-b → unik:domain:type:item-c  # Cadeia de propagação prevista
-  severity: [low | medium | high | critical]  # Severidade do impacto
+  severity: [low | medium | high | critical]  # OBRIGATÓRIO: Severidade do impacto (padrão: medium se omitido)
   affected_domains: [lista de domínios afetados]
   propagation_estimate: [número estimado de UKIs impactadas]
 
@@ -422,7 +422,7 @@ impact_analysis:
 
 **Campos:**
 - `chain_preview`: Cadeias de propagação previstas
-- `severity`: Severidade do impacto (low, medium, high, critical)
+- `severity`: Severidade do impacto (low, medium, high, critical) - **OBRIGATÓRIO quando impact_analysis está presente** (padrão: medium se omitido)
 - `affected_domains`: Domínios potencialmente afetados
 - `propagation_estimate`: Número estimado de UKIs impactadas
 
@@ -1162,6 +1162,11 @@ propagation:
 
 ```yaml
 impact_analysis:
+  chain_preview:
+    - unik:technical:pattern:change → unik:product:guideline:ui-patterns → unik:business:rule:validation
+  severity: medium  # Campo obrigatório com fallback padrão
+  affected_domains: [technical, product, business]
+  propagation_estimate: 3
   change_scope:
     structural: "mandatory fields changed"
     semantic: "fundamental meaning changed"
@@ -1285,6 +1290,117 @@ propagation_modes:
     scope: "Mudanças MAJOR e decisões estratégicas"
 ```
 
+# 📚 ONTOLOGIA AUXILIAR
+
+## Vocabulário Controlado para Campos MEF
+
+Esta seção define o vocabulário controlado aceito para os campos `domain`, `type`, `severity`, `relationship.type`, `maturity_level` e `provenance.source_type` para garantir consistência semântica em implementações de UKIs.
+
+### Domínios (`domain`)
+
+| Domínio | Descrição | Exemplos |
+|---------|-----------|----------|
+| `product` | Design de produto, experiência do usuário e especificações de interface | Diretrizes de interface, padrões de design, padrões de acessibilidade, definições de jornada do usuário |
+| `business` | Regras de negócio, processos e conhecimento operacional | Cálculos de preços, regras de desconto, definições de workflow, especificações de lógica de negócio |
+| `technical` | Implementações técnicas, arquitetura e padrões de código | Padrões de autenticação, especificações de API, schemas de banco de dados, templates de código |
+| `strategy` | Decisões estratégicas, roadmaps e planejamento de longo prazo | Estratégias de evolução de API, planos de migração de tecnologia, decisões de arquitetura, prioridades de investimento |
+| `culture` | Cultura de equipe, processos de colaboração e conhecimento organizacional | Processos de code review, diretrizes de comunicação da equipe, procedimentos de onboarding, padrões de qualidade |
+
+### Tipos (`type`)
+
+| Tipo | Descrição | Domínios Aplicáveis |
+|------|-----------|---------------------|
+| `business_rule` | Lógica de negócio formal e regras operacionais | business, product, strategy |
+| `function` | Funções executáveis, algoritmos e procedimentos computacionais | technical, business |
+| `template` | Templates reutilizáveis e formatos padronizados | technical, product, culture |
+| `guideline` | Melhores práticas e abordagens recomendadas | product, technical, culture, strategy |
+| `pattern` | Soluções recorrentes e padrões de design | technical, product, business |
+| `decision` | Decisões estratégicas e escolhas arquiteturais | strategy, technical, business |
+| `example` | Exemplos concretos e amostras de implementação | technical, product, business, culture, strategy |
+
+### Níveis de Severidade (`severity`)
+
+| Nível | Descrição | Impacto |
+|-------|-----------|---------|
+| `low` | Impacto menor, informacional ou sugestões de melhoria | Impacto mínimo nos negócios ou técnico |
+| `medium` | Impacto moderado, afeta funcionalidades ou processos específicos | Impacto localizado na funcionalidade ou experiência do usuário |
+| `high` | Impacto significativo, afeta funcionalidades centrais ou operações de negócio | Impacto substancial na funcionalidade do sistema ou processos de negócio |
+| `critical` | Impacto crítico, falha do sistema ou grande disrupção de negócio | Impacto severo causando falha do sistema ou grande disrupção de negócio |
+
+### Tipos de Relacionamento (`relationships.type`)
+
+#### Ontológicos
+| Tipo | Descrição | Direcionalidade |
+|------|-----------|-----------------|
+| `implements` | UKI alvo fornece implementação concreta de conceito abstrato | unidirecional |
+| `depends_on` | UKI origem requer UKI alvo para funcionamento adequado | unidirecional |
+| `extends` | UKI origem constrói sobre e expande UKI alvo | unidirecional |
+| `replaces` | UKI origem substitui e supera UKI alvo | unidirecional |
+| `complies_with` | UKI origem adere aos padrões definidos no UKI alvo | unidirecional |
+| `conflicts_with` | UKI origem contradiz ou é incompatível com UKI alvo | bidirecional |
+
+#### Semânticos
+| Tipo | Descrição | Direcionalidade |
+|------|-----------|-----------------|
+| `derives_from` | UKI origem origina-se de ou é baseado no UKI alvo | unidirecional |
+| `relates_to` | Relacionamento semântico geral sem hierarquia específica | bidirecional |
+
+### Níveis de Maturidade (`maturity_level`)
+
+| Nível | Descrição | Confiança Epistemológica | Recomendação de Uso |
+|-------|-----------|--------------------------|---------------------|
+| `draft` | Formulação inicial, sujeita a revisão e validação | Baixa | Usar com cautela, verificar independentemente |
+| `validated` | Revisado e confirmado por especialistas do domínio | Média | Confiável para implementação com verificação padrão |
+| `endorsed` | Oficialmente aprovado e adotado pela organização | Alta | Fonte autoritativa, usar como referência padrão |
+| `deprecated` | Não mais recomendado, substituído por conhecimento mais recente | Baixa | Evitar uso, referir a UKI substituta |
+| `experimental` | Em avaliação, implementação experimental ou piloto | Variável | Usar apenas em ambientes controlados |
+
+### Tipos de Fonte (`provenance.source_type`)
+
+| Tipo | Descrição |
+|------|-----------|
+| `meeting` | Reunião, workshop ou sessão colaborativa |
+| `document` | Documento formal, especificação ou manual |
+| `interview` | Entrevista ou conversa individual |
+| `observation` | Observação direta de processo ou comportamento |
+| `analysis` | Análise técnica, pesquisa ou investigação |
+| `experiment` | Teste controlado, prova de conceito ou piloto |
+
+### Domínios de Influência (`domain_of_influence`)
+
+| Domínio | Descrição | Impacto |
+|---------|-----------|---------|
+| `strategy` | Decisões estratégicas e direcionamento organizacional | Afeta objetivos de longo prazo, investimentos e prioridades da organização |
+| `finance` | Aspectos financeiros e orçamentários | Impacta custos, receitas, ROI e decisões de investimento |
+| `ethics` | Considerações éticas e de compliance | Influencia políticas de conduta, conformidade regulatória e responsabilidade social |
+| `operations` | Operações e processos diários | Afeta eficiência operacional, fluxos de trabalho e execução de tarefas |
+
+# 📊 BENEFÍCIOS DO MEF PARA ORGANIZAÇÕES
+
+## 🎯 **Para Equipes de Desenvolvimento**
+- **Conhecimento Padronizado**: Formato consistente para todo conhecimento técnico
+- **Descoberta Fácil**: Encontre informações relevantes rapidamente através de busca semântica
+- **Geração de Código**: Use UKIs como templates para geração de código
+- **Onboarding**: Novos membros da equipe podem entender sistemas mais rapidamente
+
+## 📈 **Para Equipes de Produto**
+- **Consistência de Design**: Padrões e diretrizes padronizados
+- **Rastreamento de Decisões**: Registro e contexto para decisões importantes do produto
+- **Experiência do Usuário**: Padrões UX consistentes em toda a aplicação
+- **Gerenciamento de Requisitos**: Ligação clara entre requisitos de negócio e técnicos
+
+## 💼 **Para Equipes de Negócio**
+- **Gerenciamento de Regras de Negócio**: Lógica de negócio centralizada e versionada
+- **Documentação de Processos**: Procedimentos e workflows claros
+- **Compliance**: Trilha auditável de decisões e regras de negócio
+- **Comunicação Cross-team**: Entendimento compartilhado de conceitos de negócio
+
+## 🔍 **Para Integração com IA e LLMs**
+- **Contexto Estruturado**: Metadados ricos para melhor compreensão da IA
+- **Busca Semântica**: Capacidades de busca avançada além de correspondência de palavras-chave
+- **Grafos de Conhecimento**: Descoberta e mapeamento automático de relacionamentos
+- **Recomendações Contextuais**: IA pode sugerir conhecimento relevante baseado no contexto
+
 ---
 # English 🇺🇸
 
@@ -1338,7 +1454,7 @@ relationships:  # Formal ontology of typed relationships
 impact_analysis:  # Impact chain analysis
   chain_preview:
     - unik:domain:type:item-a → unik:domain:type:item-b → unik:domain:type:item-c  # Expected propagation chain
-  severity: [low | medium | high | critical]  # Impact severity
+  severity: [low | medium | high | critical]  # REQUIRED: Impact severity (default: medium if omitted)
   affected_domains: [list of affected domains]
   propagation_estimate: [estimated number of impacted UKIs]
 
@@ -1696,7 +1812,7 @@ impact_analysis:
 
 **Fields:**
 - `chain_preview`: Expected propagation chains
-- `severity`: Impact severity (low, medium, high, critical)
+- `severity`: Impact severity (low, medium, high, critical) - **REQUIRED when impact_analysis is present** (default: medium if omitted)
 - `affected_domains`: Potentially affected domains
 - `propagation_estimate`: Estimated number of impacted UKIs
 
@@ -2219,6 +2335,11 @@ propagation:
 
 ```yaml
 impact_analysis:
+  chain_preview:
+    - unik:technical:pattern:change → unik:product:guideline:ui-patterns → unik:business:rule:validation
+  severity: medium  # Mandatory field with default fallback
+  affected_domains: [technical, product, business]
+  propagation_estimate: 3
   change_scope:
     structural: "mandatory fields altered"
     semantic: "fundamental meaning altered"
@@ -2372,6 +2493,91 @@ Organizations implementing MEF should consider:
 - **Relationships**: Build semantic navigation through `relationships` connections
 - **Domains**: Organize content by the five MEF domains for better discovery
 
+# 📚 AUXILIARY ONTOLOGY
+
+## Controlled Vocabulary for MEF Fields
+
+This section defines the accepted controlled vocabulary for `domain`, `type`, `severity`, `relationship.type`, `maturity_level`, and `provenance.source_type` fields to ensure semantic consistency across UKI implementations.
+
+### Domains (`domain`)
+
+| Domain | Description | Examples |
+|--------|-------------|----------|
+| `product` | Product design, user experience, and interface specifications | User interface guidelines, design patterns, accessibility standards, user journey definitions |
+| `business` | Business rules, processes, and operational knowledge | Pricing calculations, discount rules, workflow definitions, business logic specifications |
+| `technical` | Technical implementations, architecture, and code patterns | Authentication patterns, API specifications, database schemas, code templates |
+| `strategy` | Strategic decisions, roadmaps, and long-term planning | API evolution strategies, technology migration plans, architecture decisions, investment priorities |
+| `culture` | Team culture, collaboration processes, and organizational knowledge | Code review processes, team communication guidelines, onboarding procedures, quality standards |
+
+### Types (`type`)
+
+| Type | Description | Applicable Domains |
+|------|-------------|-------------------|
+| `business_rule` | Formal business logic and operational rules | business, product, strategy |
+| `function` | Executable functions, algorithms, and computational procedures | technical, business |
+| `template` | Reusable templates and standardized formats | technical, product, culture |
+| `guideline` | Best practices and recommended approaches | product, technical, culture, strategy |
+| `pattern` | Recurring solutions and design patterns | technical, product, business |
+| `decision` | Strategic decisions and architectural choices | strategy, technical, business |
+| `example` | Concrete examples and implementation samples | technical, product, business, culture, strategy |
+
+### Severity Levels (`severity`)
+
+| Level | Description | Impact |
+|-------|-------------|--------|
+| `low` | Minor impact, informational or enhancement suggestions | Minimal business or technical impact |
+| `medium` | Moderate impact, affects specific functionality or processes | Localized impact on functionality or user experience |
+| `high` | Significant impact, affects core functionality or business operations | Substantial impact on system functionality or business processes |
+| `critical` | Critical impact, system failure or major business disruption | Severe impact causing system failure or major business disruption |
+
+### Relationship Types (`relationships.type`)
+
+#### Ontological
+| Type | Description | Directionality |
+|------|-------------|----------------|
+| `implements` | Target UKI provides concrete implementation of abstract concept | unidirectional |
+| `depends_on` | Source UKI requires target UKI for proper functioning | unidirectional |
+| `extends` | Source UKI builds upon and expands target UKI | unidirectional |
+| `replaces` | Source UKI supersedes and substitutes target UKI | unidirectional |
+| `complies_with` | Source UKI adheres to standards defined in target UKI | unidirectional |
+| `conflicts_with` | Source UKI contradicts or is incompatible with target UKI | bidirectional |
+
+#### Semantic
+| Type | Description | Directionality |
+|------|-------------|----------------|
+| `derives_from` | Source UKI originates from or is based on target UKI | unidirectional |
+| `relates_to` | General semantic relationship without specific hierarchy | bidirectional |
+
+### Maturity Levels (`maturity_level`)
+
+| Level | Description | Epistemological Confidence | Usage Recommendation |
+|-------|-------------|---------------------------|---------------------|
+| `draft` | Initial formulation, subject to review and validation | Low | Use with caution, verify independently |
+| `validated` | Reviewed and confirmed by domain experts | Medium | Reliable for implementation with standard verification |
+| `endorsed` | Officially approved and adopted by organization | High | Authoritative source, use as standard reference |
+| `deprecated` | No longer recommended, superseded by newer knowledge | Low | Avoid use, refer to replacement UKI |
+| `experimental` | Under evaluation, experimental or pilot implementation | Variable | Use in controlled environments only |
+
+### Source Types (`provenance.source_type`)
+
+| Type | Description |
+|------|-------------|
+| `meeting` | Meeting, workshop, or collaborative session |
+| `document` | Formal document, specification, or manual |
+| `interview` | Individual interview or conversation |
+| `observation` | Direct observation of process or behavior |
+| `analysis` | Technical analysis, research, or investigation |
+| `experiment` | Controlled test, proof of concept, or pilot |
+
+### Influence Domains (`domain_of_influence`)
+
+| Domain | Description | Impact |
+|--------|-------------|--------|
+| `strategy` | Strategic decisions and organizational direction | Affects long-term objectives, investments, and organizational priorities |
+| `finance` | Financial and budgetary aspects | Impacts costs, revenue, ROI, and investment decisions |
+| `ethics` | Ethical considerations and compliance | Influences conduct policies, regulatory compliance, and social responsibility |
+| `operations` | Daily operations and processes | Affects operational efficiency, workflows, and task execution |
+
 ---
 
 # 📊 MEF BENEFITS FOR ORGANIZATIONS
@@ -2400,7 +2606,6 @@ Organizations implementing MEF should consider:
 - **Knowledge Graphs**: Automatic relationship discovery and mapping
 - **Contextual Recommendations**: AI can suggest relevant knowledge based on context
 
----
 
 # 🌍 MATRIX PROTOCOL LAYERS
 
@@ -2423,161 +2628,3 @@ The Matrix Protocol can be implemented at different organizational layers, each 
 - Contents can be stored in **independent repositories**, but following the **same base framework**.
 
 This model ensures that the Matrix expands as an organic and contextual knowledge base, connecting different teams without sacrificing standardization and governance.
-
----
-
-# 📚 ONTOLOGIA AUXILIAR / AUXILIARY ONTOLOGY
-
-## 🇧🇷 Português
-
-### Vocabulário Controlado para Campos MEF
-
-Esta seção define o vocabulário controlado aceito para os campos `domain`, `type`, `severity`, `relationship.type`, `maturity_level` e `provenance.source_type` para garantir consistência semântica em implementações de UKIs.
-
-#### Domínios (`domain`)
-
-| Domínio | Descrição | Exemplos |
-|---------|-----------|----------|
-| `product` | Design de produto, experiência do usuário e especificações de interface | Diretrizes de interface, padrões de design, padrões de acessibilidade, definições de jornada do usuário |
-| `business` | Regras de negócio, processos e conhecimento operacional | Cálculos de preços, regras de desconto, definições de workflow, especificações de lógica de negócio |
-| `technical` | Implementações técnicas, arquitetura e padrões de código | Padrões de autenticação, especificações de API, schemas de banco de dados, templates de código |
-| `strategy` | Decisões estratégicas, roadmaps e planejamento de longo prazo | Estratégias de evolução de API, planos de migração de tecnologia, decisões de arquitetura, prioridades de investimento |
-| `culture` | Cultura de equipe, processos de colaboração e conhecimento organizacional | Processos de code review, diretrizes de comunicação da equipe, procedimentos de onboarding, padrões de qualidade |
-
-#### Tipos (`type`)
-
-| Tipo | Descrição | Domínios Aplicáveis |
-|------|-----------|---------------------|
-| `business_rule` | Lógica de negócio formal e regras operacionais | business, product, strategy |
-| `function` | Funções executáveis, algoritmos e procedimentos computacionais | technical, business |
-| `template` | Templates reutilizáveis e formatos padronizados | technical, product, culture |
-| `guideline` | Melhores práticas e abordagens recomendadas | product, technical, culture, strategy |
-| `pattern` | Soluções recorrentes e padrões de design | technical, product, business |
-| `decision` | Decisões estratégicas e escolhas arquiteturais | strategy, technical, business |
-| `example` | Exemplos concretos e amostras de implementação | technical, product, business, culture, strategy |
-
-#### Níveis de Severidade (`severity`)
-
-| Nível | Descrição | Impacto |
-|-------|-----------|---------|
-| `low` | Impacto menor, informacional ou sugestões de melhoria | Impacto mínimo nos negócios ou técnico |
-| `medium` | Impacto moderado, afeta funcionalidades ou processos específicos | Impacto localizado na funcionalidade ou experiência do usuário |
-| `high` | Impacto significativo, afeta funcionalidades centrais ou operações de negócio | Impacto substancial na funcionalidade do sistema ou processos de negócio |
-| `critical` | Impacto crítico, falha do sistema ou grande disrupção de negócio | Impacto severo causando falha do sistema ou grande disrupção de negócio |
-
-#### Tipos de Relacionamento (`relationships.type`)
-
-##### Ontológicos
-| Tipo | Descrição | Direcionalidade |
-|------|-----------|-----------------|
-| `implements` | UKI alvo fornece implementação concreta de conceito abstrato | unidirecional |
-| `depends_on` | UKI origem requer UKI alvo para funcionamento adequado | unidirecional |
-| `extends` | UKI origem constrói sobre e expande UKI alvo | unidirecional |
-| `replaces` | UKI origem substitui e supera UKI alvo | unidirecional |
-| `complies_with` | UKI origem adere aos padrões definidos no UKI alvo | unidirecional |
-| `conflicts_with` | UKI origem contradiz ou é incompatível com UKI alvo | bidirecional |
-
-##### Semânticos
-| Tipo | Descrição | Direcionalidade |
-|------|-----------|-----------------|
-| `derives_from` | UKI origem origina-se de ou é baseado no UKI alvo | unidirecional |
-| `relates_to` | Relacionamento semântico geral sem hierarquia específica | bidirecional |
-
-#### Níveis de Maturidade (`maturity_level`)
-
-| Nível | Descrição | Confiança Epistemológica | Recomendação de Uso |
-|-------|-----------|--------------------------|---------------------|
-| `draft` | Formulação inicial, sujeita a revisão e validação | Baixa | Usar com cautela, verificar independentemente |
-| `validated` | Revisado e confirmado por especialistas do domínio | Média | Confiável para implementação com verificação padrão |
-| `endorsed` | Oficialmente aprovado e adotado pela organização | Alta | Fonte autoritativa, usar como referência padrão |
-| `deprecated` | Não mais recomendado, substituído por conhecimento mais recente | Baixa | Evitar uso, referir a UKI substituta |
-| `experimental` | Em avaliação, implementação experimental ou piloto | Variável | Usar apenas em ambientes controlados |
-
-#### Tipos de Fonte (`provenance.source_type`)
-
-| Tipo | Descrição |
-|------|-----------|
-| `meeting` | Reunião, workshop ou sessão colaborativa |
-| `document` | Documento formal, especificação ou manual |
-| `interview` | Entrevista ou conversa individual |
-| `observation` | Observação direta de processo ou comportamento |
-| `analysis` | Análise técnica, pesquisa ou investigação |
-| `experiment` | Teste controlado, prova de conceito ou piloto |
-
----
-
-## 🇺🇸 English
-
-### Controlled Vocabulary for MEF Fields
-
-This section defines the accepted controlled vocabulary for `domain`, `type`, `severity`, `relationship.type`, `maturity_level`, and `provenance.source_type` fields to ensure semantic consistency across UKI implementations.
-
-#### Domains (`domain`)
-
-| Domain | Description | Examples |
-|--------|-------------|----------|
-| `product` | Product design, user experience, and interface specifications | User interface guidelines, design patterns, accessibility standards, user journey definitions |
-| `business` | Business rules, processes, and operational knowledge | Pricing calculations, discount rules, workflow definitions, business logic specifications |
-| `technical` | Technical implementations, architecture, and code patterns | Authentication patterns, API specifications, database schemas, code templates |
-| `strategy` | Strategic decisions, roadmaps, and long-term planning | API evolution strategies, technology migration plans, architecture decisions, investment priorities |
-| `culture` | Team culture, collaboration processes, and organizational knowledge | Code review processes, team communication guidelines, onboarding procedures, quality standards |
-
-#### Types (`type`)
-
-| Type | Description | Applicable Domains |
-|------|-------------|-------------------|
-| `business_rule` | Formal business logic and operational rules | business, product, strategy |
-| `function` | Executable functions, algorithms, and computational procedures | technical, business |
-| `template` | Reusable templates and standardized formats | technical, product, culture |
-| `guideline` | Best practices and recommended approaches | product, technical, culture, strategy |
-| `pattern` | Recurring solutions and design patterns | technical, product, business |
-| `decision` | Strategic decisions and architectural choices | strategy, technical, business |
-| `example` | Concrete examples and implementation samples | technical, product, business, culture, strategy |
-
-#### Severity Levels (`severity`)
-
-| Level | Description | Impact |
-|-------|-------------|--------|
-| `low` | Minor impact, informational or enhancement suggestions | Minimal business or technical impact |
-| `medium` | Moderate impact, affects specific functionality or processes | Localized impact on functionality or user experience |
-| `high` | Significant impact, affects core functionality or business operations | Substantial impact on system functionality or business processes |
-| `critical` | Critical impact, system failure or major business disruption | Severe impact causing system failure or major business disruption |
-
-#### Relationship Types (`relationships.type`)
-
-##### Ontological
-| Type | Description | Directionality |
-|------|-------------|----------------|
-| `implements` | Target UKI provides concrete implementation of abstract concept | unidirectional |
-| `depends_on` | Source UKI requires target UKI for proper functioning | unidirectional |
-| `extends` | Source UKI builds upon and expands target UKI | unidirectional |
-| `replaces` | Source UKI supersedes and substitutes target UKI | unidirectional |
-| `complies_with` | Source UKI adheres to standards defined in target UKI | unidirectional |
-| `conflicts_with` | Source UKI contradicts or is incompatible with target UKI | bidirectional |
-
-##### Semantic
-| Type | Description | Directionality |
-|------|-------------|----------------|
-| `derives_from` | Source UKI originates from or is based on target UKI | unidirectional |
-| `relates_to` | General semantic relationship without specific hierarchy | bidirectional |
-
-#### Maturity Levels (`maturity_level`)
-
-| Level | Description | Epistemological Confidence | Usage Recommendation |
-|-------|-------------|---------------------------|---------------------|
-| `draft` | Initial formulation, subject to review and validation | Low | Use with caution, verify independently |
-| `validated` | Reviewed and confirmed by domain experts | Medium | Reliable for implementation with standard verification |
-| `endorsed` | Officially approved and adopted by organization | High | Authoritative source, use as standard reference |
-| `deprecated` | No longer recommended, superseded by newer knowledge | Low | Avoid use, refer to replacement UKI |
-| `experimental` | Under evaluation, experimental or pilot implementation | Variable | Use in controlled environments only |
-
-#### Source Types (`provenance.source_type`)
-
-| Type | Description |
-|------|-------------|
-| `meeting` | Meeting, workshop, or collaborative session |
-| `document` | Formal document, specification, or manual |
-| `interview` | Individual interview or conversation |
-| `observation` | Direct observation of process or behavior |
-| `analysis` | Technical analysis, research, or investigation |
-| `experiment` | Controlled test, proof of concept, or pilot |
