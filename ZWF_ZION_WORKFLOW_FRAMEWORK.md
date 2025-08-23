@@ -21,7 +21,7 @@
 
 ## 📟️ VISÃO GERAL
 
-O Protocolo Matrix ZWF define um **modelo conceitual para fluxos de trabalho orientados a IA** que permite que equipes multidisciplinares descrevam workflows como máquinas de estado independentes de tecnologia. Todos os fluxos seguem o padrão: **Evento → Consulta Oráculo → Decisão → Ação → Enriquecimento do Oráculo**.
+O Protocolo Matrix ZWF define um **modelo conceitual para fluxos de trabalho orientados a IA** que permite que equipes multidisciplinares descrevam workflows como máquinas de estado independentes de tecnologia. Todos os fluxos seguem o padrão: **Evento → Consulta Oráculo → Decisão → Ação → Avaliação → Enriquecimento Condicional do Oráculo**.
 
 O ZWF não prescreve ferramentas, motores de orquestração ou implementações técnicas - apenas direciona **como pensar e registrar o caminho** de forma conceitual e rastreável.
 
@@ -63,7 +63,7 @@ O ZWF reconhece seis tipos de eventos que iniciam fluxos:
 
 ## 🔄 ESTADOS CANÔNICOS (MÁQUINA DE ESTADO)
 
-Todo fluxo ZWF segue esta sequência conceitual obrigatória:
+Todo fluxo ZWF segue esta sequência conceitual:
 
 ```mermaid
 stateDiagram-v2
@@ -71,14 +71,21 @@ stateDiagram-v2
     Intake --> Understand
     Understand --> Decide
     Decide --> Act
-    Act --> Review
-    Act --> Enrich
-    Review --> Enrich
+    Act --> EvaluateForEnrich
+    EvaluateForEnrich --> Review: se enriquecimento justificavel
+    EvaluateForEnrich --> [*]: se não justificado
+    Review --> Enrich: aprovado
+    Review --> [*]: rejeitado
     Enrich --> [*]
     
     note right of Understand
       Consulta UKIs do Oráculo
       para interpretação
+    end note
+    
+    note right of EvaluateForEnrich
+      Análise semântica
+      can_enrich?()
     end note
     
     note right of Review
@@ -87,7 +94,7 @@ stateDiagram-v2
     end note
     
     note right of Enrich
-      Obrigatório
+      Condicional
       Devolve aprendizado
       como UKIs MEF
     end note
@@ -118,10 +125,212 @@ stateDiagram-v2
 - **Ações:** Validação humana, aprovação, ajustes
 - **Saída:** Confirmação ou redirecionamento
 
-### 🔄 **Enrich Oracle (Obrigatório)**
+### 🔍 **EvaluateForEnrich**
+- **Propósito:** Avaliar se o resultado produz conhecimento estruturável
+- **Ações:** Aplicar can_enrich?(act_output, context) para decidir próximo estado
+- **Saída:** Decisão sobre necessidade de enriquecimento
+- **Função Semântica:** can_enrich?() avalia:
+  - Divergência semântica em relação ao conhecimento existente
+  - Possibilidade de estruturação como UKI válida segundo MEF
+  - Clareza epistêmica da contribuição
+  - **Restrições de escopo:** Valida se o UKI proposto não viola limites organizacionais
+  - **Validação de governança:** Confirma que não requer curadoria humana
+
+#### **Implementação da Função can_enrich?()**
+```yaml
+can_enrich_function:
+  input_parameters:
+    - act_output: resultado da execução
+    - context: contexto do fluxo
+    - proposed_uki: UKI candidato
+  
+  validation_checks:
+    semantic_novelty:
+      - has_semantic_divergence: true
+      - adds_new_knowledge: true
+    
+    structural_validity:
+      - mef_compliant: true
+      - clear_relationships: true
+    
+    scope_governance:
+      - domain_allowed: NOT IN [policy, governance, security, finance, strategy, ethics]
+      - team_scoped: true
+      - requires_curation: false
+    
+    epistemic_clarity:
+      - content_meaningful: true
+      - user_confirmation: true
+  
+  decision_logic: |
+    IF (semantic_novelty AND structural_validity AND scope_governance AND epistemic_clarity)
+      THEN return ENRICH_APPROVED
+    ELSE return ENRICH_REJECTED
+```
+
+### 🔄 **Enrich Oracle (Condicional)**
 - **Propósito:** Devolver aprendizado como UKIs MEF válidos
 - **Ações:** Criar/atualizar UKIs referenciais ao que motivou o fluxo
 - **Saída:** Conhecimento estruturado adicionado ao Oráculo
+
+---
+
+## 🧠 FUNÇÃO can_enrich?() - FILTRO COGNITIVO
+
+### 💫 **Fundamentação Epistemológica**
+
+A função `can_enrich?()` representa o **ponto de decisão epistemológica** do protocolo ZWF. Ela materializa a compreensão de que nem toda interação ou resultado de execução constitui conhecimento estruturável e reutilizável.
+
+**Princípio Fundamental:** O enriquecimento do Oráculo deve ser uma **ocorrência cognitiva**, não uma **imposição processual**.
+
+### 🔍 **Critérios de Avaliação Conceituais**
+
+#### **1. Divergência Semântica**
+```yaml
+semantic_divergence:
+  purpose: "Avaliar se há conhecimento verdadeiramente novo"
+  questions:
+    - "O resultado difere significativamente do conhecimento existente?"
+    - "Há insights não documentados que emergiram?"
+    - "A solução apresenta aspectos novos ou adaptados?"
+  threshold: "Contribuição semântica mensurável"
+```
+
+#### **2. Estruturabilidade MEF**
+```yaml
+mef_structurability:
+  purpose: "Verificar se o conhecimento é estruturável segundo padrões MEF"
+  questions:
+    - "O conteúdo pode ser expresso como UKI válido?"
+    - "Há relacionamentos claros com conhecimento existente?"
+    - "O formato atende aos critérios de qualidade MEF?"
+  threshold: "Compatibilidade estrutural com ontologia de suporte"
+```
+
+#### **3. Clareza Epistêmica**
+```yaml
+epistemic_clarity:
+  purpose: "Garantir que a contribuição é cognitivamente clara"
+  questions:
+    - "O conhecimento é articulado de forma compreensível?"
+    - "Há contexto suficiente para reutilização?"
+    - "A intenção do conhecimento é explícita?"
+  threshold: "Clareza conceitual para consumo por outros agentes"
+```
+
+#### **4. Validação de Escopo Organizacional**
+```yaml
+organizational_scope:
+  purpose: "Prevenir impactos organizacionais não intencionais"
+  questions:
+    - "O UKI proposto afeta apenas a equipe executora?"
+    - "Não cria regras para domínios restritos?"
+    - "Não requer curadoria de stakeholders organizacionais?"
+  threshold: "Escopo limitado à autonomia da equipe"
+```
+
+### ⚙️ **Implementação Conceitual vs Técnica**
+
+#### **Nível Conceitual (O que decidir)**
+```yaml
+conceptual_level:
+  focus: "Critérios de decisão independentes de tecnologia"
+  responsibility: "Definir lógica de avaliação"
+  output: "Orientações para implementação técnica"
+  
+  decision_framework:
+    - semantic_novelty: "Há conhecimento novo?"
+    - structural_validity: "É estruturável como MEF?"
+    - epistemic_clarity: "É cognitivamente claro?"
+    - scope_governance: "É apropriado para a equipe criar?"
+    - relevance_confirmation: "O usuário confirma relevância?"
+```
+
+#### **Nível Técnico (Como implementar)**
+```yaml
+technical_level:
+  focus: "Implementação específica por tecnologia/ferramenta"
+  responsibility: "Automatizar critérios conceituais"
+  examples:
+    - llm_implementation: "Prompts estruturados para avaliação"
+    - rule_engine: "Regras booleanas para critérios"
+    - workflow_engine: "Condições de transição de estado"
+    - human_interface: "Interfaces para confirmação manual"
+```
+
+### 🎯 **Exemplos Práticos de Avaliação**
+
+#### **Exemplo 1: APROVA Enriquecimento**
+```yaml
+scenario: "Implementação de novo padrão de validação"
+act_output: "Função de validação com lógica específica para CPF"
+context: "Não existia validação de CPF na base de conhecimento"
+
+evaluation:
+  semantic_divergence: PASS # "Nova lógica de validação"
+  mef_structurability: PASS # "Pode ser UKI tipo 'constraint'"
+  epistemic_clarity: PASS # "Função bem documentada"
+  scope_governance: PASS # "Domínio 'technical', escopo de equipe"
+  user_confirmation: PASS # "Desenvolvedor confirma utilidade"
+
+result: ENRICH_APPROVED
+proposed_uki:
+  id: "unik:technical:constraint:cpf-validation-function"
+  domain: "technical"
+  type: "constraint"
+```
+
+#### **Exemplo 2: REJEITA Enriquecimento**
+```yaml
+scenario: "Execução de tarefa rotineira"
+act_output: "Deploy realizado com sucesso em staging"
+context: "Deploy seguindo procedimento já estabelecido"
+
+evaluation:
+  semantic_divergence: FAIL # "Nenhum conhecimento novo"
+  mef_structurability: FAIL # "Não há conteúdo estruturável"
+  epistemic_clarity: N/A
+  scope_governance: N/A
+  user_confirmation: N/A
+
+result: ENRICH_REJECTED
+reason: "Execução rotineira sem contribuição epistêmica"
+```
+
+#### **Exemplo 3: BLOQUEIA por Governança**
+```yaml
+scenario: "Proposta de política de segurança"
+act_output: "Nova política de autenticação para toda organização"
+context: "Equipe backend propõe política organizacional"
+
+evaluation:
+  semantic_divergence: PASS # "Conhecimento novo"
+  mef_structurability: PASS # "Estruturável como policy"
+  epistemic_clarity: PASS # "Política bem definida"
+  scope_governance: FAIL # "Domínio 'security' requer curadoria"
+  user_confirmation: N/A
+
+result: ENRICH_REJECTED
+reason: "Domínio restrito requer curadoria organizacional"
+suggestion: "Encaminhar para processo de curadoria de segurança"
+```
+
+### 💡 **Valor Conceitual do Filtro**
+
+#### **Para o Oráculo (MEF)**
+- **Qualidade**: Garante que apenas conhecimento relevante é armazenado
+- **Consistência**: Evita poluição com informações redundantes ou triviais
+- **Governança**: Protege contra criação inadequada de regras organizacionais
+
+#### **Para as Equipes**
+- **Eficiência**: Evita trabalho desnecessário de documentação
+- **Foco**: Direciona atenção para contribuições genuinamente úteis
+- **Autonomia**: Permite criação de conhecimento no escopo apropriado
+
+#### **Para o Ecossistema**
+- **Escalabilidade**: Permite crescimento sustentável da base de conhecimento
+- **Inteligência**: Favorece enriquecimento baseado em mérito epistêmico
+- **Sustentabilidade**: Evita overhead de manutenção de conhecimento irrelevante
 
 ---
 
@@ -136,9 +345,9 @@ flow_id: zion-workflow-jwt-implementation
 triggered_by: work.proposed
 oracle_context:
   motivating_ukis:
-    - unik:security:rule:jwt-authentication-pattern
-    - unik:security:policy:security-requirements
-    - unik:governance:procedure:code-review-process
+    - unik:technical:concept:jwt-authentication-pattern
+    - unik:technical:constraint:security-requirements
+    - unik:technical:procedure:code-review-process
 ```
 
 ### ⚖️ **Fundamentação de Decisões**
@@ -148,13 +357,13 @@ Durante as transições, o fluxo deve explicitar quais UKIs fundamentam cada dec
 # Exemplo de decisão fundamentada
 decision_point: "choose_jwt_library"
 reasoning_ukis:
-  - unik:security:constraint:jwt-security-standards
-  - unik:governance:policy:vendor-approval-policy
+  - unik:technical:constraint:jwt-security-standards
+  - unik:technical:procedure:vendor-approval-process
 decision_outcome: "use_jsonwebtoken_library"
 ```
 
-### 🔄 **Enriquecimento Obrigatório**
-As saídas devem referenciar UKIs motivadores através do campo `relationships`:
+### 🔄 **Enriquecimento Condicional**
+Quando aplicável, as saídas devem referenciar UKIs motivadores através do campo `relationships`:
 
 ```yaml
 # Exemplo de UKI gerada no enriquecimento
@@ -162,9 +371,9 @@ schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.0.0"
 
-id: unik:security:procedure:jwt-implementation-result
-title: "Resultado da Implementação JWT"
-domain: security
+id: unik:technical:procedure:jwt-implementation-result
+title: "Resultado da Implementação JWT - Equipe Backend"
+domain: technical
 type: procedure
 context: implementation
 created_date: "2024-01-15"
@@ -173,9 +382,9 @@ last_modified: "2024-01-15"
 status: active
 relationships:
   - type: depends_on
-    target: unik:security:rule:jwt-authentication-pattern
+    target: unik:technical:concept:jwt-authentication-pattern
   - type: depends_on
-    target: unik:security:policy:security-requirements
+    target: unik:technical:constraint:security-requirements
 content: |
   Implementação bem-sucedida do padrão JWT seguindo as diretrizes de segurança.
   Baseado nas orientações dos UKIs relacionados, adaptado para nosso contexto específico.
@@ -183,22 +392,57 @@ content: |
 
 ---
 
-## 📤 SAÍDAS OBRIGATÓRIAS
+## 📤 SAÍDAS CONDICIONAIS
 
 ### 🎯 **Tipos de Saída MEF**
-Todo fluxo deve retornar algo ao Oráculo escolhendo entre os tipos MEF:
+Fluxos que justifiquem enriquecimento devem retornar conhecimento ao Oráculo escolhendo entre os tipos MEF:
 
-| Tipo UKI | Quando Usar | Exemplo de Saída |
+| Tipo UKI | Quando Usar | Exemplo de Saída (Escopo de Equipe) |
 |----------|-------------|------------------|
-| `rule` | Regra operacional ou normativa | Nova política de autenticação |
-| `policy` | Diretriz institucional ou adaptativa | Processo de code review atualizado |
-| `concept` | Definição ou modelo teórico | Padrão de implementação de API |
-| `metric` | Indicador quantitativo | Escolha de tecnologia documentada |
-| `procedure` | Sequência operacional | Template de configuração |
-| `constraint` | Limitação formal aplicada | Função de validação JWT |
-| `glossary` | Definição de termos ou padrões | Exemplo de uso da API |
+| `rule` | Regra operacional da equipe | Regra de validação de input da API |
+| `procedure` | Sequência operacional | Template de configuração do microsserviço |
+| `concept` | Definição ou modelo técnico | Padrão de implementação de endpoint |
+| `metric` | Indicador da equipe | Métrica de performance do serviço |
+| `constraint` | Limitação técnica | Função de validação JWT da equipe |
+| `glossary` | Termos técnicos da equipe | Definição de endpoint específico |
 
-### 🔗 **Relacionamentos Obrigatórios**
+### 🚫 **Restrições de Escopo Organizacional**
+
+Fluxos ZWF **NÃO PODEM** criar UKIs que impactem múltiplas equipes sem curadoria:
+
+#### **Domínios Restritos (Requerem Curadoria)**
+| Domínio | Razão da Restrição | Escopo de Impacto |
+|---------|-------------------|-------------------|
+| `policy` | Diretrizes organizacionais | Toda organização |
+| `governance` | Regras de governança | Múltiplas equipes |
+| `security` | Políticas de segurança | Toda organização |
+| `finance` | Regras financeiras | Organização/compliance |
+| `strategy` | Decisões estratégicas | Múltiplas equipes |
+| `ethics` | Diretrizes éticas | Toda organização |
+
+#### **Tipos Permitidos para Fluxos ZWF**
+Fluxos podem criar apenas UKIs de **escopo limitado à equipe**:
+- `procedure` - Procedimentos específicos da equipe
+- `concept` - Definições técnicas locais  
+- `metric` - Indicadores da equipe
+- `glossary` - Termos específicos do domínio técnico
+- `rule` - Apenas regras operacionais da equipe (não organizacionais)
+- `constraint` - Limitações técnicas específicas
+
+#### **Função de Validação de Escopo**
+```yaml
+scope_validation:
+  can_create_uki: |
+    IF (domain IN restricted_domains) THEN
+      REQUIRE human_curation = true
+      REQUIRE stakeholder_approval = true
+    ELSE IF (type = "rule" AND scope = "organizational") THEN
+      REQUIRE human_curation = true
+    ELSE
+      ALLOW team_scope_creation = true
+```
+
+### 🔗 **Relacionamentos Requeridos**
 Cada UKI gerada deve incluir:
 - `relationships`: UKIs que motivaram/impactaram o fluxo usando tipos válidos (depends_on, overrides, conflicts_with, complements, amends, precedes, equivalent_to)
 - Resumo claro da intenção da relação no campo `content`
@@ -229,8 +473,8 @@ signals:
   decision: "Escolhido padrão bearer token baseado no unik:security:rule:jwt-authentication-pattern que especifica melhores práticas de segurança"
   result: "Definido usar biblioteca jsonwebtoken com configuração de expiração de 15 minutos"
 oracle_ukis_used:
-  - unik:security:rule:jwt-authentication-pattern
-  - unik:governance:policy:token-expiration-policy
+  - unik:technical:concept:jwt-authentication-pattern
+  - unik:technical:constraint:token-expiration-rules
 timestamp: "2024-01-15 14:30:22"
 ```
 
@@ -419,10 +663,23 @@ validation:
   outcome_clear: true
 ```
 
-#### 🔄 **Enrich State (Mandatory)**
+#### 🔍 **EvaluateForEnrich State**
 ```yaml
 preconditions:
-  - workflow_completed: true
+  - action_executed: true
+  - execution_result: documented
+postconditions:
+  - enrichment_decision: made
+  - can_enrich_evaluated: true
+validation:
+  semantic_evaluation: completed
+  justification_documented: true
+```
+
+#### 🔄 **Enrich State (Conditional)**
+```yaml
+preconditions:
+  - enrichment_approved: true
   - learning_captured: true
 postconditions:
   - uki_created: true
@@ -446,12 +703,16 @@ transition_rules:
     condition: oracle_consulted AND strategy_defined
   decide_to_act:
     condition: decision_made AND action_plan_defined
-  act_to_review:
-    condition: action_executed AND review_required
-  act_to_enrich:
-    condition: action_executed AND NOT review_required
+  act_to_evaluate:
+    condition: action_executed
+  evaluate_to_review:
+    condition: can_enrich_positive AND review_required
+  evaluate_to_end:
+    condition: can_enrich_negative
   review_to_enrich:
-    condition: validation_completed
+    condition: validation_completed AND enrichment_approved
+  review_to_end:
+    condition: enrichment_rejected
 ```
 
 #### **Idempotência**
@@ -505,7 +766,7 @@ consistency_checks:
     - oracle_consultation_documented
   workflow_integrity:
     - all_mandatory_states_executed
-    - enrichment_always_final
+    - enrichment_conditional_on_evaluation
     - relationships_bidirectional
 ```
 
@@ -584,7 +845,7 @@ Para garantir a qualidade e consistência dos sinais de explicabilidade, o ZWF d
   "properties": {
     "flow_step": {
       "type": "string",
-      "enum": ["intake", "understand", "decide", "act", "review", "enrich"]
+      "enum": ["intake", "understand", "decide", "act", "evaluateforenrich", "review", "enrich"]
     },
     "signals": {
       "type": "object",
@@ -641,8 +902,8 @@ signals:
   decision: "Por que transicionou: escolhido padrão bearer token baseado no unik:security:rule:jwt-authentication-pattern que especifica melhores práticas de segurança"
   result: "O que saiu: definido usar biblioteca jsonwebtoken com configuração de expiração de 15 minutos"
 oracle_ukis_used:
-  - unik:security:rule:jwt-authentication-pattern
-  - unik:governance:policy:token-expiration-policy
+  - unik:technical:concept:jwt-authentication-pattern
+  - unik:technical:constraint:token-expiration-rules
 timestamp: "2024-01-15 14:30:22"
 ```
 
@@ -655,8 +916,8 @@ signals:
   decision: "Por que transicionou: executada implementação baseado no unik:security:constraint:code-standards que define estrutura de middleware"
   result: "O que saiu: middleware de autenticação implementado e testado com 100% de cobertura"
 oracle_ukis_used:
-  - unik:security:constraint:code-standards
-  - unik:governance:rule:testing-requirements
+  - unik:technical:constraint:code-standards
+  - unik:technical:procedure:testing-requirements
 timestamp: "2024-01-15 15:45:10"
 ```
 
@@ -729,7 +990,9 @@ stateDiagram-v2
     Intake --> Understand: Organizar conteúdo
     Understand --> Decide: Consultar padrões do Oráculo
     Decide --> Act: Estruturar como UKI
-    Act --> Enrich: Adicionar ao Oráculo
+    Act --> EvaluateForEnrich: Avaliar necessidade
+    EvaluateForEnrich --> Enrich: Conhecimento estruturável
+    EvaluateForEnrich --> [*]: Não aplicável
     Enrich --> [*]
 ```
 
@@ -740,9 +1003,11 @@ stateDiagram-v2
     Intake --> Understand: Analisar contexto
     Understand --> Decide: Consultar diretrizes
     Decide --> Act: Executar trabalho
-    Act --> Review: Validação opcional
+    Act --> EvaluateForEnrich: Avaliar necessidade
+    EvaluateForEnrich --> Review: Enriquecimento aprovado
+    EvaluateForEnrich --> [*]: Não justificado
     Review --> Enrich: Documentar aprendizado
-    Act --> Enrich: Documentar aprendizado
+    Review --> [*]: Rejeitado
     Enrich --> [*]
 ```
 
@@ -753,8 +1018,11 @@ stateDiagram-v2
     Intake --> Understand: Avaliar contexto estratégico
     Understand --> Decide: Consultar políticas
     Decide --> Act: Implementar decisão
-    Act --> Review: Validação stakeholders
+    Act --> EvaluateForEnrich: Avaliar necessidade
+    EvaluateForEnrich --> Review: Enriquecimento aprovado
     Review --> Enrich: Registrar decisão
+    Review --> [*]: Rejeitado
+    EvaluateForEnrich --> [*]: Não justificado
     Enrich --> [*]
 ```
 
@@ -765,7 +1033,9 @@ stateDiagram-v2
     Intake --> Understand: Analisar estado atual
     Understand --> Decide: Definir melhorias
     Decide --> Act: Implementar refinamentos
-    Act --> Enrich: Atualizar conhecimento
+    Act --> EvaluateForEnrich: Avaliar necessidade
+    EvaluateForEnrich --> Enrich: Conhecimento estruturável
+    EvaluateForEnrich --> [*]: Não aplicável
     Enrich --> [*]
 ```
 
@@ -776,7 +1046,9 @@ stateDiagram-v2
     Intake --> Understand: Entender problema
     Understand --> Decide: Escolher tipo de ajuda
     Decide --> Act: Prestar assistência
-    Act --> Enrich: Documentar solução
+    Act --> EvaluateForEnrich: Avaliar necessidade
+    EvaluateForEnrich --> Enrich: Conhecimento estruturável
+    EvaluateForEnrich --> [*]: Não aplicável
     Enrich --> [*]
 ```
 
@@ -787,7 +1059,9 @@ stateDiagram-v2
     Intake --> Understand: Analisar feedback
     Understand --> Decide: Definir ações
     Decide --> Act: Implementar correções
-    Act --> Enrich: Atualizar conhecimento
+    Act --> EvaluateForEnrich: Avaliar necessidade
+    EvaluateForEnrich --> Enrich: Conhecimento estruturável
+    EvaluateForEnrich --> [*]: Não aplicável
     Enrich --> [*]
 ```
 
@@ -802,6 +1076,11 @@ stateDiagram-v2
 - Custos, SLAs ou métricas numéricas
 - Formatos técnicos de execução
 - Tecnologias de implementação
+
+### 🚫 **Restrições de Governança:**
+- **NÃO PERMITE** criação de UKIs organizacionais (policy, governance, security, finance, strategy, ethics)
+- **REQUER** curadoria humana para UKIs que impactem múltiplas equipes
+- **LIMITA** escopo de enriquecimento à equipe executora
 
 ### ❌ **O que ZWF NÃO adiciona ao MEF:**
 - Novos campos na estrutura UKI
@@ -825,11 +1104,11 @@ Com o ZWF, qualquer equipe pode:
 1. **Desenhar fluxos conceituais** seguindo os estados canônicos
 2. **Consultar o Oráculo** para fundamentar decisões
 3. **Executar ações** usando suas próprias ferramentas
-4. **Enriquecer o Oráculo** com aprendizado em formato MEF
+4. **Enriquecer condicionalmente o Oráculo** com aprendizado em formato MEF quando estruturável
 5. **Manter rastreabilidade** através dos sinais de explicabilidade
 6. **Operar orientada a IA** do discovery à entrega
 
-**Ciclo fechado:** Consultar Oráculo → Agir → Enriquecer Oráculo
+**Ciclo inteligente:** Consultar Oráculo → Agir → Avaliar → Enriquecer Condicionalmente
 
 ---
 
@@ -861,7 +1140,7 @@ Com o ZWF, qualquer equipe pode:
 
 ## 📟️ OVERVIEW
 
-The Matrix ZWF Protocol defines a **conceptual model for AI-oriented workflows** that allows multidisciplinary teams to describe workflows as technology-independent state machines. All flows follow the pattern: **Event → Query Oracle → Decision → Action → Oracle Enrichment**.
+The Matrix ZWF Protocol defines a **conceptual model for AI-oriented workflows** that allows multidisciplinary teams to describe workflows as technology-independent state machines. All flows follow the pattern: **Event → Query Oracle → Decision → Action → Evaluation → Conditional Oracle Enrichment**.
 
 ZWF does not prescribe tools, orchestration engines, or technical implementations - it only directs **how to think and record the path** in a conceptual and traceable way.
 
@@ -903,7 +1182,7 @@ ZWF recognizes six types of events that initiate flows:
 
 ## 🔄 CANONICAL STATES (STATE MACHINE)
 
-Every ZWF flow follows this mandatory conceptual sequence:
+Every ZWF flow follows this conceptual sequence:
 
 ```mermaid
 stateDiagram-v2
@@ -911,14 +1190,21 @@ stateDiagram-v2
     Intake --> Understand
     Understand --> Decide
     Decide --> Act
-    Act --> Review
-    Act --> Enrich
-    Review --> Enrich
+    Act --> EvaluateForEnrich
+    EvaluateForEnrich --> Review: if enrichment approved
+    EvaluateForEnrich --> [*]: if not justified
+    Review --> Enrich: approved
+    Review --> [*]: rejected
     Enrich --> [*]
     
     note right of Understand
       Query Oracle UKIs
       for interpretation
+    end note
+    
+    note right of EvaluateForEnrich
+      Semantic analysis
+      can_enrich?()
     end note
     
     note right of Review
@@ -927,7 +1213,7 @@ stateDiagram-v2
     end note
     
     note right of Enrich
-      Mandatory
+      Conditional
       Return learning
       as MEF UKIs
     end note
@@ -958,10 +1244,212 @@ stateDiagram-v2
 - **Actions:** Human validation, approval, adjustments
 - **Output:** Confirmation or redirection
 
-### 🔄 **Enrich Oracle (Mandatory)**
+### 🔍 **EvaluateForEnrich**
+- **Purpose:** Assess whether the result produces structurable knowledge
+- **Actions:** Apply can_enrich?(act_output, context) to decide next state
+- **Output:** Decision about enrichment necessity
+- **Semantic Function:** can_enrich?() evaluates:
+  - Semantic divergence from existing knowledge
+  - UKI structuring possibility according to MEF
+  - Epistemic clarity of contribution
+  - **Scope restrictions:** Validates that proposed UKI doesn't violate organizational boundaries
+  - **Governance validation:** Confirms it doesn't require human curation
+
+#### **can_enrich?() Function Implementation**
+```yaml
+can_enrich_function:
+  input_parameters:
+    - act_output: execution result
+    - context: flow context
+    - proposed_uki: candidate UKI
+  
+  validation_checks:
+    semantic_novelty:
+      - has_semantic_divergence: true
+      - adds_new_knowledge: true
+    
+    structural_validity:
+      - mef_compliant: true
+      - clear_relationships: true
+    
+    scope_governance:
+      - domain_allowed: NOT IN [policy, governance, security, finance, strategy, ethics]
+      - team_scoped: true
+      - requires_curation: false
+    
+    epistemic_clarity:
+      - content_meaningful: true
+      - user_confirmation: true
+  
+  decision_logic: |
+    IF (semantic_novelty AND structural_validity AND scope_governance AND epistemic_clarity)
+      THEN return ENRICH_APPROVED
+    ELSE return ENRICH_REJECTED
+```
+
+### 🔄 **Enrich Oracle (Conditional)**
 - **Purpose:** Return learning as valid MEF UKIs
 - **Actions:** Create/update UKIs referential to what motivated the flow
 - **Output:** Structured knowledge added to Oracle
+
+---
+
+## 🧠 can_enrich?() FUNCTION - COGNITIVE FILTER
+
+### 💫 **Epistemological Foundation**
+
+The `can_enrich?()` function represents the **epistemological decision point** of the ZWF protocol. It materializes the understanding that not every interaction or execution result constitutes structurable and reusable knowledge.
+
+**Fundamental Principle:** Oracle enrichment should be a **cognitive occurrence**, not a **procedural imposition**.
+
+### 🔍 **Conceptual Evaluation Criteria**
+
+#### **1. Semantic Divergence**
+```yaml
+semantic_divergence:
+  purpose: "Assess if there is genuinely new knowledge"
+  questions:
+    - "Does the result differ significantly from existing knowledge?"
+    - "Are there undocumented insights that emerged?"
+    - "Does the solution present new or adapted aspects?"
+  threshold: "Measurable semantic contribution"
+```
+
+#### **2. MEF Structurability**
+```yaml
+mef_structurability:
+  purpose: "Verify if knowledge is structurable according to MEF standards"
+  questions:
+    - "Can the content be expressed as a valid UKI?"
+    - "Are there clear relationships with existing knowledge?"
+    - "Does the format meet MEF quality criteria?"
+  threshold: "Structural compatibility with support ontology"
+```
+
+#### **3. Epistemic Clarity**
+```yaml
+epistemic_clarity:
+  purpose: "Ensure the contribution is cognitively clear"
+  questions:
+    - "Is the knowledge articulated comprehensibly?"
+    - "Is there sufficient context for reuse?"
+    - "Is the knowledge intention explicit?"
+  threshold: "Conceptual clarity for consumption by other agents"
+```
+
+#### **4. Organizational Scope Validation**
+```yaml
+organizational_scope:
+  purpose: "Prevent unintentional organizational impacts"
+  questions:
+    - "Does the proposed UKI affect only the executing team?"
+    - "Does it not create rules for restricted domains?"
+    - "Does it not require organizational stakeholder curation?"
+  threshold: "Scope limited to team autonomy"
+```
+
+### ⚙️ **Conceptual vs Technical Implementation**
+
+#### **Conceptual Level (What to decide)**
+```yaml
+conceptual_level:
+  focus: "Technology-independent decision criteria"
+  responsibility: "Define evaluation logic"
+  output: "Guidelines for technical implementation"
+  
+  decision_framework:
+    - semantic_novelty: "Is there new knowledge?"
+    - structural_validity: "Is it structurable as MEF?"
+    - epistemic_clarity: "Is it cognitively clear?"
+    - scope_governance: "Is it appropriate for the team to create?"
+    - relevance_confirmation: "Does the user confirm relevance?"
+```
+
+#### **Technical Level (How to implement)**
+```yaml
+technical_level:
+  focus: "Technology/tool-specific implementation"
+  responsibility: "Automate conceptual criteria"
+  examples:
+    - llm_implementation: "Structured prompts for evaluation"
+    - rule_engine: "Boolean rules for criteria"
+    - workflow_engine: "State transition conditions"
+    - human_interface: "Interfaces for manual confirmation"
+```
+
+### 🎯 **Practical Evaluation Examples**
+
+#### **Example 1: APPROVES Enrichment**
+```yaml
+scenario: "Implementation of new validation pattern"
+act_output: "Validation function with specific logic for CPF"
+context: "No CPF validation existed in knowledge base"
+
+evaluation:
+  semantic_divergence: PASS # "New validation logic"
+  mef_structurability: PASS # "Can be UKI type 'constraint'"
+  epistemic_clarity: PASS # "Well-documented function"
+  scope_governance: PASS # "Domain 'technical', team scope"
+  user_confirmation: PASS # "Developer confirms utility"
+
+result: ENRICH_APPROVED
+proposed_uki:
+  id: "unik:technical:constraint:cpf-validation-function"
+  domain: "technical"
+  type: "constraint"
+```
+
+#### **Example 2: REJECTS Enrichment**
+```yaml
+scenario: "Routine task execution"
+act_output: "Deploy successfully completed to staging"
+context: "Deploy following already established procedure"
+
+evaluation:
+  semantic_divergence: FAIL # "No new knowledge"
+  mef_structurability: FAIL # "No structurable content"
+  epistemic_clarity: N/A
+  scope_governance: N/A
+  user_confirmation: N/A
+
+result: ENRICH_REJECTED
+reason: "Routine execution without epistemic contribution"
+```
+
+#### **Example 3: BLOCKS by Governance**
+```yaml
+scenario: "Security policy proposal"
+act_output: "New authentication policy for entire organization"
+context: "Backend team proposes organizational policy"
+
+evaluation:
+  semantic_divergence: PASS # "New knowledge"
+  mef_structurability: PASS # "Structurable as policy"
+  epistemic_clarity: PASS # "Well-defined policy"
+  scope_governance: FAIL # "Domain 'security' requires curation"
+  user_confirmation: N/A
+
+result: ENRICH_REJECTED
+reason: "Restricted domain requires organizational curation"
+suggestion: "Forward to security curation process"
+```
+
+### 💡 **Conceptual Value of the Filter**
+
+#### **For the Oracle (MEF)**
+- **Quality**: Ensures only relevant knowledge is stored
+- **Consistency**: Avoids pollution with redundant or trivial information
+- **Governance**: Protects against inappropriate creation of organizational rules
+
+#### **For Teams**
+- **Efficiency**: Avoids unnecessary documentation work
+- **Focus**: Directs attention to genuinely useful contributions
+- **Autonomy**: Enables knowledge creation within appropriate scope
+
+#### **For the Ecosystem**
+- **Scalability**: Enables sustainable growth of knowledge base
+- **Intelligence**: Favors enrichment based on epistemic merit
+- **Sustainability**: Avoids overhead of maintaining irrelevant knowledge
 
 ---
 
@@ -976,9 +1464,9 @@ flow_id: zion-workflow-jwt-implementation
 triggered_by: work.proposed
 oracle_context:
   motivating_ukis:
-    - unik:security:rule:jwt-authentication-pattern
-    - unik:security:policy:security-requirements
-    - unik:governance:procedure:code-review-process
+    - unik:technical:concept:jwt-authentication-pattern
+    - unik:technical:constraint:security-requirements
+    - unik:technical:procedure:code-review-process
 ```
 
 ### ⚖️ **Decision Foundation**
@@ -988,13 +1476,13 @@ During transitions, the flow must explicitly state which UKIs support each decis
 # Example of founded decision
 decision_point: "choose_jwt_library"
 reasoning_ukis:
-  - unik:security:constraint:jwt-security-standards
-  - unik:governance:policy:vendor-approval-policy
+  - unik:technical:constraint:jwt-security-standards
+  - unik:technical:procedure:vendor-approval-process
 decision_outcome: "use_jsonwebtoken_library"
 ```
 
-### 🔄 **Mandatory Enrichment**
-Outputs must reference motivating UKIs through the `relationships` field:
+### 🔄 **Conditional Enrichment**
+When applicable, outputs must reference motivating UKIs through the `relationships` field:
 
 ```yaml
 # Example of UKI generated in enrichment
@@ -1002,9 +1490,9 @@ schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.0.0"
 
-id: unik:security:procedure:jwt-implementation-result
-title: "JWT Implementation Result"
-domain: security
+id: unik:technical:procedure:jwt-implementation-result
+title: "JWT Implementation Result - Backend Team"
+domain: technical
 type: procedure
 context: implementation
 created_date: "2024-01-15"
@@ -1013,9 +1501,9 @@ last_modified: "2024-01-15"
 status: active
 relationships:
   - type: depends_on
-    target: unik:security:rule:jwt-authentication-pattern
+    target: unik:technical:concept:jwt-authentication-pattern
   - type: depends_on
-    target: unik:security:policy:security-requirements
+    target: unik:technical:constraint:security-requirements
 content: |
   Successful JWT pattern implementation following security guidelines.
   Based on related UKIs guidance, adapted to our specific context.
@@ -1023,22 +1511,57 @@ content: |
 
 ---
 
-## 📤 MANDATORY OUTPUTS
+## 📤 CONDITIONAL OUTPUTS
 
 ### 🎯 **MEF Output Types**
-Every flow must return something to Oracle choosing among MEF types:
+Flows that justify enrichment must return knowledge to Oracle choosing among MEF types:
 
-| UKI Type | When to Use | Example Output |
+| UKI Type | When to Use | Example Output (Team Scope) |
 |----------|-------------|----------------|
-| `rule` | Operational or normative rule | New authentication policy |
-| `policy` | Institutional or adaptive guideline | Updated code review process |
-| `concept` | Definition or theoretical model | API implementation pattern |
-| `metric` | Quantitative indicator | Documented technology choice |
-| `procedure` | Operational sequence | Configuration template |
-| `constraint` | Formal limitation applied | JWT validation function |
-| `glossary` | Definition of terms or standards | API usage example |
+| `rule` | Team operational rule | API input validation rule |
+| `procedure` | Operational sequence | Microservice configuration template |
+| `concept` | Technical definition or model | Endpoint implementation pattern |
+| `metric` | Team indicator | Service performance metric |
+| `constraint` | Technical limitation | Team-specific JWT validation function |
+| `glossary` | Team technical terms | Specific endpoint definition |
 
-### 🔗 **Mandatory Relationships**
+### 🚫 **Organizational Scope Restrictions**
+
+ZWF flows **CANNOT** create UKIs that impact multiple teams without curation:
+
+#### **Restricted Domains (Require Curation)**
+| Domain | Restriction Reason | Impact Scope |
+|--------|-------------------|-------------|
+| `policy` | Organizational guidelines | Entire organization |
+| `governance` | Governance rules | Multiple teams |
+| `security` | Security policies | Entire organization |
+| `finance` | Financial rules | Organization/compliance |
+| `strategy` | Strategic decisions | Multiple teams |
+| `ethics` | Ethical guidelines | Entire organization |
+
+#### **Allowed Types for ZWF Flows**
+Flows can create only **team-scoped** UKIs:
+- `procedure` - Team-specific procedures
+- `concept` - Local technical definitions  
+- `metric` - Team indicators
+- `glossary` - Technical domain-specific terms
+- `rule` - Only team operational rules (not organizational)
+- `constraint` - Specific technical limitations
+
+#### **Scope Validation Function**
+```yaml
+scope_validation:
+  can_create_uki: |
+    IF (domain IN restricted_domains) THEN
+      REQUIRE human_curation = true
+      REQUIRE stakeholder_approval = true
+    ELSE IF (type = "rule" AND scope = "organizational") THEN
+      REQUIRE human_curation = true
+    ELSE
+      ALLOW team_scope_creation = true
+```
+
+### 🔗 **Required Relationships**
 Each generated UKI must include:
 - `relationships`: UKIs that motivated/impacted the flow using valid types (depends_on, overrides, conflicts_with, complements, amends, precedes, equivalent_to)
 - Clear summary of relationship intention in `content` field
@@ -1069,8 +1592,8 @@ signals:
   decision: "Chosen bearer token pattern based on unik:security:rule:jwt-authentication-pattern specifying security best practices"
   result: "Defined to use jsonwebtoken library with 15-minute expiration configuration"
 oracle_ukis_used:
-  - unik:security:rule:jwt-authentication-pattern
-  - unik:governance:policy:token-expiration-policy
+  - unik:technical:concept:jwt-authentication-pattern
+  - unik:technical:constraint:token-expiration-rules
 timestamp: "2024-01-15 14:30:22"
 ```
 
@@ -1259,10 +1782,23 @@ validation:
   outcome_clear: true
 ```
 
-#### 🔄 **Enrich State (Mandatory)**
+#### 🔍 **EvaluateForEnrich State**
 ```yaml
 preconditions:
-  - workflow_completed: true
+  - action_executed: true
+  - execution_result: documented
+postconditions:
+  - enrichment_decision: made
+  - can_enrich_evaluated: true
+validation:
+  semantic_evaluation: completed
+  justification_documented: true
+```
+
+#### 🔄 **Enrich State (Conditional)**
+```yaml
+preconditions:
+  - enrichment_approved: true
   - learning_captured: true
 postconditions:
   - uki_created: true
@@ -1286,12 +1822,16 @@ transition_rules:
     condition: oracle_consulted AND strategy_defined
   decide_to_act:
     condition: decision_made AND action_plan_defined
-  act_to_review:
-    condition: action_executed AND review_required
-  act_to_enrich:
-    condition: action_executed AND NOT review_required
+  act_to_evaluate:
+    condition: action_executed
+  evaluate_to_review:
+    condition: can_enrich_positive AND review_required
+  evaluate_to_end:
+    condition: can_enrich_negative
   review_to_enrich:
-    condition: validation_completed
+    condition: validation_completed AND enrichment_approved
+  review_to_end:
+    condition: enrichment_rejected
 ```
 
 #### **Idempotency**
@@ -1345,7 +1885,7 @@ consistency_checks:
     - oracle_consultation_documented
   workflow_integrity:
     - all_mandatory_states_executed
-    - enrichment_always_final
+    - enrichment_conditional_on_evaluation
     - relationships_bidirectional
 ```
 
@@ -1424,7 +1964,7 @@ To ensure quality and consistency of explainability signals, ZWF defines formal 
   "properties": {
     "flow_step": {
       "type": "string",
-      "enum": ["intake", "understand", "decide", "act", "review", "enrich"]
+      "enum": ["intake", "understand", "decide", "act", "evaluateforenrich", "review", "enrich"]
     },
     "signals": {
       "type": "object",
@@ -1481,8 +2021,8 @@ signals:
   decision: "Why it transitioned: chosen bearer token pattern based on unik:security:rule:jwt-authentication-pattern specifying security best practices"
   result: "What came out: defined to use jsonwebtoken library with 15-minute expiration configuration"
 oracle_ukis_used:
-  - unik:security:rule:jwt-authentication-pattern
-  - unik:governance:policy:token-expiration-policy
+  - unik:technical:concept:jwt-authentication-pattern
+  - unik:technical:constraint:token-expiration-rules
 timestamp: "2024-01-15 14:30:22"
 ```
 
@@ -1495,8 +2035,8 @@ signals:
   decision: "Why it transitioned: executed implementation based on unik:security:constraint:code-standards defining middleware structure"
   result: "What came out: authentication middleware implemented and tested with 100% coverage"
 oracle_ukis_used:
-  - unik:security:constraint:code-standards
-  - unik:governance:rule:testing-requirements
+  - unik:technical:constraint:code-standards
+  - unik:technical:procedure:testing-requirements
 timestamp: "2024-01-15 15:45:10"
 ```
 
@@ -1569,7 +2109,9 @@ stateDiagram-v2
     Intake --> Understand: Organize content
     Understand --> Decide: Query Oracle patterns
     Decide --> Act: Structure as UKI
-    Act --> Enrich: Add to Oracle
+    Act --> EvaluateForEnrich: Evaluate necessity
+    EvaluateForEnrich --> Enrich: Structurable knowledge
+    EvaluateForEnrich --> [*]: Not applicable
     Enrich --> [*]
 ```
 
@@ -1580,9 +2122,11 @@ stateDiagram-v2
     Intake --> Understand: Analyze context
     Understand --> Decide: Query guidelines
     Decide --> Act: Execute work
-    Act --> Review: Optional validation
+    Act --> EvaluateForEnrich: Evaluate necessity
+    EvaluateForEnrich --> Review: Enrichment approved
+    EvaluateForEnrich --> [*]: Not justified
     Review --> Enrich: Document learning
-    Act --> Enrich: Document learning
+    Review --> [*]: Rejected
     Enrich --> [*]
 ```
 
@@ -1593,8 +2137,11 @@ stateDiagram-v2
     Intake --> Understand: Assess strategic context
     Understand --> Decide: Query policies
     Decide --> Act: Implement decision
-    Act --> Review: Stakeholder validation
+    Act --> EvaluateForEnrich: Evaluate necessity
+    EvaluateForEnrich --> Review: Enrichment approved
     Review --> Enrich: Register decision
+    Review --> [*]: Rejected
+    EvaluateForEnrich --> [*]: Not justified
     Enrich --> [*]
 ```
 
@@ -1605,7 +2152,9 @@ stateDiagram-v2
     Intake --> Understand: Analyze current state
     Understand --> Decide: Define improvements
     Decide --> Act: Implement refinements
-    Act --> Enrich: Update knowledge
+    Act --> EvaluateForEnrich: Evaluate necessity
+    EvaluateForEnrich --> Enrich: Structurable knowledge
+    EvaluateForEnrich --> [*]: Not applicable
     Enrich --> [*]
 ```
 
@@ -1616,7 +2165,9 @@ stateDiagram-v2
     Intake --> Understand: Understand problem
     Understand --> Decide: Choose help type
     Decide --> Act: Provide assistance
-    Act --> Enrich: Document solution
+    Act --> EvaluateForEnrich: Evaluate necessity
+    EvaluateForEnrich --> Enrich: Structurable knowledge
+    EvaluateForEnrich --> [*]: Not applicable
     Enrich --> [*]
 ```
 
@@ -1627,7 +2178,9 @@ stateDiagram-v2
     Intake --> Understand: Analyze feedback
     Understand --> Decide: Define actions
     Decide --> Act: Implement corrections
-    Act --> Enrich: Update knowledge
+    Act --> EvaluateForEnrich: Evaluate necessity
+    EvaluateForEnrich --> Enrich: Structurable knowledge
+    EvaluateForEnrich --> [*]: Not applicable
     Enrich --> [*]
 ```
 
@@ -1642,6 +2195,11 @@ stateDiagram-v2
 - Costs, SLAs or numerical metrics
 - Technical execution formats
 - Implementation technologies
+
+### 🚫 **Governance Restrictions:**
+- **DOES NOT ALLOW** creation of organizational UKIs (policy, governance, security, finance, strategy, ethics)
+- **REQUIRES** human curation for UKIs that impact multiple teams
+- **LIMITS** enrichment scope to executing team
 
 ### ❌ **What ZWF does NOT add to MEF:**
 - New fields in UKI structure
@@ -1665,11 +2223,11 @@ With ZWF, any team can:
 1. **Design conceptual flows** following canonical states
 2. **Query Oracle** to support decisions
 3. **Execute actions** using their own tools
-4. **Enrich Oracle** with learning in MEF format
+4. **Conditionally enrich Oracle** with learning in MEF format when structurable
 5. **Maintain traceability** through explainability signals
 6. **Operate AI-oriented** from discovery to delivery
 
-**Closed loop:** Query Oracle → Act → Enrich Oracle
+**Intelligent loop:** Query Oracle → Act → Evaluate → Conditionally Enrich
 
 ---
 
