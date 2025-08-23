@@ -59,6 +59,10 @@ relationships:  # OBRIGATÓRIO: ontologia formal com tipos padronizados
     target: unik:[domain]:[type]:[identifier]
     description: [Descrição específica da relação ontológica]
 
+promotion:  # OPCIONAL: campos para promoção de UKI
+  is_promoted_from: unik:[domain]:[type]:[identifier]  # UKI de origem quando for promoção
+  promotion_rationale: [Justificativa da promoção]  # Motivos e evidências para elevação
+
 impact_analysis:  # OPCIONAL: análise de cadeia de impacto
   chain_preview:
     - unik:domain:type:item-a → unik:domain:type:item-b → unik:domain:type:item-c  # Cadeia de propagação prevista
@@ -493,6 +497,38 @@ sunset_policy: |
 - Orientar decisões de manutenção
 - Facilitar planejamento de descontinuidade
 - Documentar dependências de contexto externo
+
+### 🔹 `promotion`
+**Opcional** | **Objeto**
+
+Campos específicos para registro e rastreabilidade de promoção de UKIs, permitindo a transição formal de conhecimento de escopo limitado para amplo.
+
+**Campos:**
+- `is_promoted_from`: Referência à UKI original da qual esta foi promovida
+- `promotion_rationale`: Justificativa detalhada da promoção com evidências e motivos
+
+**Formato:**
+```yaml
+promotion:
+  is_promoted_from: unik:technical:pattern:jwt-local-implementation
+  promotion_rationale: |
+    Promovida devido à adoção recorrente em 5 projetos diferentes,
+    demonstrando valor consolidado e aplicabilidade generalizada.
+    Evidências: 15 implementações bem-sucedidas, feedback positivo
+    de 3 equipes diferentes, e alinhamento com estratégia de segurança.
+```
+
+**Propósito:**
+- Estabelecer rastreabilidade específica entre UKI original e promovida
+- Documentar justificativas para elevação de escopo
+- Preservar continuidade semântica no processo de promoção
+- Facilitar auditoria de decisões de maturação do conhecimento
+
+**Diretrizes:**
+- Usar apenas quando UKI for resultado de promoção
+- Sempre preencher `is_promoted_from` com referência à UKI original
+- Documentar evidências observáveis na `promotion_rationale`
+- O campo `is_promoted_from` tem escopo específico para promoções
 
 ### 🔹 `provenance`
 **Opcional** | **Objeto**
@@ -1494,6 +1530,10 @@ relationships:  # Formal ontology of typed relationships from Ontology_MEF_Suppo
   - type: [depends_on | overrides | conflicts_with | complements | amends | precedes | equivalent_to]
     target: unik:[domain]:[type]:[identifier]
     description: [Specific description of the relationship]
+
+promotion:  # OPTIONAL: UKI promotion fields
+  is_promoted_from: unik:[domain]:[type]:[identifier]  # Source UKI when this is a promotion
+  promotion_rationale: [Promotion justification]  # Reasons and evidence for elevation
 
 impact_analysis:  # Impact chain analysis
   chain_preview:

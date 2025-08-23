@@ -249,6 +249,7 @@ O Protocolo Matrix é implementado através do **Matrix Embedding Framework (MEF
 - **Organização por Domínios**: Cinco domínios (technical, business, product, strategy, culture) cobrem todo conhecimento organizacional
 - **Framework de Validação**: Verificação automática de conformidade garante qualidade do conhecimento
 - **Mapeamento de Relacionamentos**: Conexões semânticas permitem navegação inteligente do conhecimento
+- **Promoção de Conhecimento**: Transição formal de UKIs de escopo limitado para amplo através de reconhecimento de valor consolidado
 
 ### 🔄 **Ciclo de Vida MEF no Protocolo Matrix**
 
@@ -260,7 +261,11 @@ graph TD
     D --> E[Operador: Aplicar Conhecimento]
     E --> F[Feedback para Oráculo]
     F --> G[Evolução da UKI]
-    G --> A
+    G --> H{Avaliação de Promoção}
+    H -->|Escopo Local| A
+    H -->|Valor Consolidado| I[Promoção para Escopo Amplo]
+    I --> J[Nova UKI Derivada]
+    J --> A
 ```
 
 ### 📊 **Benefícios MEF para o Protocolo Matrix**
@@ -270,6 +275,7 @@ graph TD
 - **Escalabilidade**: Framework se adapta de conhecimento pessoal ao empresarial
 - **Inteligência**: Formato pronto para IA para busca semântica e recomendações
 - **Colaboração**: Estrutura clara permite compartilhamento efetivo de conhecimento humano-IA
+- **Maturação Orgânica**: Processo de promoção permite evolução natural do conhecimento de local para organizacional
 
 ## 🚀 Considerações de Implementação
 
@@ -277,7 +283,7 @@ O Protocolo Matrix serve como framework fundamental para organizações implemen
 
 ### **Mapeamento de Implementação**
 
-- **Camada Oráculo** → **Sistemas de Gestão de Conhecimento**: Governança estruturada através do MEF (UKIs versionadas)
+- **Camada Oráculo** → **Sistemas de Gestão de Conhecimento**: Governança estruturada através do MEF (UKIs versionadas com capacidades de promoção)
 - **Camada Zion** → **Framework Conceitual de Workflows**: Padrões ZWF independentes de tecnologia para fluxos orientados a IA
 - **Camada Operador** → **Framework de Inteligência de Agentes**: Especificações OIF de arquétipos com capacidades mínimas e padrões de colaboração
 
@@ -564,7 +570,11 @@ graph TD
     D --> E[Operator: Apply Knowledge]
     E --> F[Feedback to Oracle]
     F --> G[UKI Evolution]
-    G --> A
+    G --> H{Promotion Assessment}
+    H -->|Local Scope| A
+    H -->|Consolidated Value| I[Promotion to Broader Scope]
+    I --> J[New Derived UKI]
+    J --> A
 ```
 
 ### 📊 **MEF Benefits for Matrix Protocol**
@@ -574,6 +584,7 @@ graph TD
 - **Scalability**: Framework adapts from personal to enterprise knowledge
 - **Intelligence**: AI-ready format for semantic search and recommendations
 - **Collaboration**: Clear structure enables effective human-AI knowledge sharing
+- **Organic Maturation**: Promotion process enables natural evolution of knowledge from local to organizational scope
 
 ## 🚀 Implementation Considerations
 
@@ -581,7 +592,7 @@ The Matrix Protocol serves as a foundational framework for organizations impleme
 
 ### **Implementation Mapping**
 
-- **Oracle Layer** → **Knowledge Management Systems**: Structured governance through MEF (versioned and traceable UKIs)
+- **Oracle Layer** → **Knowledge Management Systems**: Structured governance through MEF (versioned and traceable UKIs with promotion capabilities)
 - **Zion Layer** → **Conceptual Workflow Framework**: ZWF patterns for technology-independent AI-oriented workflows
 - **Operator Layer** → **Agent Intelligence Framework**: OIF archetype specifications with minimum capabilities and collaboration patterns
 
