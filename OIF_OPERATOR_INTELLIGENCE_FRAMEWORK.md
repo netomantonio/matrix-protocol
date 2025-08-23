@@ -155,7 +155,7 @@ archetype_identity:
 ```yaml
 specialization_domain:
   primary_focus: "Oracle | Zion | Cross-Layer"
-  knowledge_domains: ["technical", "business", "product", "strategy", "culture"]
+  knowledge_domains: ["strategy", "operations", "ethics", "finance", "security", "governance", "communication", "automation", "intelligence"]
   interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
 ```
 
@@ -217,10 +217,14 @@ Para garantir consistência na definição de arquétipos, o OIF fornece **templ
 # ============================================
 
 archetype_specification:
+  # Metadados Estruturais
+  schema: "1.0"
+  ontology_reference: "Ontology_MEF_Support v1.0"
+  version: "1.0.0"
+  
   # Identificação Básica
   id: "archetype-[categoria]-[nome]"
   name: "Nome do Arquétipo"
-  version: "1.0.0"
   created_date: "YYYY-MM-DD"
   last_modified: "YYYY-MM-DD"
   
@@ -358,10 +362,14 @@ O **Knowledge Agent** é a manifestação da inteligência que compreende, organ
 # ============================================
 
 archetype_specification:
+  # Metadados Estruturais
+  schema: "1.0"
+  ontology_reference: "Ontology_MEF_Support v1.0"
+  version: "1.0.0"
+  
   # Identificação Básica
   id: "archetype-oracle-knowledge"
   name: "Knowledge Agent"
-  version: "1.0.0"
   created_date: "2024-01-20"
   last_modified: "2024-01-20"
   
@@ -382,7 +390,7 @@ archetype_specification:
   # Domínio de Especialização
   specialization:
     primary_layer: "Oracle"
-    knowledge_domains: ["technical", "business", "product", "strategy", "culture"]
+    knowledge_domains: ["strategy", "operations", "ethics", "finance", "security", "governance", "communication", "automation", "intelligence"]
     interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
     expertise_depth: "Specialist"
   
@@ -539,10 +547,14 @@ O **Workflow Agent** é a manifestação da inteligência que orquestra fluxos c
 # ============================================
 
 archetype_specification:
+  # Metadados Estruturais
+  schema: "1.0"
+  ontology_reference: "Ontology_MEF_Support v1.0"
+  version: "1.0.0"
+  
   # Identificação Básica
   id: "archetype-zion-workflow"
   name: "Workflow Agent"
-  version: "1.0.0"
   created_date: "2024-01-20"
   last_modified: "2024-01-20"
   
@@ -563,7 +575,7 @@ archetype_specification:
   # Domínio de Especialização
   specialization:
     primary_layer: "Zion"
-    knowledge_domains: ["technical", "business", "product", "strategy", "culture"]
+    knowledge_domains: ["strategy", "operations", "ethics", "finance", "security", "governance", "communication", "automation", "intelligence"]
     interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
     expertise_depth: "Specialist"
   
@@ -945,6 +957,11 @@ systemic_synergy_testing:
 # ============================================
 
 specialized_archetype:
+  # Metadados Estruturais
+  schema: "1.0"
+  ontology_reference: "Ontology_MEF_Support v1.0"
+  version: "1.0.0"
+  
   base: "archetype-oracle-knowledge"
   id: "archetype-oracle-knowledge-medical"
   name: "Medical Knowledge Agent"
@@ -983,6 +1000,11 @@ specialized_archetype:
 # ============================================
 
 specialized_archetype:
+  # Metadados Estruturais
+  schema: "1.0"
+  ontology_reference: "Ontology_MEF_Support v1.0"
+  version: "1.0.0"
+  
   base: "archetype-zion-workflow"
   id: "archetype-zion-workflow-devops"
   name: "DevOps Workflow Agent"
@@ -1612,7 +1634,7 @@ archetype_identity:
 ```yaml
 specialization_domain:
   primary_focus: "Oracle | Zion | Cross-Layer"
-  knowledge_domains: ["technical", "business", "product", "strategy", "culture"]
+  knowledge_domains: ["strategy", "operations", "ethics", "finance", "security", "governance", "communication", "automation", "intelligence"]
   interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
 ```
 
@@ -1674,10 +1696,14 @@ To ensure consistency in archetype definition, OIF provides **structured templat
 # ============================================
 
 archetype_specification:
+  # Structural Metadata
+  schema: "1.0"
+  ontology_reference: "Ontology_MEF_Support v1.0"
+  version: "1.0.0"
+  
   # Basic Identification
   id: "archetype-[category]-[name]"
   name: "Archetype Name"
-  version: "1.0.0"
   created_date: "YYYY-MM-DD"
   last_modified: "YYYY-MM-DD"
   
@@ -1815,10 +1841,14 @@ The **Knowledge Agent** is the manifestation of intelligence that understands, o
 # ============================================
 
 archetype_specification:
+  # Structural Metadata
+  schema: "1.0"
+  ontology_reference: "Ontology_MEF_Support v1.0"
+  version: "1.0.0"
+  
   # Basic Identification
   id: "archetype-oracle-knowledge"
   name: "Knowledge Agent"
-  version: "1.0.0"
   created_date: "2024-01-20"
   last_modified: "2024-01-20"
   
@@ -1839,7 +1869,7 @@ archetype_specification:
   # Specialization Domain
   specialization:
     primary_layer: "Oracle"
-    knowledge_domains: ["technical", "business", "product", "strategy", "culture"]
+    knowledge_domains: ["strategy", "operations", "ethics", "finance", "security", "governance", "communication", "automation", "intelligence"]
     interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
     expertise_depth: "Specialist"
   
@@ -1996,10 +2026,14 @@ The **Workflow Agent** is the manifestation of intelligence that orchestrates co
 # ============================================
 
 archetype_specification:
+  # Structural Metadata
+  schema: "1.0"
+  ontology_reference: "Ontology_MEF_Support v1.0"
+  version: "1.0.0"
+  
   # Basic Identification
   id: "archetype-zion-workflow"
   name: "Workflow Agent"
-  version: "1.0.0"
   created_date: "2024-01-20"
   last_modified: "2024-01-20"
   
@@ -2020,7 +2054,7 @@ archetype_specification:
   # Specialization Domain
   specialization:
     primary_layer: "Zion"
-    knowledge_domains: ["technical", "business", "product", "strategy", "culture"]
+    knowledge_domains: ["strategy", "operations", "ethics", "finance", "security", "governance", "communication", "automation", "intelligence"]
     interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
     expertise_depth: "Specialist"
   
