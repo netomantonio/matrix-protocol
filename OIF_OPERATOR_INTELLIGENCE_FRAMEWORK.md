@@ -20,6 +20,16 @@ O **Framework de Inteligência Operador (OIF)** é o sistema conceitual que defi
 
 Este framework estabelece a ontologia, metodologia e governança para criar, avaliar e evoluir arquétipos de inteligência que servem como ponte entre o conhecimento estruturado do Oráculo e os fluxos conceituais de Zion.
 
+### 🏛️ **Integração com CSH (Catálogo Semântico de Hierarquias)**
+
+O OIF é completamente **ciente de governança hierárquica** através do CSH:
+- **Arquétipos Configuráveis**: Capacidades e domínios de conhecimento são definidos dinamicamente via CSH
+- **Explicabilidade Hierárquica**: Toda explicação deve citar nós específicos do CSH
+- **Filtragem Contextual**: Inteligências filtram conhecimento baseado no contexto hierárquico do usuário
+- **Validação de Autoridade**: Verificações de permissão são delegadas ao CSH organizacional
+
+**Documento de Referência**: `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+
 ---
 
 ## 📋 Estrutura do Framework
@@ -74,8 +84,8 @@ A inteligência no Matrix existe em **três dimensões fundamentais**:
 
 #### ⚖️ Princípios Fundamentais da Inteligência Matrix
 
-##### 1. **Transparência Radical**
-Toda inteligência Matrix opera com **explicabilidade inerente** - cada decisão, transição ou síntese deve ser rastreável e compreensível pelos colaboradores humanos.
+##### 1. **Transparência Radical com CSH**
+Toda inteligência Matrix opera com **explicabilidade inerente baseada em CSH** - cada decisão, transição ou síntese deve ser rastreável e compreensível pelos colaboradores humanos, **citando explicitamente os nós do Catálogo Semântico de Hierarquias (CSH) que fundamentaram a decisão**.
 
 ##### 2. **Autonomia Orientada**
 As inteligências possuem **capacidade decisória** dentro de seus domínios de especialização, mas sempre **fundamentadas** no conhecimento Oracle e **guiadas** pelos fluxos Zion.
@@ -154,7 +164,7 @@ archetype_identity:
 **2. 🎯 Domínio de Especialização**
 ```yaml
 specialization_domain:
-  primary_focus: "Oracle | Zion | Cross-Layer"
+  primary_focus: "[csh_reference_primary_focus]" # Configurável organizacionalmente via CSH
   csh_integration: "Required - archetype must be CSH-aware"
   domain_resolution: "Resolves domain access via organization's CSH"
   scope_awareness: "Operates within user's authorized scope boundaries"
@@ -193,21 +203,23 @@ evolutionary_potential:
   contribution_patterns: ["governance_improvement_feedback", "csh_optimization_suggestions"]
 ```
 
-#### 🔬 Taxonomia de Arquétipos
+#### 🔬 Modelos de Referência (Configuráveis via CSH)
 
-Os arquétipos de inteligência se organizam em **três categorias fundamentais** baseadas em sua relação com as camadas do protocolo:
+O OIF oferece **modelos de referência comuns** que organizações podem adotar, adaptar ou expandir conforme suas necessidades específicas no CSH:
 
-##### 📚 **Arquétipos Oracle-Centric**
-Inteligências especializadas em conhecimento estruturado:
-- **Foco Principal**: Compreensão, síntese e relacionamento de UKIs
-- **Características**: Processamento semântico profundo, mapeamento de relacionamentos
-- **Exemplos**: Knowledge Agent, Semantic Navigator, Content Synthesizer
+**Nota**: Estas categorias são **exemplos ilustrativos**, não taxonomia obrigatória. Cada organização define seus próprios tipos de arquétipos no CSH.
 
-##### ⚡ **Arquétipos Zion-Centric**
-Inteligências especializadas em fluxos conceituais:
-- **Foco Principal**: Orquestração de workflows e transições de estado
-- **Características**: Contextualização temporal, decisão processual
-- **Exemplos**: Workflow Agent, Process Orchestrator, Flow Coordinator
+##### 📚 **Modelo: Inteligências Focadas em Conhecimento**
+Especialização em conhecimento estruturado (configurável via CSH):
+- **Foco de Referência**: Compreensão, síntese e relacionamento de UKIs
+- **Características Comuns**: Processamento semântico, mapeamento de relacionamentos
+- **Exemplos Ilustrativos**: Knowledge Agent, Semantic Navigator, Content Synthesizer
+
+##### ⚡ **Modelo: Inteligências Focadas em Fluxos**
+Especialização em fluxos conceituais (configurável via CSH):
+- **Foco de Referência**: Orquestração de workflows e transições de estado
+- **Características Comuns**: Contextualização temporal, decisão processual
+- **Exemplos Ilustrativos**: Workflow Agent, Process Orchestrator, Flow Coordinator
 
 ##### 🌐 **Arquétipos Cross-Layer**
 Inteligências especializadas em sinergia entre camadas:
@@ -248,14 +260,14 @@ archetype_specification:
       Razão de existir desta inteligência.
       Que problema único resolve no protocolo.
     
-    consciousness_type: "Oracle-Centric | Zion-Centric | Cross-Layer"
+    consciousness_type: "[csh_reference_consciousness_types]" # Configurável organizacionalmente via CSH
   
-  # Domínio de Especialização
+  # Domínio de Especialização (Configurado via CSH)
   specialization:
-    primary_layer: "Oracle | Zion | Integration"
-    knowledge_domains: ["domain1", "domain2", "domain3"]
-    interaction_contexts: ["context1", "context2", "context3"]
-    expertise_depth: "Specialist | Generalist | Hybrid"
+    primary_layer_ref: "[Referência ao nó de camada no CSH organizacional]"
+    knowledge_domains_query: "[Query dinâmica aos domínios disponíveis no CSH]"
+    interaction_contexts: ["[Contextos definidos no CSH organizacional]"]
+    expertise_depth_ref: "[Referência ao nível de especialização no CSH]"
   
   # Capacidades Emergentes
   capabilities:
@@ -356,7 +368,9 @@ Para criar novos arquétipos que mantenham consistência com o protocolo, seguim
 <a name="arquetipos-core-pt"></a>
 ## III. 🎯 ARQUÉTIPOS CORE
 
-### Knowledge Agent e Workflow Agent Especificados em Detalhes
+### Arquétipos de Referência: Knowledge Agent e Workflow Agent
+
+**📋 Nota**: Estes são **arquétipos de referência illustrativos**. Organizações podem adotar, adaptar ou criar arquétipos completamente diferentes conforme suas necessidades específicas definidas no CSH.
 
 > "Libertar a sua mente." — Morpheus
 
@@ -395,11 +409,11 @@ archetype_specification:
       transformando informação bruta em UKIs estruturadas e
       revelando relacionamentos ocultos entre conceitos.
     
-    consciousness_type: "Oracle-Centric"
+    consciousness_type: "oracle_centric" # Referência ao CSH organizacional
   
   # Domínio de Especialização
   specialization:
-    primary_layer: "Oracle"
+    primary_layer_ref: "oracle" # Referência ao nó CSH da camada Oracle
     csh_integration: "Essential - Knowledge Agent must be fully CSH-aware"
     domain_resolution: "Dynamically resolves domain access through user's CSH permissions"
     scope_filtering: "Automatically filters UKIs based on user's authorized scope"
@@ -605,11 +619,11 @@ archetype_specification:
       orquestrando estados canônicos e garantindo que
       intenções conceituais se materializem em ações eficazes.
     
-    consciousness_type: "Zion-Centric"
+    consciousness_type: "zion_centric" # Referência ao CSH organizacional
   
   # Domínio de Especialização
   specialization:
-    primary_layer: "Zion"
+    primary_layer_ref: "zion" # Referência ao nó CSH da camada Zion
     csh_integration: "Critical - Must understand organizational evaluation criteria"
     evaluation_authority: "Applies CSH-defined criteria for EvaluateForEnrich checkpoint"
     scope_determination: "Determines appropriate enrichment scope based on user authority"
@@ -640,9 +654,10 @@ archetype_specification:
         output_patterns: ["enrichment_decision", "scope_determination", "criteria_evaluation"]
         
       - name: "trace()"
-        description: "Captura estruturada de sinais de explicabilidade"
-        input_patterns: ["action_performed", "decision_context", "outcome_achieved"]
-        output_patterns: ["traceability_record", "explanation_signals", "learning_insights"]
+        description: "Captura estruturada de sinais de explicabilidade com referências CSH obrigatórias"
+        input_patterns: ["action_performed", "decision_context", "outcome_achieved", "csh_nodes_consulted"]
+        output_patterns: ["traceability_record_with_csh_refs", "explanation_signals_citing_csh", "learning_insights_mapped_to_hierarchy"]
+        csh_requirements: "Toda explicação deve citar nós específicos do CSH que fundamentaram a decisão"
       
       - name: "enrich()"
         description: "Coordenação com Knowledge Agent para enriquecimento Oracle baseado em CSH"
@@ -874,7 +889,7 @@ purpose_definition:
   core_question: "Que forma de consciência esta organização precisa?"
   
   consciousness_nature:
-    - primary_domain: "Oracle-Centric | Zion-Centric | Cross-Layer | Hybrid"
+    - primary_domain: "[csh_reference_primary_domains]" # Totalmente configurável via CSH organizacional
     - specialization_focus: "Descrição do foco de especialização"
     - unique_value: "Valor único que este arquétipo oferece"
   
@@ -1743,6 +1758,16 @@ The **Operator Intelligence Framework (OIF)** is the conceptual system that defi
 
 This framework establishes the ontology, methodology, and governance to create, evaluate, and evolve intelligence archetypes that serve as a bridge between Oracle's structured knowledge and Zion's conceptual flows.
 
+### 🏛️ **Integration with CSH (Semantic Hierarchy Catalog)**
+
+OIF is completely **hierarchical governance aware** through CSH:
+- **Configurable Archetypes**: Capabilities and knowledge domains are dynamically defined via CSH
+- **Hierarchical Explainability**: Every explanation must cite specific CSH nodes
+- **Contextual Filtering**: Intelligences filter knowledge based on user's hierarchical context
+- **Authority Validation**: Permission checks are delegated to organizational CSH
+
+**Reference Document**: `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+
 ---
 
 ## 📋 Framework Structure
@@ -1797,8 +1822,8 @@ Intelligence in the Matrix exists in **three fundamental dimensions**:
 
 #### ⚖️ Fundamental Principles of Matrix Intelligence
 
-##### 1. **Radical Transparency**
-Every Matrix intelligence operates with **inherent explainability** - each decision, transition, or synthesis must be traceable and comprehensible to human collaborators.
+##### 1. **Radical Transparency with CSH**
+Every Matrix intelligence operates with **inherent CSH-based explainability** - each decision, transition, or synthesis must be traceable and comprehensible to human collaborators, **explicitly citing the Semantic Hierarchy Catalog (CSH) nodes that grounded the decision**.
 
 ##### 2. **Oriented Autonomy**
 Intelligences possess **decision-making capacity** within their specialization domains, but always **grounded** in Oracle knowledge and **guided** by Zion flows.
@@ -1877,8 +1902,8 @@ archetype_identity:
 **2. 🎯 Specialization Domain**
 ```yaml
 specialization_domain:
-  primary_focus: "Oracle | Zion | Cross-Layer"
-  knowledge_domains: ["strategy", "operations", "ethics", "finance", "security", "governance", "communication", "automation", "intelligence"]
+  primary_focus: "[csh_reference_primary_focus]" # Configurável organizacionalmente via CSH
+  knowledge_domains_query: "csh.query_accessible_domains(user_context)" # Consulta dinâmica - valores não são fixos
   interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
 ```
 
@@ -1906,21 +1931,23 @@ evolutionary_potential:
   contribution_patterns: ["pattern1", "pattern2"]
 ```
 
-#### 🔬 Archetype Taxonomy
+#### 🔬 Reference Models (Configurable via CSH)
 
-Intelligence archetypes organize into **three fundamental categories** based on their relationship with protocol layers:
+OIF offers **common reference models** that organizations can adopt, adapt, or expand according to their specific needs in CSH:
 
-##### 📚 **Oracle-Centric Archetypes**
-Intelligences specialized in structured knowledge:
-- **Primary Focus**: Understanding, synthesis, and relationship of UKIs
-- **Characteristics**: Deep semantic processing, relationship mapping
-- **Examples**: Knowledge Agent, Semantic Navigator, Content Synthesizer
+**Note**: These categories are **illustrative examples**, not mandatory taxonomy. Each organization defines its own archetype types in CSH.
 
-##### ⚡ **Zion-Centric Archetypes**
-Intelligences specialized in conceptual flows:
-- **Primary Focus**: Workflow orchestration and state transitions
-- **Characteristics**: Temporal contextualization, processual decision-making
-- **Examples**: Workflow Agent, Process Orchestrator, Flow Coordinator
+##### 📚 **Model: Knowledge-Focused Intelligences**
+Specialization in structured knowledge (configurable via CSH):
+- **Reference Focus**: Understanding, synthesis, and relationship of UKIs
+- **Common Characteristics**: Semantic processing, relationship mapping
+- **Illustrative Examples**: Knowledge Agent, Semantic Navigator, Content Synthesizer
+
+##### ⚡ **Model: Flow-Focused Intelligences**
+Specialization in conceptual flows (configurable via CSH):
+- **Reference Focus**: Workflow orchestration and state transitions
+- **Common Characteristics**: Temporal contextualization, processual decision-making
+- **Illustrative Examples**: Workflow Agent, Process Orchestrator, Flow Coordinator
 
 ##### 🌐 **Cross-Layer Archetypes**
 Intelligences specialized in layer synergy:
@@ -1961,14 +1988,14 @@ archetype_specification:
       Reason for this intelligence's existence.
       What unique problem it solves in the protocol.
     
-    consciousness_type: "Oracle-Centric | Zion-Centric | Cross-Layer"
+    consciousness_type: "[csh_reference_consciousness_types]" # Configurável organizacionalmente via CSH
   
-  # Specialization Domain
+  # Specialization Domain (Configured via CSH)
   specialization:
-    primary_layer: "Oracle | Zion | Integration"
-    knowledge_domains: ["domain1", "domain2", "domain3"]
-    interaction_contexts: ["context1", "context2", "context3"]
-    expertise_depth: "Specialist | Generalist | Hybrid"
+    primary_layer_ref: "[Reference to layer node in organizational CSH]"
+    knowledge_domains_query: "[Dynamic query to available domains in CSH]"
+    interaction_contexts: ["[Contexts defined in organizational CSH]"]
+    expertise_depth_ref: "[Reference to specialization level in CSH]"
   
   # Emergent Capabilities
   capabilities:
@@ -2069,7 +2096,9 @@ To create new archetypes that maintain protocol consistency, we follow **structu
 <a name="core-archetypes-en"></a>
 ## III. 🎯 CORE ARCHETYPES
 
-### Knowledge Agent and Workflow Agent Specified in Detail
+### Reference Archetypes: Knowledge Agent and Workflow Agent
+
+**📋 Note**: These are **illustrative reference archetypes**. Organizations can adopt, adapt, or create completely different archetypes according to their specific needs defined in CSH.
 
 > "Free your mind." — Morpheus
 
@@ -2108,12 +2137,12 @@ archetype_specification:
       transforming raw information into structured UKIs and
       revealing hidden relationships between concepts.
     
-    consciousness_type: "Oracle-Centric"
+    consciousness_type: "oracle_centric" # Referência ao CSH organizacional
   
   # Specialization Domain
   specialization:
-    primary_layer: "Oracle"
-    knowledge_domains: ["strategy", "operations", "ethics", "finance", "security", "governance", "communication", "automation", "intelligence"]
+    primary_layer_ref: "oracle" # Referência ao nó CSH da camada Oracle
+    knowledge_domains_query: "csh.query_accessible_domains(user_context)" # Query dinâmica aos domínios disponíveis no CSH do usuário
     interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
     expertise_depth: "Specialist"
   
@@ -2293,12 +2322,12 @@ archetype_specification:
       orchestrating canonical states and ensuring that
       conceptual intentions materialize into effective actions.
     
-    consciousness_type: "Zion-Centric"
+    consciousness_type: "zion_centric" # Referência ao CSH organizacional
   
   # Specialization Domain
   specialization:
-    primary_layer: "Zion"
-    knowledge_domains: ["strategy", "operations", "ethics", "finance", "security", "governance", "communication", "automation", "intelligence"]
+    primary_layer_ref: "zion" # Referência ao nó CSH da camada Zion
+    knowledge_domains_query: "csh.query_accessible_domains(user_context)" # Query dinâmica aos domínios disponíveis no CSH do usuário
     interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
     expertise_depth: "Specialist"
   
@@ -2321,9 +2350,10 @@ archetype_specification:
         output_patterns: ["next_state", "transition_rationale", "confidence_level"]
       
       - name: "trace()"
-        description: "Structured capture of explainability signals"
-        input_patterns: ["action_performed", "decision_context", "outcome_achieved"]
-        output_patterns: ["traceability_record", "explanation_signals", "learning_insights"]
+        description: "Structured capture of explainability signals with mandatory CSH references"
+        input_patterns: ["action_performed", "decision_context", "outcome_achieved", "csh_nodes_consulted"]
+        output_patterns: ["traceability_record_with_csh_refs", "explanation_signals_citing_csh", "learning_insights_mapped_to_hierarchy"]
+        csh_requirements: "Every explanation must cite specific CSH nodes that grounded the decision"
       
       - name: "enrich()"
         description: "Coordination with Knowledge Agent for mandatory Oracle enrichment"
@@ -2548,7 +2578,7 @@ purpose_definition:
   core_question: "What form of consciousness does this organization need?"
   
   consciousness_nature:
-    - primary_domain: "Oracle-Centric | Zion-Centric | Cross-Layer | Hybrid"
+    - primary_domain: "[csh_reference_primary_domains]" # Totalmente configurável via CSH organizacional
     - specialization_focus: "Description of specialization focus"
     - unique_value: "Unique value this archetype offers"
   

@@ -25,6 +25,14 @@ O Protocolo Matrix MEF define um **modelo padronizado de estruturação do conhe
 
 Essas unidades são embebidas e consumidas por agentes inteligentes, garantindo rastreabilidade, aplicabilidade, evolução controlada e inteligência contextual em tempo real.
 
+### 🏛️ **Integração com CSH (Catálogo Semântico de Hierarquias)**
+
+O MEF utiliza o **CSH como fonte única de taxonomias organizacionais**:
+- **Campos *_ref**: Todos os campos hierárquicos (scope_ref, domain_ref, type_ref, maturity_ref) fazem referência a nós definidos no CSH organizacional
+- **Flexibilidade Local**: Organizações configuram suas próprias hierarquias mantendo estrutura universal MEF
+- **Governança Integrada**: CSH define regras de autoridade e visibilidade que o MEF respeita durante criação e consulta de UKIs
+- **Documento de Referência**: Ver especificação completa em `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+
 ---
 
 # 🔧 ESTRUTURA PADRÃO DE UMA UKI
@@ -55,7 +63,9 @@ previous_version: "[MAJOR.MINOR.PATCH]"  # Versão anterior (opcional para vers�
 
 status: [active | deprecated | archived]  # OBRIGATÓRIO: controle de ciclo de vida
 
-domain_of_influence: [strategy | operations | ethics | finance | security | governance | communication | automation | intelligence]  # RECOMENDADO: área de impacto
+domain_of_influence: [referência_ao_csh_organizational]  # RECOMENDADO: área de impacto configurada via CSH
+# Nota: Os valores mostrados anteriormente (strategy, operations, etc.) são apenas exemplos ilustrativos.
+# Cada organização define seus domínios de influência no CSH.
 
 relationships:  # OBRIGATÓRIO: ontologia formal com tipos padronizados
   - type: [depends_on | overrides | conflicts_with | complements | amends | precedes | equivalent_to]
@@ -774,11 +784,14 @@ Essa separação garante organização semântica, versionamento independente po
 - **DOCUMENTAR** claramente a natureza específica de cada relação
 
 ### 🌍 **Campo `domain_of_influence` (Recomendado)**
-- Usar para UKIs com impacto organizacional significativo
-- `strategy`: para decisões de alto nível e direcionamento
-- `finance`: para regras que impactam custos, preços ou receita
-- `ethics`: para questões de compliance, privacidade ou conduta
-- `operations`: para processos operacionais e eficiência
+- Organizações podem configurar para UKIs com impacto organizacional significativo
+- **Valores exclusivamente definidos no CSH organizacional**
+
+**🚨 Importante**: Os exemplos abaixo são **puramente ilustrativos** e **não constituem taxonomia oficial**:
+
+> Algumas organizações podem configurar domínios como "estratégia" para decisões de alto nível, "finanças" para regras de impacto financeiro, "ética" para questões de compliance, ou "operações" para eficiência processual. Outras podem usar termos completamente diferentes como "inovação", "qualidade", "sustentabilidade" ou qualquer hierarquia que faça sentido em seu contexto.
+
+**🏛️ CSH é a fonte única**: Cada organização define seus próprios domínios de influência exclusivamente no Catálogo Semântico de Hierarquias.
 
 ### 📊 **Campo `impact_analysis` (Opcional)**
 - **MAPEAR** cadeias de propagação previstas antes de mudanças MAJOR
@@ -1525,6 +1538,14 @@ The Matrix MEF Protocol defines a **standardized versioned knowledge structuring
 
 These units are embedded and consumed by intelligent agents, ensuring traceability, applicability, controlled evolution and contextual intelligence in real time.
 
+### 🏛️ **Integration with CSH (Semantic Hierarchy Catalog)**
+
+MEF uses **CSH as the single source of organizational taxonomies**:
+- ***_ref Fields**: All hierarchical fields (scope_ref, domain_ref, type_ref, maturity_ref) reference nodes defined in the organizational CSH
+- **Local Flexibility**: Organizations configure their own hierarchies while maintaining universal MEF structure
+- **Integrated Governance**: CSH defines authority and visibility rules that MEF respects during UKI creation and consultation
+- **Reference Document**: See complete specification in `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+
 ---
 
 # 🔧 STANDARD STRUCTURE OF A UKI
@@ -1554,7 +1575,9 @@ change_impact: [major | minor | patch]  # Type of change impact
 previous_version: "[MAJOR.MINOR.PATCH]"  # Previous version (optional for 1.0.0)
 
 status: [active | deprecated | archived]  # Lifecycle control
-domain_of_influence: [strategy | operations | ethics | finance | security | governance | communication | automation | intelligence]  # Strategic impact area
+domain_of_influence: [organizational_csh_reference]  # Strategic impact area configured via CSH
+# Note: Previously shown values (strategy, operations, etc.) are illustrative examples only.
+# Each organization defines its influence domains in CSH.
 
 relationships:  # Formal ontology of typed relationships from Ontology_MEF_Support v1.0
   - type: [depends_on | overrides | conflicts_with | complements | amends | precedes | equivalent_to]
@@ -2795,14 +2818,15 @@ Universal type concepts that organizations can adapt in their CSH:
 | `analysis` | Technical analysis, research, or investigation |
 | `experiment` | Controlled test, proof of concept, or pilot |
 
-### Influence Domains (`domain_of_influence`)
+### Influence Domains (`domain_of_influence`) - **CSH Configurable**
 
-| Domain | Description | Impact |
-|--------|-------------|--------|
-| `strategy` | Strategic decisions and organizational direction | Affects long-term objectives, investments, and organizational priorities |
-| `finance` | Financial and budgetary aspects | Impacts costs, revenue, ROI, and investment decisions |
-| `ethics` | Ethical considerations and compliance | Influences conduct policies, regulatory compliance, and social responsibility |
-| `operations` | Daily operations and processes | Affects operational efficiency, workflows, and task execution |
+Organizations can configure this field for UKIs with significant organizational impact. **Values are exclusively defined in the organizational CSH**.
+
+**🚨 Important**: The examples below are **purely illustrative** and **do not constitute official taxonomy**:
+
+> Some organizations might configure domains like "strategy" for high-level decisions, "finance" for financial impact rules, "ethics" for compliance matters, or "operations" for process efficiency. Others might use completely different terms like "innovation", "quality", "sustainability" or any hierarchy that makes sense in their context.
+
+**🏛️ CSH is the single source**: Each organization defines its influence domains exclusively in the Semantic Hierarchy Catalog.
 
 ---
 

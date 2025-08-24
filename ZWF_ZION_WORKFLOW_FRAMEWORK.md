@@ -27,6 +27,16 @@ O ZWF integra nativamente com o **CSH (Catálogo Semântico de Hierarquias)** or
 
 O ZWF não prescreve ferramentas, motores de orquestração ou implementações técnicas - apenas direciona **como pensar e registrar o caminho** de forma conceitual, rastreável e governada.
 
+### 🏛️ **CSH - Fonte Única de Governança**
+
+O ZWF utiliza o **Catálogo Semântico de Hierarquias (CSH)** para:
+- **Critérios de Enriquecimento**: O checkpoint `EvaluateForEnrich` consulta regras configuráveis no CSH
+- **Validação de Autoridade**: Verifica se usuário tem autoridade para criar UKIs em escopos específicos
+- **Filtragem de Conhecimento**: Oracle retorna apenas UKIs compatíveis com contexto hierárquico do usuário
+- **Flexível por Organização**: Cada implementação pode definir suas hierarquias e regras
+
+**Documento de Referência**: `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+
 ---
 
 ## 🎭 ATORES E PAPÉIS
@@ -410,7 +420,7 @@ evaluation:
   user_confirmation: N/A
 
 result: ENRICH_REJECTED
-reason: "Domínio restrito requer curadoria organizacional"
+reason: "Domínio configurado no CSH como restrito para este nível de autoridade"
 suggestion: "Encaminhar para processo de curadoria de segurança"
 ```
 
@@ -509,37 +519,36 @@ Fluxos que justifiquem enriquecimento devem retornar conhecimento ao Oráculo es
 
 Fluxos ZWF **NÃO PODEM** criar UKIs que impactem múltiplas equipes sem curadoria:
 
-#### **Domínios Restritos (Requerem Curadoria)**
-| Domínio | Razão da Restrição | Escopo de Impacto |
-|---------|-------------------|-------------------|
-| `policy` | Diretrizes organizacionais | Toda organização |
-| `governance` | Regras de governança | Múltiplas equipes |
-| `security` | Políticas de segurança | Toda organização |
-| `finance` | Regras financeiras | Organização/compliance |
-| `strategy` | Decisões estratégicas | Múltiplas equipes |
-| `ethics` | Diretrizes éticas | Toda organização |
+#### **Restrições Configuráveis via CSH**
 
-#### **Tipos Permitidos para Fluxos ZWF**
-Fluxos podem criar apenas UKIs de **escopo limitado à equipe**:
-- `procedure` - Procedimentos específicos da equipe
-- `concept` - Definições técnicas locais  
-- `metric` - Indicadores da equipe
-- `glossary` - Termos específicos do domínio técnico
-- `rule` - Apenas regras operacionais da equipe (não organizacionais)
-- `constraint` - Limitações técnicas específicas
+Cada organização define no **CSH** quais domínios, tipos e escopos são restritos para diferentes níveis de autoridade:
 
-#### **Função de Validação de Escopo**
+**🚨 Exemplos puramente ilustrativos de configuração organizacional:**
+> Estas são **sugestões conceituais**, não implementações obrigatórias:
+- **Domínios organizacionais**: Organizações podem configurar que alguns domínios requeiram autoridade elevada
+- **Tipos críticos**: Possível restringir certos tipos a papéis específicos no CSH
+- **Escopos hierárquicos**: Configurável que criação em escopos superiores exija aprovação
+- **Combinações**: CSH permite regras especiais para combinações domínio+tipo
+
+**🏛️ Cada organização define suas próprias regras no CSH** - não há restrições universais.
+
+#### **Validação Dinâmica via CSH**
 ```yaml
-scope_validation:
+csh_validation:
   can_create_uki: |
-    IF (domain IN restricted_domains) THEN
-      REQUIRE human_curation = true
-      REQUIRE stakeholder_approval = true
-    ELSE IF (type = "rule" AND scope = "organizational") THEN
-      REQUIRE human_curation = true
-    ELSE
-      ALLOW team_scope_creation = true
+    # Consulta dinâmica ao CSH organizacional
+    domain_node = csh.get_domain(proposed_uki.domain_ref)
+    type_node = csh.get_type(proposed_uki.type_ref)
+    scope_node = csh.get_scope(proposed_uki.scope_ref)
+    
+    # Verifica autoridade do usuário para cada nó 
+    IF validate_authority(user_context, domain_node, type_node, scope_node):
+      ALLOW creation = true
+    ELSE:
+      REQUIRE escalation_to_authorized_role = true
 ```
+
+**Nota**: Os valores anteriormente listados (policy, governance, etc.) eram apenas exemplos. Cada organização configura suas próprias restrições no CSH.
 
 ### 🔗 **Relacionamentos Requeridos**
 Cada UKI gerada deve incluir:
@@ -581,7 +590,7 @@ timestamp: "2024-01-15 14:30:22"
 
 ## 📊 MÉTRICAS CANÔNICAS DE TELEMETRIA
 
-Para observabilidade e monitoramento efetivo de workflows ZWF, estabelecemos métricas padronizadas que devem ser coletadas durante a execução de cada fluxo.
+Para observabilidade e monitoramento efetivo de workflows ZWF, estabelecemos métricas padronizadas que podem ser coletadas durante a execução de cada fluxo.
 
 ### 🕘 **Métricas de Tempo entre Estados**
 ```yaml
@@ -684,7 +693,7 @@ telemetry:
 
 ## ⚖️ INVARIANTES DE ESTADO (FORMAL)
 
-Para garantir a execução robusta e determinística, cada estado ZWF deve atender invariantes conceituais que podem ser implementados por engines duráveis:
+Para garantir a execução robusta e determinística, cada estado ZWF pode implementar invariantes conceituais que podem ser implementados por engines duráveis:
 
 ### 📋 **Invariantes por Estado**
 
@@ -1256,6 +1265,16 @@ ZWF does not prescribe tools, orchestration engines, or technical implementation
 
 **CSH Integration:** ZWF integrates with the Semantic Hierarchy Catalog (CSH) to enable governance-aware workflows that respect organizational hierarchies and authority levels during both Oracle consultation and knowledge enrichment phases.
 
+### 🏛️ **CSH - Single Source of Governance**
+
+ZWF uses the **Semantic Hierarchy Catalog (CSH)** for:
+- **Enrichment Criteria**: The `EvaluateForEnrich` checkpoint consults configurable rules in CSH
+- **Authority Validation**: Verifies if user has authority to create UKIs in specific scopes
+- **Knowledge Filtering**: Oracle returns only UKIs compatible with user's hierarchical context
+- **Organization Flexible**: Each implementation can define its hierarchies and rules
+
+**Reference Document**: `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+
 ---
 
 ## 🎭 ACTORS AND ROLES
@@ -1462,7 +1481,7 @@ organizational_scope:
   purpose: "Prevent unintentional organizational impacts"
   questions:
     - "Does the proposed UKI affect only the executing team?"
-    - "Does it not create rules for restricted domains?"
+    - "Does it respect CSH-configured domain restrictions for this user's authority level?"
     - "Does it not require organizational stakeholder curation?"
   threshold: "Scope limited to team autonomy"
 ```
@@ -1549,7 +1568,7 @@ evaluation:
   user_confirmation: N/A
 
 result: ENRICH_REJECTED
-reason: "Restricted domain requires organizational curation"
+reason: "Domain configured in CSH as restricted for this authority level"
 suggestion: "Forward to security curation process"
 ```
 
@@ -1575,7 +1594,7 @@ suggestion: "Forward to security curation process"
 ## 🔗 ORACLE BINDING
 
 ### 📋 **Initial Declaration**
-Every flow must declare at the beginning which Oracle UKIs motivate it:
+Flows can declare at the beginning which Oracle UKIs motivate them:
 
 ```yaml
 # Example of flow declaration
@@ -1815,7 +1834,7 @@ validation_result:
 Each generated UKI must include:
 - `related_to`: UKIs that motivated/impacted the flow using valid types (implements, depends_on, extends, replaces, complies_with, conflicts_with, derives_from, relates_to)
 - Clear summary of relationship intention in `description` field within each relationship
-- CSH compliance: All referenced UKIs must be accessible within user's authority context
+- CSH compliance: Referenced UKIs should be accessible within user's authority context as defined by organizational CSH
 
 ---
 
@@ -1955,7 +1974,7 @@ telemetry:
 
 ## ⚖️ STATE INVARIANTS (FORMAL)
 
-To ensure robust and deterministic execution, each ZWF state must meet conceptual invariants that can be implemented by durable engines:
+To ensure robust and deterministic execution, each ZWF state can implement conceptual invariants that can be implemented by durable engines:
 
 ### 📋 **Invariants per State**
 

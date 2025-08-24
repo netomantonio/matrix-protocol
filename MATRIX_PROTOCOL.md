@@ -22,12 +22,26 @@ Cada camada desempenha um papel único no fluxo estratégico, técnico e operaci
 
 ### 🔧 Flexibilidade Local com Coerência Global
 
-O Protocolo Matrix separa **conceitos centrais universais** de **taxonomias organizacionais específicas**:
+O Protocolo Matrix separa **conceitos centrais universais** de **taxonomias organizacionais específicas** seguindo o **PHSC (Princípio das Hierarquias Semânticas Configuráveis)**:
 
-- **Conceitos Universais**: Fixos em todas as implementações (escopo, domínio, maturidade, propagação, checkpoints de fluxo)
-- **Hierarquias Locais**: Configuráveis via **CSH (Catálogo Semântico de Hierarquias)** - cada organização define estruturas específicas
-- **Governança Adaptável**: Regras de autoridade, visibilidade e propagação definidas localmente
-- **Interoperabilidade**: Diferentes organizações podem compartilhar conhecimento mantendo coerência conceitual
+#### 🏆 Conceitos Universais (Fixos)
+- **Estados Canonônicos**: Intake → Understand → Decide → Act → EvaluateForEnrich → Review → Enrich
+- **Checkpoints Obrigatórios**: EvaluateForEnrich como ponto de avaliação condicional
+- **Campos Estruturais**: scope_ref, domain_ref, type_ref, maturity_ref (referências, não valores)
+- **Relacionamentos Semânticos**: Tipos de relação entre UKIs (implements, depends_on, extends, etc.)
+
+#### 🏛️ Hierarquias Locais (Configuráveis via CSH)
+- **Catálogo Semântico**: Cada organização define sua estrutura hierárquica no **CSH (Catálogo Semântico de Hierarquias)**
+- **Taxonomias Organizacionais**: Domínios, tipos, escopos e níveis de maturidade específicos
+- **Regras de Governança**: Autoridades, visibilidade e propagação definidas por contexto
+- **Critérios de Enriquecimento**: Parâmetros do EvaluateForEnrich adaptáveis ao contexto organizacional
+
+#### 🤝 Interoperabilidade Semântica
+- **Conceitos Compartilháveis**: Conhecimento pode ser exportado entre organizações mantendo estrutura universal
+- **Tradutibilidade**: CSHs diferentes podem mapear conceitos equivalentes
+- **Coerência Global**: Mesmos princípios fundamentais independente da configuração local
+
+> 💡 **Princípio PHSC**: *"Conceitos universais garantem interoperabilidade; hierarquias configuráveis garantem adaptábil idade. O CSH é a fonte única de verdade para taxonomias organizacionais."*
 
 ---
 
@@ -49,8 +63,8 @@ Aqui nasce e é embebida a orientação, as diretrizes estratégicas e os padrõ
 
 #### 📏 Governança Estratégica através do MEF
 
-* Definir diretrizes fundamentais através de **UKIs do domínio strategy** versionadas e rastreáveis.
-* Estabelecer métricas de sucesso para colaboração humano-IA como **UKIs de business_rule**.
+* Definir diretrizes fundamentais através de **UKIs de domínios estratégicos** (configuráveis via CSH) versionadas e rastreáveis.
+* Estabelecer métricas de sucesso para colaboração humano-IA como **UKIs de tipos apropriados** definidos no CSH organizacional.
 * Criar **UKIs de decision** para registrar alinhamentos de práticas ágeis aos objetivos estratégicos.
 * Garantir que toda decisão estratégica seja capturada, versionada e relacionada semanticamente no MEF.
 
@@ -59,18 +73,18 @@ Aqui nasce e é embebida a orientação, as diretrizes estratégicas e os padrõ
 * Implementar **governança através de UKIs**: cada diretriz, regra e padrão é uma UKI versionada e rastreável.
 * Estruturar **Knowledge Sources governados** onde mudanças estratégicas propagam automaticamente.
 * Garantir **rastreabilidade de decisões** através de relacionamentos semânticos entre UKIs estratégicas.
-* Criar **ciclo de governança MEF**: Strategy UKIs → Technical UKIs → Business UKIs → Culture UKIs.
+* Criar **ciclos de governança MEF** baseados nas hierarquias definidas no CSH organizacional (exemplo: UKIs estratégicas → UKIs técnicas → UKIs operacionais).
 
 #### 🔧 Estruturação de Padrões com Governança Integrada
 
 * Aplicar **governance templates MEF** onde cada padrão técnico está ligado a decisões estratégicas.
-* Implementar **validation chains**: Technical UKIs devem referenciar Strategy UKIs que as justificam.
-* Estabelecer **semantic governance**: mudanças em Strategy UKIs invalidam Technical UKIs relacionadas.
+* Implementar **validation chains**: UKIs de níveis hierárquicos inferiores devem referenciar UKIs que as justificam conforme CSH.
+* Estabelecer **semantic governance**: mudanças em UKIs de maior autoridade invalidam UKIs relacionadas de níveis inferiores.
 * Garantir **compliance via relacionamentos**: toda UKI técnica rastreia sua origem estratégica.
 
 #### 👁️ Diretrizes de Iteração Governadas
 
-* Implementar **governance workflows** através de UKIs de culture domain para práticas de colaboração.
+* Implementar **governance workflows** através de UKIs de domínios culturais/organizacionais conforme definido no CSH.
 * Criar **adaptation rules** como UKIs que definem como o protocolo evolui mantendo governança.
 * Estabelecer **feedback loops** onde insights das camadas Zion/Operador atualizam UKIs estratégicas.
 
@@ -79,7 +93,7 @@ Aqui nasce e é embebida a orientação, as diretrizes estratégicas e os padrõ
 | Componente              | Função/Exemplo                                                    |
 | ----------------------- | ----------------------------------------------------------------- |
 | **Governed Knowledge Sources** | Repositórios MEF com governança estratégica integrada via relacionamentos. |
-| **Governance Templates** | Templates MEF que incluem obrigatoriedade de linkagem estratégica. |
+| **Governance Templates** | Templates MEF configuráveis que seguem regras de linkagem definidas no CSH organizacional. |
 | **Compliance Validator** | Validação de conformidade MEF + verificação de rastreabilidade estratégica. |
 | **Governance Navigator** | Navegação semântica que mostra cadeias de decisão Strategy → Technical. |
 | **Strategic Version Manager** | Versionamento que propaga mudanças estratégicas para UKIs dependentes. |
@@ -119,7 +133,7 @@ Ela transforma diretrizes em workflows conceituais através do **ZWF (Zion Workf
 
 * **Definir padrões de fluxo** seguindo estados canônicos: `Intake → Understand → Decide → Act → EvaluateForEnrich → Review → Enrich`
 * **Catalogar eventos canônicos** que iniciam workflows: `knowledge.added`, `work.proposed`, `work.refine.requested`, `assistance.requested`, `test.authored`, `feedback.submitted`
-* **Checkpoint obrigatório**: `EvaluateForEnrich` aplica critérios definidos no CSH organizacional para decidir se conhecimento deve enriquecer Oracle
+* **Checkpoint condicional**: `EvaluateForEnrich` aplica critérios definidos no CSH organizacional para decidir se conhecimento deve enriquecer Oracle
 * **Garantir ciclo fechado**: sempre consultar Oráculo → agir → avaliar para enriquecimento → enriquecer Oráculo
 
 #### 🧬 Explicabilidade e Rastreabilidade
@@ -134,11 +148,11 @@ Ela transforma diretrizes em workflows conceituais através do **ZWF (Zion Workf
 * **Flexibilidade de ferramentas**: cada equipe implementa com suas tecnologias preferidas
 * **Padronização de raciocínio**: mesmo padrão conceitual independente da implementação
 
-#### ♻️ Enriquecimento Obrigatório do Oráculo
+#### ♻️ Enriquecimento Condicional do Oráculo
 
-* **Toda execução ZWF** deve gerar/atualizar UKIs MEF relacionadas às UKIs motivadoras
-* **Aprendizados estruturados** capturados como conhecimento reutilizável
-* **Evolução contínua** da base de conhecimento através dos workflows
+* **Execuções ZWF** que passam no `EvaluateForEnrich` geram/atualizam UKIs MEF relacionadas às UKIs motivadoras
+* **Aprendizados estruturados** capturados como conhecimento reutilizável quando justificáveis via critérios CSH
+* **Evolução contínua** da base de conhecimento através de enriquecimento criterioso e validado
 
 ### Padrões de Workflow ZWF
 
@@ -176,7 +190,7 @@ stateDiagram-v2
     end note
     
     note right of Enrich
-      Enriquecimento obrigatório
+      Enriquecimento condicional
       do Oráculo (UKIs MEF)
     end note
 ```
@@ -298,6 +312,26 @@ graph TD
 - **Colaboração**: Estrutura clara permite compartilhamento efetivo de conhecimento humano-IA
 - **Maturação Orgânica**: Processo de promoção permite evolução natural do conhecimento de local para organizacional
 
+## 🏛️ CSH - Catálogo Semântico de Hierarquias
+
+O **Catálogo Semântico de Hierarquias (CSH)** é a **fonte única de verdade** para taxonomias e governança organizacional no Protocolo Matrix:
+
+### 🎯 **Função do CSH**
+- **Taxonomias Configuráveis**: Define domínios, tipos, escopos e níveis de maturidade específicos da organização
+- **Governança Hierárquica**: Estabelece regras de autoridade, visibilidade e propagação por contexto
+- **Critérios de Enriquecimento**: Define parâmetros para o checkpoint EvaluateForEnrich
+- **Interoperabilidade**: Permite mapeamento entre diferentes estruturas organizacionais
+
+### 🔗 **Integração com Camadas Matrix**
+- **Oraculo + CSH**: UKIs MEF usam *_ref fields que referenciam nós do CSH em vez de valores fixos
+- **Zion + CSH**: ZWF consulta CSH para validação de autoridade durante EvaluateForEnrich
+- **Operador + CSH**: OIF usa CSH para filtrar conhecimento e validar explicações baseadas em hierarquias
+
+### 📋 **Documento de Referência**
+Ver especificação completa: `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+
+---
+
 ## 🚀 Considerações de Implementação
 
 O Protocolo Matrix serve como framework fundamental para organizações implementando sistemas de colaboração humano-IA:
@@ -321,7 +355,7 @@ Este framework filosófico e técnico fornece às organizações:
 - **Governança Adaptável**: Regras de autoridade, visibilidade e propagação configuradas por contexto organizacional
 - **Implementação Escalável**: De equipes individuais à adoção empresarial
 - **Estrutura Pronta para IA**: Construída para sistemas inteligentes e colaboração humano-IA
-- **Design Evolutivo**: Melhoria contínua através de ciclos de feedback e enriquecimento obrigatório
+- **Design Evolutivo**: Melhoria contínua através de ciclos de feedback e enriquecimento criterioso via EvaluateForEnrich
 
 As organizações podem adaptar o Protocolo Matrix às suas necessidades específicas mantendo os princípios fundamentais de colaboração humano-IA estruturada.
 
@@ -355,12 +389,26 @@ Each layer plays a unique role in the strategic, technical, and operational flow
 
 ### 🔧 Local Flexibility with Global Coherence
 
-The Matrix Protocol separates **universal core concepts** from **organization-specific taxonomies**:
+The Matrix Protocol separates **universal core concepts** from **organization-specific taxonomies** following the **CSHP (Configurable Semantic Hierarchies Principle)**:
 
-- **Universal Concepts**: Fixed across all implementations (scope, domain, maturity, propagation, workflow checkpoints)
-- **Local Hierarchies**: Configurable via **CSH (Semantic Hierarchy Catalog)** - each organization defines specific structures
-- **Adaptive Governance**: Authority, visibility, and propagation rules defined locally
-- **Interoperability**: Different organizations can share knowledge while maintaining conceptual coherence
+#### 🏆 Universal Concepts (Fixed)
+- **Canonical States**: Intake → Understand → Decide → Act → EvaluateForEnrich → Review → Enrich
+- **Mandatory Checkpoints**: EvaluateForEnrich as conditional evaluation point
+- **Structural Fields**: scope_ref, domain_ref, type_ref, maturity_ref (references, not values)
+- **Semantic Relationships**: Relationship types between UKIs (implements, depends_on, extends, etc.)
+
+#### 🏛️ Local Hierarchies (Configurable via CSH)
+- **Semantic Catalog**: Each organization defines its hierarchical structure in **CSH (Semantic Hierarchy Catalog)**
+- **Organizational Taxonomies**: Domains, types, scopes, and maturity levels specific to context
+- **Governance Rules**: Authorities, visibility, and propagation defined by context
+- **Enrichment Criteria**: EvaluateForEnrich parameters adaptable to organizational context
+
+#### 🤝 Semantic Interoperability
+- **Shareable Concepts**: Knowledge can be exported between organizations maintaining universal structure
+- **Translatability**: Different CSHs can map equivalent concepts
+- **Global Coherence**: Same fundamental principles regardless of local configuration
+
+> 💡 **CSHP Principle**: *"Universal concepts ensure interoperability; configurable hierarchies ensure adaptability. CSH is the single source of truth for organizational taxonomies."*
 
 ---
 
@@ -392,13 +440,13 @@ It is the protocol that proactively promotes consistency, accessibility, and con
 * Implement **governance through UKIs**: every guideline, rule, and pattern is a versioned and traceable UKI.
 * Structure **governed Knowledge Sources** where strategic changes propagate automatically.
 * Ensure **decision traceability** through semantic relationships between strategic UKIs.
-* Create **MEF governance cycle**: Strategy UKIs → Technical UKIs → Business UKIs → Culture UKIs.
+* Create **MEF governance cycles** based on hierarchies defined in organizational CSH (example: strategic UKIs → technical UKIs → operational UKIs).
 
 #### 🔧 Pattern Structuring with Integrated Governance
 
 * Apply **governance templates MEF** where every technical pattern links to strategic decisions.
-* Implement **validation chains**: Technical UKIs must reference Strategy UKIs that justify them.
-* Establish **semantic governance**: changes in Strategy UKIs invalidate related Technical UKIs.
+* Implement **validation chains**: UKIs from lower hierarchical levels must reference justifying UKIs according to CSH.
+* Establish **semantic governance**: changes in higher-authority UKIs invalidate related UKIs from lower levels.
 * Ensure **compliance via relationships**: every technical UKI traces its strategic origin.
 
 #### 👁️ Governed Iteration Guidelines
@@ -412,7 +460,7 @@ It is the protocol that proactively promotes consistency, accessibility, and con
 | Component               | Function/Example                                                  |
 | ----------------------- | ----------------------------------------------------------------- |
 | **Governed Knowledge Sources** | MEF repositories with integrated strategic governance via relationships. |
-| **Governance Templates** | MEF templates requiring mandatory strategic linkage. |
+| **Governance Templates** | Configurable MEF templates following linkage rules defined in organizational CSH. |
 | **Compliance Validator** | MEF compliance validation + strategic traceability verification. |
 | **Governance Navigator** | Semantic navigation showing Strategy → Technical decision chains. |
 | **Strategic Version Manager** | Versioning that propagates strategic changes to dependent UKIs. |
@@ -467,11 +515,11 @@ It transforms guidelines into conceptual workflows through the **ZWF (Zion Workf
 * **Tool flexibility**: each team implements with their preferred technologies
 * **Reasoning standardization**: same conceptual pattern regardless of implementation
 
-#### ♻️ Mandatory Oracle Enrichment
+#### ♻️ Conditional Oracle Enrichment
 
-* **Every ZWF execution** must generate/update MEF UKIs related to motivating UKIs
-* **Structured learnings** captured as reusable knowledge
-* **Continuous evolution** of knowledge base through workflows
+* **ZWF executions** that pass `EvaluateForEnrich` generate/update MEF UKIs related to motivating UKIs
+* **Structured learnings** captured as reusable knowledge when justifiable via CSH criteria
+* **Continuous evolution** of knowledge base through criterious and validated enrichment
 
 ### ZWF Workflow Patterns
 
@@ -509,7 +557,7 @@ stateDiagram-v2
     end note
     
     note right of Enrich
-      Mandatory Oracle
+      Conditional Oracle
       enrichment (MEF UKIs)
     end note
 ```
@@ -630,6 +678,26 @@ graph TD
 - **Collaboration**: Clear structure enables effective human-AI knowledge sharing
 - **Organic Maturation**: Promotion process enables natural evolution of knowledge from local to organizational scope
 
+## 🏛️ CSH - Semantic Hierarchy Catalog
+
+The **Semantic Hierarchy Catalog (CSH)** is the **single source of truth** for taxonomies and organizational governance in the Matrix Protocol:
+
+### 🎯 **CSH Function**
+- **Configurable Taxonomies**: Defines domains, types, scopes, and maturity levels specific to the organization
+- **Hierarchical Governance**: Establishes authority, visibility, and propagation rules by context
+- **Enrichment Criteria**: Defines parameters for the EvaluateForEnrich checkpoint
+- **Interoperability**: Enables mapping between different organizational structures
+
+### 🔗 **Integration with Matrix Layers**
+- **Oracle + CSH**: MEF UKIs use *_ref fields that reference CSH nodes instead of fixed values
+- **Zion + CSH**: ZWF consults CSH for authority validation during EvaluateForEnrich
+- **Operator + CSH**: OIF uses CSH to filter knowledge and validate explanations based on hierarchies
+
+### 📋 **Reference Document**
+See complete specification: `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+
+---
+
 ## 🚀 Implementation Considerations
 
 The Matrix Protocol serves as a foundational framework for organizations implementing human-AI collaboration systems:
@@ -653,7 +721,7 @@ This philosophical and technical framework provides organizations with:
 - **Adaptive Governance**: Authority, visibility, and propagation rules configured per organizational context
 - **Scalable Implementation**: From individual teams to enterprise-wide adoption
 - **AI-Ready Structure**: Built for intelligent systems and human-AI collaboration
-- **Evolutionary Design**: Continuous improvement through feedback loops and mandatory Oracle enrichment
+- **Evolutionary Design**: Continuous improvement through feedback loops and criterious enrichment via EvaluateForEnrich
 
 Organizations can adapt the Matrix Protocol to their specific needs while maintaining the core principles of structured human-AI collaboration.
 
