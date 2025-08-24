@@ -210,19 +210,28 @@ O OIF oferece **modelos de referência comuns** que organizações podem adotar,
 **Nota**: Estas categorias são **exemplos ilustrativos**, não taxonomia obrigatória. Cada organização define seus próprios tipos de arquétipos no CSH.
 
 ##### 📚 **Modelo: Inteligências Focadas em Conhecimento**
+
+> 🚨 **EXEMPLO ILUSTRATIVO** - Arquétipos como `Knowledge Agent`, `Semantic Navigator` são apenas demonstrativos. Organizações definem seus próprios tipos via CSH.
+
 Especialização em conhecimento estruturado (configurável via CSH):
 - **Foco de Referência**: Compreensão, síntese e relacionamento de UKIs
 - **Características Comuns**: Processamento semântico, mapeamento de relacionamentos
 - **Exemplos Ilustrativos**: Knowledge Agent, Semantic Navigator, Content Synthesizer
 
 ##### ⚡ **Modelo: Inteligências Focadas em Fluxos**
+
+> 🚨 **EXEMPLO ILUSTRATIVO** - Arquétipos como `Workflow Agent`, `Process Orchestrator` são apenas demonstrativos. Organizações definem seus próprios tipos via CSH.
+
 Especialização em fluxos conceituais (configurável via CSH):
 - **Foco de Referência**: Orquestração de workflows e transições de estado
 - **Características Comuns**: Contextualização temporal, decisão processual
 - **Exemplos Ilustrativos**: Workflow Agent, Process Orchestrator, Flow Coordinator
 
-##### 🌐 **Arquétipos Cross-Layer**
-Inteligências especializadas em sinergia entre camadas:
+##### 🌐 **Exemplos de Arquétipos Multi-Layer**
+
+> 🚨 **IMPORTANTE**: Esta categoria é **APENAS EXEMPLO ILUSTRATIVO**. Organizações definem seus próprios tipos de arquétipos multi-layer no CSH conforme suas necessidades específicas.
+
+Inteligências especializadas em sinergia entre camadas (exemplo organizacional):
 - **Foco Principal**: Ponte entre conhecimento e processo
 - **Características**: Tradução semântica, coordenação sistêmica
 - **Exemplos**: Integration Facilitator, System Harmonizer, Protocol Guardian
@@ -409,7 +418,8 @@ archetype_specification:
       transformando informação bruta em UKIs estruturadas e
       revelando relacionamentos ocultos entre conceitos.
     
-    consciousness_type: "oracle_centric" # Referência ao CSH organizacional
+    consciousness_type_ref: "uki:example-org.consciousness:type:knowledge-focused" # Referência UKI organizacional
+    # Referencia UKI organizacional que define tipo de consciência para arquétipos focados em conhecimento
   
   # Domínio de Especialização
   specialization:
@@ -619,7 +629,8 @@ archetype_specification:
       orquestrando estados canônicos e garantindo que
       intenções conceituais se materializem em ações eficazes.
     
-    consciousness_type: "zion_centric" # Referência ao CSH organizacional
+    consciousness_type_ref: "uki:example-org.consciousness:type:workflow-focused" # Referência UKI organizacional
+    # Referencia UKI organizacional que define tipo de consciência para arquétipos focados em processo
   
   # Domínio de Especialização
   specialization:
@@ -869,7 +880,7 @@ gap_analysis:
   current_coverage:
     - Oracle Coverage: "Knowledge Agent cobre que % das necessidades?"
     - Zion Coverage: "Workflow Agent cobre que % das necessidades?"
-    - Cross-Layer Coverage: "Existe sinergia suficiente entre camadas?"
+    - Multi-Layer Coverage: "Existe sinergia suficiente entre camadas? (exemplo organizacional)"
   
   identified_gaps:
     - gap_type: "Functional | Contextual | Domain-Specific | Integration"
@@ -1201,7 +1212,7 @@ class CSHAccessController:
         authorized_content = []
         
         for item in content:
-            if self.check_scope_access(item.scope_ref, user_scope, csh_rules):
+            if self.check_scope_access(item.scope_ref, item.scope_mode, user_scope, csh_rules):
                 if self.check_domain_access(item.domain_ref, user_context, csh_rules):
                     authorized_content.append(item)
         
@@ -1221,6 +1232,35 @@ class CSHAccessController:
             'required_authority': required_authority,
             'approval_workflow': self.get_approval_workflow(operation_type) if user_authority < required_authority else None
         }
+    
+    def check_scope_access(self, uki_scope_ref, uki_scope_mode, user_scope, csh_rules):
+        """Verifica acesso baseado em scope_ref e scope_mode"""
+        uki_scope_node = csh_rules.get_scope_node(uki_scope_ref)
+        user_scope_node = csh_rules.get_scope_node(user_scope)
+        
+        # Acesso direto: usuário tem o mesmo escopo ou superior
+        if self._has_direct_scope_access(user_scope_node, uki_scope_node):
+            return True
+            
+        # Acesso propagado: verifica se scope_mode permite propagação hierárquica
+        if uki_scope_mode == "propagated":
+            return self._check_propagated_access(user_scope_node, uki_scope_node, csh_rules)
+        
+        # scope_mode="restricted": apenas acesso direto permitido
+        return False
+    
+    def _check_propagated_access(self, user_scope_node, uki_scope_node, csh_rules):
+        """Implementa lógica de propagação hierárquica para scope_mode='propagated'"""
+        # Verifica se usuário está em nó hierarquicamente superior que permite acesso
+        parent_scopes = csh_rules.get_parent_scopes(uki_scope_node)
+        
+        for parent_scope in parent_scopes:
+            if user_scope_node.id == parent_scope.id:
+                # Verifica se o nó pai permite propagação descendente
+                if parent_scope.governance.get('propagation_rules', {}).get('allow_descendant_access', False):
+                    return True
+        
+        return False
 ```
 
 ##### 🔧 Templates de Implementação
@@ -1250,8 +1290,11 @@ class KnowledgeAgent:
             context=self.context_memory.current_context
         )
         
+        # 2.5. Aplicar filtros de scope_mode e autorização CSH
+        authorized_results = self._apply_scope_filtering(raw_results, query_context.user_context)
+        
         # 3. Ranquear e explicar resultados
-        ranked_results = self._rank_by_relevance(raw_results, query_context)
+        ranked_results = self._rank_by_relevance(authorized_results, query_context)
         explanations = self._generate_explanations(ranked_results, query_context)
         
         # 4. Identificar relacionamentos relevantes
@@ -1287,6 +1330,74 @@ class KnowledgeAgent:
             "structured_uki": uki_candidate,
             "relationship_mappings": relationships,
             "validation_status": validation_status
+        }
+    
+    def _apply_scope_filtering(self, raw_results, user_context):
+        """
+        Filtra UKIs baseado em scope_mode e permissões do usuário
+        Implementa lógica detalhada de propagação hierárquica
+        """
+        csh_controller = CSHAccessController()
+        filtered_results = []
+        access_log = []
+        
+        for uki in raw_results:
+            # Verificar acesso direto primeiro
+            has_direct_access = csh_controller._has_direct_scope_access(
+                user_context.scope_node, 
+                uki.scope_ref
+            )
+            
+            if has_direct_access:
+                filtered_results.append(uki)
+                access_log.append({
+                    'uki_id': uki.id,
+                    'access_type': 'direct',
+                    'scope_mode': uki.scope_mode
+                })
+                continue
+            
+            # Para UKIs com scope_mode="propagated", verificar propagação hierárquica
+            if uki.scope_mode == "propagated":
+                has_propagated_access = self._check_hierarchical_propagation(
+                    user_context, uki, csh_controller
+                )
+                
+                if has_propagated_access:
+                    filtered_results.append(uki)
+                    access_log.append({
+                        'uki_id': uki.id,
+                        'access_type': 'propagated',
+                        'scope_mode': uki.scope_mode,
+                        'propagation_path': self._trace_propagation_path(user_context, uki)
+                    })
+            
+            # scope_mode="restricted" já foi filtrado pela ausência de acesso direto
+        
+        return {
+            'filtered_ukis': filtered_results,
+            'access_explanations': access_log,
+            'total_filtered': len(raw_results) - len(filtered_results)
+        }
+    
+    def _check_hierarchical_propagation(self, user_context, uki, csh_controller):
+        """Verifica se a propagação hierárquica permite acesso à UKI"""
+        user_scope_hierarchy = csh_controller.get_scope_hierarchy(user_context.scope_ref)
+        uki_scope_node = csh_controller.get_scope_node(uki.scope_ref)
+        
+        # Verificar se usuário está em nível superior da hierarquia
+        for ancestor_scope in user_scope_hierarchy.ancestors:
+            if ancestor_scope.allows_descendant_access(uki_scope_node):
+                return True
+        
+        return False
+    
+    def _trace_propagation_path(self, user_context, uki):
+        """Rastreia o caminho de propagação hierárquica para explicabilidade"""
+        return {
+            'user_scope': user_context.scope_ref,
+            'uki_scope': uki.scope_ref,
+            'propagation_chain': self._build_propagation_chain(user_context, uki)
         }
 ```
 
@@ -1481,7 +1592,7 @@ evaluate_for_enrich_execution:
 **3. Knowledge Agent - Enriquecimento**
 ```yaml
 uki_created:
-  id: "unik-technical-jwt-implementation-backend_squad"
+  id: "uki:technical:example:jwt-implementation-backend-squad"
   scope_ref: "team"
   domain_ref: "technical"
   maturity_ref: "draft"
@@ -1524,7 +1635,7 @@ evaluate_for_enrich_execution:
 **3. Knowledge Agent - Enriquecimento Organizacional**
 ```yaml
 uki_created:
-  id: "unik-technical-jwt-standard-org"
+  id: "uki:technical:standard:jwt-implementation-org"
   scope_ref: "organization" 
   domain_ref: "technical"
   maturity_ref: "approved"  # Architect tem autoridade para aprovar
@@ -1562,6 +1673,125 @@ pertinence_filter_result:
     - "Acessar padrões de segurança do nível team disponíveis"
 ```
 
+##### Cenário 4: Propagação Hierárquica com scope_mode="propagated"
+
+**Contexto Organizacional:**
+```yaml
+# UKI de padrão técnico criada pelo Tech Lead
+uki_technical_pattern:
+  id: "uki:technical:pattern:api-standards"
+  scope_ref: "squad_payments" 
+  scope_mode: "propagated"  # Permite propagação hierárquica
+  domain_ref: "technical"
+  title: "Padrões de API para Squad Payments"
+```
+
+**Usuário Architect Consultando:**
+```yaml
+user_csh_context:
+  user_id: "architect_senior_002"
+  scope_level: "organization"  # Escopo superior a "squad_payments" 
+  domain_access: ["technical", "strategy"]
+  authority_level: "senior_architect"
+```
+
+**Processo Knowledge Agent com scope_mode:**
+
+**1. Busca Inicial**
+```yaml
+search_query: "padrões técnicos de API"
+raw_results: [
+  uki:technical:pattern:api-standards  # scope_mode="propagated"
+]
+```
+
+**2. Filtro de Propagação Hierárquica**
+```yaml
+scope_filtering_process:
+  direct_access_check: false  # Architect não está em "squad_payments"
+  
+  propagation_check:
+    user_scope_level: "organization"  
+    uki_scope_level: "squad_payments"
+    hierarchy_relationship: "ancestor"  # organization > squad_payments
+    
+    propagation_rules_check:
+      uki_scope_mode: "propagated"
+      hierarchy_allows_access: true  # CSH permite acesso descendente
+      
+  final_decision: "AUTHORIZED via hierarchical propagation"
+```
+
+**3. Resultado com Explicabilidade**
+```yaml
+knowledge_agent_response:
+  authorized_ukis: [
+    {
+      id: "uki:technical:pattern:api-standards",
+      access_type: "propagated",
+      propagation_path: {
+        user_scope: "organization",
+        uki_scope: "squad_payments", 
+        hierarchy_chain: ["organization", "squad_payments"],
+        access_justification: "scope_mode='propagated' permite acesso hierárquico"
+      }
+    }
+  ]
+  
+  access_explanations:
+    propagation_enabled: "UKI permite propagação hierárquica"
+    hierarchy_validation: "Usuário em nível superior com permissões adequadas"
+    csh_reference: "CSH node: organization.hierarchy.squad_payments"
+```
+
+##### Cenário 5: Restrição com scope_mode="restricted"
+
+**Contexto com UKI Restrita:**
+```yaml
+# UKI confidencial do Squad Payments
+uki_restricted:
+  id: "uki:business:rule:payment-fraud-detection"
+  scope_ref: "squad_payments"
+  scope_mode: "restricted"  # Acesso apenas no escopo específico
+  domain_ref: "business"
+  title: "Regras Internas de Detecção de Fraude"
+```
+
+**Mesmo Architect Tentando Acessar:**
+```yaml
+user_csh_context:
+  user_id: "architect_senior_002"
+  scope_level: "organization"
+  authority_level: "senior_architect"
+```
+
+**Processo de Filtragem:**
+```yaml
+scope_filtering_process:
+  direct_access_check: false  # Architect não está em "squad_payments"
+  
+  propagation_check:
+    uki_scope_mode: "restricted"  # ❌ Não permite propagação
+    propagation_blocked: true
+    
+  final_decision: "ACCESS DENIED - scope_mode restricts hierarchical access"
+```
+
+**Resposta do Knowledge Agent:**
+```yaml
+knowledge_agent_response:
+  authorized_ukis: []  # UKI filtrada
+  
+  access_explanations:
+    restriction_reason: "UKI configurada com scope_mode='restricted'"
+    access_requirements: "Acesso limitado apenas a membros de 'squad_payments'"
+    escalation_path: "Contactar squad_lead para acesso ou inclusão temporária"
+    
+  alternative_suggestions:
+    - "Consultar UKIs organizacionais de fraud detection"
+    - "Solicitar resumo não-confidencial via squad_payments"
+```
+
 <a name="conformidade-pt"></a>
 ## VI. 🔍 CONFORMIDADE E EVOLUÇÃO
 
@@ -1579,7 +1809,7 @@ ontological_compliance:
   identity_clarity:
     - essence_definition: "Essência da consciência claramente definida?"
     - purpose_uniqueness: "Propósito único e não-redundante?"
-    - consciousness_type_valid: "Tipo de consciência válido (Oracle/Zion/Cross-Layer)?"
+    - consciousness_type_validation_ref: "Tipo de consciência validado via CSH organizacional?"
     - protocol_alignment: "Alinhado com princípios fundamentais Matrix?"
   
   capability_completeness:
@@ -1938,19 +2168,28 @@ OIF offers **common reference models** that organizations can adopt, adapt, or e
 **Note**: These categories are **illustrative examples**, not mandatory taxonomy. Each organization defines its own archetype types in CSH.
 
 ##### 📚 **Model: Knowledge-Focused Intelligences**
+
+> 🚨 **ILLUSTRATIVE EXAMPLE** - Archetypes like `Knowledge Agent`, `Semantic Navigator` are demonstrative only. Organizations define their own types via CSH.
+
 Specialization in structured knowledge (configurable via CSH):
 - **Reference Focus**: Understanding, synthesis, and relationship of UKIs
 - **Common Characteristics**: Semantic processing, relationship mapping
 - **Illustrative Examples**: Knowledge Agent, Semantic Navigator, Content Synthesizer
 
 ##### ⚡ **Model: Flow-Focused Intelligences**
+
+> 🚨 **ILLUSTRATIVE EXAMPLE** - Archetypes like `Workflow Agent`, `Process Orchestrator` are demonstrative only. Organizations define their own types via CSH.
+
 Specialization in conceptual flows (configurable via CSH):
 - **Reference Focus**: Workflow orchestration and state transitions
 - **Common Characteristics**: Temporal contextualization, processual decision-making
 - **Illustrative Examples**: Workflow Agent, Process Orchestrator, Flow Coordinator
 
-##### 🌐 **Cross-Layer Archetypes**
-Intelligences specialized in layer synergy:
+##### 🌐 **Multi-Layer Archetypes Examples**
+
+> 🚨 **IMPORTANT**: This category is **ILLUSTRATIVE EXAMPLE ONLY**. Organizations define their own multi-layer archetype types in CSH according to their specific needs.
+
+Intelligences specialized in layer synergy (organizational example):
 - **Primary Focus**: Bridge between knowledge and process
 - **Characteristics**: Semantic translation, systemic coordination
 - **Examples**: Integration Facilitator, System Harmonizer, Protocol Guardian
@@ -2137,7 +2376,8 @@ archetype_specification:
       transforming raw information into structured UKIs and
       revealing hidden relationships between concepts.
     
-    consciousness_type: "oracle_centric" # Referência ao CSH organizacional
+    consciousness_type_ref: "uki:example-org.consciousness:type:knowledge-focused" # Referência UKI organizacional
+    # Referencia UKI organizacional que define tipo de consciência para arquétipos focados em conhecimento
   
   # Specialization Domain
   specialization:
@@ -2322,7 +2562,8 @@ archetype_specification:
       orchestrating canonical states and ensuring that
       conceptual intentions materialize into effective actions.
     
-    consciousness_type: "zion_centric" # Referência ao CSH organizacional
+    consciousness_type_ref: "uki:example-org.consciousness:type:workflow-focused" # Referência UKI organizacional
+    # Referencia UKI organizacional que define tipo de consciência para arquétipos focados em processo
   
   # Specialization Domain
   specialization:
@@ -2558,7 +2799,7 @@ gap_analysis:
   current_coverage:
     - Oracle Coverage: "What % of needs does Knowledge Agent cover?"
     - Zion Coverage: "What % of needs does Workflow Agent cover?"
-    - Cross-Layer Coverage: "Is there sufficient synergy between layers?"
+    - Multi-Layer Coverage: "Is there sufficient synergy between layers? (organizational example)"
   
   identified_gaps:
     - gap_type: "Functional | Contextual | Domain-Specific | Integration"
@@ -3063,7 +3304,7 @@ ontological_compliance:
   identity_clarity:
     - essence_definition: "Is consciousness essence clearly defined?"
     - purpose_uniqueness: "Is purpose unique and non-redundant?"
-    - consciousness_type_valid: "Is consciousness type valid (Oracle/Zion/Cross-Layer)?"
+    - consciousness_type_validation_ref: "Is consciousness type validated via organizational CSH?"
     - protocol_alignment: "Is it aligned with fundamental Matrix principles?"
   
   capability_completeness:

@@ -106,11 +106,13 @@ Aqui nasce e é embebida a orientação, as diretrizes estratégicas e os padrõ
 
 #### Exemplo Prático com Governança MEF Integrada
 
+> 🚨 **EXEMPLO ILUSTRATIVO** - Os valores `strategy`, `security-policy`, etc. são apenas demonstrativos. Organizações definem suas próprias taxonomias via CSH.
+
 > Durante um planejamento estratégico, o Oráculo redefine diretrizes de segurança em desenvolvimento.
 > 
-> **Passo 1**: Criação/atualização de UKI estratégica `unik-strategy-security-policy` (v2.0.0)
+> **Passo 1**: Criação/atualização de UKI estratégica `uki:strategy:decision:security-policy` 
 > **Passo 2**: Sistema identifica automaticamente UKIs técnicas relacionadas que precisam atualização
-> **Passo 3**: UKI `unik-technical-security-pattern` é marcada como "outdated" pela mudança estratégica
+> **Passo 3**: UKI `uki:technical:pattern:security-implementation` é marcada como "outdated" pela mudança estratégica
 > **Passo 4**: Governance Validator exige atualização de UKIs técnicas para conformidade
 > **Passo 5**: UKIs atualizadas mantêm rastreabilidade via `related_to` para decisão estratégica
 > **Passo 6**: Zion consulta UKIs governadas com garantia de alinhamento estratégico
@@ -201,14 +203,16 @@ stateDiagram-v2
 
 #### Exemplo Prático: Implementação de Autenticação via ZWF
 
+> 🚨 **EXEMPLO ILUSTRATIVO** - UKIs como `jwt-authentication`, `security-requirements` são demonstrativas. Organizações configuram taxonomias via CSH.
+
 > **Evento:** `work.proposed` - Nova necessidade de autenticação JWT  
 > **Intake:** Captura história e contexto, organiza requisitos  
-> **Understand:** Consulta `unik-technical-jwt-authentication-pattern`, `unik-business-security-requirements`  
-> **Decide:** Escolhe biblioteca baseada em `unik-business-vendor-approval-policy`  
+> **Understand:** Consulta `uki:technical:pattern:jwt-authentication`, `uki:business:rule:security-requirements`  
+> **Decide:** Escolhe biblioteca baseada em `uki:business:policy:vendor-approval`  
 > **Act:** Implementa solução usando ferramentas da equipe  
 > **EvaluateForEnrich:** Avalia critérios CSH (relevância=alta, reusabilidade=média, impacto=alto) → aprovado para enriquecimento com escopo "team"
-> **Review:** Validação opcional seguindo `unik-culture-code-review-process`  
-> **Enrich:** Cria `unik-technical-auth-implementation-example` e `unik-technical-token-refresh-pattern`
+> **Review:** Validação opcional seguindo `uki:culture:guideline:code-review-process`  
+> **Enrich:** Cria `uki:technical:example:auth-implementation` e `uki:technical:pattern:token-refresh`
 >
 > **Resultado:** Solução implementada + conhecimento estruturado devolvido ao Oráculo para reuso futuro
 
@@ -261,13 +265,15 @@ Ela é implementada através do **OIF (Operator Intelligence Framework)** - um f
 
 #### Exemplo Prático: Implementação JWT via OIF
 
+> 🚨 **EXEMPLO ILUSTRATIVO** - Escopo `team`, domínio `technical`, arquétipo `Knowledge Agent` são demonstrativos. CSH define taxonomias organizacionais.
+
 > **Contexto do Usuário:** Desenvolvedor com CSH scope="team", domain_access=["technical"], authority="developer"
 >
 > **Workflow Agent** inicia orquestração `work.proposed`, valida autoridade do usuário via CSH
 > 
 > **Estado Understand:** Workflow Agent solicita busca ao Knowledge Agent com filtros CSH (scope≤"team", domain="technical")
 > 
-> **Knowledge Agent** retorna UKIs acessíveis ao usuário: `unik-technical-jwt-pattern` (scope="team"), filtrando padrões de nível organizacional
+> **Knowledge Agent** retorna UKIs acessíveis ao usuário: `uki:technical:pattern:jwt-standard` (scope="team"), filtrando padrões de nível organizacional
 > 
 > **Estado EvaluateForEnrich:** Workflow Agent aplica critérios de avaliação do CSH e determina enrichment scope="team" baseado na autoridade do usuário
 >
@@ -285,7 +291,7 @@ O Protocolo Matrix é implementado através do **Matrix Embedding Framework (MEF
 
 - **Estruturação de Conhecimento**: UKIs fornecem formato padronizado para todos os tipos de conhecimento
 - **Versionamento Semântico**: Evolução controlada do conhecimento com rastreabilidade completa
-- **Organização por Domínios**: Cinco domínios (technical, business, product, strategy, culture) cobrem todo conhecimento organizacional
+- **Organização por Domínios**: Domínios organizacionais (exemplos: technical, business, product - definidos no CSH organizacional) estruturam todo conhecimento
 - **Framework de Validação**: Verificação automática de conformidade garante qualidade do conhecimento
 - **Mapeamento de Relacionamentos**: Conexões semânticas permitem navegação inteligente do conhecimento
 - **Promoção de Conhecimento**: Transição formal de UKIs de escopo limitado para amplo através de reconhecimento de valor consolidado
@@ -503,11 +509,13 @@ It is the protocol that proactively promotes consistency, accessibility, and con
 
 #### Practical Example with Integrated MEF Governance
 
+> 🚨 **ILLUSTRATIVE EXAMPLE** - Values like `strategy`, `security-policy`, etc. are demonstrative. Organizations define their taxonomies via CSH.
+
 > During strategic planning, Oracle redefines security guidelines for development.
 > 
-> **Step 1**: Creation/update of strategic UKI `unik-strategy-security-policy` (v2.0.0)
+> **Step 1**: Creation/update of strategic UKI `uki:strategy:decision:security-policy` 
 > **Step 2**: System automatically identifies related technical UKIs requiring updates
-> **Step 3**: UKI `unik-technical-security-pattern` is marked as "outdated" by strategic change
+> **Step 3**: UKI `uki:technical:pattern:security-implementation` is marked as "outdated" by strategic change
 > **Step 4**: Governance Validator requires technical UKI updates for compliance
 > **Step 5**: Updated UKIs maintain traceability via `related_to` to strategic decision
 > **Step 6**: Zion queries governed UKIs with guaranteed strategic alignment
@@ -598,14 +606,16 @@ stateDiagram-v2
 
 #### Practical Example: JWT Authentication Implementation via ZWF
 
+> 🚨 **ILLUSTRATIVE EXAMPLE** - UKIs like `jwt-authentication`, `security-requirements` are demonstrative. Organizations configure taxonomies via CSH.
+
 > **Event:** `work.proposed` - New JWT authentication requirement  
 > **Intake:** Captures story and context, organizes requirements  
-> **Understand:** Consults `unik-technical-jwt-authentication-pattern`, `unik-business-security-requirements`  
-> **Decide:** Chooses library based on `unik-business-vendor-approval-policy`  
+> **Understand:** Consults `uki:technical:pattern:jwt-authentication`, `uki:business:rule:security-requirements`  
+> **Decide:** Chooses library based on `uki:business:policy:vendor-approval`  
 > **Act:** Implements solution using team tools  
 > **EvaluateForEnrich:** Evaluates CSH criteria (relevance=high, reusability=medium, impact=high) → approved for enrichment with "team" scope
-> **Review:** Optional validation following `unik-culture-code-review-process`  
-> **Enrich:** Creates `unik-technical-auth-implementation-example` and `unik-technical-token-refresh-pattern`
+> **Review:** Optional validation following `uki:culture:guideline:code-review-process`  
+> **Enrich:** Creates `uki:technical:example:auth-implementation` and `uki:technical:pattern:token-refresh`
 >
 > **Result:** Solution implemented + structured knowledge returned to Oracle for future reuse
 
@@ -658,13 +668,15 @@ It is implemented through the **OIF (Operator Intelligence Framework)** - a conc
 
 #### Practical Example: JWT Implementation via OIF
 
+> 🚨 **ILLUSTRATIVE EXAMPLE** - Scope `team`, domain `technical`, archetype `Knowledge Agent` are demonstrative. CSH defines organizational taxonomies.
+
 > **User Context:** Developer with CSH scope="team", domain_access=["technical"], authority="developer"
 >
 > **Workflow Agent** initiates `work.proposed` orchestration, validates user authority via CSH
 > 
 > **Understand State:** Workflow Agent requests Knowledge Agent search with CSH filters (scope≤"team", domain="technical")
 > 
-> **Knowledge Agent** returns UKIs accessible to user: `unik-technical-jwt-pattern` (scope="team"), filtering out organization-level patterns
+> **Knowledge Agent** returns UKIs accessible to user: `uki:technical:pattern:jwt-standard` (scope="team"), filtering out organization-level patterns
 > 
 > **EvaluateForEnrich State:** Workflow Agent applies CSH evaluation criteria and determines enrichment scope="team" based on user authority
 >

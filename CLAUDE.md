@@ -62,7 +62,7 @@ When working with MEF specifications:
 
 ### UKI Structure Example
 ```yaml
-id: unik-[domain]-[identifier]
+id: uki-[domain]-[identifier]
 title: [Descriptive title]
 domain: [product|business|technical|strategy|culture]
 type: [business_rule|function|template|guideline|pattern|decision|example]
@@ -79,7 +79,7 @@ examples:
   - input: [Real scenario]
     output: [Expected result]
 related_to:
-  - target: unik-[target-uki-id]
+  - target: uki-[target-uki-id]
     relation_type: [implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to]
     description: [Specific description of the relationship]
 last_validation: [YYYY-MM-DD]
@@ -87,7 +87,7 @@ last_validation: [YYYY-MM-DD]
 
 ### Knowledge Organization
 - Organize by domain directories (`technical/`, `business/`, `product/`, etc.)
-- Use semantic IDs following `unik-domain-identifier` pattern
+- Use semantic IDs following `uki:[domain_ref]:[type_ref]:[slug_or_id]` pattern
 - Implement semantic versioning for knowledge evolution tracking
 - Maintain bidirectional relationships between related concepts using typed semantic relationships
 - Regular validation of content freshness and accuracy
@@ -103,7 +103,7 @@ The `examples/` directory contains comprehensive demonstrations:
 - **Product**: Modal design guidelines with accessibility standards
 - **Strategy**: API evolution strategies with migration timelines
 - **Culture**: Code review processes with collaboration principles
-- **Format**: Separate PT/EN files (e.g., `unik-technical-auth-pt.yaml`, `unik-technical-auth-en.yaml`)
+- **Format**: Separate PT/EN files (e.g., `uki:technical:pattern:auth-pt.yaml`, `uki:technical:pattern:auth-en.yaml`)
 
 ### Zion ZWF Examples (`examples/zion-workflows/`)
 - **Request Flow**: Technical implementation following canonical states
@@ -144,7 +144,7 @@ team_context: "[Team/squad information]"
 
 oracle_context:
   motivating_ukis:
-    - unik-[domain]-[related-knowledge]
+    - uki-[domain]-[related-knowledge]
 
 flow_execution:
   - state: "intake"

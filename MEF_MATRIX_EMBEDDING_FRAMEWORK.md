@@ -47,7 +47,7 @@ schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "[MAJOR.MINOR.PATCH]"
 
-id: unik:[domain_ref]:[type_ref]:[slug_or_id]
+id: uki:[domain_ref]:[type_ref]:[slug_or_id]
 title: [Título objetivo e descritivo da unidade]
 scope_ref: [Referência ao nó de escopo no CSH]
 scope_mode: [restricted | propagated]  # Modo de propagação do escopo
@@ -72,23 +72,23 @@ domain_of_influence: [referência_ao_csh_organizational]  # RECOMENDADO: área d
 
 relationships:  # OBRIGATÓRIO: ontologia formal com tipos padronizados
   - type: [depends_on | overrides | conflicts_with | complements | amends | precedes | equivalent_to]
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: [Descrição específica da relação ontológica]
 
 promotion:  # OPCIONAL: campos para promoção de UKI
-  is_promoted_from: unik:[domain]:[type]:[identifier]  # UKI de origem quando for promoção
+  is_promoted_from: uki:[domain]:[type]:[identifier]  # UKI de origem quando for promoção
   promotion_rationale: [Justificativa da promoção]  # Motivos e evidências para elevação
 
 impact_analysis:  # OPCIONAL: análise de cadeia de impacto
   chain_preview:
-    - unik:domain:type:item-a → unik:domain:type:item-b → unik:domain:type:item-c  # Cadeia de propagação prevista
+    - uki:domain:type:item-a → uki:domain:type:item-b → uki:domain:type:item-c  # Cadeia de propagação prevista
   severity: [low | medium | high | critical]  # OBRIGATÓRIO: Severidade do impacto (padrão: medium se omitido)
   affected_domains: [lista de domínios afetados]
   propagation_estimate: [número estimado de UKIs impactadas]
 
-sunset_policy: |  # OPCIONAL: política de revisão ou descontinuidade
-  [Texto livre descrevendo condições de revisão, critérios de obsolescência,
-   frequência de validação, ou condições para descontinuidade desta UKI]
+lifecycle_management_ref: "uki:org.governance:policy:lifecycle-standard"  # OPCIONAL: referência UKI para política de ciclo de vida
+# Referencia UKI organizacional que define condições de revisão, critérios de obsolescência,
+# frequência de validação, ou condições para descontinuidade
 
 intent_of_use:
   - [Lista de intenções específicas de uso desta UKI]
@@ -100,10 +100,8 @@ content: |
 examples:
   - input: [Exemplo de entrada real ou simulada]
     output: [Resultado esperado ou consequência]
-governance:
-  criticality: [critical | high | medium | low]  # Nível de criticidade para governança
-  auto_propagation: [automatic | semi_automatic | manual]  # Modo de propagação automática
-  validation_frequency: [30 | 60 | 90]  # Frequência de validação em dias
+governance_ref: "uki:org.governance:policy:technical-standards"  # OPCIONAL: referência UKI para política de governança
+# Referencia UKI organizacional que define criticidade, modo de propagação e frequência de validação
   impact_analysis:
     structural_changes: [breaking | compatible | additive]  # Impacto estrutural
     dependent_ukis: [number]  # Número estimado de UKIs dependentes
@@ -165,15 +163,15 @@ Define a versão semântica da **UKI em si**, seguindo convenção de versioname
 ### 🔹 `id`
 **Obrigatório** | **String** | **Único**
 
-Identificador único seguindo o padrão `unik:[domain]:[type]:[identifier]`:
-- **unik**: Prefixo fixo indicando uma Unidade de Conhecimento
-- **domain**: Um dos domínios aceitos (product, business, technical, strategy, culture)
+Identificador único seguindo o padrão `uki:[domain]:[type]:[identifier]`:
+- **uki**: Prefixo fixo indicando uma Unidade de Conhecimento
+- **domain**: Domínio organizacional (exemplos: product, business, technical - definidos no CSH organizacional)
 - **identifier**: Slug descritivo ou código único
 
 **Exemplos:**
-- `unik:technical:pattern:jwt-authentication`
-- `unik:business:rule:pricing-strategy`
-- `unik:product:guideline:user-onboarding`
+- `uki:technical:pattern:jwt-authentication`
+- `uki:example-org.business:rule:pricing-strategy`
+- `uki:product:guideline:user-onboarding`
 
 ### 🔹 `title`
 **Obrigatório** | **String**
@@ -466,21 +464,21 @@ Ontologia formal de relacionamentos tipados com outras UKIs, substituindo relaci
 ```yaml
 relationships:
   - type: overrides
-    target: unik:security:rule:legacy-auth
+    target: uki:security:rule:legacy-auth
     description: Substitui método de autenticação legado
   - type: depends_on
-    target: unik:security:procedure:crypto-validation
+    target: uki:security:procedure:crypto-validation
     description: Requer procedimento de validação criptográfica
   - type: complements
-    target: unik:governance:policy:session-management
+    target: uki:example-org.governance:policy:session-management
     description: Complementa política de gerenciamento de sessão
   - type: precedes
-    target: unik:operations:procedure:user-verification
+    target: uki:operations:procedure:user-verification
     description: Deve ser executado antes da verificação do usuário
 ```
 
 **Diretrizes de Uso:**
-- Sempre usar formato `unik:[domain]:[type]:[identifier]` para referências
+- Sempre usar formato `uki:[domain]:[type]:[identifier]` para referências
 - Evitar duplicação de relacionamentos em outros campos
 - Manter consistência ontológica entre tipos
 - Documentar claramente a natureza específica da relação
@@ -494,8 +492,8 @@ Análise de cadeia de impacto para prever propagação de mudanças.
 ```yaml
 impact_analysis:
   chain_preview:
-    - unik:technical:pattern:auth → unik:product:template:login → unik:technical:pattern:session
-    - unik:technical:pattern:auth → unik:technical:guideline:api-security
+    - uki:technical:pattern:auth → uki:product:template:login → uki:technical:pattern:session
+    - uki:technical:pattern:auth → uki:technical:guideline:api-security
   severity: high
   affected_domains: [technical, business, product]
   propagation_estimate: 12
@@ -513,17 +511,18 @@ impact_analysis:
 - Priorizar revisões baseadas em severidade
 - Orientar estratégias de comunicação
 
-### 🔹 `sunset_policy`
-**Opcional** | **String (multilinha)**
+### 🔹 `lifecycle_management_ref`
+**Opcional** | **String (UKI Reference)**
 
-Política de revisão, avaliação ou descontinuidade em texto livre.
+Referência para UKI organizacional que define política de revisão, avaliação ou descontinuidade.
 
 **Exemplos de Uso:**
 ```yaml
-sunset_policy: |
-  Esta UKI deve ser revisada trimestralmente devido ao impacto em segurança.
-  Considerar deprecação se novas tecnologias de autenticação forem adotadas.
-  Critérios para arquivamento: substituição completa por OAuth3 ou similar.
+lifecycle_management_ref: "uki:acme-corp.governance:policy:security-quarterly"
+# Aponta para UKI organizacional que define:
+# - Esta UKI deve ser revisada trimestralmente devido ao impacto em segurança
+# - Considerar deprecação se novas tecnologias de autenticação forem adotadas
+# - Critérios para arquivamento: substituição completa por OAuth3 ou similar
 ```
 
 **Conteúdo Recomendado:**
@@ -550,7 +549,7 @@ Campos específicos para registro e rastreabilidade de promoção de UKIs, permi
 **Formato:**
 ```yaml
 promotion:
-  is_promoted_from: unik:technical:pattern:jwt-local-implementation
+  is_promoted_from: uki:technical:pattern:jwt-local-implementation
   promotion_rationale: |
     Promovida devido à adoção recorrente em 5 projetos diferentes,
     demonstrando valor consolidado e aplicabilidade generalizada.
@@ -612,17 +611,18 @@ Data da última revisão e validação do conteúdo.
 - Planejamento de manutenção
 - Indicação de confiabilidade
 
-### 🔹 `governance`
-**Opcional** | **Objeto**
+### 🔹 `governance_ref`
+**Opcional** | **String (UKI Reference)**
 
-Configurações de governança ativa para controle automático de propagação e impacto.
+Referência para UKI organizacional que define configurações de governança ativa para controle automático de propagação e impacto.
 
-**Estrutura:**
+**Exemplo de Uso:**
 ```yaml
-governance:
-  criticality: [critical | high | medium | low]
-  auto_propagation: [automatic | semi_automatic | manual]
-  validation_frequency: [30 | 60 | 90]
+governance_ref: "uki:acme-corp.governance:policy:critical-technical-policy"
+# Aponta para UKI organizacional que define:
+# - criticality: critical
+# - auto_propagation: manual
+# - validation_frequency: 30
   impact_analysis:
     structural_changes: [breaking | compatible | additive]
     dependent_ukis: [number]
@@ -731,7 +731,7 @@ content: |
 - **Tratamento necessário:**
   - Separação em unidades atômicas de conhecimento.
   - Limpeza de ruídos, redundâncias e linguagem informal.
-- **Conversão para unik-**
+- **Conversão para uki-**
   - Estruturar como `content:` com exemplos e campos semânticos preenchidos.
 
 ---
@@ -780,7 +780,7 @@ Essa separação garante organização semântica, versionamento independente po
 - **NUNCA** deletar UKIs - apenas mudar status para manter rastreabilidade
 
 ### 🔗 **Campo `relationships` (Obrigatório)**
-- Usar formato `unik:[domain]:[type]:[identifier]` para referências
+- Usar formato `uki:[domain]:[type]:[identifier]` para referências
 - **Escolher tipos precisos**: ontológicos para relações estruturais, semânticos para conceituais
 - **USAR APENAS** tipos de relacionamento da ontologia: depends_on, overrides, conflicts_with, complements, amends, precedes, equivalent_to
 - **VALIDAR** que target existe antes de criar relacionamento
@@ -802,9 +802,9 @@ Essa separação garante organização semântica, versionamento independente po
 - Usar severity `critical` apenas para UKIs que quebram funcionalidade básica
 - **ATUALIZAR** quando relacionamentos mudarem significativamente
 
-### 📅 **Campo `sunset_policy` (Opcional)**
-- **DEFINIR** para UKIs críticas ou que dependem de tecnologias externas
-- Incluir critérios objetivos para revisão e descontinuidade
+### 📅 **Campo `lifecycle_management_ref` (Opcional)**
+- **DEFINIR** referência UKI para UKIs críticas ou que dependem de tecnologias externas
+- Referenciar UKI organizacional com critérios objetivos para revisão e descontinuidade
 - **MENCIONAR** marcos tecnológicos ou organizacionais relevantes
 - Ser específico sobre frequência de revisão (trimestral, semestral, anual)
 
@@ -821,7 +821,7 @@ Essa separação garante organização semântica, versionamento independente po
 - **ANALISAR** impacto em UKIs relacionadas antes de mudanças MAJOR
 - **PROPAGAR** mudanças seguindo a ontologia de relacionamentos
 - **NOTIFICAR** stakeholders baseado em `domain_of_influence`
-- **REAVALIAR** `sunset_policy` quando contexto organizacional mudar
+- **REAVALIAR** `lifecycle_management_ref` quando contexto organizacional mudar
 - **MANTER** histórico de versões para auditoria e rollback
 
 ---
@@ -875,7 +875,7 @@ schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.0.0"
 
-id: unik:technical:pattern:api-error-handling
+id: uki:technical:pattern:api-error-handling
 title: Padrão de Tratamento de Erros em API
 domain: technical
 type: pattern
@@ -888,26 +888,27 @@ domain_of_influence: operations
 
 relationships:
   - type: depends_on
-    target: unik:technical:template:api-response-format
+    target: uki:technical:template:api-response-format
     description: Implementa formato padrão de resposta da API com estrutura de erro
   - type: complements
-    target: unik:technical:guideline:logging-standards
+    target: uki:technical:guideline:logging-standards
     description: Complementa padrões de logging para auditoria e debugging
   - type: depends_on
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Depende de definições padronizadas de códigos HTTP
 
 impact_analysis:
   chain_preview:
-    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
-    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+    - uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier]
+    - uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier]
   severity: medium
   affected_domains: [technical, product]
   propagation_estimate: 8
 
-sunset_policy: |
-  Revisar anualmente ou quando novos padrões de API forem adotados.
-  Considerar deprecação se GraphQL ou outras tecnologias substituirem REST.
+lifecycle_management_ref: "uki:example-org.governance:policy:api-standards-annual"
+# Referencia UKI organizacional que define:
+# - Revisar anualmente ou quando novos padrões de API forem adotados
+# - Considerar deprecação se GraphQL ou outras tecnologias substituirem REST
   Arquivar apenas após migração completa de todas as APIs.
 
 intent_of_use:
@@ -960,7 +961,7 @@ schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.2.0"
 
-id: unik:business:rule:discount-calculation
+id: uki:business:rule:discount-calculation
 title: Regra de Cálculo de Desconto de Cliente
 domain: business
 type: business_rule
@@ -976,29 +977,30 @@ domain_of_influence: finance
 
 relationships:
   - type: depends_on
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Implementa regras do programa de fidelidade para cálculo automático
   - type: complements
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Complementa processo de checkout com lógica de preço final
   - type: depends_on
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Depende de classificação de perfil de cliente para funcionar
   - type: overrides
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Substitui regras de desconto manuais anteriores
 
 impact_analysis:
   chain_preview:
-    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
-    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+    - uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier]
+    - uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier]
   severity: high
   affected_domains: [business, finance, product]
   propagation_estimate: 15
 
-sunset_policy: |
-  Revisar trimestralmente devido ao impacto financeiro direto.
-  Reavaliar se novos modelos de fidelidade forem implementados.
+lifecycle_management_ref: "uki:example-org.governance:policy:business-quarterly"
+# Referencia UKI organizacional que define:
+# - Revisar trimestralmente devido ao impacto financeiro direto
+# - Reavaliar se novos modelos de fidelidade forem implementados
   Arquivar apenas após substituição por sistema de pricing dinâmico.
 
 intent_of_use:
@@ -1041,7 +1043,7 @@ schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.0.0"
 
-id: unik:product:guideline:modal-design
+id: uki:product:guideline:modal-design
 title: Diretrizes de Design para Modais
 domain: product
 type: guideline
@@ -1054,26 +1056,27 @@ domain_of_influence: operations
 
 relationships:
   - type: depends_on
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Implementa componentes padronizados do sistema de design
   - type: depends_on
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Depende de padrões de acessibilidade para compliance
   - type: complements
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Complementa biblioteca de componentes com especificações de modal
 
 impact_analysis:
   chain_preview:
-    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
-    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+    - uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier]
+    - uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier]
   severity: medium
   affected_domains: [product, technical]
   propagation_estimate: 6
 
-sunset_policy: |
-  Revisar semestralmente com time de design e acessibilidade.
-  Reavaliar quando novos frameworks de UI forem adotados.
+lifecycle_management_ref: "uki:example-org.governance:policy:ui-semiannual"
+# Referencia UKI organizacional que define:
+# - Revisar semestralmente com time de design e acessibilidade
+# - Reavaliar quando novos frameworks de UI forem adotados
   Considerar atualização major se padrões de acessibilidade mudarem.
 
 intent_of_use:
@@ -1121,12 +1124,12 @@ UKIs que implementam padrões ou dependem de outros conhecimentos para funcional
 
 **Exemplos:**
 ```yaml
-# unik:technical:function:jwt-implementation
+# uki:technical:function:jwt-implementation
 relationships:
-  - target: unik:technical:function:jwt-validation
+  - target: uki:technical:function:jwt-validation
     type: depends_on
     description: Requer lógica de validação JWT para funcionar adequadamente
-  - target: unik:technical:pattern:authentication
+  - target: uki:technical:pattern:authentication
     type: depends_on
     description: Implementa o padrão de autenticação padronizado
 ```
@@ -1136,12 +1139,12 @@ UKIs que representam evolução, especialização ou substituição de conhecime
 
 **Exemplos:**
 ```yaml
-# unik:technical:function:oauth2-implementation
+# uki:technical:function:oauth2-implementation
 relationships:
-  - target: unik:technical:pattern:oauth-basic
+  - target: uki:technical:pattern:oauth-basic
     type: complements
     description: Estende OAuth básico com PKCE e refresh tokens
-  - target: unik:technical:pattern:legacy-auth
+  - target: uki:technical:pattern:legacy-auth
     type: overrides
     description: Substitui método de autenticação descontinuado
 ```
@@ -1151,12 +1154,12 @@ UKIs que seguem políticas ou identificam incompatibilidades.
 
 **Exemplos:**
 ```yaml
-# unik:technical:guideline:encryption-standard
+# uki:technical:guideline:encryption-standard
 relationships:
-  - target: unik:business:policy:data-protection
+  - target: uki:example-org.business:policy:data-protection
     type: complies_with
     description: Segue requisitos de proteção de dados corporativos
-  - target: unik:technical:pattern:legacy-encryption
+  - target: uki:technical:pattern:legacy-encryption
     type: conflicts_with
     description: Incompatível com métodos de criptografia descontinuados
 ```
@@ -1166,12 +1169,12 @@ Relacionamentos para conexões contextuais que expandem ou detalham outras UKIs.
 
 **Exemplo:**
 ```yaml
-# unik:governance:policy:user-onboarding
+# uki:example-org.governance:policy:user-onboarding
 relationships:
-  - target: unik:security:procedure:user-registration-api
+  - target: uki:security:procedure:user-registration-api
     type: complements
     description: Expande contexto no domínio de gestão de usuários
-  - target: unik:strategy:rule:user-retention-strategy
+  - target: uki:example-org.strategy:rule:user-retention-strategy
     type: depends_on
     description: Fundamenta-se na estratégia de retenção de usuários
 ```
@@ -1288,7 +1291,7 @@ propagation:
 ```yaml
 impact_analysis:
   chain_preview:
-    - unik:technical:pattern:change → unik:product:guideline:ui-patterns → unik:business:rule:validation
+    - uki:technical:pattern:change → uki:product:guideline:ui-patterns → uki:business:rule:validation
   severity: medium  # Campo obrigatório com fallback padrão
   affected_domains: [technical, product, business]
   propagation_estimate: 3
@@ -1563,7 +1566,7 @@ schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "[MAJOR.MINOR.PATCH]"
 
-id: unik:[domain_ref]:[type_ref]:[slug_or_id]
+id: uki:[domain_ref]:[type_ref]:[slug_or_id]
 title: [Objective and descriptive title of the unit]
 scope_ref: [Reference to scope node in CSH]
 scope_mode: [restricted | propagated]  # Scope propagation mode
@@ -1587,22 +1590,22 @@ domain_of_influence: [organizational_csh_reference]  # Strategic impact area con
 
 relationships:  # Formal ontology of typed relationships from Ontology_MEF_Support v1.0
   - type: [depends_on | overrides | conflicts_with | complements | amends | precedes | equivalent_to]
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: [Specific description of the relationship]
 
 promotion:  # OPTIONAL: UKI promotion fields
-  is_promoted_from: unik:[domain]:[type]:[identifier]  # Source UKI when this is a promotion
+  is_promoted_from: uki:[domain]:[type]:[identifier]  # Source UKI when this is a promotion
   promotion_rationale: [Promotion justification]  # Reasons and evidence for elevation
 
 impact_analysis:  # Impact chain analysis
   chain_preview:
-    - unik:domain:type:item-a → unik:domain:type:item-b → unik:domain:type:item-c  # Expected propagation chain
+    - uki:domain:type:item-a → uki:domain:type:item-b → uki:domain:type:item-c  # Expected propagation chain
   severity: [low | medium | high | critical]  # REQUIRED: Impact severity (default: medium if omitted)
   affected_domains: [list of affected domains]
   propagation_estimate: [estimated number of impacted UKIs]
 
-sunset_policy: |
-  [Review policy, obsolescence criteria and discontinuation conditions]
+lifecycle_management_ref: "uki:org.governance:policy:lifecycle-standard"  # OPCIONAL: referência UKI para política de ciclo de vida
+# Referencia UKI organizacional que define condições de revisão, critérios de obsolescência e condições de descontinuidade
 intent_of_use:
   - [List of specific intentions for using this UKI]
 use_case_stage:
@@ -1613,10 +1616,8 @@ content: |
 examples:
   - input: [Real or simulated input example]
     output: [Expected result or consequence]
-governance:
-  criticality: [critical | high | medium | low]  # Criticality level for governance
-  auto_propagation: [automatic | semi_automatic | manual]  # Automatic propagation mode
-  validation_frequency: [30 | 60 | 90]  # Validation frequency in days
+governance_ref: "uki:org.governance:policy:technical-standards"  # OPTIONAL: reference to organizational governance UKI
+# References organizational UKI that defines criticality, propagation mode and validation frequency
   impact_analysis:
     structural_changes: [breaking | compatible | additive]  # Structural impact
     dependent_ukis: [number]  # Estimated number of dependent UKIs
@@ -1678,15 +1679,15 @@ Defines the semantic version of the **UKI itself**, following semantic versionin
 ### 🔹 `id`
 **Required** | **String** | **Unique**
 
-Unique identifier following the pattern `unik:[domain]:[type]:[identifier]`:
-- **unik**: Fixed prefix indicating it's a Knowledge Unit
-- **domain**: One of the accepted domains (product, business, technical, strategy, culture)
+Unique identifier following the pattern `uki:[domain]:[type]:[identifier]`:
+- **uki**: Fixed prefix indicating it's a Knowledge Unit
+- **domain**: Organizational domain (examples: product, business, technical - defined in organizational CSH)
 - **identifier**: Descriptive slug or unique code
 
 **Examples:**
-- `unik:technical:pattern:jwt-authentication`
-- `unik:business:rule:pricing-strategy`
-- `unik:product:guideline:user-onboarding`
+- `uki:technical:pattern:jwt-authentication`
+- `uki:example-org.business:rule:pricing-strategy`
+- `uki:product:guideline:user-onboarding`
 
 ### 🔹 `title`
 **Required** | **String**
@@ -1978,21 +1979,21 @@ Formal ontology of typed relationships with other UKIs, replacing free-form rela
 ```yaml
 relationships:
   - type: overrides
-    target: unik:security:rule:legacy-auth
+    target: uki:security:rule:legacy-auth
     description: Replaces legacy authentication method
   - type: depends_on
-    target: unik:security:procedure:crypto-validation
+    target: uki:security:procedure:crypto-validation
     description: Requires cryptographic validation procedure
   - type: complements
-    target: unik:governance:policy:session-management
+    target: uki:example-org.governance:policy:session-management
     description: Complements session management policy
   - type: precedes
-    target: unik:operations:procedure:user-verification
+    target: uki:operations:procedure:user-verification
     description: Must be executed before user verification
 ```
 
 **Usage Guidelines:**
-- Always use `unik:[domain]:[type]:[identifier]` format for references
+- Always use `uki:[domain]:[type]:[identifier]` format for references
 - Avoid relationship duplication in other fields
 - Maintain ontological consistency between types
 - Clearly document the specific nature of the relationship
@@ -2006,8 +2007,8 @@ Impact chain analysis to predict change propagation.
 ```yaml
 impact_analysis:
   chain_preview:
-    - unik:technical:pattern:auth → unik:product:template:login → unik:technical:pattern:session
-    - unik:technical:pattern:auth → unik:technical:guideline:api-security
+    - uki:technical:pattern:auth → uki:product:template:login → uki:technical:pattern:session
+    - uki:technical:pattern:auth → uki:technical:guideline:api-security
   severity: high
   affected_domains: [technical, business, product]
   propagation_estimate: 12
@@ -2025,17 +2026,18 @@ impact_analysis:
 - Prioritize reviews based on severity
 - Guide communication strategies
 
-### 🔹 `sunset_policy`
-**Optional** | **String (multiline)**
+### 🔹 `lifecycle_management_ref`
+**Optional** | **String (UKI Reference)**
 
-Review, assessment or discontinuation policy in free text.
+Reference to organizational UKI that defines review, assessment or discontinuation policy.
 
 **Usage Examples:**
 ```yaml
-sunset_policy: |
-  This UKI should be reviewed quarterly due to security impact.
-  Consider deprecation if new authentication technologies are adopted.
-  Archival criteria: complete replacement by OAuth3 or similar.
+lifecycle_management_ref: "uki:acme-corp.governance:policy:security-quarterly"
+# References organizational UKI that defines:
+# - This UKI should be reviewed quarterly due to security impact
+# - Consider deprecation if new authentication technologies are adopted
+# - Archival criteria: complete replacement by OAuth3 or similar
 ```
 
 **Recommended Content:**
@@ -2099,8 +2101,8 @@ Active governance configurations for automatic propagation and impact control.
 
 **Structure:**
 ```yaml
-governance:
-  criticality: [critical | high | medium | low]
+governance_ref: "uki:org.governance:policy:technical-standards"  # OPTIONAL: reference to organizational governance UKI
+# References organizational UKI that defines criticality levels
   auto_propagation: [automatic | semi_automatic | manual]
   validation_frequency: [30 | 60 | 90]
   impact_analysis:
@@ -2151,7 +2153,7 @@ schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.2.0"
 
-id: unik:technical:pattern:api-error-handling
+id: uki:technical:pattern:api-error-handling
 title: Standardized API Error Handling Pattern
 domain: technical
 type: pattern
@@ -2167,26 +2169,27 @@ domain_of_influence: operations
 
 relationships:
   - type: depends_on
-    target: unik:technical:template:api-response-format
+    target: uki:technical:template:api-response-format
     description: Implements standard API response format with error structure
   - type: complements
-    target: unik:technical:guideline:logging-standards
+    target: uki:technical:guideline:logging-standards
     description: Complements logging standards for auditing and debugging
   - type: depends_on
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Depends on standardized HTTP status code definitions
 
 impact_analysis:
   chain_preview:
-    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
-    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+    - uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier]
+    - uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier]
   severity: medium
   affected_domains: [technical, product]
   propagation_estimate: 8
 
-sunset_policy: |
-  Review annually or when new API standards are adopted.
-  Consider deprecation if GraphQL or other technologies replace REST.
+lifecycle_management_ref: "uki:example-org.governance:policy:api-standards-annual"
+# References organizational UKI that defines:
+# - Review annually or when new API standards are adopted
+# - Consider deprecation if GraphQL or other technologies replace REST
   Archive only after complete migration of all APIs.
 
 language: en_US
@@ -2228,7 +2231,7 @@ schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.0.0"
 
-id: unik:business:rule:discount-calculation
+id: uki:business:rule:discount-calculation
 title: Customer Discount Calculation Rule
 domain: business
 type: business_rule
@@ -2241,26 +2244,27 @@ domain_of_influence: finance
 
 relationships:
   - type: depends_on
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Implements loyalty program rules for automatic calculation
   - type: complements
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Complements checkout process with final pricing logic
   - type: depends_on
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Depends on customer profile classification to function
 
 impact_analysis:
   chain_preview:
-    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
-    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+    - uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier]
+    - uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier]
   severity: high
   affected_domains: [business, finance, product]
   propagation_estimate: 12
 
-sunset_policy: |
-  Review quarterly due to direct financial impact.
-  Reevaluate if new loyalty models are implemented.
+lifecycle_management_ref: "uki:example-org.governance:policy:business-quarterly"
+# References organizational UKI that defines:
+# - Review quarterly due to direct financial impact
+# - Reevaluate if new loyalty models are implemented
   Archive only after replacement by dynamic pricing system.
 
 language: en_US
@@ -2298,7 +2302,7 @@ schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "2.1.0"
 
-id: unik:product:guideline:modal-design
+id: uki:product:guideline:modal-design
 title: Modal Dialog Design Guidelines
 domain: product
 type: guideline
@@ -2314,26 +2318,27 @@ domain_of_influence: operations
 
 relationships:
   - type: depends_on
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Implements standardized design system components
   - type: depends_on
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Depends on accessibility standards for compliance
   - type: complements
-    target: unik:[domain]:[type]:[identifier]
+    target: uki:[domain]:[type]:[identifier]
     description: Complements component library with modal specifications
 
 impact_analysis:
   chain_preview:
-    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
-    - unik:[domain]:[type]:[identifier] → unik:[domain]:[type]:[identifier]
+    - uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier]
+    - uki:[domain]:[type]:[identifier] → uki:[domain]:[type]:[identifier]
   severity: medium
   affected_domains: [product, technical]
   propagation_estimate: 6
 
-sunset_policy: |
-  Review semi-annually with design and accessibility teams.
-  Reevaluate when new UI frameworks are adopted.
+lifecycle_management_ref: "uki:example-org.governance:policy:ui-semiannual"
+# References organizational UKI that defines:
+# - Review semi-annually with design and accessibility teams
+# - Reevaluate when new UI frameworks are adopted
   Consider major update if accessibility standards change.
 
 language: en_US
@@ -2381,12 +2386,12 @@ UKIs that implement patterns or depend on other knowledge for functionality.
 
 **Examples:**
 ```yaml
-# unik:technical:function:jwt-implementation
+# uki:technical:function:jwt-implementation
 relationships:
-  - target: unik:technical:function:jwt-validation
+  - target: uki:technical:function:jwt-validation
     type: depends_on
     description: Requires JWT validation logic to function properly
-  - target: unik:technical:pattern:authentication
+  - target: uki:technical:pattern:authentication
     type: depends_on
     description: Implements the standardized authentication pattern
 ```
@@ -2396,12 +2401,12 @@ UKIs that represent knowledge evolution, specialization or replacement.
 
 **Examples:**
 ```yaml
-# unik:technical:function:oauth2-implementation
+# uki:technical:function:oauth2-implementation
 relationships:
-  - target: unik:technical:pattern:oauth-basic
+  - target: uki:technical:pattern:oauth-basic
     type: complements
     description: Extends basic OAuth with PKCE and refresh tokens
-  - target: unik:technical:pattern:legacy-auth
+  - target: uki:technical:pattern:legacy-auth
     type: overrides
     description: Replaces deprecated authentication method
 ```
@@ -2411,12 +2416,12 @@ UKIs that follow policies or identify incompatibilities.
 
 **Examples:**
 ```yaml
-# unik:technical:guideline:encryption-standard
+# uki:technical:guideline:encryption-standard
 relationships:
-  - target: unik:business:policy:data-protection
+  - target: uki:example-org.business:policy:data-protection
     type: complies_with
     description: Follows corporate data protection requirements
-  - target: unik:technical:pattern:legacy-encryption
+  - target: uki:technical:pattern:legacy-encryption
     type: conflicts_with
     description: Incompatible with deprecated encryption methods
 ```
@@ -2426,12 +2431,12 @@ Relationships for contextual connections that expand or detail other UKIs.
 
 **Example:**
 ```yaml
-# unik:governance:policy:user-onboarding
+# uki:example-org.governance:policy:user-onboarding
 relationships:
-  - target: unik:security:procedure:user-registration-api
+  - target: uki:security:procedure:user-registration-api
     type: complements
     description: Expands context in user management domain
-  - target: unik:strategy:rule:user-retention-strategy
+  - target: uki:example-org.strategy:rule:user-retention-strategy
     type: depends_on
     description: Based on user retention strategy
 ```
@@ -2548,7 +2553,7 @@ propagation:
 ```yaml
 impact_analysis:
   chain_preview:
-    - unik:technical:pattern:change → unik:product:guideline:ui-patterns → unik:business:rule:validation
+    - uki:technical:pattern:change → uki:product:guideline:ui-patterns → uki:business:rule:validation
   severity: medium  # Mandatory field with default fallback
   affected_domains: [technical, product, business]
   propagation_estimate: 3
@@ -2685,14 +2690,14 @@ propagation_modes:
 ```
 knowledge-base/
 ├── technical/
-│   ├── unik-technical-pattern-api.yaml
-│   └── unik-technical-template-database-schema.yaml
+│   ├── uki:technical:pattern:api-standards.yaml
+│   └── uki:technical:template:database-schema.yaml
 ├── business/
-│   ├── unik-business-rule-pricing-rules.yaml
-│   └── unik-business-rule-customer-lifecycle.yaml
+│   ├── uki:business:rule:pricing-strategy.yaml
+│   └── uki:business:rule:customer-lifecycle.yaml
 └── product/
-    ├── unik-product-template-user-flows.yaml
-    └── unik-product-guideline-design-system.yaml
+    ├── uki:product:template:user-flow.yaml
+    └── uki:product:guideline:design-system.yaml
 ```
 
 ### Implementation Considerations

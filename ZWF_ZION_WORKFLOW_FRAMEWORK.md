@@ -353,7 +353,7 @@ conceptual_level:
     - semantic_novelty: "Há conhecimento novo?"
     - structural_validity: "É estruturável como MEF?"
     - epistemic_clarity: "É cognitivamente claro?"
-    - scope_governance: "É apropriado para a equipe criar?"
+    - authority_validation: "Usuário tem autoridade via CSH para criar UKI?"
     - relevance_confirmation: "O usuário confirma relevância?"
 ```
 
@@ -381,12 +381,12 @@ evaluation:
   semantic_divergence: PASS # "Nova lógica de validação"
   mef_structurability: PASS # "Pode ser UKI tipo 'constraint'"
   epistemic_clarity: PASS # "Função bem documentada"
-  scope_governance: PASS # "Domínio 'technical', escopo de equipe"
+  authority_validation: PASS # "Usuário autorizado via CSH para domínio 'technical'"
   user_confirmation: PASS # "Desenvolvedor confirma utilidade"
 
 result: ENRICH_APPROVED
 proposed_uki:
-  id: "unik:technical:constraint:cpf-validation-function"
+  id: "uki:technical:constraint:cpf-validation-function"
   domain: "technical"
   type: "constraint"
 ```
@@ -401,7 +401,7 @@ evaluation:
   semantic_divergence: FAIL # "Nenhum conhecimento novo"
   mef_structurability: FAIL # "Não há conteúdo estruturável"
   epistemic_clarity: N/A
-  scope_governance: N/A
+  authority_validation: N/A
   user_confirmation: N/A
 
 result: ENRICH_REJECTED
@@ -418,7 +418,7 @@ evaluation:
   semantic_divergence: PASS # "Conhecimento novo"
   mef_structurability: PASS # "Estruturável como policy"
   epistemic_clarity: PASS # "Política bem definida"
-  scope_governance: FAIL # "Domínio 'security' requer curadoria"
+  authority_validation: FAIL # "Usuário não autorizado via CSH para domínio 'security'"
   user_confirmation: N/A
 
 result: ENRICH_REJECTED
@@ -486,9 +486,9 @@ flow_id: zion-workflow-jwt-implementation
 triggered_by: work.proposed
 oracle_context:
   motivating_ukis:
-    - unik:technical:concept:jwt-authentication-pattern
-    - unik:technical:constraint:security-requirements
-    - unik:technical:procedure:code-review-process
+    - uki:technical:concept:jwt-authentication-pattern
+    - uki:technical:constraint:security-requirements
+    - uki:technical:procedure:code-review-process
 ```
 
 ### ⚖️ **Fundamentação de Decisões**
@@ -498,8 +498,8 @@ Durante as transições, o fluxo deve explicitar quais UKIs fundamentam cada dec
 # Exemplo de decisão fundamentada
 decision_point: "choose_jwt_library"
 reasoning_ukis:
-  - unik:technical:constraint:jwt-security-standards
-  - unik:technical:procedure:vendor-approval-process
+  - uki:technical:constraint:jwt-security-standards
+  - uki:technical:procedure:vendor-approval-process
 decision_outcome: "use_jsonwebtoken_library"
 ```
 
@@ -512,7 +512,7 @@ schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.0.0"
 
-id: unik:technical:procedure:jwt-implementation-result
+id: uki:technical:procedure:jwt-implementation-result
 title: "Resultado da Implementação JWT - Equipe Backend"
 domain: technical
 type: procedure
@@ -523,9 +523,9 @@ last_modified: "2024-01-15"
 status: active
 relationships:
   - type: depends_on
-    target: unik:technical:concept:jwt-authentication-pattern
+    target: uki:technical:concept:jwt-authentication-pattern
   - type: depends_on
-    target: unik:technical:constraint:security-requirements
+    target: uki:technical:constraint:security-requirements
 content: |
   Implementação bem-sucedida do padrão JWT seguindo as diretrizes de segurança.
   Baseado nas orientações dos UKIs relacionados, adaptado para nosso contexto específico.
@@ -607,7 +607,7 @@ signals:
   decision: "Por que transicionou: [justificativa baseada em UKIs do Oráculo]" 
   result: "O que saiu: [descrição da saída]"
 oracle_ukis_used:
-  - unik:[domain]:[type]:[id-do-uki-consultado]
+  - uki:[domain]:[type]:[id-do-uki-consultado]
 timestamp: [YYYY-MM-DD HH:MM:SS]
 ```
 
@@ -616,11 +616,11 @@ timestamp: [YYYY-MM-DD HH:MM:SS]
 flow_step: "decide"
 signals:
   context: "Recebida solicitação para implementar autenticação JWT na API"
-  decision: "Escolhido padrão bearer token baseado no unik:security:rule:jwt-authentication-pattern que especifica melhores práticas de segurança"
+  decision: "Escolhido padrão bearer token baseado no uki:security:rule:jwt-authentication-pattern que especifica melhores práticas de segurança"
   result: "Definido usar biblioteca jsonwebtoken com configuração de expiração de 15 minutos"
 oracle_ukis_used:
-  - unik:technical:concept:jwt-authentication-pattern
-  - unik:technical:constraint:token-expiration-rules
+  - uki:technical:concept:jwt-authentication-pattern
+  - uki:technical:constraint:token-expiration-rules
 timestamp: "2024-01-15 14:30:22"
 ```
 
@@ -965,7 +965,7 @@ Para garantir a qualidade e consistência dos sinais de explicabilidade, o ZWF d
   "properties": {
     "decision": {
       "type": "string",
-      "pattern": "^Por que transicionou: .+baseado.+(unik-[a-z0-9-]+).+",
+      "pattern": "^Por que transicionou: .+baseado.+(uki-[a-z0-9-]+).+",
       "minLength": 30,
       "maxLength": 800,
       "description": "Justificativa da transição referenciando UKIs do Oráculo"
@@ -1018,7 +1018,7 @@ Para garantir a qualidade e consistência dos sinais de explicabilidade, o ZWF d
         },
         "decision": {
           "type": "string", 
-          "pattern": "^Por que transicionou: .+baseado.+(unik:[a-z]+:[a-z]+:[a-z0-9-]+).+",
+          "pattern": "^Por que transicionou: .+baseado.+(uki:[a-z]+:[a-z]+:[a-z0-9-]+).+",
           "minLength": 30,
           "maxLength": 800
         },
@@ -1036,7 +1036,7 @@ Para garantir a qualidade e consistência dos sinais de explicabilidade, o ZWF d
       "type": "array",
       "items": {
         "type": "string",
-        "pattern": "^unik:[a-z]+:[a-z]+:[a-z0-9-]+$"
+        "pattern": "^uki:[a-z]+:[a-z]+:[a-z0-9-]+$"
       },
       "minItems": 1,
       "uniqueItems": true
@@ -1059,11 +1059,11 @@ Para garantir a qualidade e consistência dos sinais de explicabilidade, o ZWF d
 flow_step: "decide"
 signals:
   context: "O que entrou: solicitação para implementar autenticação JWT na API principal"
-  decision: "Por que transicionou: escolhido padrão bearer token baseado no unik:security:rule:jwt-authentication-pattern que especifica melhores práticas de segurança"
+  decision: "Por que transicionou: escolhido padrão bearer token baseado no uki:security:rule:jwt-authentication-pattern que especifica melhores práticas de segurança"
   result: "O que saiu: definido usar biblioteca jsonwebtoken com configuração de expiração de 15 minutos"
 oracle_ukis_used:
-  - unik:technical:concept:jwt-authentication-pattern
-  - unik:technical:constraint:token-expiration-rules
+  - uki:technical:concept:jwt-authentication-pattern
+  - uki:technical:constraint:token-expiration-rules
 timestamp: "2024-01-15 14:30:22"
 ```
 
@@ -1073,11 +1073,11 @@ timestamp: "2024-01-15 14:30:22"
 flow_step: "act"
 signals:
   context: "O que entrou: plano de implementação de JWT com biblioteca jsonwebtoken aprovado"
-  decision: "Por que transicionou: executada implementação baseado no unik:security:constraint:code-standards que define estrutura de middleware"
+  decision: "Por que transicionou: executada implementação baseado no uki:security:constraint:code-standards que define estrutura de middleware"
   result: "O que saiu: middleware de autenticação implementado e testado com 100% de cobertura"
 oracle_ukis_used:
-  - unik:technical:constraint:code-standards
-  - unik:technical:procedure:testing-requirements
+  - uki:technical:constraint:code-standards
+  - uki:technical:procedure:testing-requirements
 timestamp: "2024-01-15 15:45:10"
 ```
 
@@ -1089,7 +1089,7 @@ timestamp: "2024-01-15 15:45:10"
 flow_step: "decide"
 signals:
   context: "O que entrou: JWT"  # ERRO: menos de 20 caracteres
-  decision: "Por que transicionou: baseado no unik:security:rule:jwt padrão de segurança"
+  decision: "Por que transicionou: baseado no uki:security:rule:jwt padrão de segurança"
   result: "O que saiu: biblioteca definida"
 # ERRO DE VALIDAÇÃO: context deve ter mínimo 20 caracteres
 ```
@@ -1102,7 +1102,7 @@ signals:
   context: "O que entrou: documentação de requisitos de autenticação para análise"
   decision: "Por que transicionou: analisados os requisitos e decidido prosseguir"  # ERRO: não referencia UKI
   result: "O que saiu: compreensão dos requisitos de segurança necessários"
-# ERRO DE VALIDAÇÃO: decision deve conter referência a UKI (padrão "baseado.+unik:")
+# ERRO DE VALIDAÇÃO: decision deve conter referência a UKI (padrão "baseado.+uki:")
 ```
 
 #### **Falha 3: UKI malformado**
@@ -1111,12 +1111,12 @@ signals:
 flow_step: "enrich"
 signals:
   context: "O que entrou: implementação JWT completa para documentação"
-  decision: "Por que transicionou: criado UKI baseado no unik:security:concept:implementation-pattern"
+  decision: "Por que transicionou: criado UKI baseado no uki:security:concept:implementation-pattern"
   result: "O que saiu: novo UKI documentando padrão de implementação JWT"
 oracle_ukis_used:
-  - invalid-uki-format  # ERRO: deve seguir padrão unik:[domain]:[type]:[id]
-  - unik:security:concept:valid
-# ERRO DE VALIDAÇÃO: UKI deve seguir formato unik:[domain]:[type]:[identifier]
+  - invalid-uki-format  # ERRO: deve seguir padrão uki:[domain]:[type]:[id]
+  - uki:security:concept:valid
+# ERRO DE VALIDAÇÃO: UKI deve seguir formato uki:[domain]:[type]:[identifier]
 ```
 
 ### 🛡️ **Uso para Auditoria e Compliance**
@@ -1542,7 +1542,7 @@ conceptual_level:
     - semantic_novelty: "Is there new knowledge?"
     - structural_validity: "Is it structurable as MEF?"
     - epistemic_clarity: "Is it cognitively clear?"
-    - scope_governance: "Is it appropriate for the team to create?"
+    - authority_validation: "Does user have CSH authority to create UKI?"
     - relevance_confirmation: "Does the user confirm relevance?"
 ```
 
@@ -1570,12 +1570,12 @@ evaluation:
   semantic_divergence: PASS # "New validation logic"
   mef_structurability: PASS # "Can be UKI type 'constraint'"
   epistemic_clarity: PASS # "Well-documented function"
-  scope_governance: PASS # "Domain 'technical', team scope"
+  authority_validation: PASS # "User authorized via CSH for 'technical' domain"
   user_confirmation: PASS # "Developer confirms utility"
 
 result: ENRICH_APPROVED
 proposed_uki:
-  id: "unik:technical:constraint:cpf-validation-function"
+  id: "uki:technical:constraint:cpf-validation-function"
   domain: "technical"
   type: "constraint"
 ```
@@ -1590,7 +1590,7 @@ evaluation:
   semantic_divergence: FAIL # "No new knowledge"
   mef_structurability: FAIL # "No structurable content"
   epistemic_clarity: N/A
-  scope_governance: N/A
+  authority_validation: N/A
   user_confirmation: N/A
 
 result: ENRICH_REJECTED
@@ -1607,7 +1607,7 @@ evaluation:
   semantic_divergence: PASS # "New knowledge"
   mef_structurability: PASS # "Structurable as policy"
   epistemic_clarity: PASS # "Well-defined policy"
-  scope_governance: FAIL # "Domain 'security' requires curation"
+  authority_validation: FAIL # "User not authorized via CSH for 'security' domain"
   user_confirmation: N/A
 
 result: ENRICH_REJECTED
@@ -1675,9 +1675,9 @@ flow_id: zion-workflow-jwt-implementation
 triggered_by: work.proposed
 oracle_context:
   motivating_ukis:
-    - unik:technical:concept:jwt-authentication-pattern
-    - unik:technical:constraint:security-requirements
-    - unik:technical:procedure:code-review-process
+    - uki:technical:concept:jwt-authentication-pattern
+    - uki:technical:constraint:security-requirements
+    - uki:technical:procedure:code-review-process
 ```
 
 ### ⚖️ **Decision Foundation**
@@ -1687,8 +1687,8 @@ During transitions, the flow must explicitly state which UKIs support each decis
 # Example of founded decision
 decision_point: "choose_jwt_library"
 reasoning_ukis:
-  - unik:technical:constraint:jwt-security-standards
-  - unik:technical:procedure:vendor-approval-process
+  - uki:technical:constraint:jwt-security-standards
+  - uki:technical:procedure:vendor-approval-process
 decision_outcome: "use_jsonwebtoken_library"
 ```
 
@@ -1701,7 +1701,7 @@ schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "1.0.0"
 
-id: unik:technical:procedure:jwt-implementation-result
+id: uki:technical:procedure:jwt-implementation-result
 title: "JWT Implementation Result - Backend Team"
 domain: technical
 type: procedure
@@ -1712,9 +1712,9 @@ last_modified: "2024-01-15"
 status: active
 relationships:
   - type: depends_on
-    target: unik:technical:concept:jwt-authentication-pattern
+    target: uki:technical:concept:jwt-authentication-pattern
   - type: depends_on
-    target: unik:technical:constraint:security-requirements
+    target: uki:technical:constraint:security-requirements
 content: |
   Successful JWT pattern implementation following security guidelines.
   Based on related UKIs guidance, adapted to our specific context.
@@ -1923,7 +1923,7 @@ signals:
   decision: "Why it transitioned: [justification based on Oracle UKIs]"
   result: "What came out: [output description]"
 oracle_ukis_used:
-  - unik:[domain]:[type]:[consulted-uki-id]
+  - uki:[domain]:[type]:[consulted-uki-id]
 timestamp: [YYYY-MM-DD HH:MM:SS]
 ```
 
@@ -1932,11 +1932,11 @@ timestamp: [YYYY-MM-DD HH:MM:SS]
 flow_step: "decide"
 signals:
   context: "Received request to implement JWT authentication in API"
-  decision: "Chosen bearer token pattern based on unik:security:rule:jwt-authentication-pattern specifying security best practices"
+  decision: "Chosen bearer token pattern based on uki:security:rule:jwt-authentication-pattern specifying security best practices"
   result: "Defined to use jsonwebtoken library with 15-minute expiration configuration"
 oracle_ukis_used:
-  - unik:technical:concept:jwt-authentication-pattern
-  - unik:technical:constraint:token-expiration-rules
+  - uki:technical:concept:jwt-authentication-pattern
+  - uki:technical:constraint:token-expiration-rules
 timestamp: "2024-01-15 14:30:22"
 ```
 
@@ -2278,7 +2278,7 @@ To ensure quality and consistency of explainability signals, ZWF defines formal 
   "properties": {
     "decision": {
       "type": "string",
-      "pattern": "^Why it transitioned: .+based.+(unik-[a-z0-9-]+).+",
+      "pattern": "^Why it transitioned: .+based.+(uki-[a-z0-9-]+).+",
       "minLength": 30,
       "maxLength": 800,
       "description": "Transition justification referencing Oracle UKIs"
@@ -2331,7 +2331,7 @@ To ensure quality and consistency of explainability signals, ZWF defines formal 
         },
         "decision": {
           "type": "string", 
-          "pattern": "^Why it transitioned: .+based.+(unik:[a-z]+:[a-z]+:[a-z0-9-]+).+",
+          "pattern": "^Why it transitioned: .+based.+(uki:[a-z]+:[a-z]+:[a-z0-9-]+).+",
           "minLength": 30,
           "maxLength": 800
         },
@@ -2349,7 +2349,7 @@ To ensure quality and consistency of explainability signals, ZWF defines formal 
       "type": "array",
       "items": {
         "type": "string",
-        "pattern": "^unik:[a-z]+:[a-z]+:[a-z0-9-]+$"
+        "pattern": "^uki:[a-z]+:[a-z]+:[a-z0-9-]+$"
       },
       "minItems": 1,
       "uniqueItems": true
@@ -2372,11 +2372,11 @@ To ensure quality and consistency of explainability signals, ZWF defines formal 
 flow_step: "decide"
 signals:
   context: "What came in: request to implement JWT authentication in the main API"
-  decision: "Why it transitioned: chosen bearer token pattern based on unik:security:rule:jwt-authentication-pattern specifying security best practices"
+  decision: "Why it transitioned: chosen bearer token pattern based on uki:security:rule:jwt-authentication-pattern specifying security best practices"
   result: "What came out: defined to use jsonwebtoken library with 15-minute expiration configuration"
 oracle_ukis_used:
-  - unik:technical:concept:jwt-authentication-pattern
-  - unik:technical:constraint:token-expiration-rules
+  - uki:technical:concept:jwt-authentication-pattern
+  - uki:technical:constraint:token-expiration-rules
 timestamp: "2024-01-15 14:30:22"
 ```
 
@@ -2386,11 +2386,11 @@ timestamp: "2024-01-15 14:30:22"
 flow_step: "act"
 signals:
   context: "What came in: JWT implementation plan with jsonwebtoken library approved"
-  decision: "Why it transitioned: executed implementation based on unik:security:constraint:code-standards defining middleware structure"
+  decision: "Why it transitioned: executed implementation based on uki:security:constraint:code-standards defining middleware structure"
   result: "What came out: authentication middleware implemented and tested with 100% coverage"
 oracle_ukis_used:
-  - unik:technical:constraint:code-standards
-  - unik:technical:procedure:testing-requirements
+  - uki:technical:constraint:code-standards
+  - uki:technical:procedure:testing-requirements
 timestamp: "2024-01-15 15:45:10"
 ```
 
@@ -2402,7 +2402,7 @@ timestamp: "2024-01-15 15:45:10"
 flow_step: "decide"
 signals:
   context: "What came in: JWT"  # ERROR: less than 20 characters
-  decision: "Why it transitioned: based on unik:security:rule:jwt security pattern"
+  decision: "Why it transitioned: based on uki:security:rule:jwt security pattern"
   result: "What came out: library defined"
 # VALIDATION ERROR: context must have minimum 20 characters
 ```
@@ -2415,7 +2415,7 @@ signals:
   context: "What came in: authentication requirements documentation for analysis"
   decision: "Why it transitioned: analyzed requirements and decided to proceed"  # ERROR: no UKI reference
   result: "What came out: understanding of necessary security requirements"
-# VALIDATION ERROR: decision must contain UKI reference (pattern "based.+unik:")
+# VALIDATION ERROR: decision must contain UKI reference (pattern "based.+uki:")
 ```
 
 #### **Failure 3: Malformed UKI**
@@ -2424,12 +2424,12 @@ signals:
 flow_step: "enrich"
 signals:
   context: "What came in: complete JWT implementation for documentation"
-  decision: "Why it transitioned: created UKI based on unik:security:concept:implementation-pattern"
+  decision: "Why it transitioned: created UKI based on uki:security:concept:implementation-pattern"
   result: "What came out: new UKI documenting JWT implementation pattern"
 oracle_ukis_used:
-  - invalid-uki-format  # ERROR: must follow unik:[domain]:[type]:[id] pattern
-  - unik:security:concept:valid
-# VALIDATION ERROR: UKI must follow unik:[domain]:[type]:[identifier] format
+  - invalid-uki-format  # ERROR: must follow uki:[domain]:[type]:[id] pattern
+  - uki:security:concept:valid
+# VALIDATION ERROR: UKI must follow uki:[domain]:[type]:[identifier] format
 ```
 
 ### 🛡️ **Usage for Audit and Compliance**

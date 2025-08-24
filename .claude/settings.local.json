@@ -4,7 +4,14 @@
       "Bash(mkdir:*)",
       "Bash(rm:*)",
       "Bash(grep:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(for:*)",
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(done)",
+      "Bash(do echo \"Processing $file...\")",
+      "Bash(do echo \"Fixing $file...\")",
+      "Bash(do echo \"Processing remaining patterns in $file...\")",
+      "Bash(do echo \"Processing more patterns in $file...\")"
     ],
     "deny": [],
     "ask": []
