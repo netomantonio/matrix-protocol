@@ -1,22 +1,15 @@
-id: unik-product-modal-guideline
+id: uki:product:guideline:modal-design
 title: Modal Dialog Design Guidelines
-domain: product
-type: guideline
-context: design
+scope_ref: team
+scope_mode: propagated
+domain_ref: product
+type_ref: guideline
+context_ref: design
+maturity_ref: approved
+status: active
 version: "1.0.0"
 created_date: "2024-08-12"
 last_modified: "2024-08-12"
-intent_of_use:
-  - standardize_ui_components
-  - guide_design_decisions
-  - ensure_accessibility
-  - improve_user_experience
-use_case_stage:
-  - design
-  - implementation
-  - peer_review
-  - testing
-language: en_US
 content: |
   Design guidelines for creating consistent and accessible modal dialogs throughout the application.
   
@@ -78,25 +71,17 @@ examples:
   - input: "View detailed report"
     output: "Large modal with tabular data and 'Close' button"
 related_to:
-  - target: unik-product-design-system
+  - target: uki:product:system:design
     relation_type: implements
     description: Implements design system guidelines
-  - target: unik-technical-accessibility-standards
+  - target: uki:technical:standard:accessibility
     relation_type: complies_with
     description: Follows technical accessibility standards
-  - target: unik-product-component-library
+  - target: uki:product:library:component
     relation_type: extends
     description: Extends standard component library
-governance:
-  criticality: medium
-  auto_propagation: manual
-  validation_frequency: 90
-  impact_analysis:
-    structural_changes: additive
-    dependent_ukis: 3
-    propagation_scope: informative
-  propagation_rules:
-    on_major_change: manual_review
-    on_minor_change: auto_notify
-    on_patch_change: track_only
+change_summary: "Initial structure for modal design guidelines"
+change_impact: "Standardizes modal component design and behavior"
+previous_version: null
+domain_of_influence: "UI/UX design and component development"
 last_validation: "2024-08-12"

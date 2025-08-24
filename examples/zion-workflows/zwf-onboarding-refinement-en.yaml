@@ -91,7 +91,20 @@ flow_execution:
     next_state: enrich
 
   # State 5: ENRICH ORACLE (Mandatory)
-  - state: enrich_oracle
+  - state: evaluate_for_enrich
+    timestamp: "2024-01-22T15:30:00"
+    signals:
+      context: "Evaluating enrichment requirements based on complexity and domain coverage"
+      decision: "Medium complexity threshold met, proceeding to enrich Oracle"
+      result: "Enrichment justified - new patterns and optimizations identified"
+    evaluation_criteria:
+      complexity_threshold: "medium"
+      domain_coverage: "partial"
+      knowledge_gaps: "Incremental refinement pattern missing"
+      reusability_potential: "high"
+    next_state: enrich
+ 
+   - state: enrich
     timestamp: "2024-01-22 16:00:00"
     signals:
       context: "First refinement wave successful, process validated, learnings captured"

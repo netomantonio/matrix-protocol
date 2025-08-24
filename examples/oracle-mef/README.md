@@ -10,24 +10,24 @@ The examples are organized by domain and language:
 Os exemplos estão organizados por domínio e idioma:
 
 ### 🔧 Technical Domain | Domínio Técnico
-- `unik-technical-authentication-pattern-pt.yaml` - JWT authentication pattern (Portuguese)
-- `unik-technical-authentication-pattern-en.yaml` - JWT authentication pattern (English)
+- `unik-technical-authentication-pattern-pt.yaml` - JWT authentication pattern (`uki:technical:pattern:jwt-authentication`) (Portuguese)
+- `unik-technical-authentication-pattern-en.yaml` - JWT authentication pattern (`uki:technical:pattern:jwt-authentication`) (English)
 
 ### 💼 Business Domain | Domínio de Negócio
-- `unik-business-discount-rule-pt.yaml` - Customer loyalty discount rule (Portuguese)
-- `unik-business-discount-rule-en.yaml` - Customer loyalty discount rule (English)
+- `unik-business-discount-rule-pt.yaml` - Customer loyalty discount rule (`uki:business:rule:loyalty-discount`) (Portuguese)
+- `unik-business-discount-rule-en.yaml` - Customer loyalty discount rule (`uki:business:rule:loyalty-discount`) (English)
 
 ### 🎨 Product Domain | Domínio de Produto
-- `unik-product-modal-guideline-pt.yaml` - Modal design guidelines (Portuguese)
-- `unik-product-modal-guideline-en.yaml` - Modal design guidelines (English)
+- `unik-product-modal-guideline-pt.yaml` - Modal design guidelines (`uki:product:guideline:modal-design`) (Portuguese)
+- `unik-product-modal-guideline-en.yaml` - Modal design guidelines (`uki:product:guideline:modal-design`) (English)
 
 ### 🎯 Strategy Domain | Domínio de Estratégia
-- `unik-strategy-api-evolution-pt.yaml` - API evolution strategy (Portuguese)
-- `unik-strategy-api-evolution-en.yaml` - API evolution strategy (English)
+- `unik-strategy-api-evolution-pt.yaml` - API evolution strategy (`uki:strategy:decision:api-evolution`) (Portuguese)
+- `unik-strategy-api-evolution-en.yaml` - API evolution strategy (`uki:strategy:decision:api-evolution`) (English)
 
 ### 🤝 Culture Domain | Domínio de Cultura
-- `unik-culture-code-review-pt.yaml` - Code review process (Portuguese)
-- `unik-culture-code-review-en.yaml` - Code review process (English)
+- `unik-culture-code-review-pt.yaml` - Code review process (`uki:culture:process:code-review`) (Portuguese)
+- `unik-culture-code-review-en.yaml` - Code review process (`uki:culture:process:code-review`) (English)
 
 ## 🎯 Purpose | Propósito
 

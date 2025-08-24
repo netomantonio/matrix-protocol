@@ -1,22 +1,15 @@
-id: unik-technical-authentication-pattern
+id: uki:technical:pattern:jwt-authentication
 title: Padrão de Implementação de Autenticação JWT
-domain: technical
-type: pattern
-context: implementation
+scope_ref: team
+scope_mode: propagated
+domain_ref: technical
+type_ref: pattern
+context_ref: implementation
+maturity_ref: approved
+status: active
 version: "1.0.0"
 created_date: "2024-08-12"
 last_modified: "2024-08-12"
-intent_of_use:
-  - validate_implementation
-  - generate_code
-  - standardize_process
-  - ensure_security
-use_case_stage:
-  - implementation
-  - peer_review
-  - testing
-  - documentation
-language: pt_BR
 content: |
   Padrão de implementação padronizado para autenticação JWT (JSON Web Token) em aplicações web.
   
@@ -64,25 +57,17 @@ examples:
   - input: "Assinatura de token inválida detectada"
     output: "Sistema registra evento de segurança e retorna 401 Unauthorized"
 related_to:
-  - target: unik-technical-api-security-standards
+  - target: uki:technical:standard:api-security
     relation_type: complies_with
     description: Segue padrões de segurança para APIs
-  - target: unik-technical-session-management
+  - target: uki:technical:pattern:session-management
     relation_type: relates_to
     description: Complementa estratégias de gerenciamento de sessão
-  - target: unik-business-user-authentication-policy
+  - target: uki:business:policy:user-authentication
     relation_type: implements
     description: Implementa política organizacional de autenticação
-governance:
-  criticality: critical
-  auto_propagation: semi_automatic
-  validation_frequency: 30
-  impact_analysis:
-    structural_changes: breaking
-    dependent_ukis: 8
-    propagation_scope: immediate
-  propagation_rules:
-    on_major_change: validate_dependencies
-    on_minor_change: suggest_updates
-    on_patch_change: auto_propagate
+change_summary: "Estrutura inicial do padrão de autenticação JWT"
+change_impact: "Estabelece base para implementações de autenticação"
+previous_version: null
+domain_of_influence: "Aplicações web com autenticação baseada em token"
 last_validation: "2024-08-12"

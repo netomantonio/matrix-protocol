@@ -1,22 +1,15 @@
-id: unik-culture-code-review
+id: uki:culture:process:code-review
 title: Collaborative Code Review Process
-domain: culture
-type: guideline
-context: implementation
+scope_ref: team
+scope_mode: propagated
+domain_ref: culture
+type_ref: process
+context_ref: development
+maturity_ref: approved
+status: active
 version: "1.0.0"
 created_date: "2024-08-12"
 last_modified: "2024-08-12"
-intent_of_use:
-  - improve_code_quality
-  - foster_collaboration
-  - share_knowledge
-  - maintain_standards
-use_case_stage:
-  - implementation
-  - peer_review
-  - onboarding
-  - training
-language: en_US
 content: |
   Structured code review process that promotes collaboration, quality, and professional growth within the team.
   
@@ -88,25 +81,17 @@ examples:
   - input: "Review pending for 3 days"
     output: "Notify reviewer and seek alternative if necessary"
 related_to:
-  - target: unik-technical-code-standards
+  - target: uki:technical:standard:code-quality
     relation_type: implements
     description: Implements technical code quality standards
-  - target: unik-culture-team-collaboration
+  - target: uki:culture:practice:team-collaboration
     relation_type: extends
     description: Extends team collaboration practices
-  - target: unik-culture-continuous-learning
+  - target: uki:culture:mindset:continuous-learning
     relation_type: relates_to
     description: Contributes to continuous learning culture
-governance:
-  criticality: medium
-  auto_propagation: manual
-  validation_frequency: 90
-  impact_analysis:
-    structural_changes: compatible
-    dependent_ukis: 4
-    propagation_scope: informative
-  propagation_rules:
-    on_major_change: manual_review
-    on_minor_change: auto_notify
-    on_patch_change: track_only
+change_summary: "Initial structure for code review process"
+change_impact: "Standardizes code review practices and collaboration"
+previous_version: null
+domain_of_influence: "Software development and organizational culture"
 last_validation: "2024-08-12"

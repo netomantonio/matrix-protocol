@@ -101,23 +101,35 @@ flow_execution:
       validation_outcome: "Conforme padrões ZWF"
     next_state: enrich
 
-  # Estado 6: ENRICH ORACLE (Obrigatório)
-  - state: enrich_oracle
+  # Estado 6: EVALUATE FOR ENRICH
+  - state: evaluate_for_enrich
+    timestamp: "2024-01-15T15:30:00Z"
+    signals:
+      context: "Avaliando critérios CSH para enriquecimento"
+      decision: "Conhecimento aprovado para enriquecimento com escopo 'team'"
+      result: "Autorizado para criar UKIs no escopo permitido"
+    next_state: enrich
+
+  # Estado 7: ENRICH (Obrigatório)
+  - state: enrich
     timestamp: "2024-01-15 16:00:00"
     signals:
       context: "Implementação de autenticação concluída com sucesso, aprendizados capturados"
       decision: "Documentar implementação como exemplo reutilizável e atualizar padrão existente"
       result: "Criados 2 UKIs: exemplo de implementação + refinamento do padrão"
     new_ukis_created:
-      - id: unik-technical-authentication-implementation-example
-        type: example
-        domain: technical
-        context: implementation
+      - id: uki:technical:example:jwt-implementation
+        scope_ref: team
+        scope_mode: restricted
+        domain_ref: technical
+        type_ref: example
+        context_ref: implementation
+        maturity_ref: validated
+        status: active
         version: "1.0.0"
         created_date: "2024-01-15"
         last_modified: "2024-01-15"
-        language: pt_BR
-        title: "Exemplo de Implementação de Autenticação Baseada em Token"
+         title: "Exemplo de Implementação de Autenticação Baseada em Token"
         content: |
           Implementação de padrão de autenticação seguindo diretrizes do Oráculo.
           
@@ -163,15 +175,18 @@ flow_execution:
           - documentation
         last_validation: "2024-01-15"
 
-      - id: unik-technical-token-refresh-pattern
-        type: pattern
-        domain: technical
-        context: implementation
+      - id: uki:technical:pattern:token-refresh
+        scope_ref: team
+        scope_mode: propagated
+        domain_ref: technical
+        type_ref: pattern
+        context_ref: implementation
+        maturity_ref: validated
+        status: active
         version: "1.0.0"
         created_date: "2024-01-15"
         last_modified: "2024-01-15"
-        language: pt_BR
-        title: "Padrão de Renovação de Token com Armazenamento Seguro"
+         title: "Padrão de Renovação de Token com Armazenamento Seguro"
         content: |
           Padrão para implementar renovação de tokens usando armazenamento seguro.
           

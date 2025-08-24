@@ -65,6 +65,7 @@ Mostra como processar conhecimento externo estruturadamente:
 - **Decide:** Decisões baseadas em conhecimento existente
 - **Act:** Execução usando ferramentas da equipe
 - **Review:** Validação humana quando aplicável
+- **Evaluate_for_enrich:** Avalia critérios para enriquecimento do Oráculo
 - **Enrich:** Criação/atualização obrigatória de UKIs
 
 ### Tipos de Evento
@@ -286,6 +287,7 @@ Shows how to process external knowledge in a structured way:
 - **Decide:** Decisions based on existing knowledge
 - **Act:** Execution using team tools
 - **Review:** Human validation when applicable
+- **Evaluate_for_enrich:** Evaluates criteria for Oracle enrichment
 - **Enrich:** Mandatory UKI creation/update
 
 ### Event Types

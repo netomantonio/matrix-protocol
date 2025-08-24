@@ -1,22 +1,15 @@
-id: unik-strategy-api-evolution
+id: uki:strategy:decision:api-evolution
 title: Estratégia de Evolução de APIs REST
-domain: strategy
-type: decision
-context: planning
+scope_ref: organization
+scope_mode: propagated
+domain_ref: strategy
+type_ref: decision
+context_ref: design
+maturity_ref: approved
+status: active
 version: "1.0.0"
 created_date: "2024-08-12"
 last_modified: "2024-08-12"
-intent_of_use:
-  - guide_architecture_decisions
-  - ensure_backward_compatibility
-  - standardize_versioning
-  - plan_migration_strategy
-use_case_stage:
-  - planning
-  - design
-  - implementation
-  - maintenance
-language: pt_BR
 content: |
   Estratégia organizacional para evolução e versionamento de APIs REST, garantindo compatibilidade e inovação contínua.
   
@@ -89,25 +82,17 @@ examples:
   - input: "Descoberta vulnerabilidade de segurança crítica"
     output: "Patch imediato em todas as versões ativas, comunicação urgente aos clientes"
 related_to:
-  - target: unik-technical-api-versioning-standards
+  - target: uki:technical:standard:api-versioning
     relation_type: implements
     description: Implementa padrões técnicos de versionamento
-  - target: unik-business-client-communication-policy
+  - target: uki:business:policy:client-communication
     relation_type: complies_with
     description: Segue política de comunicação com clientes
-  - target: unik-technical-microservices-architecture
+  - target: uki:technical:architecture:microservices
     relation_type: relates_to
     description: Aplica-se à arquitetura de microsserviços
-governance:
-  criticality: high
-  auto_propagation: manual
-  validation_frequency: 60
-  impact_analysis:
-    structural_changes: breaking
-    dependent_ukis: 12
-    propagation_scope: immediate
-  propagation_rules:
-    on_major_change: manual_review
-    on_minor_change: validate_compatibility
-    on_patch_change: inform_dependents
+change_summary: "Estrutura inicial da estratégia de evolução de APIs"
+change_impact: "Define diretrizes para evolução consistente de APIs"
+previous_version: null
+domain_of_influence: "Arquitetura de APIs e integração de sistemas"
 last_validation: "2024-08-12"

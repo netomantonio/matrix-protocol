@@ -111,22 +111,38 @@ flow_execution:
       team_review: "Content structure approved by technical leadership"
     next_state: enrich
 
-  # State 5: ENRICH ORACLE (Mandatory)
-  - state: enrich_oracle
+  # State 5: EVALUATE FOR ENRICH
+  - state: evaluate_for_enrich
+    timestamp: "2024-01-18 14:30:00"
+    signals:
+      context: "Evaluating complexity and domain coverage for enrichment decision"
+      decision: "Proceed to enrichment based on medium complexity and partial domain coverage"
+      result: "Enrichment justified - proceeding to enrich state"
+    evaluation_criteria:
+      complexity_threshold: "medium"
+      domain_coverage: "partial"
+      knowledge_graph_impact: "significant"
+    next_state: enrich
+
+  # State 6: ENRICH ORACLE (Mandatory)
+  - state: enrich
     timestamp: "2024-01-18 15:00:00"
     signals:
       context: "UKIs structured and validated, ingestion process complete"
       decision: "Add all UKIs to Oracle with appropriate relationships"
       result: "UKIs added to Oracle, knowledge available for team consultation"
     new_ukis_created:
-      - id: unik-technical-api-validation-changes-2024
+      - id: uki:technical:rule:api-validation-changes-2024
         type: business_rule
-        domain: technical
-        context: implementation
+        scope_ref: system
+        scope_mode: propagated
+        domain_ref: technical
+        context_ref: implementation
+        maturity_ref: approved
+        status: active
         version: "1.0.0"
         created_date: "2024-01-18"
         last_modified: "2024-01-18"
-        language: en_US
         title: "New External API Validation Rule"
         content: |
           Critical rule for updated validation according to new external API version.
@@ -151,29 +167,25 @@ flow_execution:
           - input: "Request with previous validation"
             output: "Fallback to previous method during transition period"
         related_to:
-          - target: unik-technical-api-integration-standards
+          - target: uki:technical:standard:api-integration
             relation_type: complies_with
             description: Follows API integration standards
-          - target: unik-technical-existing-integration-patterns
+          - target: uki:technical:pattern:integration
             relation_type: extends
             description: Extends existing integration patterns
-        intent_of_use:
-          - ensure_security
-          - prevent_breaking_changes
-          - guide_migration
-        use_case_stage:
-          - implementation
-          - testing
         last_validation: "2024-01-18"
 
-      - id: unik-technical-integration-migration-pattern
+      - id: uki:technical:pattern:integration-migration
         type: pattern
-        domain: technical
-        context: refinement
+        scope_ref: system
+        scope_mode: propagated
+        domain_ref: technical
+        context_ref: refinement
+        maturity_ref: approved
+        status: active
         version: "1.0.0"
         created_date: "2024-01-18"
         last_modified: "2024-01-18"
-        language: en_US
         title: "Migration Pattern for External API Changes"
         content: |
           Pattern for migrating integrations when external API introduces significant changes.
@@ -206,29 +218,25 @@ flow_execution:
           - input: "Reading existing record"
             output: "Fallback to old field if new field doesn't exist"
         related_to:
-          - target: unik-technical-existing-integration-patterns
+          - target: uki:technical:pattern:integration
             relation_type: derives_from
             description: Derived from existing integration patterns
-          - target: unik-technical-api-migration-best-practices
+          - target: uki:technical:practice:api-migration
             relation_type: implements
             description: Implements API migration best practices
-        intent_of_use:
-          - guide_migration
-          - prevent_breaking_changes
-          - standardize_process
-        use_case_stage:
-          - refinement
-          - implementation
         last_validation: "2024-01-18"
 
-      - id: unik-technical-api-rate-limiting-strategy
+      - id: uki:technical:guideline:api-rate-limiting
         type: guideline
-        domain: technical
-        context: implementation
+        scope_ref: system
+        scope_mode: propagated
+        domain_ref: technical
+        context_ref: implementation
+        maturity_ref: approved
+        status: active
         version: "1.0.0"
         created_date: "2024-01-18"
         last_modified: "2024-01-18"
-        language: en_US
         title: "Strategy for New External API Rate Limits"
         content: |
           Guidelines for dealing with external API rate limit changes.
@@ -260,29 +268,25 @@ flow_execution:
           - input: "Header indicating limit proximity"
             output: "Preventively pause requests"
         related_to:
-          - target: unik-technical-api-integration-standards
+          - target: uki:technical:standard:api-integration
             relation_type: complies_with
             description: Follows API integration standards
-          - target: unik-technical-error-handling-patterns
+          - target: uki:technical:pattern:error-handling
             relation_type: relates_to
             description: Relates to error handling patterns
-        intent_of_use:
-          - prevent_errors
-          - optimize_performance
-          - guide_implementation
-        use_case_stage:
-          - implementation
-          - monitoring
         last_validation: "2024-01-18"
 
-      - id: unik-technical-updated-integration-example
+      - id: uki:technical:example:integration-updated
         type: example
-        domain: technical
-        context: implementation
+        scope_ref: system
+        scope_mode: propagated
+        domain_ref: technical
+        context_ref: implementation
+        maturity_ref: approved
+        status: active
         version: "1.0.0"
         created_date: "2024-01-18"
         last_modified: "2024-01-18"
-        language: en_US
         title: "Updated Integration Example with New API"
         content: |
           Practical example of implementation using updated external API functionalities.
@@ -311,29 +315,25 @@ flow_execution:
           - input: "Situation requiring special handling"
             output: "System handles automatically using new resources"
         related_to:
-          - target: unik-technical-api-validation-changes-2024
+          - target: uki:technical:rule:api-validation-changes-2024
             relation_type: implements
             description: Implements API validation changes 2024
-          - target: unik-business-integration-requirements
+          - target: uki:business:requirement:integration
             relation_type: complies_with
             description: Meets business integration requirements
-        intent_of_use:
-          - generate_code
-          - understand_implementation
-          - replace_deprecated_functionality
-        use_case_stage:
-          - implementation
-          - testing
         last_validation: "2024-01-18"
 
-      - id: unik-technical-api-migration-guide-2024
+      - id: uki:technical:template:api-migration-guide
         type: template
-        domain: technical
-        context: refinement
+        scope_ref: system
+        scope_mode: propagated
+        domain_ref: technical
+        context_ref: refinement
+        maturity_ref: approved
+        status: active
         version: "1.0.0"
         created_date: "2024-01-18"
         last_modified: "2024-01-18"
-        language: en_US
         title: "Migration Template for Updated External API"
         content: |
           Template for structured migration to new external API version.
@@ -382,26 +382,18 @@ flow_execution:
           - input: "Critical error during migration"
             output: "Automatic rollback triggered"
         related_to:
-          - target: unik-technical-api-validation-changes-2024
+          - target: uki:technical:rule:api-validation-changes-2024
             relation_type: extends
             description: Extends validation changes with improvements
-          - target: unik-technical-integration-migration-pattern
+          - target: uki:technical:pattern:integration-migration
             relation_type: implements
             description: Implements integration migration pattern
-          - target: unik-technical-api-rate-limiting-strategy
+          - target: uki:technical:guideline:api-rate-limiting
             relation_type: relates_to
             description: Relates to rate limiting strategy
-          - target: unik-technical-updated-integration-example
+          - target: uki:technical:example:integration-updated
             relation_type: replaces
             description: Replaces previous integration example
-        intent_of_use:
-          - guide_migration
-          - standardize_process
-          - ensure_quality
-        use_case_stage:
-          - planning
-          - implementation
-          - deployment
         last_validation: "2024-01-18"
 
 # Telemetry Metrics

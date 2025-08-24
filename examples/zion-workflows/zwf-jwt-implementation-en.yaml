@@ -9,10 +9,10 @@ timestamp_end: "2024-01-15 16:30:00"
 # Initial Oracle Binding
 oracle_context:
   motivating_ukis:
-    - unik-technical-jwt-authentication-pattern
-    - unik-business-security-requirements
-    - unik-culture-code-review-process
-    - unik-technical-api-error-handling
+    - uki:technical:pattern:jwt-authentication
+    - uki:business:requirement:security
+    - uki:culture:process:code-review
+    - uki:technical:pattern:api-error-handling
 
 # State Flow Execution
 flow_execution:
@@ -34,9 +34,9 @@ flow_execution:
   - state: understand
     timestamp: "2024-01-15 09:30:00"
     oracle_ukis_consulted:
-      - unik-technical-jwt-authentication-pattern
-      - unik-business-security-requirements
-      - unik-technical-token-expiration-policy
+      - uki:technical:pattern:jwt-authentication
+      - uki:business:requirement:security
+      - uki:technical:policy:token-expiration
     signals:
       context: "Consulted authentication patterns and security policies in Oracle"
       decision: "Identified Bearer Token pattern with refresh, expiration per business policy"
@@ -51,8 +51,8 @@ flow_execution:
   - state: decide  
     timestamp: "2024-01-15 10:00:00"
     reasoning_ukis:
-      - unik-technical-jwt-authentication-pattern
-      - unik-business-vendor-approval-policy
+      - uki:technical:pattern:jwt-authentication
+      - uki:business:policy:vendor-approval
     signals:
       context: "Evaluated implementation options based on Oracle guidelines"
       decision: "Chosen approach approved by vendor policy with custom middleware"
@@ -92,8 +92,8 @@ flow_execution:
       result: "Solution validated and refined according to guidelines"
     conceptual_validation:
       oracle_ukis_applied:
-        - unik-culture-code-review-process
-        - unik-technical-api-error-handling
+        - uki:culture:process:code-review
+        - uki:technical:pattern:api-error-handling
       knowledge_refinements:
         - Applied improvements based on Oracle patterns
         - Documentation aligned with existing guidelines
@@ -101,23 +101,39 @@ flow_execution:
       validation_outcome: "Compliant with ZWF standards"
     next_state: enrich
 
-  # State 6: ENRICH ORACLE (Mandatory)
-  - state: enrich_oracle
+  # State 6: EVALUATE FOR ENRICH
+  - state: evaluate_for_enrich
+    timestamp: "2024-01-15 15:30:00"
+    signals:
+      context: "Evaluating need for Oracle enrichment"
+      decision: "Implementation complexity and learning value justify enrichment"
+      result: "Proceed to Oracle enrichment"
+    evaluation_criteria:
+      complexity_threshold: "medium"
+      domain_coverage: "comprehensive"
+      knowledge_gap_analysis: "Identified patterns for authentication implementation"
+    next_state: enrich
+
+  # State 7: ENRICH ORACLE (Mandatory)
+  - state: enrich
     timestamp: "2024-01-15 16:00:00"
     signals:
       context: "Authentication implementation completed successfully, learnings captured"
       decision: "Document implementation as reusable example and update existing pattern"
       result: "Created 2 UKIs: implementation example + pattern refinement"
     new_ukis_created:
-      - id: unik-technical-authentication-implementation-example
-        type: example
-        domain: technical
-        context: implementation
+      - id: uki:technical:example:authentication-implementation
+        title: "Token-Based Authentication Implementation Example"
+        scope_ref: team
+        scope_mode: propagated
+        domain_ref: technical
+        type_ref: example
+        context_ref: implementation
+        maturity_ref: approved
+        status: active
         version: "1.0.0"
         created_date: "2024-01-15"
         last_modified: "2024-01-15"
-        language: en_US
-        title: "Token-Based Authentication Implementation Example"
         content: |
           Authentication pattern implementation following Oracle guidelines.
           
@@ -144,34 +160,33 @@ flow_execution:
           - input: "Refresh request with valid token"
             output: "New access token generated maintaining refresh token"
         related_to:
-          - target: unik-technical-jwt-authentication-pattern
+          - target: uki:technical:pattern:jwt-authentication
             relation_type: derives_from
             description: Derived from JWT technical authentication pattern
-          - target: unik-business-security-requirements
+          - target: uki:business:requirement:security
             relation_type: implements
             description: Implements business security requirements
-          - target: unik-technical-api-error-handling
+          - target: uki:technical:pattern:api-error-handling
             relation_type: relates_to
             description: Relates to error handling patterns
-        intent_of_use:
-          - generate_code
-          - understand_implementation
-          - standardize_process
-        use_case_stage:
-          - implementation
-          - peer_review
-          - documentation
+        change_summary: "Created comprehensive authentication implementation example"
+        change_impact: "Provides reusable pattern for team authentication implementations"
+        previous_version: null
+        domain_of_influence: "Backend authentication systems"
         last_validation: "2024-01-15"
 
-      - id: unik-technical-token-refresh-pattern
-        type: pattern
-        domain: technical
-        context: implementation
+      - id: uki:technical:pattern:token-refresh
+        title: "Token Refresh Pattern with Secure Storage"
+        scope_ref: team
+        scope_mode: propagated
+        domain_ref: technical
+        type_ref: pattern
+        context_ref: implementation
+        maturity_ref: approved
+        status: active
         version: "1.0.0"
         created_date: "2024-01-15"
         last_modified: "2024-01-15"
-        language: en_US
-        title: "Token Refresh Pattern with Secure Storage"
         content: |
           Pattern for implementing token refresh using secure storage.
           
@@ -199,19 +214,16 @@ flow_execution:
           - input: "Logout"
             output: "Refresh token invalidated"
         related_to:
-          - target: unik-technical-jwt-authentication-pattern
+          - target: uki:technical:pattern:jwt-authentication
             relation_type: extends
             description: Extends the pattern with improvement example
-          - target: unik-technical-authentication-implementation-example
+          - target: uki:technical:example:authentication-implementation
             relation_type: replaces
             description: Replaces previous implementation with improvements
-        intent_of_use:
-          - standardize_process
-          - improve_performance
-          - ensure_security
-        use_case_stage:
-          - implementation
-          - design
+        change_summary: "Enhanced token refresh pattern with secure storage"
+        change_impact: "Improves security and performance of authentication systems"
+        previous_version: null
+        domain_of_influence: "Authentication and session management"
         last_validation: "2024-01-15"
 
 # Telemetry Metrics

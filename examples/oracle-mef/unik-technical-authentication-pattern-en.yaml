@@ -1,22 +1,15 @@
-id: unik-technical-authentication-pattern
+id: uki:technical:pattern:jwt-authentication
 title: JWT Authentication Implementation Pattern
-domain: technical
-type: pattern
-context: implementation
+scope_ref: team
+scope_mode: propagated
+domain_ref: technical
+type_ref: pattern
+context_ref: implementation
+maturity_ref: approved
+status: active
 version: "1.0.0"
 created_date: "2024-08-12"
 last_modified: "2024-08-12"
-intent_of_use:
-  - validate_implementation
-  - generate_code
-  - standardize_process
-  - ensure_security
-use_case_stage:
-  - implementation
-  - peer_review
-  - testing
-  - documentation
-language: en_US
 content: |
   Standard implementation pattern for JWT (JSON Web Token) authentication in web applications.
   
@@ -64,25 +57,17 @@ examples:
   - input: "Invalid token signature detected"
     output: "System logs security event and returns 401 Unauthorized"
 related_to:
-  - target: unik-technical-api-security-standards
+  - target: uki:technical:standard:api-security
     relation_type: complies_with
     description: Follows API security standards
-  - target: unik-technical-session-management
+  - target: uki:technical:pattern:session-management
     relation_type: relates_to
     description: Complements session management strategies
-  - target: unik-business-user-authentication-policy
+  - target: uki:business:policy:user-authentication
     relation_type: implements
     description: Implements organizational authentication policy
-governance:
-  criticality: critical
-  auto_propagation: semi_automatic
-  validation_frequency: 30
-  impact_analysis:
-    structural_changes: breaking
-    dependent_ukis: 8
-    propagation_scope: immediate
-  propagation_rules:
-    on_major_change: validate_dependencies
-    on_minor_change: suggest_updates
-    on_patch_change: auto_propagate
+change_summary: "Initial structure for JWT authentication pattern"
+change_impact: "Establishes foundation for authentication implementations"
+previous_version: null
+domain_of_influence: "Web applications with token-based authentication"
 last_validation: "2024-08-12"

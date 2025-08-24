@@ -90,8 +90,22 @@ flow_execution:
       validation_method: "Validação baseada em conhecimento existente"
     next_state: enrich
 
-  # Estado 5: ENRICH ORACLE (Obrigatório)
-  - state: enrich_oracle
+  # Estado 5: EVALUATE FOR ENRICH
+  - state: evaluate_for_enrich
+    timestamp: "2024-01-22T15:30:00"
+    signals:
+      context: "Avaliando necessidade de enriquecimento do Oráculo baseado em complexidade e cobertura"
+      decision: "Critérios atendidos: complexidade média e cobertura parcial de domínio"
+      result: "Prosseguir para enriquecimento do Oráculo"
+    evaluation_criteria:
+      complexity_threshold: "medium"
+      domain_coverage: "partial"
+      knowledge_gap_identified: true
+      reusability_potential: "high"
+    next_state: enrich
+ 
+   # Estado 6: ENRICH ORACLE (Obrigatório)
+   - state: enrich
     timestamp: "2024-01-22 16:00:00"
     signals:
       context: "Primeira onda de refinement bem-sucedida, processo validado, aprendizados capturados"

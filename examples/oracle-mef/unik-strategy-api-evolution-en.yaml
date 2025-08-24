@@ -1,22 +1,15 @@
-id: unik-strategy-api-evolution
+id: uki:strategy:decision:api-evolution
 title: REST API Evolution Strategy
-domain: strategy
-type: decision
-context: planning
+scope_ref: organization
+scope_mode: propagated
+domain_ref: strategy
+type_ref: decision
+context_ref: design
+maturity_ref: approved
+status: active
 version: "1.0.0"
 created_date: "2024-08-12"
 last_modified: "2024-08-12"
-intent_of_use:
-  - guide_architecture_decisions
-  - ensure_backward_compatibility
-  - standardize_versioning
-  - plan_migration_strategy
-use_case_stage:
-  - planning
-  - design
-  - implementation
-  - maintenance
-language: en_US
 content: |
   Organizational strategy for REST API evolution and versioning, ensuring compatibility and continuous innovation.
   
@@ -89,25 +82,17 @@ examples:
   - input: "Critical security vulnerability discovered"
     output: "Immediate patch across all active versions, urgent client communication"
 related_to:
-  - target: unik-technical-api-versioning-standards
+  - target: uki:technical:standard:api-versioning
     relation_type: implements
     description: Implements technical versioning standards
-  - target: unik-business-client-communication-policy
+  - target: uki:business:policy:client-communication
     relation_type: complies_with
     description: Follows client communication policy
-  - target: unik-technical-microservices-architecture
+  - target: uki:technical:architecture:microservices
     relation_type: relates_to
     description: Applies to microservices architecture
-governance:
-  criticality: high
-  auto_propagation: manual
-  validation_frequency: 60
-  impact_analysis:
-    structural_changes: breaking
-    dependent_ukis: 12
-    propagation_scope: immediate
-  propagation_rules:
-    on_major_change: manual_review
-    on_minor_change: validate_compatibility
-    on_patch_change: inform_dependents
+change_summary: "Initial structure for API evolution strategy"
+change_impact: "Defines guidelines for consistent API evolution"
+previous_version: null
+domain_of_influence: "API architecture and system integration"
 last_validation: "2024-08-12"

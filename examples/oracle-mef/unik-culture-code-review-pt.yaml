@@ -1,22 +1,15 @@
-id: unik-culture-code-review
+id: uki:culture:process:code-review
 title: Processo de Code Review Colaborativo
-domain: culture
-type: guideline
-context: implementation
+scope_ref: organization
+scope_mode: propagated
+domain_ref: culture
+type_ref: process
+context_ref: qa
+maturity_ref: approved
+status: active
 version: "1.0.0"
 created_date: "2024-08-12"
 last_modified: "2024-08-12"
-intent_of_use:
-  - improve_code_quality
-  - foster_collaboration
-  - share_knowledge
-  - maintain_standards
-use_case_stage:
-  - implementation
-  - peer_review
-  - onboarding
-  - training
-language: pt_BR
 content: |
   Processo estruturado de code review que promove colaboração, qualidade e crescimento profissional da equipe.
   
@@ -88,25 +81,17 @@ examples:
   - input: "Review pendente há 3 dias"
     output: "Notificar reviewer e buscar alternativo se necessário"
 related_to:
-  - target: unik-technical-code-standards
+  - target: uki:technical:standard:code-quality
     relation_type: implements
     description: Implementa padrões técnicos de qualidade de código
-  - target: unik-culture-team-collaboration
+  - target: uki:culture:practice:team-collaboration
     relation_type: extends
     description: Estende práticas de colaboração em equipe
-  - target: unik-culture-continuous-learning
+  - target: uki:culture:mindset:continuous-learning
     relation_type: relates_to
     description: Contribui para cultura de aprendizado contínuo
-governance:
-  criticality: medium
-  auto_propagation: manual
-  validation_frequency: 90
-  impact_analysis:
-    structural_changes: compatible
-    dependent_ukis: 4
-    propagation_scope: informative
-  propagation_rules:
-    on_major_change: manual_review
-    on_minor_change: auto_notify
-    on_patch_change: track_only
+change_summary: "Estrutura inicial do processo de code review"
+change_impact: "Padroniza práticas de revisão de código e colaboração"
+previous_version: null
+domain_of_influence: "Desenvolvimento de software e cultura organizacional"
 last_validation: "2024-08-12"

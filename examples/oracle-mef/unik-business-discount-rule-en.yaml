@@ -1,22 +1,15 @@
-id: unik-business-discount-rule
+id: uki:business:rule:loyalty-discount
 title: Customer Loyalty Discount Calculation Rule
-domain: business
-type: business_rule
-context: implementation
+scope_ref: organization
+scope_mode: propagated
+domain_ref: business
+type_ref: rule
+context_ref: implementation
+maturity_ref: approved
+status: active
 version: "1.0.0"
 created_date: "2024-08-12"
 last_modified: "2024-08-12"
-intent_of_use:
-  - validate_pricing_logic
-  - implement_discount_system
-  - train_customer_service
-  - ensure_compliance
-use_case_stage:
-  - implementation
-  - testing
-  - training
-  - documentation
-language: en_US
 content: |
   Business rule for calculating discounts based on customer loyalty level and purchase amount.
   
@@ -63,25 +56,17 @@ examples:
   - input: "Bronze customer purchasing $80"
     output: "No discount (below minimum $100)"
 related_to:
-  - target: unik-business-loyalty-program
+  - target: uki:business:program:loyalty
     relation_type: implements
     description: Implements loyalty program rules
-  - target: unik-product-checkout-flow
+  - target: uki:product:flow:checkout
     relation_type: relates_to
     description: Applied during checkout flow
-  - target: unik-technical-pricing-api
+  - target: uki:technical:api:pricing
     relation_type: depends_on
     description: Depends on pricing API for calculations
-governance:
-  criticality: high
-  auto_propagation: semi_automatic
-  validation_frequency: 60
-  impact_analysis:
-    structural_changes: compatible
-    dependent_ukis: 5
-    propagation_scope: scheduled
-  propagation_rules:
-    on_major_change: notify_all
-    on_minor_change: suggest_updates
-    on_patch_change: inform_dependents
+change_summary: "Initial structure for loyalty discount rule"
+change_impact: "Defines consistent criteria for discount application"
+previous_version: null
+domain_of_influence: "E-commerce system and customer service"
 last_validation: "2024-08-12"

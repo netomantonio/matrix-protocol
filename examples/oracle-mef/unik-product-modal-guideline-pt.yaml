@@ -1,22 +1,15 @@
-id: unik-product-modal-guideline
+id: uki:product:guideline:modal-design
 title: Diretrizes de Design para Modais
-domain: product
-type: guideline
-context: design
+scope_ref: team
+scope_mode: propagated
+domain_ref: product
+type_ref: guideline
+context_ref: design
+maturity_ref: approved
+status: active
 version: "1.0.0"
 created_date: "2024-08-12"
 last_modified: "2024-08-12"
-intent_of_use:
-  - standardize_ui_components
-  - guide_design_decisions
-  - ensure_accessibility
-  - improve_user_experience
-use_case_stage:
-  - design
-  - implementation
-  - peer_review
-  - testing
-language: pt_BR
 content: |
   Diretrizes de design para criação de modais consistentes e acessíveis em toda a aplicação.
   
@@ -78,25 +71,17 @@ examples:
   - input: "Visualizar relatório detalhado"
     output: "Modal grande com dados tabulares e botão 'Fechar'"
 related_to:
-  - target: unik-product-design-system
-    relation_type: implements
-    description: Implementa diretrizes do sistema de design
-  - target: unik-technical-accessibility-standards
+  - target: uki:product:system:design
     relation_type: complies_with
-    description: Segue padrões de acessibilidade técnica
-  - target: unik-product-component-library
+    description: Segue padrões do design system
+  - target: uki:technical:standard:accessibility
+    relation_type: implements
+    description: Implementa padrões de acessibilidade
+  - target: uki:product:library:components
     relation_type: extends
     description: Estende biblioteca de componentes padrão
-governance:
-  criticality: medium
-  auto_propagation: manual
-  validation_frequency: 90
-  impact_analysis:
-    structural_changes: additive
-    dependent_ukis: 3
-    propagation_scope: informative
-  propagation_rules:
-    on_major_change: manual_review
-    on_minor_change: auto_notify
-    on_patch_change: track_only
+change_summary: "Estrutura inicial das diretrizes de design para modais"
+change_impact: "Padroniza criação de interfaces modais consistentes"
+previous_version: null
+domain_of_influence: "Interfaces de usuário e componentes visuais"
 last_validation: "2024-08-12"
