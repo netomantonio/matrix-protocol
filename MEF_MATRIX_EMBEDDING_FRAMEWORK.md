@@ -39,11 +39,14 @@ schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "[MAJOR.MINOR.PATCH]"
 
-id: unik:[domain]:[type]:[slug_or_id]
+id: unik:[domain_ref]:[type_ref]:[slug_or_id]
 title: [Título objetivo e descritivo da unidade]
-domain: [strategy | operations | ethics | finance | security | governance | communication | automation | intelligence]
-type: [concept | rule | metric | policy | procedure | glossary | constraint]
-context: [discovery | implementation | refinement | qa | documentation | support]
+scope_ref: [Referência ao nó de escopo no CSH]
+scope_mode: [restricted | propagated]  # Modo de propagação do escopo
+domain_ref: [Referência ao nó de domínio no CSH]
+type_ref: [Referência ao nó de tipo no CSH]
+context_ref: [Referência ao nó de contexto no CSH]  # Opcional se definido no CSH
+maturity_ref: [Referência ao nó de maturidade no CSH]  # Controla validação e confiabilidade
 created_date: [YYYY-MM-DD]  # Data de criação da primeira versão
 last_modified: [YYYY-MM-DD]  # Data da última modificação
 change_summary: [Resumo das mudanças na versão atual]  # Opcional para versão inicial
@@ -175,51 +178,75 @@ Título claro, objetivo e descritivo que resume a unidade de conhecimento em uma
 - "Regra de Cálculo de Precificação"
 - "Fluxo de Onboarding de Usuário"
 
-### 🔹 `domain`
+### 🔹 `scope_ref`
+**Obrigatório** | **String**
+
+Referência ao identificador de um nó de escopo definido no CSH (Catálogo Semântico de Hierarquias) da organização.
+
+- **Propósito**: Define o alcance e visibilidade da UKI
+- **Resolução**: Sistema consulta o CSH para aplicar regras de governança
+- **Exemplos**: "personal", "team", "organization", "public"
+
+### 🔹 `scope_mode`
 **Obrigatório** | **Enum**
 
-Classificação do domínio de conhecimento. **Valores aceitos:**
+Modo de propagação e aplicabilidade do escopo. **Valores aceitos:**
+- `restricted`: UKI limitada ao escopo especificado
+- `propagated`: UKI pode ser propagada para escopos superiores conforme governança
 
-| Domínio | Descrição | Exemplos |
-|---------|-----------|----------|
-| `strategy` | Decisões de alto nível, planejamento estratégico | Roadmaps, decisões estratégicas, direcionamento organizacional |
-| `operations` | Processos operacionais, execução e procedimentos | Fluxos de trabalho, procedimentos operacionais, execução de tarefas |
-| `ethics` | Considerações éticas, compliance e responsabilidade | Políticas de conduta, conformidade regulatória, responsabilidade social |
-| `finance` | Aspectos financeiros, orçamentários e econômicos | Custos, receitas, ROI, decisões de investimento |
-| `security` | Segurança, proteção e gerenciamento de riscos | Políticas de segurança, controles de acesso, gestão de vulnerabilidades |
-| `governance` | Governança, controle e supervisão | Políticas de governança, estruturas de controle, supervisão organizacional |
-| `communication` | Comunicação, colaboração e relacionamentos | Protocolos de comunicação, fluxos informativos, relacionamentos |
-| `automation` | Automação, eficiência e otimização de processos | Processos automatizados, otimizações, eficiência operacional |
-| `intelligence` | Inteligência, análise e tomada de decisão | Análises estratégicas, insights, suporte à decisão |
+### 🔹 `domain_ref`
+**Obrigatório** | **String**
 
-### 🔹 `type`
-**Obrigatório** | **Enum**
+Referência ao identificador de um nó de domínio definido no CSH da organização. O sistema resolve automaticamente as regras de propriedade, revisão e autoridade baseadas na configuração do CSH.
 
-Classificação funcional do conteúdo. **Valores aceitos:**
+**Conceitos universais (exemplos)**:
+- Conhecimento técnico e implementação
+- Regras e processos de negócio  
+- Estratégia e planejamento organizacional
+- Cultura e práticas colaborativas
+- Segurança e compliance
 
-| Tipo | Descrição | Uso |
-|------|-----------|-----|
-| `concept` | Definição ou modelo teórico | Conceituação, estruturas de pensamento |
-| `rule` | Regra operacional ou normativa | Validação, lógica de decisão, normas |
-| `metric` | Indicador quantitativo | Medição, avaliação, monitoramento |
-| `policy` | Diretriz institucional ou adaptativa | Orientação organizacional, políticas |
-| `procedure` | Sequência operacional | Processos, fluxos de trabalho, execução |
-| `glossary` | Definição de termos ou padrões | Padronização terminológica, referências |
-| `constraint` | Limitação formal aplicada | Restrições, limitações, controles |
+**Implementação local**: Cada organização define no CSH seus domínios específicos e hierarquia.
 
-### 🔹 `context`
-**Obrigatório** | **Enum**
+### 🔹 `type_ref`
+**Obrigatório** | **String**
 
-Contexto de desenvolvimento ou uso. **Valores aceitos:**
+Referência ao identificador de um nó de tipo definido no CSH da organização.
 
-| Contexto | Descrição | Quando usar |
-|----------|-----------|-------------|
-| `discovery` | Pesquisa, análise, requisitos | Fases iniciais do projeto |
-| `implementation` | Desenvolvimento, construção | Desenvolvimento ativo |
-| `refinement` | Melhoria, otimização | Manutenção e evolução |
-| `qa` | Qualidade, testes, validação | Garantia de qualidade |
-| `documentation` | Documentação, compartilhamento de conhecimento | Documentação e treinamento |
-| `support` | Suporte, manutenção, operação | Pós-produção |
+**Conceitos universais (exemplos)**:
+- Padrões e templates reutilizáveis
+- Regras de negócio e políticas
+- Diretrizes e boas práticas
+- Decisões e justificativas
+- Exemplos e casos de uso
+
+**Implementação local**: Cada organização define no CSH seus tipos específicos e critérios de classificação.
+
+### 🔹 `context_ref`
+**Opcional** | **String**
+
+Referência ao identificador de um nó de contexto definido no CSH da organização, quando aplicável.
+
+**Conceitos universais (exemplos)**:
+- Descoberta e pesquisa
+- Implementação e desenvolvimento
+- Refinamento e otimização
+- Qualidade e validação
+- Documentação e suporte
+
+### 🔹 `maturity_ref`
+**Obrigatório** | **String**
+
+Referência ao identificador de um nó de maturidade definido no CSH da organização.
+
+**Conceitos universais**:
+- **Pré-validação**: Rascunho, experimental
+- **Validação**: Em revisão, sendo validado
+- **Endosso**: Aprovado, confiável
+- **Depreciação**: Obsoleto, descontinuado
+
+**Implementação local**: Cada organização define no CSH seus níveis intermediários e critérios de progressão.
+
 
 ### 🔹 `version`
 **Obrigatório** | **String**
@@ -1512,11 +1539,14 @@ schema: "1.0"
 ontology_reference: "Ontology_MEF_Support v1.0"
 version: "[MAJOR.MINOR.PATCH]"
 
-id: unik:[domain]:[type]:[slug_or_id]
+id: unik:[domain_ref]:[type_ref]:[slug_or_id]
 title: [Objective and descriptive title of the unit]
-domain: [strategy | operations | ethics | finance | security | governance | communication | automation | intelligence]
-type: [concept | rule | metric | policy | procedure | glossary | constraint]
-context: [discovery | implementation | refinement | qa | documentation | support]
+scope_ref: [Reference to scope node in CSH]
+scope_mode: [restricted | propagated]  # Scope propagation mode
+domain_ref: [Reference to domain node in CSH]
+type_ref: [Reference to type node in CSH]
+context_ref: [Reference to context node in CSH]  # Optional if defined in CSH
+maturity_ref: [Reference to maturity node in CSH]  # Controls validation and reliability
 created_date: [YYYY-MM-DD]  # Date of first version creation
 last_modified: [YYYY-MM-DD]  # Date of last modification
 change_summary: [Summary of changes in current version]  # Optional for initial version
@@ -1645,47 +1675,74 @@ Clear, objective and descriptive title that summarizes the knowledge unit in one
 - "Customer Pricing Calculation Rule"
 - "New User Onboarding Flow"
 
-### 🔹 `domain`
+### 🔹 `scope_ref`
+**Required** | **String**
+
+Reference to a scope node identifier defined in the organization's CSH (Semantic Hierarchy Catalog).
+
+- **Purpose**: Defines the reach and visibility of the UKI
+- **Resolution**: System consults CSH to apply governance rules
+- **Examples**: "personal", "team", "organization", "public"
+
+### 🔹 `scope_mode`
 **Required** | **Enum**
 
-Classification of the knowledge domain. **Accepted values:**
+Propagation and applicability mode of the scope. **Accepted values:**
+- `restricted`: UKI limited to specified scope
+- `propagated`: UKI can be propagated to higher scopes according to governance
 
-| Domain | Description | Examples |
-|---------|-------------|----------|
-| `product` | Product features, UX/UI, user flows | Interfaces, user journeys, features |
-| `business` | Business rules, processes, strategies | Pricing, policies, business processes |
-| `technical` | Code, architecture, infrastructure | APIs, databases, deployment |
-| `strategy` | High-level decisions, planning | Roadmaps, strategic decisions |
-| `culture` | Processes, methodology, team practices | Ceremonies, guidelines, values |
+### 🔹 `domain_ref`
+**Required** | **String**
 
-### 🔹 `type`
-**Required** | **Enum**
+Reference to a domain node identifier defined in the organization's CSH. The system automatically resolves ownership, review, and authority rules based on CSH configuration.
 
-Functional classification of content. **Accepted values:**
+**Universal concepts (examples)**:
+- Technical knowledge and implementation
+- Business rules and processes
+- Strategy and organizational planning
+- Culture and collaborative practices
+- Security and compliance
 
-| Type | Description | Use |
-|------|-------------|-----|
-| `business_rule` | Business rule or constraint | Validation, decision logic |
-| `function` | Reusable function or procedure | Code implementation |
-| `template` | Reusable structure or pattern | Document creation, standardization |
-| `guideline` | Guideline or best practice | Process orientation |
-| `pattern` | Design or architectural pattern | Technical solutions |
-| `decision` | Important decision record | Context and justification |
-| `example` | Practical example or use case | Learning, demonstration |
+**Local implementation**: Each organization defines its specific domains and hierarchy in CSH.
 
-### 🔹 `context`
-**Required** | **Enum**
+### 🔹 `type_ref`
+**Required** | **String**
 
-Development or usage context. **Accepted values:**
+Reference to a type node identifier defined in the organization's CSH.
 
-| Context | Description | When to use |
-|---------|-------------|-------------|
-| `discovery` | Research, analysis, requirements | Initial project phases |
-| `implementation` | Development, construction | Active development |
-| `refinement` | Improvement, optimization | Maintenance and evolution |
-| `qa` | Quality, testing, validation | Quality assurance |
-| `documentation` | Documentation, knowledge sharing | Documentation and training |
-| `support` | Support, maintenance, operation | Post-production |
+**Universal concepts (examples)**:
+- Patterns and reusable templates
+- Business rules and policies
+- Guidelines and best practices
+- Decisions and justifications
+- Examples and use cases
+
+**Local implementation**: Each organization defines its specific types and classification criteria in CSH.
+
+### 🔹 `context_ref`
+**Optional** | **String**
+
+Reference to a context node identifier defined in the organization's CSH, when applicable.
+
+**Universal concepts (examples)**:
+- Discovery and research
+- Implementation and development
+- Refinement and optimization
+- Quality and validation
+- Documentation and support
+
+### 🔹 `maturity_ref`
+**Required** | **String**
+
+Reference to a maturity node identifier defined in the organization's CSH.
+
+**Universal concepts**:
+- **Pre-validation**: Draft, experimental
+- **Validation**: Under review, being validated
+- **Endorsement**: Approved, reliable
+- **Deprecation**: Obsolete, discontinued
+
+**Local implementation**: Each organization defines its intermediate levels and progression criteria in CSH.
 
 ### 🔹 `version`
 **Required** | **String**
@@ -2613,43 +2670,88 @@ knowledge-base/
 
 Organizations implementing MEF should consider:
 
-- **Validation**: Implement validation against MEF specification before storing UKIs
+- **CSH Integration**: Implement Catálogo Semântico de Hierarquias (CSH) for organizational hierarchy management
+- **Validation**: Implement validation against MEF specification and CSH references before storing UKIs
 - **Indexing**: Extract structured metadata from UKI fields for search capabilities  
 - **Versioning**: Track UKI evolution through the version control fields
 - **Relationships**: Build semantic navigation through `relationships` connections
-- **Domains**: Organize content by the five MEF domains for better discovery
+- **Hierarchy Resolution**: Resolve `scope_ref`, `domain_ref`, `type_ref`, and `maturity_ref` through CSH configuration
+- **Governance Automation**: Apply CSH-defined governance rules automatically during UKI operations
+
+## CSH Integration
+
+### Resolving Hierarchical References
+
+MEF fields ending with `_ref` are resolved through the organization's CSH:
+
+```yaml
+# In UKI
+scope_ref: "team"
+domain_ref: "technical" 
+type_ref: "pattern"
+maturity_ref: "approved"
+
+# Resolved from CSH
+hierarchies:
+  scope:
+    nodes:
+      - id: "team"
+        governance:
+          visibility: ["team_members"]
+          authority_required: "team_lead"
+  domain:
+    nodes:
+      - id: "technical"
+        governance:
+          owners: ["engineering"]
+          reviewers: ["architects"]
+```
+
+### Automatic Governance Application
+
+The system automatically applies CSH governance rules:
+
+- **Access Control**: Filter UKIs based on user's scope and domain permissions
+- **Authority Validation**: Verify user has required authority for operations
+- **Propagation Rules**: Apply CSH-defined propagation patterns
+- **Maturity Progression**: Enforce CSH maturity level requirements
+
+### Flexibility Benefits
+
+- **Local Adaptation**: Each organization defines its own hierarchies
+- **Global Consistency**: Core MEF concepts remain universal
+- **Evolution Support**: CSH changes don't break existing UKIs
+- **AI Integration**: Rich hierarchical context for intelligent systems
 
 # 📚 AUXILIARY ONTOLOGY
 
 ## Controlled Vocabulary for MEF Fields
 
-This section defines the accepted controlled vocabulary for `domain`, `type`, `severity`, `relationship.type`, `maturity_level`, and `provenance.source_type` fields to ensure semantic consistency across UKI implementations.
+This section defines the controlled vocabulary for fixed MEF fields and provides examples of hierarchical concepts that organizations can implement via CSH for fields ending with `_ref`.
 
-### Domains (`domain`)
+### Domain Concepts (CSH Configurable via `domain_ref`)
 
-| Domain | Description | Examples |
-|--------|-------------|----------|
-| `strategy` | High-level decisions, strategic planning | Roadmaps, strategic decisions, organizational direction |
-| `operations` | Operational processes, execution and procedures | Workflows, operational procedures, task execution |
-| `ethics` | Ethical considerations, compliance and responsibility | Conduct policies, regulatory compliance, social responsibility |
-| `finance` | Financial, budgetary and economic aspects | Costs, revenue, ROI, investment decisions |
-| `security` | Security, protection and risk management | Security policies, access controls, vulnerability management |
-| `governance` | Governance, control and oversight | Governance policies, control structures, organizational oversight |
-| `communication` | Communication, collaboration and relationships | Communication protocols, information flows, relationships |
-| `automation` | Automation, efficiency and process optimization | Automated processes, optimizations, operational efficiency |
-| `intelligence` | Intelligence, analysis and decision making | Strategic analysis, insights, decision support |
+Universal domain concepts that organizations can adapt in their CSH:
 
-### Types (`type`)
+| Domain Concept | Description | Examples |
+|----------------|-------------|----------|
+| Technical Knowledge | Code, architecture, infrastructure | APIs, databases, deployment patterns |
+| Business Logic | Business rules, processes, strategies | Pricing rules, workflows, business processes |
+| Strategic Planning | High-level decisions, planning | Roadmaps, strategic decisions, organizational direction |
+| Cultural Practices | Processes, methodology, team practices | Ceremonies, guidelines, collaboration values |
+| Security & Compliance | Security, protection and risk management | Security policies, access controls, vulnerability management |
 
-| Type | Description | Usage |
-|------|-------------|-------|
-| `concept` | Definition or theoretical model | Conceptualization, thought structures |
-| `rule` | Operational or normative rule | Validation, decision logic, standards |
-| `metric` | Quantitative indicator | Measurement, evaluation, monitoring |
-| `policy` | Institutional or adaptive guideline | Organizational guidance, policies |
-| `procedure` | Operational sequence | Processes, workflows, execution |
-| `glossary` | Definition of terms or standards | Terminological standardization, references |
-| `constraint` | Formal limitation applied | Restrictions, limitations, controls |
+### Type Concepts (CSH Configurable via `type_ref`)
+
+Universal type concepts that organizations can adapt in their CSH:
+
+| Type Concept | Description | Usage |
+|--------------|-------------|-------|
+| Patterns & Templates | Reusable structures or patterns | Technical solutions, document templates |
+| Rules & Policies | Operational or normative rules | Business logic, validation rules, governance policies |
+| Guidelines & Practices | Best practices and guidelines | Process orientation, methodology guidance |
+| Decisions & Records | Important decisions and context | Strategic decisions, architectural decisions |
+| Examples & Cases | Practical examples or use cases | Learning materials, demonstration cases |
 
 ### Severity Levels (`severity`)
 

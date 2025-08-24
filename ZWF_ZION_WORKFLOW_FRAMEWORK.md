@@ -23,7 +23,9 @@
 
 O Protocolo Matrix ZWF define um **modelo conceitual para fluxos de trabalho orientados a IA** que permite que equipes multidisciplinares descrevam workflows como máquinas de estado independentes de tecnologia. Todos os fluxos seguem o padrão: **Evento → Consulta Oráculo → Decisão → Ação → Avaliação → Enriquecimento Condicional do Oráculo**.
 
-O ZWF não prescreve ferramentas, motores de orquestração ou implementações técnicas - apenas direciona **como pensar e registrar o caminho** de forma conceitual e rastreável.
+O ZWF integra nativamente com o **CSH (Catálogo Semântico de Hierarquias)** organizacional, respeitando estruturas de autoridade, escopos de conhecimento e critérios de governança específicos de cada implementação. Esta integração permite que o checkpoint **EvaluateForEnrich** aplique regras configuráveis ao invés de restrições fixas.
+
+O ZWF não prescreve ferramentas, motores de orquestração ou implementações técnicas - apenas direciona **como pensar e registrar o caminho** de forma conceitual, rastreável e governada.
 
 ---
 
@@ -38,7 +40,9 @@ O ZWF não prescreve ferramentas, motores de orquestração ou implementações 
 ### 👥 **Equipes**
 - **Função:** Descrevem fluxos em linguagem conceitual ZWF
 - **Responsabilidade:** Implementam os fluxos usando suas próprias ferramentas e tecnologias
-- **Papéis:** Dev/Eng/Tech/PM/UX/Analistas
+- **Contexto CSH:** Operam dentro de escopos e domínios autorizados pelo CSH organizacional
+- **Autoridade:** Determinam escopo de enriquecimento baseado em hierarquias CSH
+- **Papéis:** Dev/Eng/Tech/PM/UX/Analistas com níveis de autoridade configuráveis
 
 ### ⚙️ **Operador**
 - **Função:** Executa na prática (CI/CD, IDE, orquestradores, etc.)
@@ -126,23 +130,26 @@ stateDiagram-v2
 - **Saída:** Confirmação ou redirecionamento
 
 ### 🔍 **EvaluateForEnrich**
-- **Propósito:** Avaliar se o resultado produz conhecimento estruturável
-- **Ações:** Aplicar can_enrich?(act_output, context) para decidir próximo estado
-- **Saída:** Decisão sobre necessidade de enriquecimento
+- **Propósito:** Avaliar se o resultado produz conhecimento estruturável com governança CSH
+- **Ações:** Aplicar can_enrich?(act_output, context, user_csh_context, csh_criteria) para decidir próximo estado
+- **Saída:** Decisão sobre necessidade de enriquecimento + escopo determinado + explicação de governança
 - **Função Semântica:** can_enrich?() avalia:
   - Divergência semântica em relação ao conhecimento existente
-  - Possibilidade de estruturação como UKI válida segundo MEF
+  - Possibilidade de estruturação como UKI válida segundo MEF com campos CSH
   - Clareza epistêmica da contribuição
-  - **Restrições de escopo:** Valida se o UKI proposto não viola limites organizacionais
-  - **Validação de governança:** Confirma que não requer curadoria humana
+  - **Autoridade CSH:** Valida se usuário tem autoridade para enriquecer no escopo proposto
+  - **Critérios organizacionais:** Aplica evaluation_criteria definidos no CSH
+  - **Governança transparente:** Gera explicações baseadas em regras CSH específicas
 
-#### **Implementação da Função can_enrich?()**
+#### **Implementação da Função can_enrich?() com CSH**
 ```yaml
 can_enrich_function:
   input_parameters:
     - act_output: resultado da execução
     - context: contexto do fluxo
     - proposed_uki: UKI candidato
+    - user_csh_context: contexto hierárquico do usuário
+    - csh_evaluation_criteria: critérios organizacionais configuráveis
   
   validation_checks:
     semantic_novelty:
@@ -152,26 +159,118 @@ can_enrich_function:
     structural_validity:
       - mef_compliant: true
       - clear_relationships: true
+      - scope_ref_valid: true
+      - domain_ref_valid: true
     
-    scope_governance:
-      - domain_allowed: NOT IN [policy, governance, security, finance, strategy, ethics]
-      - team_scoped: true
-      - requires_curation: false
+    csh_governance:
+      - user_authority_sufficient: "resolve via CSH authority rules"
+      - domain_access_authorized: "verify against user's domain_access"
+      - scope_within_limits: "ensure scope_ref <= user's max_scope"
+      - evaluation_criteria_met: "apply CSH evaluation_criteria nodes"
     
     epistemic_clarity:
       - content_meaningful: true
       - user_confirmation: true
+      - governance_transparent: "explain CSH-based decisions"
   
   decision_logic: |
-    IF (semantic_novelty AND structural_validity AND scope_governance AND epistemic_clarity)
-      THEN return ENRICH_APPROVED
-    ELSE return ENRICH_REJECTED
+    resolved_criteria = resolve_evaluation_criteria(csh_evaluation_criteria, user_csh_context)
+    authority_check = validate_user_authority(user_csh_context, proposed_uki.scope_ref)
+    
+    IF (semantic_novelty AND structural_validity AND authority_check AND meets_criteria(resolved_criteria))
+      THEN return {
+        decision: ENRICH_APPROVED,
+        determined_scope: determine_enrichment_scope(user_csh_context),
+        criteria_applied: resolved_criteria,
+        governance_explanation: generate_csh_explanation()
+      }
+    ELSE return {
+      decision: ENRICH_REJECTED,
+      reason: identify_failure_reason(),
+      escalation_path: suggest_escalation_via_csh(),
+      alternative_actions: suggest_alternatives()
+    }
 ```
 
 ### 🔄 **Enrich Oracle (Condicional)**
 - **Propósito:** Devolver aprendizado como UKIs MEF válidos
 - **Ações:** Criar/atualizar UKIs referenciais ao que motivou o fluxo
 - **Saída:** Conhecimento estruturado adicionado ao Oráculo
+
+---
+
+## 🏛️ GOVERNANÇA HIERÁRQUICA COM CSH
+
+### 🎯 **Integração CSH no ZWF**
+
+O ZWF integra nativamente com o **CSH (Catálogo Semântico de Hierarquias)** organizacional para aplicar governança configurável ao invés de restrições fixas.
+
+#### **Conceitos Universais vs. Configurações Locais**
+
+**Universais no ZWF:**
+- Estados canônicos (Intake → Understand → Decide → Act → EvaluateForEnrich → Review → Enrich)
+- Checkpoint obrigatório EvaluateForEnrich
+- Consulta ao Oráculo no estado Understand
+- Enriquecimento condicional baseado em avaliação
+
+**Configuráveis via CSH:**
+- Critérios de avaliação para EvaluateForEnrich
+- Níveis de autoridade para diferentes escopos de enriquecimento
+- Domínios acessíveis por papel/usuário
+- Regras de escalação quando autoridade insuficiente
+
+#### **Fluxo de Autoridade**
+
+```yaml
+authority_flow_pattern:
+  user_context_resolution:
+    - resolve_user_from_csh: "Identifica escopo e domínios autorizados"
+    - load_evaluation_criteria: "Carrega critérios organizacionais"
+    - determine_max_scope: "Define escopo máximo de enriquecimento"
+  
+  evaluate_for_enrich_execution:
+    - apply_csh_criteria: "Usa critérios configuráveis ao invés de fixos"
+    - validate_authority: "Verifica se usuário pode enriquecer no escopo proposto"
+    - determine_scope: "Define escopo específico para nova UKI"
+    - explain_governance: "Gera transparência sobre decisões CSH"
+  
+  escalation_when_needed:
+    - identify_required_authority: "Resolve autoridade necessária via CSH"
+    - suggest_approval_workflow: "Propõe caminho de aprovação"
+    - provide_alternatives: "Sugere alternativas dentro do escopo autorizado"
+```
+
+#### **Cenários de Governança**
+
+**Cenário 1: Desenvolvedor (Escopo Team)**
+```yaml
+user_context:
+  scope_level: "team"
+  domain_access: ["technical"]
+  authority_level: "developer"
+
+evaluate_for_enrich_result:
+  decision: "APPROVED"
+  determined_scope: "team"
+  explanation: "Conhecimento técnico dentro do escopo autorizado"
+  created_uki:
+    scope_ref: "team"
+    domain_ref: "technical"
+```
+
+**Cenário 2: Tentativa de Excesso de Autoridade**
+```yaml
+user_context:
+  scope_level: "team" 
+  domain_access: ["technical"]
+
+evaluate_for_enrich_attempt:
+  proposed_scope: "organization"
+  decision: "REJECTED"
+  reason: "Usuário não possui autoridade para escopo organizacional"
+  escalation_path: "Solicitar aprovação via team_lead → architect"
+  alternative: "Criar UKI com scope_ref='team' como alternativa"
+```
 
 ---
 
@@ -668,12 +767,23 @@ validation:
 preconditions:
   - action_executed: true
   - execution_result: documented
+  - user_csh_context: available
+  - csh_evaluation_criteria: loaded
 postconditions:
   - enrichment_decision: made
   - can_enrich_evaluated: true
+  - scope_determined: true
+  - governance_explanation: generated
 validation:
   semantic_evaluation: completed
+  csh_authority_validated: true
+  evaluation_criteria_applied: true
   justification_documented: true
+context_required:
+  user_authority_level: "from CSH"
+  available_evaluation_criteria: "from CSH"
+  max_enrichment_scope: "from CSH"
+  domain_access_permissions: "from CSH"
 ```
 
 #### 🔄 **Enrich State (Conditional)**
@@ -1144,6 +1254,8 @@ The Matrix ZWF Protocol defines a **conceptual model for AI-oriented workflows**
 
 ZWF does not prescribe tools, orchestration engines, or technical implementations - it only directs **how to think and record the path** in a conceptual and traceable way.
 
+**CSH Integration:** ZWF integrates with the Semantic Hierarchy Catalog (CSH) to enable governance-aware workflows that respect organizational hierarchies and authority levels during both Oracle consultation and knowledge enrichment phases.
+
 ---
 
 ## 🎭 ACTORS AND ROLES
@@ -1151,13 +1263,15 @@ ZWF does not prescribe tools, orchestration engines, or technical implementation
 ### 🔮 **Oracle**
 - **Function:** Strategic/semantic repository that maintains UKIs (MEF)
 - **Input:** Queries for guidelines, rules, decisions, patterns and examples
-- **Output:** Contextual knowledge to support flow decisions
-- **Enrichment:** Receives new/updated UKIs at the end of flows
+- **Output:** Contextual knowledge to support flow decisions filtered by CSH permissions
+- **Enrichment:** Receives new/updated UKIs at the end of flows within governance scope
+- **CSH Context:** Respects organizational hierarchies and visibility rules defined in CSH
 
 ### 👥 **Teams**
 - **Function:** Describe flows in ZWF conceptual language
 - **Responsibility:** Implement flows using their own tools and technologies
 - **Roles:** Dev/Eng/Tech/PM/UX/Analysts
+- **Authority Levels:** Each team member has CSH authority context that affects Oracle access and enrichment permissions
 
 ### ⚙️ **Operator**
 - **Function:** Executes in practice (CI/CD, IDE, orchestrators, etc.)
@@ -1246,14 +1360,15 @@ stateDiagram-v2
 
 ### 🔍 **EvaluateForEnrich**
 - **Purpose:** Assess whether the result produces structurable knowledge
-- **Actions:** Apply can_enrich?(act_output, context) to decide next state
+- **Actions:** Apply can_enrich?(act_output, context, user_csh_context, csh_criteria) to decide next state
 - **Output:** Decision about enrichment necessity
+- **CSH Authority Context:** Validates user authority for each CSH hierarchy (scope, domain, type, maturity)
 - **Semantic Function:** can_enrich?() evaluates:
   - Semantic divergence from existing knowledge
   - UKI structuring possibility according to MEF
   - Epistemic clarity of contribution
-  - **Scope restrictions:** Validates that proposed UKI doesn't violate organizational boundaries
-  - **Governance validation:** Confirms it doesn't require human curation
+  - **CSH Governance:** Authority validation for all hierarchical references
+  - **Organizational Compliance:** Respects configured visibility and authority rules
 
 #### **can_enrich?() Function Implementation**
 ```yaml
@@ -1262,6 +1377,8 @@ can_enrich_function:
     - act_output: execution result
     - context: flow context
     - proposed_uki: candidate UKI
+    - user_csh_context: user hierarchical context
+    - csh_evaluation_criteria: organizational configurable criteria
   
   validation_checks:
     semantic_novelty:
@@ -1272,17 +1389,19 @@ can_enrich_function:
       - mef_compliant: true
       - clear_relationships: true
     
-    scope_governance:
-      - domain_allowed: NOT IN [policy, governance, security, finance, strategy, ethics]
-      - team_scoped: true
-      - requires_curation: false
+    csh_governance:
+      - scope_authority_valid: validate_scope_authority(user_csh_context, proposed_uki.scope_ref)
+      - domain_authority_valid: validate_domain_authority(user_csh_context, proposed_uki.domain_ref)
+      - type_authority_valid: validate_type_authority(user_csh_context, proposed_uki.type_ref)
+      - maturity_authority_valid: validate_maturity_authority(user_csh_context, proposed_uki.maturity_ref)
+      - visibility_compliance: validate_visibility_rules(proposed_uki, csh_evaluation_criteria)
     
     epistemic_clarity:
       - content_meaningful: true
       - user_confirmation: true
   
   decision_logic: |
-    IF (semantic_novelty AND structural_validity AND scope_governance AND epistemic_clarity)
+    IF (semantic_novelty AND structural_validity AND csh_governance AND epistemic_clarity)
       THEN return ENRICH_APPROVED
     ELSE return ENRICH_REJECTED
 ```
@@ -1525,46 +1644,178 @@ Flows that justify enrichment must return knowledge to Oracle choosing among MEF
 | `constraint` | Technical limitation | Team-specific JWT validation function |
 | `glossary` | Team technical terms | Specific endpoint definition |
 
-### 🚫 **Organizational Scope Restrictions**
+### 🏛️ **HIERARCHICAL GOVERNANCE WITH CSH**
 
-ZWF flows **CANNOT** create UKIs that impact multiple teams without curation:
+#### **Authority Flow Model**
 
-#### **Restricted Domains (Require Curation)**
-| Domain | Restriction Reason | Impact Scope |
-|--------|-------------------|-------------|
-| `policy` | Organizational guidelines | Entire organization |
-| `governance` | Governance rules | Multiple teams |
-| `security` | Security policies | Entire organization |
-| `finance` | Financial rules | Organization/compliance |
-| `strategy` | Strategic decisions | Multiple teams |
-| `ethics` | Ethical guidelines | Entire organization |
+ZWF integrates with CSH (Semantic Hierarchy Catalog) to enable governance-aware workflows that respect organizational hierarchies and authority levels:
 
-#### **Allowed Types for ZWF Flows**
-Flows can create only **team-scoped** UKIs:
-- `procedure` - Team-specific procedures
-- `concept` - Local technical definitions  
-- `metric` - Team indicators
-- `glossary` - Technical domain-specific terms
-- `rule` - Only team operational rules (not organizational)
-- `constraint` - Specific technical limitations
-
-#### **Scope Validation Function**
-```yaml
-scope_validation:
-  can_create_uki: |
-    IF (domain IN restricted_domains) THEN
-      REQUIRE human_curation = true
-      REQUIRE stakeholder_approval = true
-    ELSE IF (type = "rule" AND scope = "organizational") THEN
-      REQUIRE human_curation = true
-    ELSE
-      ALLOW team_scope_creation = true
+```mermaid
+flowchart TD
+    A[User CSH Context] --> B[Oracle Query]
+    B --> C{Visibility Check}
+    C -->|Authorized| D[Access Granted]
+    C -->|Restricted| E[Access Filtered]
+    
+    F[Enrichment Request] --> G{Authority Validation}
+    G --> H[Scope Authority Check]
+    G --> I[Domain Authority Check] 
+    G --> J[Type Authority Check]
+    G --> K[Maturity Authority Check]
+    
+    H --> L{All Valid?}
+    I --> L
+    J --> L
+    K --> L
+    
+    L -->|Yes| M[Enrichment Approved]
+    L -->|No| N[Enrichment Rejected]
 ```
+
+#### **CSH Governance Functions**
+
+##### **Authority Validation**
+```yaml
+validate_scope_authority:
+  input:
+    - user_csh_context: hierarchical context of requesting user
+    - target_scope_ref: reference to scope node in CSH
+  logic: |
+    scope_node = csh.get_node(target_scope_ref)
+    required_authority = scope_node.governance.authority_required
+    user_authorities = user_csh_context.authorities
+    
+    IF required_authority IN user_authorities:
+      RETURN authority_valid: true
+    ELSE:
+      RETURN authority_valid: false, required: required_authority
+
+validate_domain_authority:
+  input:
+    - user_csh_context: hierarchical context of requesting user
+    - target_domain_ref: reference to domain node in CSH
+  logic: |
+    domain_node = csh.get_node(target_domain_ref)
+    IF domain_node.governance.restricted_creation:
+      required_authority = domain_node.governance.authority_required
+      IF required_authority IN user_csh_context.authorities:
+        RETURN authority_valid: true
+      ELSE:
+        RETURN authority_valid: false
+    ELSE:
+      RETURN authority_valid: true
+```
+
+##### **Visibility Control**
+```yaml
+pertinence_resolution:
+  input:
+    - query_context: user search context
+    - user_csh_context: user hierarchical permissions
+    - available_ukis: candidate knowledge units
+  process: |
+    filtered_ukis = []
+    FOR uki IN available_ukis:
+      uki_scope = csh.get_node(uki.scope_ref)
+      visibility_rules = uki_scope.governance.visibility
+      
+      IF user_csh_context.authorities INTERSECTS visibility_rules:
+        filtered_ukis.append(uki)
+      ELIF uki.scope_mode == "propagated":
+        # Check if user has access through hierarchy propagation
+        IF check_propagated_access(user_csh_context, uki_scope):
+          filtered_ukis.append(uki)
+    
+    RETURN filtered_ukis
+```
+
+#### **Practical Governance Scenarios**
+
+##### **Scenario 1: Team Member Creating Technical UKI**
+```yaml
+user_context:
+  name: "João Silva"
+  authorities: ["team_member", "developer"]
+  scope_access: ["team_backend"]
+
+proposed_uki:
+  scope_ref: "team_backend"
+  domain_ref: "technical"
+  type_ref: "pattern"
+  maturity_ref: "experimental"
+
+validation_result:
+  scope_authority: ✅ VALID (team_member can create in team_backend)
+  domain_authority: ✅ VALID (technical domain allows team creation)
+  type_authority: ✅ VALID (pattern type allowed for developers)
+  maturity_authority: ✅ VALID (experimental maturity allowed)
+  final_decision: ENRICHMENT_APPROVED
+```
+
+##### **Scenario 2: Team Member Attempting Organizational Policy**
+```yaml
+user_context:
+  name: "Maria Santos"
+  authorities: ["team_member", "analyst"]
+  scope_access: ["team_product"]
+
+proposed_uki:
+  scope_ref: "organization"
+  domain_ref: "governance"
+  type_ref: "policy"
+  maturity_ref: "stable"
+
+validation_result:
+  scope_authority: ❌ INVALID (requires "organization_lead" authority)
+  domain_authority: ❌ INVALID (governance domain restricted)
+  type_authority: ❌ INVALID (policy type requires "policy_creator")
+  final_decision: ENRICHMENT_REJECTED
+  suggestion: "Forward to organizational governance process"
+```
+
+##### **Scenario 3: Tech Lead Creating Cross-Team Standard**
+```yaml
+user_context:
+  name: "Carlos Pereira"
+  authorities: ["tech_lead", "architect"]
+  scope_access: ["team_backend", "team_frontend", "squad_payments"]
+
+proposed_uki:
+  scope_ref: "squad_payments"
+  domain_ref: "technical"
+  type_ref: "standard"
+  maturity_ref: "validated"
+
+validation_result:
+  scope_authority: ✅ VALID (tech_lead can create in squad_payments)
+  domain_authority: ✅ VALID (technical domain accessible)
+  type_authority: ✅ VALID (standard type allowed for architects)
+  maturity_authority: ✅ VALID (validated maturity authorized)
+  final_decision: ENRICHMENT_APPROVED
+```
+
+#### **CSH Integration Benefits**
+
+##### **For Organizations**
+- **Configurable Governance**: Define hierarchies and authority levels per organizational structure
+- **Controlled Knowledge Evolution**: Prevent unauthorized creation of critical organizational knowledge
+- **Scalable Permissions**: Authority and visibility rules that scale with organizational growth
+
+##### **For Teams**
+- **Clear Boundaries**: Understanding of what knowledge they can create and access
+- **Progressive Authority**: Team members can gain authority as they grow in the organization
+- **Contextual Access**: Access to knowledge relevant to their role and scope
+
+##### **For AI Systems**
+- **Governance-Aware Assistance**: AI systems respect organizational hierarchies during assistance
+- **Context-Sensitive Recommendations**: Knowledge recommendations filtered by user permissions
+- **Authority-Based Enrichment**: Enrichment suggestions respect user creation authorities
 
 ### 🔗 **Required Relationships**
 Each generated UKI must include:
-- `relationships`: UKIs that motivated/impacted the flow using valid types (depends_on, overrides, conflicts_with, complements, amends, precedes, equivalent_to)
-- Clear summary of relationship intention in `content` field
+- `related_to`: UKIs that motivated/impacted the flow using valid types (implements, depends_on, extends, replaces, complies_with, conflicts_with, derives_from, relates_to)
+- Clear summary of relationship intention in `description` field within each relationship
+- CSH compliance: All referenced UKIs must be accessible within user's authority context
 
 ---
 
@@ -1787,12 +2038,23 @@ validation:
 preconditions:
   - action_executed: true
   - execution_result: documented
+  - user_csh_context: available
+  - csh_evaluation_criteria: loaded
 postconditions:
   - enrichment_decision: made
   - can_enrich_evaluated: true
+  - scope_determined: true
+  - governance_explanation: generated
 validation:
   semantic_evaluation: completed
+  csh_authority_validated: true
+  evaluation_criteria_applied: true
   justification_documented: true
+context_required:
+  user_authority_level: "from CSH"
+  available_evaluation_criteria: "from CSH"
+  max_enrichment_scope: "from CSH"
+  domain_access_permissions: "from CSH"
 ```
 
 #### 🔄 **Enrich State (Conditional)**

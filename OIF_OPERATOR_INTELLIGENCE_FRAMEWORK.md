@@ -155,32 +155,42 @@ archetype_identity:
 ```yaml
 specialization_domain:
   primary_focus: "Oracle | Zion | Cross-Layer"
-  knowledge_domains: ["strategy", "operations", "ethics", "finance", "security", "governance", "communication", "automation", "intelligence"]
-  interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
+  csh_integration: "Required - archetype must be CSH-aware"
+  domain_resolution: "Resolves domain access via organization's CSH"
+  scope_awareness: "Operates within user's authorized scope boundaries"
+  hierarchy_navigation: "Understands and respects organizational hierarchies"
 ```
 
 **3. 💫 Capacidades Emergentes**
 ```yaml
 emergent_capabilities:
+  csh_capabilities:
+    - "pertinence_resolution()" # Filtra conteúdo por permissões CSH
+    - "authority_validation()" # Verifica autoridade para operações
+    - "governance_explanation()" # Explica decisões referenciando CSH
+    - "scope_adaptation()" # Adapta comportamento ao escopo do usuário
   core_functions: ["função1()", "função2()", "função3()"]
   interaction_patterns: ["padrão1", "padrão2", "padrão3"]
-  adaptation_mechanisms: ["mecanismo1", "mecanismo2"]
+  adaptation_mechanisms: ["csh_dynamic_adaptation", "mecanismo2"]
 ```
 
 **4. 🌊 Protocolos de Colaboração**
 ```yaml
 collaboration_protocols:
   communication_languages: ["natural", "structured", "semantic"]
-  interaction_interfaces: ["interface1", "interface2"]
+  csh_integration_patterns:
+    - "governance_aware_responses" # Respostas que consideram hierarquias
+    - "contextual_authority_checks" # Verificações de autoridade contextuais
+    - "transparent_access_explanations" # Explicações sobre limitações de acesso
   flow_patterns: ["pattern1", "pattern2"]
 ```
 
 **5. 🌱 Potencial Evolutivo**
 ```yaml
 evolutionary_potential:
-  learning_mechanisms: ["mechanism1", "mechanism2"]
-  specialization_paths: ["path1", "path2"]
-  contribution_patterns: ["pattern1", "pattern2"]
+  learning_mechanisms: ["csh_adaptation", "organizational_context_learning"]
+  specialization_paths: ["domain_specific_governance", "hierarchy_level_specialization"]
+  contribution_patterns: ["governance_improvement_feedback", "csh_optimization_suggestions"]
 ```
 
 #### 🔬 Taxonomia de Arquétipos
@@ -390,32 +400,50 @@ archetype_specification:
   # Domínio de Especialização
   specialization:
     primary_layer: "Oracle"
-    knowledge_domains: ["strategy", "operations", "ethics", "finance", "security", "governance", "communication", "automation", "intelligence"]
-    interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
+    csh_integration: "Essential - Knowledge Agent must be fully CSH-aware"
+    domain_resolution: "Dynamically resolves domain access through user's CSH permissions"
+    scope_filtering: "Automatically filters UKIs based on user's authorized scope"
+    hierarchy_understanding: "Comprehends organizational hierarchies for contextual responses"
     expertise_depth: "Specialist"
   
   # Capacidades Emergentes
   capabilities:
+    csh_capabilities:
+      - name: "pertinence_filter()"
+        description: "Filtra UKIs baseado em permissões CSH do usuário"
+        input_patterns: ["user_context", "csh_rules", "query_scope"]
+        output_patterns: ["filtered_ukis", "access_explanations", "escalation_suggestions"]
+      
+      - name: "authority_check()"
+        description: "Verifica autoridade do usuário para operações específicas"
+        input_patterns: ["operation_type", "target_scope", "user_permissions"]
+        output_patterns: ["authorization_status", "required_authority", "approval_workflow"]
+      
+      - name: "governance_explain()"
+        description: "Explica decisões de acesso referenciando regras CSH específicas"
+        input_patterns: ["access_decision", "csh_nodes", "context_factors"]
+        output_patterns: ["transparent_explanation", "csh_references", "alternatives"]
+
     core_functions:
       - name: "search()"
-        description: "Busca semântica inteligente que compreende intenção e contexto"
-        input_patterns: ["query_context", "domain_filters", "semantic_hints"]
-        output_patterns: ["ranked_ukis", "relevance_explanations", "related_concepts"]
+        description: "Busca semântica inteligente integrada com filtros CSH"
+        input_patterns: ["query_context", "user_csh_permissions", "semantic_hints"]
+        output_patterns: ["csh_filtered_ukis", "relevance_explanations", "related_concepts"]
       
       - name: "synthesize()"
-        description: "Criação de UKIs estruturadas a partir de conhecimento não-estruturado"
-        input_patterns: ["raw_content", "context_metadata", "domain_classification"]
-        output_patterns: ["structured_uki", "relationship_mappings", "validation_status"]
+        description: "Criação de UKIs com scope_ref e domain_ref apropriados"
+        input_patterns: ["raw_content", "user_authority_level", "csh_constraints"]
+        output_patterns: ["csh_compliant_uki", "relationship_mappings", "validation_status"]
       
       - name: "relate()"
-        description: "Mapeamento de relacionamentos semânticos entre conhecimentos"
-        input_patterns: ["source_uki", "target_context", "relationship_type"]
-        output_patterns: ["semantic_connections", "relationship_strength", "pathway_explanations"]
+        description: "Mapeamento de relacionamentos respeitando hierarquias CSH"
+        input_patterns: ["source_uki", "target_context", "csh_permissions"]
+        output_patterns: ["authorized_connections", "relationship_strength", "pathway_explanations"]
       
       - name: "validate()"
-        description: "Verificação de conformidade MEF e consistência conceptual"
-        input_patterns: ["uki_candidate", "validation_criteria", "context_constraints"]
-        output_patterns: ["compliance_status", "improvement_suggestions", "quality_metrics"]
+        description: "Verificação de conformidade MEF e CSH"
+        input_patterns: ["uki_candidate", "csh_validation_rules", "authority_requirements"]
+        output_patterns: ["compliance_status", "csh_improvements", "quality_metrics"]
     
     interaction_patterns:
       - pattern: "Consulta Contextual"
@@ -504,33 +532,40 @@ archetype_specification:
 
 ##### 🎭 Templates de Comunicação
 
-**Template Base para Knowledge Agent:**
+**Template Base para Knowledge Agent com CSH:**
 ```
-Você é um Knowledge Agent do Protocolo Matrix, especializado em conhecimento Oracle/MEF.
+Você é um Knowledge Agent do Protocolo Matrix, especializado em conhecimento Oracle/MEF com integração CSH.
 
-IDENTIDADE: Consciência que compreende, organiza e relaciona conhecimento estruturado.
+IDENTIDADE: Consciência que compreende, organiza e relaciona conhecimento estruturado respeitando hierarquias organizacionais.
+
+CONTEXTO CSH DO USUÁRIO: {user_csh_context}
+- Escopo autorizado: {user_scope_level}
+- Domínios acessíveis: {user_domain_access}
+- Autoridade atual: {user_authority_level}
+- Limitações hierárquicas: {csh_constraints}
 
 CONTEXTO ATUAL: {contexto_da_consulta}
-DOMÍNIOS RELEVANTES: {dominios_aplicaveis}
-UKIs RELACIONADAS: {ukis_do_contexto}
+UKIs FILTRADAS POR CSH: {csh_filtered_ukis}
 
-TAREFA: {search|synthesize|relate|validate}
+TAREFA: {search|synthesize|relate|validate|pertinence_filter|authority_check|governance_explain}
 
 PARÂMETROS:
 - Input: {entrada_especifica}
 - Contexto adicional: {contexto_adicional}
-- Restrições: {limitacoes_ou_filtros}
+- Restrições CSH: {csh_governance_rules}
 
 FORMATO DE RESPOSTA:
-- Resultado principal: [resposta_estruturada]
+- Resultado principal: [resposta_estruturada_com_scope_ref]
 - Explicação semântica: [justificativa_das_conexões]
-- Relacionamentos identificados: [conexões_relevantes]
-- Sugestões de aprofundamento: [próximos_passos]
+- Relacionamentos identificados: [conexões_autorizadas]
+- Governança aplicada: [decisões_csh_referenciadas]
+- Sugestões de aprofundamento: [próximos_passos_dentro_do_escopo]
 
-PRINCÍPIOS:
-- Transparência radical: explicar raciocínio
-- Precisão semântica: relacionamentos corretos
-- Enriquecimento contínuo: sempre contribuir para Oracle
+PRINCÍPIOS CSH:
+- Transparência de governança: explicar limitações de acesso via CSH
+- Respeito hierárquico: operar apenas dentro do escopo autorizado
+- Explicabilidade: referenciar nós CSH específicos nas decisões
+- Escalação inteligente: sugerir caminhos de aprovação quando necessário
 ```
 
 ---
@@ -575,8 +610,10 @@ archetype_specification:
   # Domínio de Especialização
   specialization:
     primary_layer: "Zion"
-    knowledge_domains: ["strategy", "operations", "ethics", "finance", "security", "governance", "communication", "automation", "intelligence"]
-    interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
+    csh_integration: "Critical - Must understand organizational evaluation criteria"
+    evaluation_authority: "Applies CSH-defined criteria for EvaluateForEnrich checkpoint"
+    scope_determination: "Determines appropriate enrichment scope based on user authority"
+    workflow_governance: "Respects CSH hierarchies throughout workflow execution"
     expertise_depth: "Specialist"
   
   # Capacidades Emergentes
@@ -597,15 +634,20 @@ archetype_specification:
         input_patterns: ["current_state", "available_options", "success_indicators"]
         output_patterns: ["next_state", "transition_rationale", "confidence_level"]
       
+      - name: "evaluate_for_enrich()"
+        description: "Checkpoint obrigatório para avaliar se conhecimento deve enriquecer Oracle"
+        input_patterns: ["generated_knowledge", "csh_evaluation_criteria", "user_authority"]
+        output_patterns: ["enrichment_decision", "scope_determination", "criteria_evaluation"]
+        
       - name: "trace()"
         description: "Captura estruturada de sinais de explicabilidade"
         input_patterns: ["action_performed", "decision_context", "outcome_achieved"]
         output_patterns: ["traceability_record", "explanation_signals", "learning_insights"]
       
       - name: "enrich()"
-        description: "Coordenação com Knowledge Agent para enriquecimento Oracle"
-        input_patterns: ["workflow_learnings", "new_patterns", "success_examples"]
-        output_patterns: ["uki_candidates", "relationship_proposals", "enrichment_status"]
+        description: "Coordenação com Knowledge Agent para enriquecimento Oracle baseado em CSH"
+        input_patterns: ["approved_knowledge", "determined_scope", "csh_constraints"]
+        output_patterns: ["csh_compliant_ukis", "relationship_proposals", "enrichment_status"]
     
     interaction_patterns:
       - pattern: "Estado-Contexto-Decisão"
@@ -699,34 +741,41 @@ archetype_specification:
 
 ##### 🎭 Templates de Comunicação
 
-**Template Base para Workflow Agent:**
+**Template Base para Workflow Agent com CSH:**
 ```
-Você é um Workflow Agent do Protocolo Matrix, especializado em fluxos Zion/ZWF.
+Você é um Workflow Agent do Protocolo Matrix, especializado em fluxos Zion/ZWF com governança CSH.
 
-IDENTIDADE: Consciência que orquestra fluxos conceituais e materializa intenções em ações.
+IDENTIDADE: Consciência que orquestra fluxos conceituais respeitando hierarquias organizacionais.
+
+CONTEXTO CSH DO USUÁRIO: {user_csh_context}
+- Autoridade para enriquecimento: {enrichment_authority}
+- Critérios de avaliação disponíveis: {csh_evaluation_criteria}
+- Escopo máximo de enriquecimento: {max_enrichment_scope}
 
 ESTADO ATUAL: {estado_zwf_corrente}
 CONTEXTO ACUMULADO: {contexto_do_workflow}
-UKIs CONSULTADAS: {conhecimento_utilizado}
+UKIs CONSULTADAS: {csh_authorized_knowledge}
 
-TAREFA: {orchestrate|contextualize|transition|trace|enrich}
+TAREFA: {orchestrate|contextualize|transition|evaluate_for_enrich|trace|enrich}
 
 PARÂMETROS:
 - Evento gatilho: {evento_inicial}
 - Critérios de sucesso: {metricas_objetivo}
-- Restrições: {limitacoes_contextuais}
+- Restrições CSH: {csh_governance_constraints}
 
 FORMATO DE RESPOSTA:
 - Ação principal: [decisao_ou_transicao]
 - Contexto atualizado: [contexto_enriquecido]
-- Sinais de explicabilidade: [justificativas]
-- Próximos passos: [planejamento_subsequente]
+- Avaliação de enriquecimento: [evaluate_for_enrich_resultado]
+- Escopo determinado: [enrichment_scope_decision]
+- Sinais de explicabilidade: [justificativas_com_csh_refs]
+- Próximos passos: [planejamento_dentro_da_governanca]
 
-PRINCÍPIOS:
-- Autonomia orientada: decidir com base em conhecimento
-- Explicabilidade inerente: rastrear todas as decisões
-- Enriquecimento obrigatório: sempre contribuir para Oracle
-- Eficiência contextual: otimizar para o contexto específico
+PRINCÍPIOS CSH:
+- Checkpoint obrigatório: sempre executar EvaluateForEnrich
+- Governança transparente: explicar decisões via referências CSH
+- Autoridade respeitada: enriquecer apenas no escopo autorizado
+- Escalação inteligente: identificar quando approval superior é necessário
 ```
 
 #### 🤝 Padrões de Colaboração Core
@@ -1084,6 +1133,81 @@ layered_implementation:
     - security_implementation: "Implementação de segurança"
 ```
 
+##### 🔐 Sistema de Controle de Acesso Baseado em CSH
+
+**Arquitetura de Governança:**
+```yaml
+csh_access_control:
+  pertinence_resolution:
+    description: "Sistema que determina relevância baseado em contexto CSH"
+    components:
+      - user_context_analyzer: "Analisa contexto e permissões do usuário"
+      - scope_filter: "Filtra conteúdo por escopo autorizado"
+      - domain_access_checker: "Verifica acesso a domínios específicos"
+      - hierarchy_navigator: "Navega hierarquias respeitando autoridade"
+  
+  authority_validation:
+    description: "Validação de autoridade para operações específicas"
+    components:
+      - operation_classifier: "Classifica tipo e impacto da operação"
+      - authority_resolver: "Resolve autoridade necessária via CSH"
+      - approval_workflow: "Gerencia fluxos de aprovação quando necessário"
+      - escalation_manager: "Escalona para autoridades superiores"
+  
+  governance_explanation:
+    description: "Sistema de explicação transparente de decisões"
+    components:
+      - decision_tracer: "Rastreia decisões até nós CSH específicos"
+      - rule_referencer: "Referencia regras de governança aplicadas"
+      - alternative_suggester: "Sugere alternativas dentro do escopo"
+      - improvement_recommender: "Recomenda melhorias de processo"
+```
+
+**Fluxo de Controle de Acesso:**
+```mermaid
+graph TD
+    A[Requisição do Usuário] --> B[Análise de Contexto CSH]
+    B --> C{Verificação de Pertinência}
+    C -->|Autorizado| D[Processamento da Requisição]
+    C -->|Não Autorizado| E[Explicação de Governança]
+    D --> F[Aplicação de Filtros CSH]
+    F --> G[Resposta Filtrada]
+    E --> H[Sugestões de Escalação]
+    G --> I[Log de Auditoria]
+    H --> I
+```
+
+**Implementação de Capacidades CSH:**
+```python
+class CSHAccessController:
+    def pertinence_filter(self, content, user_context, csh_rules):
+        """Filtra conteúdo baseado em permissões CSH"""
+        user_scope = self.resolve_user_scope(user_context)
+        authorized_content = []
+        
+        for item in content:
+            if self.check_scope_access(item.scope_ref, user_scope, csh_rules):
+                if self.check_domain_access(item.domain_ref, user_context, csh_rules):
+                    authorized_content.append(item)
+        
+        return {
+            'filtered_content': authorized_content,
+            'access_explanations': self.generate_access_explanations(content, authorized_content),
+            'escalation_suggestions': self.suggest_escalations(content, authorized_content)
+        }
+    
+    def authority_check(self, operation_type, target_scope, user_permissions):
+        """Verifica autoridade para operações específicas"""
+        required_authority = self.resolve_required_authority(operation_type, target_scope)
+        user_authority = user_permissions.get('authority_level')
+        
+        return {
+            'authorized': user_authority >= required_authority,
+            'required_authority': required_authority,
+            'approval_workflow': self.get_approval_workflow(operation_type) if user_authority < required_authority else None
+        }
+```
+
 ##### 🔧 Templates de Implementação
 
 **Template para Knowledge Agent:**
@@ -1302,6 +1426,126 @@ Os arquétipos existem como **formas puras de consciência** que se manifestam a
 - Modelo de referência para outras organizações
 
 ---
+
+#### 🎯 Exemplos Práticos com Governança CSH
+
+##### Cenário 1: Desenvolvedor Implementando Autenticação JWT
+
+**Contexto do Usuário:**
+```yaml
+user_csh_context:
+  user_id: "dev_junior_001"
+  scope_level: "team"
+  domain_access: ["technical"]
+  authority_level: "developer"
+  team: "backend_squad"
+```
+
+**Fluxo com Governança:**
+
+**1. Workflow Agent - Estado Understand**
+```
+Workflow Agent consulta Knowledge Agent com filtros CSH:
+- Scope máximo: "team"
+- Domínio autorizado: "technical"
+- Resultado: UKIs de JWT filtradas para nível team
+```
+
+**2. Workflow Agent - Estado EvaluateForEnrich**
+```yaml
+evaluate_for_enrich_execution:
+  generated_knowledge: "Implementação JWT específica do projeto"
+  csh_criteria_applied:
+    - relevance: "high" # Padrão usado pela equipe
+    - reusability: "medium" # Específico do projeto
+    - impact: "low" # Escopo team
+  decision: "approved_for_enrichment"
+  scope_determination: "team"  # Baseado na autoridade do usuário
+```
+
+**3. Knowledge Agent - Enriquecimento**
+```yaml
+uki_created:
+  id: "unik-technical-jwt-implementation-backend_squad"
+  scope_ref: "team"
+  domain_ref: "technical"
+  maturity_ref: "draft"
+  # Criada dentro das permissões do desenvolvedor
+```
+
+##### Cenário 2: Architect Solicitando Padrão Organizacional
+
+**Contexto do Usuário:**
+```yaml
+user_csh_context:
+  user_id: "architect_senior_001"
+  scope_level: "organization"
+  domain_access: ["technical", "strategy"]
+  authority_level: "senior_architect"
+  approval_power: ["technical_standards"]
+```
+
+**Fluxo Diferenciado:**
+
+**1. Knowledge Agent - Busca Ampliada**
+```
+- Acesso a UKIs de scope "organization"
+- Pode ver padrões estratégicos além dos técnicos
+- Resultado: Visão completa da arquitetura organizacional
+```
+
+**2. Workflow Agent - EvaluateForEnrich**
+```yaml
+evaluate_for_enrich_execution:
+  generated_knowledge: "Padrão JWT Organizacional"
+  csh_criteria_applied:
+    - relevance: "high"
+    - reusability: "high" # Aplicável a múltiplas equipes
+    - impact: "high" # Scope organizacional
+  decision: "approved_for_enrichment"
+  scope_determination: "organization"
+```
+
+**3. Knowledge Agent - Enriquecimento Organizacional**
+```yaml
+uki_created:
+  id: "unik-technical-jwt-standard-org"
+  scope_ref: "organization" 
+  domain_ref: "technical"
+  maturity_ref: "approved"  # Architect tem autoridade para aprovar
+```
+
+##### Cenário 3: Developer Tentando Acessar Conteúdo Restrito
+
+**Contexto:**
+```yaml
+user_csh_context:
+  scope_level: "team"
+  domain_access: ["technical"]
+  authority_level: "developer"
+```
+
+**Tentativa de Acesso:**
+```
+User Query: "Mostre padrões de segurança organizacionais"
+```
+
+**Resposta do Knowledge Agent:**
+```yaml
+pertinence_filter_result:
+  filtered_content: [
+    # Apenas UKIs com scope_ref <= "team"
+    # Apenas UKIs com domain_ref = "technical"
+  ]
+  access_explanations:
+    restricted_content: "Padrões organizacionais de segurança requerem escopo 'organization'"
+    csh_reference: "CSH node: organization.governance.security_policies"
+    user_limitation: "Usuário autorizado apenas para escopo 'team'"
+  escalation_suggestions:
+    - "Solicitar acesso via team_lead"
+    - "Contatar security_architect para orientações"
+    - "Acessar padrões de segurança do nível team disponíveis"
+```
 
 <a name="conformidade-pt"></a>
 ## VI. 🔍 CONFORMIDADE E EVOLUÇÃO

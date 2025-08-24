@@ -20,6 +20,15 @@ O **Protocolo Matrix** é um ecossistema integrado que conecta humanos e IA por 
 
 Cada camada desempenha um papel único no fluxo estratégico, técnico e operacional, garantindo que diretrizes sejam transformadas em ações práticas com eficiência e inteligência.
 
+### 🔧 Flexibilidade Local com Coerência Global
+
+O Protocolo Matrix separa **conceitos centrais universais** de **taxonomias organizacionais específicas**:
+
+- **Conceitos Universais**: Fixos em todas as implementações (escopo, domínio, maturidade, propagação, checkpoints de fluxo)
+- **Hierarquias Locais**: Configuráveis via **CSH (Catálogo Semântico de Hierarquias)** - cada organização define estruturas específicas
+- **Governança Adaptável**: Regras de autoridade, visibilidade e propagação definidas localmente
+- **Interoperabilidade**: Diferentes organizações podem compartilhar conhecimento mantendo coerência conceitual
+
 ---
 
 ## 💬 Camada Oráculo
@@ -108,9 +117,10 @@ Ela transforma diretrizes em workflows conceituais através do **ZWF (Zion Workf
 
 #### 🔨 Estruturação Conceitual via ZWF
 
-* **Definir padrões de fluxo** seguindo estados canônicos: `Intake → Understand → Decide → Act → Review → Enrich`
+* **Definir padrões de fluxo** seguindo estados canônicos: `Intake → Understand → Decide → Act → EvaluateForEnrich → Review → Enrich`
 * **Catalogar eventos canônicos** que iniciam workflows: `knowledge.added`, `work.proposed`, `work.refine.requested`, `assistance.requested`, `test.authored`, `feedback.submitted`
-* **Garantir ciclo fechado**: sempre consultar Oráculo → agir → enriquecer Oráculo
+* **Checkpoint obrigatório**: `EvaluateForEnrich` aplica critérios definidos no CSH organizacional para decidir se conhecimento deve enriquecer Oracle
+* **Garantir ciclo fechado**: sempre consultar Oráculo → agir → avaliar para enriquecimento → enriquecer Oráculo
 
 #### 🧬 Explicabilidade e Rastreabilidade
 
@@ -149,14 +159,20 @@ stateDiagram-v2
     Intake --> Understand
     Understand --> Decide  
     Decide --> Act
-    Act --> Review
-    Act --> Enrich
+    Act --> EvaluateForEnrich
+    EvaluateForEnrich --> Review
+    EvaluateForEnrich --> Enrich
     Review --> Enrich
     Enrich --> [*]
     
     note right of Understand
       Consulta obrigatória 
       ao Oráculo (UKIs)
+    end note
+    
+    note right of EvaluateForEnrich
+      Checkpoint: avalia critérios
+      CSH para enriquecimento
     end note
     
     note right of Enrich
@@ -172,6 +188,7 @@ stateDiagram-v2
 > **Understand:** Consulta `unik-technical-jwt-authentication-pattern`, `unik-business-security-requirements`  
 > **Decide:** Escolhe biblioteca baseada em `unik-business-vendor-approval-policy`  
 > **Act:** Implementa solução usando ferramentas da equipe  
+> **EvaluateForEnrich:** Avalia critérios CSH (relevância=alta, reusabilidade=média, impacto=alto) → aprovado para enriquecimento com escopo "team"
 > **Review:** Validação opcional seguindo `unik-culture-code-review-process`  
 > **Enrich:** Cria `unik-technical-auth-implementation-example` e `unik-technical-token-refresh-pattern`
 >
@@ -195,46 +212,50 @@ Ela é implementada através do **OIF (Operator Intelligence Framework)** - um f
 
 #### 🧠 Definição de Arquétipos via OIF
 
-* **Knowledge Agent (Oracle Intelligence)** - arquétipo especializado em compreensão, organização e relacionamento de conhecimento estruturado MEF.
-* **Workflow Agent (Zion Intelligence)** - arquétipo especializado em orquestração de fluxos conceituais ZWF e materialização de intenções em ações.
-* **Arquétipos Especializados** - metodologia para criação de inteligências customizadas para domínios específicos.
+* **Knowledge Agent (Oracle Intelligence)** - arquétipo especializado em compreensão, organização e relacionamento de conhecimento estruturado MEF com controle de acesso baseado no CSH.
+* **Workflow Agent (Zion Intelligence)** - arquétipo especializado em orquestração de fluxos conceituais ZWF incluindo execução do checkpoint EvaluateForEnrich.
+* **Arquétipos Especializados** - metodologia para criação de inteligências customizadas para domínios específicos com níveis de autoridade definidos pelo CSH.
 
-#### 🔧 Especificações Conceituais via OIF
+#### 🔧 Capacidades Integradas ao CSH via OIF
 
-* **Capacidades Mínimas** - cada arquétipo possui capacidades essenciais definidas independente de tecnologia.
-* **Templates de Comunicação** - padrões de prompt e interação para cada tipo de inteligência.
-* **Fluxos de Colaboração** - como diferentes arquétipos interagem semanticamente para realizar trabalho conjunto.
+* **Resolução de Pertinência** - filtrar e apresentar UKIs baseado nas permissões de escopo e domínio do usuário definidas no CSH
+* **Validação de Autoridade** - verificar se o usuário possui autoridade necessária para operações baseado nas regras de governança do CSH
+* **Explicabilidade da Governança** - fornecer explicações transparentes para decisões de acesso referenciando nós específicos do CSH
+* **Caminhos de Escalonamento** - rotear automaticamente solicitações que requerem autoridade superior conforme configuração do CSH
 
-#### 🎯 Implementação Agnóstica via OIF
+#### 🎯 Implementação Ciente de Governança via OIF
 
-* **Independência Tecnológica** - especificações conceituais implementáveis em qualquer stack tecnológico.
-* **Adaptabilidade Cultural** - metodologia para adaptar arquétipos ao contexto organizacional específico.
-* **Evolução Orgânica** - processo de expansão e refinamento contínuo dos arquétipos conforme necessidades emergem.
+* **Controle de Acesso Baseado no CSH** - todas as operações de agentes respeitam hierarquia organizacional e regras de governança
+* **Assistência Ciente de Contexto** - agentes compreendem e operam dentro do escopo e domínio autorizado do usuário
+* **Tomada de Decisão Auditável** - todas as ações dos agentes são rastrearáveis às regras do CSH e permissões do usuário
+* **Adaptação Dinâmica de Autoridade** - agentes adaptam suas capacidades baseadas no papel atual e contexto do usuário
 
 ### Ferramentas & Componentes
 
 | Componente                 | Função/Exemplo                                                    |
 | -------------------------- | ----------------------------------------------------------------- |
-| **OIF Framework Specification** | Especificação completa dos arquétipos de inteligência e suas capacidades mínimas. |
-| **Agent Archetype Templates** | Templates conceituais para Knowledge Agent e Workflow Agent com padrões de comunicação. |
-| **Collaboration Patterns** | Padrões de interação semântica entre diferentes tipos de arquétipos. |
-| **Specialization Methodology** | Metodologia para criação de arquétipos especializados para domínios específicos. |
-| **Cultural Adaptation Framework** | Framework para adaptar arquétipos ao contexto e cultura organizacional. |
-| **Evolution Governance** | Processo de expansão orgânica e refinamento contínuo dos arquétipos. |
+| **OIF Framework Specification** | Especificação completa dos arquétipos de inteligência com capacidades de integração ao CSH. |
+| **Templates de Agentes Cientes do CSH** | Templates para Knowledge e Workflow Agents com padrões cientes de governança. |
+| **Motor de Resolução de Pertinência** | Sistema para filtrar UKIs baseado no acesso de escopo e domínio definido pelo CSH do usuário. |
+| **Camada de Validação de Autoridade** | Componente que verifica permissões do usuário contra regras de governança do CSH. |
+| **Sistema de Explicação de Governança** | Fornece explicações transparentes referenciando nós e regras específicos do CSH. |
+| **Adaptação Dinâmica de Autoridade** | Framework para adaptar capacidades de agentes baseado no contexto atual do usuário no CSH. |
 
 #### Exemplo Prático: Implementação JWT via OIF
 
-> **Workflow Agent** (seguindo especificação OIF) inicia orquestração de `work.proposed` para JWT
+> **Contexto do Usuário:** Desenvolvedor com CSH scope="team", domain_access=["technical"], authority="developer"
+>
+> **Workflow Agent** inicia orquestração `work.proposed`, valida autoridade do usuário via CSH
 > 
-> **Estado Understand:** Workflow Agent aciona capacidade `search()` do Knowledge Agent via padrão de colaboração OIF
+> **Estado Understand:** Workflow Agent solicita busca ao Knowledge Agent com filtros CSH (scope≤"team", domain="technical")
 > 
-> **Knowledge Agent** (seguindo template OIF) retorna UKIs relevantes usando capacidade `search()` semântica
+> **Knowledge Agent** retorna UKIs acessíveis ao usuário: `unik-technical-jwt-pattern` (scope="team"), filtrando padrões de nível organizacional
 > 
-> **Estado Decide:** Workflow Agent usa capacidade `contextualize()` para processar UKIs e decidir abordagem
+> **Estado EvaluateForEnrich:** Workflow Agent aplica critérios de avaliação do CSH e determina enrichment scope="team" baseado na autoridade do usuário
+>
+> **Estado Enrich:** Knowledge Agent cria novas UKIs com scope_ref="team", respeitando permissões CSH do usuário
 > 
-> **Estado Enrich:** Workflow Agent coordena via `enrich()` para que Knowledge Agent execute `synthesize()` + `relate()`
-> 
-> **Resultado:** Implementação concluída + Oracle enriquecido seguindo padrões de colaboração OIF
+> **Resultado:** Implementação concluída + Oracle enriquecido dentro do escopo autorizado do usuário, governança CSH completa aplicada
 
 ---
 
@@ -291,11 +312,13 @@ O Protocolo Matrix serve como framework fundamental para organizações implemen
 
 Este framework filosófico e técnico fornece às organizações:
 - **Arquitetura Clara**: Camadas bem definidas para diferentes responsabilidades
-- **Conhecimento Padronizado**: MEF garante representação consistente do conhecimento
-- **Workflows Conceituais**: ZWF orienta "como pensar" fluxos orientados a IA
-- **Especificações de Agentes**: OIF define arquétipos de inteligência mínimos necessários sem prescrever tecnologias específicas
+- **Conhecimento Padronizado**: MEF garante representação consistente do conhecimento com flexibilidade hierárquica via CSH
+- **Workflows Conceituais**: ZWF orienta "como pensar" fluxos orientados a IA com checkpoint EvaluateForEnrich
+- **Especificações de Agentes**: OIF define arquétipos de inteligência cientes de governança com integração ao CSH
+- **Flexibilidade Local**: CSH permite adaptação completa às estruturas organizacionais preservando conceitos globais
 - **Independência Tecnológica**: Todas as camadas permitem flexibilidade de ferramentas mantendo consistência conceitual
-- **Rastreabilidade Completa**: Relacionamentos semânticos entre conhecimento e decisões
+- **Rastreabilidade Completa**: Relacionamentos semânticos entre conhecimento e decisões com transparência de governança
+- **Governança Adaptável**: Regras de autoridade, visibilidade e propagação configuradas por contexto organizacional
 - **Implementação Escalável**: De equipes individuais à adoção empresarial
 - **Estrutura Pronta para IA**: Construída para sistemas inteligentes e colaboração humano-IA
 - **Design Evolutivo**: Melhoria contínua através de ciclos de feedback e enriquecimento obrigatório
@@ -329,6 +352,15 @@ O próximo passo **só pode ser dado por você**.
 The **Matrix Protocol** is an integrated ecosystem that connects humans and AI through three interdependent layers: **Oracle**, **Zion**, and **Operator**.
 
 Each layer plays a unique role in the strategic, technical, and operational flow, ensuring that guidelines are transformed into practical actions with efficiency and intelligence.
+
+### 🔧 Local Flexibility with Global Coherence
+
+The Matrix Protocol separates **universal core concepts** from **organization-specific taxonomies**:
+
+- **Universal Concepts**: Fixed across all implementations (scope, domain, maturity, propagation, workflow checkpoints)
+- **Local Hierarchies**: Configurable via **CSH (Semantic Hierarchy Catalog)** - each organization defines specific structures
+- **Adaptive Governance**: Authority, visibility, and propagation rules defined locally
+- **Interoperability**: Different organizations can share knowledge while maintaining conceptual coherence
 
 ---
 
@@ -418,9 +450,10 @@ It transforms guidelines into conceptual workflows through the **ZWF (Zion Workf
 
 #### 🔨 Conceptual Structuring via ZWF
 
-* **Define flow patterns** following canonical states: `Intake → Understand → Decide → Act → Review → Enrich`
+* **Define flow patterns** following canonical states: `Intake → Understand → Decide → Act → EvaluateForEnrich → Review → Enrich`
 * **Catalog canonical events** that initiate workflows: `knowledge.added`, `work.proposed`, `work.refine.requested`, `assistance.requested`, `test.authored`, `feedback.submitted`
-* **Ensure closed loop**: always consult Oracle → act → enrich Oracle
+* **Mandatory checkpoint**: `EvaluateForEnrich` applies CSH-defined organizational criteria to decide if knowledge should enrich Oracle
+* **Ensure closed loop**: always consult Oracle → act → evaluate for enrichment → enrich Oracle
 
 #### 🧬 Explainability and Traceability
 
@@ -459,14 +492,20 @@ stateDiagram-v2
     Intake --> Understand
     Understand --> Decide  
     Decide --> Act
-    Act --> Review
-    Act --> Enrich
+    Act --> EvaluateForEnrich
+    EvaluateForEnrich --> Review
+    EvaluateForEnrich --> Enrich
     Review --> Enrich
     Enrich --> [*]
     
     note right of Understand
       Mandatory Oracle 
       consultation (UKIs)
+    end note
+    
+    note right of EvaluateForEnrich
+      Checkpoint: evaluates CSH
+      criteria for enrichment
     end note
     
     note right of Enrich
@@ -482,6 +521,7 @@ stateDiagram-v2
 > **Understand:** Consults `unik-technical-jwt-authentication-pattern`, `unik-business-security-requirements`  
 > **Decide:** Chooses library based on `unik-business-vendor-approval-policy`  
 > **Act:** Implements solution using team tools  
+> **EvaluateForEnrich:** Evaluates CSH criteria (relevance=high, reusability=medium, impact=high) → approved for enrichment with "team" scope
 > **Review:** Optional validation following `unik-culture-code-review-process`  
 > **Enrich:** Creates `unik-technical-auth-implementation-example` and `unik-technical-token-refresh-pattern`
 >
@@ -505,46 +545,50 @@ It is implemented through the **OIF (Operator Intelligence Framework)** - a conc
 
 #### 🧠 Archetype Definition via OIF
 
-* **Knowledge Agent (Oracle Intelligence)** - archetype specialized in comprehension, organization, and relationship of structured MEF knowledge.
-* **Workflow Agent (Zion Intelligence)** - archetype specialized in orchestration of conceptual ZWF flows and materialization of intentions into actions.
-* **Specialized Archetypes** - methodology for creating customized intelligences for specific domains.
+* **Knowledge Agent (Oracle Intelligence)** - archetype specialized in comprehension, organization, and relationship of structured MEF knowledge with CSH-based access control.
+* **Workflow Agent (Zion Intelligence)** - archetype specialized in orchestration of conceptual ZWF flows including EvaluateForEnrich checkpoint execution.
+* **Specialized Archetypes** - methodology for creating customized intelligences for specific domains with CSH-defined authority levels.
 
-#### 🔧 Conceptual Specifications via OIF
+#### 🔧 CSH-Integrated Capabilities via OIF
 
-* **Minimum Capabilities** - each archetype possesses essential capabilities defined independent of technology.
-* **Communication Templates** - prompt and interaction patterns for each intelligence type.
-* **Collaboration Flows** - how different archetypes interact semantically to perform joint work.
+* **Pertinence Resolution** - filter and present UKIs based on user's scope and domain permissions from CSH
+* **Authority Validation** - verify user has required authority for operations based on CSH governance rules
+* **Explaining Governance** - provide transparent explanations for access decisions referencing specific CSH nodes
+* **Escalation Pathways** - automatically route requests requiring higher authority per CSH configuration
 
-#### 🎯 Agnostic Implementation via OIF
+#### 🎯 Governance-Aware Implementation via OIF
 
-* **Technology Independence** - conceptual specifications implementable in any technology stack.
-* **Cultural Adaptability** - methodology for adapting archetypes to specific organizational context.
-* **Organic Evolution** - process of continuous expansion and refinement of archetypes as needs emerge.
+* **CSH-Based Access Control** - all agent operations respect organizational hierarchy and governance rules
+* **Context-Aware Assistance** - agents understand and operate within user's authorized scope and domain
+* **Auditable Decision Making** - all agent actions are traceable to CSH rules and user permissions
+* **Dynamic Authority Adaptation** - agents adapt their capabilities based on user's current role and context
 
 ### Tools & Components
 
 | Component                    | Function/Example                                                  |
 | ---------------------------- | ----------------------------------------------------------------- |
-| **OIF Framework Specification** | Complete specification of intelligence archetypes and their minimum capabilities. |
-| **Agent Archetype Templates** | Conceptual templates for Knowledge Agent and Workflow Agent with communication patterns. |
-| **Collaboration Patterns** | Semantic interaction patterns between different archetype types. |
-| **Specialization Methodology** | Methodology for creating specialized archetypes for specific domains. |
-| **Cultural Adaptation Framework** | Framework for adapting archetypes to organizational context and culture. |
-| **Evolution Governance** | Process for organic expansion and continuous archetype refinement. |
+| **OIF Framework Specification** | Complete specification of intelligence archetypes with CSH integration capabilities. |
+| **CSH-Aware Agent Templates** | Templates for Knowledge and Workflow Agents with governance-aware patterns. |
+| **Pertinence Resolution Engine** | System for filtering UKIs based on user's CSH-defined scope and domain access. |
+| **Authority Validation Layer** | Component that verifies user permissions against CSH governance rules. |
+| **Governance Explanation System** | Provides transparent explanations referencing specific CSH nodes and rules. |
+| **Dynamic Authority Adaptation** | Framework for adapting agent capabilities based on user's current CSH context. |
 
 #### Practical Example: JWT Implementation via OIF
 
-> **Workflow Agent** (following OIF specification) initiates orchestration of `work.proposed` for JWT
+> **User Context:** Developer with CSH scope="team", domain_access=["technical"], authority="developer"
+>
+> **Workflow Agent** initiates `work.proposed` orchestration, validates user authority via CSH
 > 
-> **Understand State:** Workflow Agent triggers Knowledge Agent's `search()` capability via OIF collaboration pattern
+> **Understand State:** Workflow Agent requests Knowledge Agent search with CSH filters (scope≤"team", domain="technical")
 > 
-> **Knowledge Agent** (following OIF template) returns relevant UKIs using semantic `search()` capability
+> **Knowledge Agent** returns UKIs accessible to user: `unik-technical-jwt-pattern` (scope="team"), filtering out organization-level patterns
 > 
-> **Decide State:** Workflow Agent uses `contextualize()` capability to process UKIs and decide approach
+> **EvaluateForEnrich State:** Workflow Agent applies CSH evaluation criteria and determines enrichment scope="team" based on user authority
+>
+> **Enrich State:** Knowledge Agent creates new UKIs with scope_ref="team", respecting user's CSH permissions
 > 
-> **Enrich State:** Workflow Agent coordinates via `enrich()` for Knowledge Agent to execute `synthesize()` + `relate()`
-> 
-> **Result:** Implementation completed + Oracle enriched following OIF collaboration patterns
+> **Result:** Implementation completed + Oracle enriched within user's authorized scope, full CSH governance applied
 
 ---
 
@@ -600,11 +644,13 @@ The Matrix Protocol serves as a foundational framework for organizations impleme
 
 This philosophical and technical framework provides organizations with:
 - **Clear Architecture**: Well-defined layers for different responsibilities
-- **Standardized Knowledge**: MEF ensures consistent knowledge representation
-- **Conceptual Workflows**: ZWF guides "how to think" about AI-oriented flows without prescribing "how to implement"
-- **Agent Specifications**: OIF defines minimum intelligence archetypes needed without prescribing specific technologies
+- **Standardized Knowledge**: MEF ensures consistent knowledge representation with CSH-based hierarchical flexibility
+- **Conceptual Workflows**: ZWF guides "how to think" about AI-oriented flows with EvaluateForEnrich checkpoint
+- **Agent Specifications**: OIF defines governance-aware intelligence archetypes with CSH integration
+- **Local Flexibility**: CSH allows complete adaptation to organizational structures while preserving global concepts
 - **Technology Independence**: All layers allow tool flexibility while maintaining conceptual consistency
-- **Complete Traceability**: Semantic relationships between knowledge and decisions
+- **Complete Traceability**: Semantic relationships between knowledge and decisions with governance transparency
+- **Adaptive Governance**: Authority, visibility, and propagation rules configured per organizational context
 - **Scalable Implementation**: From individual teams to enterprise-wide adoption
 - **AI-Ready Structure**: Built for intelligent systems and human-AI collaboration
 - **Evolutionary Design**: Continuous improvement through feedback loops and mandatory Oracle enrichment
