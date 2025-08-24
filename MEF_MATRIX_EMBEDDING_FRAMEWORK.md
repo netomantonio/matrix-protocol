@@ -64,8 +64,11 @@ previous_version: "[MAJOR.MINOR.PATCH]"  # Versão anterior (opcional para vers�
 status: [active | deprecated | archived]  # OBRIGATÓRIO: controle de ciclo de vida
 
 domain_of_influence: [referência_ao_csh_organizational]  # RECOMENDADO: área de impacto configurada via CSH
-# Nota: Os valores mostrados anteriormente (strategy, operations, etc.) são apenas exemplos ilustrativos.
+
+# 🚨 AVISO: EXEMPLOS NÃO SÃO TAXONOMIA OBRIGATÓRIA
+# Os valores mostrados anteriormente (strategy, operations, etc.) são APENAS EXEMPLOS ILUSTRATIVOS.
 # Cada organização define seus domínios de influência no CSH.
+# 🏛️ CSH é a única fonte de taxonomias válidas.
 
 relationships:  # OBRIGATÓRIO: ontologia formal com tipos padronizados
   - type: [depends_on | overrides | conflicts_with | complements | amends | precedes | equivalent_to]
@@ -1576,8 +1579,11 @@ previous_version: "[MAJOR.MINOR.PATCH]"  # Previous version (optional for 1.0.0)
 
 status: [active | deprecated | archived]  # Lifecycle control
 domain_of_influence: [organizational_csh_reference]  # Strategic impact area configured via CSH
-# Note: Previously shown values (strategy, operations, etc.) are illustrative examples only.
+
+# 🚨 WARNING: EXAMPLES ARE NOT MANDATORY TAXONOMY
+# Previously shown values (strategy, operations, etc.) are ILLUSTRATIVE EXAMPLES ONLY.
 # Each organization defines its influence domains in CSH.
+# 🏛️ CSH is the only source of valid taxonomies.
 
 relationships:  # Formal ontology of typed relationships from Ontology_MEF_Support v1.0
   - type: [depends_on | overrides | conflicts_with | complements | amends | precedes | equivalent_to]

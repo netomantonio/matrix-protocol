@@ -1,5 +1,7 @@
 # 📜 MATRIX ZWF PROTOCOL | PROTOCOLO MATRIX ZWF
 
+> 🚨 **AVISO IMPORTANTE**: Este documento contém EXEMPLOS ILUSTRATIVOS (como `strategy`, `operations`, etc.) que NÃO são taxonomias obrigatórias. O **CSH (Catálogo Semântico de Hierarquias)** é a única fonte definitiva para taxonomias organizacionais. Exemplos servem apenas como referência conceitual.
+
 ## 🌎 Idioma / Language
 
 - [Português 🇧🇷](#português)
@@ -420,9 +422,39 @@ evaluation:
   user_confirmation: N/A
 
 result: ENRICH_REJECTED
-reason: "Domínio configurado no CSH como restrito para este nível de autoridade"
-suggestion: "Encaminhar para processo de curadoria de segurança"
+reason: "Domínio 'security' configurado no CSH como restrito para usuários com autoridade 'team_member'"
+csh_nodes_cited:
+  - node_type: "domain"
+    node_id: "security"
+    restriction_rule: "requires_authority_level: security_lead"
+  - node_type: "authority_level"
+    node_id: "team_member"
+    restriction_rule: "insufficient_for_security_domain"
+escalation_path: "Solicitar aprovação do Security Lead ou elevar autoridade via RH"
+alternatives: "Criar UKI em domínio 'technical' com escopo 'team' para implementação local"
 ```
+
+### 📝 **Requisitos de Explicabilidade para ENRICH_REJECTED**
+
+**Obrigatório**: Toda decisão `ENRICH_REJECTED` deve incluir explicação baseada em nós específicos do CSH:
+
+```yaml
+required_explanation_format:
+  result: ENRICH_REJECTED
+  reason: "[Explicação citando nós CSH específicos]"
+  csh_nodes_cited:
+    - node_type: "domain" | "scope" | "type" | "authority_level"
+      node_id: "[id_do_nó_csh]"
+      restriction_rule: "[regra_específica_que_causou_rejeição]"
+  escalation_path: "[Como o usuário pode escalar ou obter permissão]"
+  alternatives: "[Sugestões de ações alternativas dentro da autoridade do usuário]"
+```
+
+**Benefícios da Explicabilidade CSH:**
+- **Transparência**: Usuário compreende exatamente por que foi rejeitado
+- **Rastreabilidade**: Decisões auditáveis via nós CSH
+- **Orientação**: Caminhos claros para resolução ou escalation
+- **Consistência**: Explicações padronizadas entre implementações
 
 ### 💡 **Valor Conceitual do Filtro**
 
@@ -506,7 +538,11 @@ content: |
 ### 🎯 **Tipos de Saída MEF**
 Fluxos que justifiquem enriquecimento devem retornar conhecimento ao Oráculo escolhendo entre os tipos MEF:
 
-| Tipo UKI | Quando Usar | Exemplo de Saída (Escopo de Equipe) |
+**📋 Exemplos de Tipos UKI (APENAS PARA REFERÊNCIA):**
+
+> 🚨 **IMPORTANTE**: A tabela abaixo contém **APENAS EXEMPLOS ILUSTRATIVOS**. Estes **NÃO SÃO valores obrigatórios** nem taxonomia fechada. Cada organização define seus próprios tipos no CSH.
+
+| Exemplo de Tipo | Quando Usar (Ilustrativo) | Possível Saída (Escopo de Equipe) |
 |----------|-------------|------------------|
 | `rule` | Regra operacional da equipe | Regra de validação de input da API |
 | `procedure` | Sequência operacional | Template de configuração do microsserviço |
@@ -514,6 +550,8 @@ Fluxos que justifiquem enriquecimento devem retornar conhecimento ao Oráculo es
 | `metric` | Indicador da equipe | Métrica de performance do serviço |
 | `constraint` | Limitação técnica | Função de validação JWT da equipe |
 | `glossary` | Termos técnicos da equipe | Definição de endpoint específico |
+
+**🔄 Sua organização pode usar**: tipos completamente diferentes como `template`, `standard`, `guideline`, `decision`, `pattern`, ou qualquer categoria específica de seu contexto.
 
 ### 🚫 **Restrições de Escopo Organizacional**
 
@@ -656,9 +694,12 @@ oracle_enrichment_metrics:
   ukis_created: 1
   ukis_updated: 0
   relationship_count: 3
+# 🚨 AVISO: EXEMPLOS NÃO SÃO TAXONOMIA OBRIGATÓRIA
+# Os valores mostrados abaixo (security, governance, etc.) são APENAS EXEMPLOS ILUSTRATIVOS.
+# 🏛️ CSH é a única fonte de taxonomias válidas.
   knowledge_domains_touched:
-    - security
-    - governance
+    - security     # EXEMPLO - cada organização define seus domínios
+    - governance   # EXEMPLO - cada organização define seus domínios
   semantic_coherence_score: 87  # 0-100
   reusability_potential: "high"  # low | medium | high
 ```
@@ -1248,6 +1289,8 @@ Com o ZWF, qualquer equipe pode:
 <a name="english"></a>
 # English 🇺🇸
 
+> 🚨 **IMPORTANT WARNING**: This document contains ILLUSTRATIVE EXAMPLES (such as `strategy`, `operations`, etc.) that are NOT mandatory taxonomies. The **CSH (Semantic Hierarchy Catalog)** is the only definitive source for organizational taxonomies. Examples serve only as conceptual reference.
+
 > Zion Workflow Framework
 
 **Version:** 1.0
@@ -1568,9 +1611,39 @@ evaluation:
   user_confirmation: N/A
 
 result: ENRICH_REJECTED
-reason: "Domain configured in CSH as restricted for this authority level"
-suggestion: "Forward to security curation process"
+reason: "Domain 'security' configured in CSH as restricted for users with authority 'team_member'"
+csh_nodes_cited:
+  - node_type: "domain"
+    node_id: "security"
+    restriction_rule: "requires_authority_level: security_lead"
+  - node_type: "authority_level"
+    node_id: "team_member"
+    restriction_rule: "insufficient_for_security_domain"
+escalation_path: "Request approval from Security Lead or elevate authority via HR"
+alternatives: "Create UKI in 'technical' domain with 'team' scope for local implementation"
 ```
+
+### 📝 **Explainability Requirements for ENRICH_REJECTED**
+
+**Mandatory**: Every `ENRICH_REJECTED` decision must include explanation based on specific CSH nodes:
+
+```yaml
+required_explanation_format:
+  result: ENRICH_REJECTED
+  reason: "[Explanation citing specific CSH nodes]"
+  csh_nodes_cited:
+    - node_type: "domain" | "scope" | "type" | "authority_level"
+      node_id: "[csh_node_id]"
+      restriction_rule: "[specific_rule_that_caused_rejection]"
+  escalation_path: "[How user can escalate or obtain permission]"
+  alternatives: "[Suggested alternative actions within user's authority]"
+```
+
+**Benefits of CSH Explainability:**
+- **Transparency**: User understands exactly why rejection occurred
+- **Traceability**: Auditable decisions via CSH nodes
+- **Guidance**: Clear paths for resolution or escalation
+- **Consistency**: Standardized explanations across implementations
 
 ### 💡 **Conceptual Value of the Filter**
 

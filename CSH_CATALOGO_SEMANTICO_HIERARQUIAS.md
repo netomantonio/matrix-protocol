@@ -1,5 +1,7 @@
 # 📊 CSH - CATÁLOGO SEMÂNTICO DE HIERARQUIAS | SEMANTIC HIERARCHY CATALOG
 
+> 🚨 **AVISO IMPORTANTE**: Este documento contém EXEMPLOS ILUSTRATIVOS (como `technical`, `business`, `draft`, etc.) que NÃO são taxonomias obrigatórias. Cada organização define suas próprias hierarquias conforme suas necessidades específicas. Exemplos servem apenas como referência conceitual.
+
 ## 🌎 Idioma / Language
 
 - [Português 🇧🇷](#português)
@@ -94,15 +96,18 @@ hierarchies:
       concept: "Área de conhecimento e especialização"
       governance_rules: |
         [Regras de classificação e propriedade por domínio]
+# 🚨 AVISO: EXEMPLOS NÃO SÃO TAXONOMIA OBRIGATÓRIA
+# Os nós mostrados abaixo (technical, business, etc.) são APENAS EXEMPLOS ILUSTRATIVOS.
+# 🏛️ Cada organização define seus próprios nós conforme sua realidade específica.
     nodes:
-      - id: "technical"
+      - id: "technical"    # EXEMPLO - cada organização define seus domínios
         label: "Técnico"
         parent: null
         level: 0
         governance:
-          owners: ["engineering"]
+          owners: ["engineering"]    # EXEMPLO - definir conforme estrutura organizacional
           reviewers: ["tech_leads", "architects"]
-      - id: "business"
+      - id: "business"    # EXEMPLO - cada organização define seus domínios
         label: "Negócio"
         parent: null
         level: 0
@@ -273,6 +278,8 @@ flow_execution:
 
 <a name="english"></a>
 # English 🇺🇸
+
+> 🚨 **IMPORTANT WARNING**: This document contains ILLUSTRATIVE EXAMPLES (such as `technical`, `business`, `draft`, etc.) that are NOT mandatory taxonomies. Each organization defines its own hierarchies according to their specific needs. Examples serve only as conceptual reference.
 
 > "Local flexibility preserves global coherence."
 

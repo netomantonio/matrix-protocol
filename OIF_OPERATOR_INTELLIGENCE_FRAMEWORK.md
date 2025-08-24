@@ -179,7 +179,7 @@ emergent_capabilities:
     - "authority_validation()" # Verifica autoridade para operações
     - "governance_explanation()" # Explica decisões referenciando CSH
     - "scope_adaptation()" # Adapta comportamento ao escopo do usuário
-  core_functions: ["função1()", "função2()", "função3()"]
+  core_functions_query: "csh.query_available_functions(archetype_id)" # Configuráveis via CSH
   interaction_patterns: ["padrão1", "padrão2", "padrão3"]
   adaptation_mechanisms: ["csh_dynamic_adaptation", "mecanismo2"]
 ```
@@ -187,7 +187,7 @@ emergent_capabilities:
 **4. 🌊 Protocolos de Colaboração**
 ```yaml
 collaboration_protocols:
-  communication_languages: ["natural", "structured", "semantic"]
+  communication_languages_query: "csh.query_supported_languages(context)" # Configuráveis via CSH
   csh_integration_patterns:
     - "governance_aware_responses" # Respostas que consideram hierarquias
     - "contextual_authority_checks" # Verificações de autoridade contextuais
@@ -1904,13 +1904,13 @@ archetype_identity:
 specialization_domain:
   primary_focus: "[csh_reference_primary_focus]" # Configurável organizacionalmente via CSH
   knowledge_domains_query: "csh.query_accessible_domains(user_context)" # Consulta dinâmica - valores não são fixos
-  interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
+  interaction_contexts_query: "csh.query_interaction_contexts(archetype_context)" # Query dinâmica ao CSH
 ```
 
 **3. 💫 Emergent Capabilities**
 ```yaml
 emergent_capabilities:
-  core_functions: ["function1()", "function2()", "function3()"]
+  core_functions_query: "csh.query_available_functions(archetype_id)" # Configurable via CSH
   interaction_patterns: ["pattern1", "pattern2", "pattern3"]
   adaptation_mechanisms: ["mechanism1", "mechanism2"]
 ```
@@ -1918,7 +1918,7 @@ emergent_capabilities:
 **4. 🌊 Collaboration Protocols**
 ```yaml
 collaboration_protocols:
-  communication_languages: ["natural", "structured", "semantic"]
+  communication_languages_query: "csh.query_supported_languages(context)" # Configuráveis via CSH
   interaction_interfaces: ["interface1", "interface2"]
   flow_patterns: ["pattern1", "pattern2"]
 ```
@@ -2143,7 +2143,7 @@ archetype_specification:
   specialization:
     primary_layer_ref: "oracle" # Referência ao nó CSH da camada Oracle
     knowledge_domains_query: "csh.query_accessible_domains(user_context)" # Query dinâmica aos domínios disponíveis no CSH do usuário
-    interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
+    interaction_contexts_query: "csh.query_interaction_contexts(archetype_context)" # Query dinâmica ao CSH
     expertise_depth: "Specialist"
   
   # Emergent Capabilities
@@ -2328,7 +2328,7 @@ archetype_specification:
   specialization:
     primary_layer_ref: "zion" # Referência ao nó CSH da camada Zion
     knowledge_domains_query: "csh.query_accessible_domains(user_context)" # Query dinâmica aos domínios disponíveis no CSH do usuário
-    interaction_contexts: ["discovery", "implementation", "refinement", "qa", "documentation", "support"]
+    interaction_contexts_query: "csh.query_interaction_contexts(archetype_context)" # Query dinâmica ao CSH
     expertise_depth: "Specialist"
   
   # Emergent Capabilities

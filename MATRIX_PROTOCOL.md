@@ -1,5 +1,9 @@
 # 📜 MATRIX PROTOCOL | PROTOCOLO MATRIX
 
+> 🚨 **IMPORTANTE**: Este documento contém exemplos ilustrativos que **NÃO são taxonomias obrigatórias**. Todas as taxonomias são configuráveis via CSH organizacional.
+
+> 🚨 **IMPORTANT**: This document contains illustrative examples that are **NOT mandatory taxonomies**. All taxonomies are configurable via organizational CSH.
+
 ## 🌎 Idioma / Language
 
 - [Português 🇧🇷](#português)
@@ -311,6 +315,36 @@ graph TD
 - **Inteligência**: Formato pronto para IA para busca semântica e recomendações
 - **Colaboração**: Estrutura clara permite compartilhamento efetivo de conhecimento humano-IA
 - **Maturação Orgânica**: Processo de promoção permite evolução natural do conhecimento de local para organizacional
+
+### ⚡ **Ordem Operacional Padrão para Consultas Oracle**
+
+Para garantir consistência entre implementações, o protocolo estabelece a seguinte ordem operacional obrigatória:
+
+```mermaid
+flowchart TD
+    A[Solicitação de Consulta] --> B[1. Contexto CSH do Usuário]
+    B --> C[2. Filtragem de Pertinência]
+    C --> D[3. Validação de Autoridade]
+    D --> E[4. Filtragem por Escopo]
+    E --> F[5. Consulta ao Oráculo]
+    F --> G[UKIs Filtradas & Autorizadas]
+    
+    H[CSH Organizacional] --> B
+    H --> C
+    H --> D
+    H --> E
+```
+
+**Sequência Operacional:**
+1. **Contexto CSH**: Identificar hierarquia, autoridades e escopo do usuário via CSH
+2. **Filtragem de Pertinência**: Aplicar regras de visibilidade baseadas no contexto hierárquico
+3. **Validação de Autoridade**: Verificar se o usuário tem autoridade para acessar domínios/tipos solicitados
+4. **Filtragem por Escopo**: Aplicar restrições de escopo (restricted vs propagated) conforme CSH
+5. **Consulta ao Oráculo**: Executar busca semântica apenas no subconjunto autorizado de UKIs
+
+**🛑 Importante**: A filtragem **sempre precede** a consulta, nunca o contrário, para garantir segurança e eficiência.
+
+---
 
 ## 🏛️ CSH - Catálogo Semântico de Hierarquias
 
@@ -677,6 +711,36 @@ graph TD
 - **Intelligence**: AI-ready format for semantic search and recommendations
 - **Collaboration**: Clear structure enables effective human-AI knowledge sharing
 - **Organic Maturation**: Promotion process enables natural evolution of knowledge from local to organizational scope
+
+### ⚡ **Standard Operational Order for Oracle Queries**
+
+To ensure consistency between implementations, the protocol establishes the following mandatory operational order:
+
+```mermaid
+flowchart TD
+    A[Query Request] --> B[1. User CSH Context]
+    B --> C[2. Pertinence Filtering]
+    C --> D[3. Authority Validation]
+    D --> E[4. Scope Filtering]
+    E --> F[5. Oracle Query]
+    F --> G[Filtered & Authorized UKIs]
+    
+    H[Organizational CSH] --> B
+    H --> C
+    H --> D
+    H --> E
+```
+
+**Operational Sequence:**
+1. **CSH Context**: Identify user hierarchy, authorities and scope via CSH
+2. **Pertinence Filtering**: Apply visibility rules based on hierarchical context
+3. **Authority Validation**: Verify user has authority to access requested domains/types
+4. **Scope Filtering**: Apply scope restrictions (restricted vs propagated) per CSH
+5. **Oracle Query**: Execute semantic search only on authorized UKI subset
+
+**🛑 Important**: Filtering **always precedes** the query, never the reverse, to ensure security and efficiency.
+
+---
 
 ## 🏛️ CSH - Semantic Hierarchy Catalog
 

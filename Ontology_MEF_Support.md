@@ -20,7 +20,15 @@
 
 ## 🔖 1. Domínios (`domain_of_influence` e `id`)
 
-Lista de domínios semânticos válidos que representam as áreas principais de influência conceitual:
+**Vocabulário de referência (não exaustivo)** de domínios semânticos que representam áreas comuns de influência conceitual:
+
+**🚨 Importante**: Esta é uma **lista de starter set/referência**, não taxonomia fechada. Organizações podem:
+- Usar estes domínios como base
+- Adicionar domínios específicos de sua realidade
+- Modificar ou remover conforme necessidade
+- Definir hierarquias próprias no CSH
+
+**🏛️ CSH é a fonte definitiva**: Domínios ativos são aqueles definidos no Catálogo Semântico de Hierarquias organizacional.
 
 ```yaml
 domains:
@@ -35,15 +43,19 @@ domains:
   - intelligence
 ```
 
-**Descrições dos Domínios:**
+**📋 Exemplos de Domínios (APENAS PARA REFERÊNCIA):**
 
-| Domínio | Descrição | Área de Influência |
+> ⚠️ **IMPORTANTE**: A tabela abaixo contém **APENAS EXEMPLOS ILUSTRATIVOS**. Estes **NÃO SÃO valores obrigatórios** nem taxonomia fechada. Cada organização define seus próprios domínios no CSH.
+
+| Exemplo de Domínio | Descrição Ilustrativa | Possível Área de Influência |
 |---------|-----------|-------------------|
 | `strategy` | Decisões de alto nível, planejamento estratégico | Direcionamento organizacional, objetivos de longo prazo |
 | `operations` | Processos operacionais, execução e procedimentos | Fluxos de trabalho, execução de tarefas |
 | `ethics` | Considerações éticas, compliance e responsabilidade | Conformidade regulatória, responsabilidade social |
 | `finance` | Aspectos financeiros, orçamentários e econômicos | ROI, custos, decisões de investimento |
 | `security` | Segurança, proteção e gerenciamento de riscos | Controles de acesso, gestão de vulnerabilidades |
+
+**🔄 Sua organização pode usar**: termos completamente diferentes como `inovação`, `qualidade`, `sustentabilidade`, `experiência-cliente`, ou qualquer hierarquia específica de seu contexto.
 | `governance` | Governança, controle e supervisão | Estruturas de controle, supervisão organizacional |
 | `communication` | Comunicação, colaboração e relacionamentos | Protocolos de comunicação, fluxos informativos |
 | `automation` | Automação, eficiência e otimização de processos | Processos automatizados, eficiência operacional |
@@ -66,9 +78,11 @@ types:
   - constraint    # limitação formal aplicada
 ```
 
-**Descrições dos Tipos:**
+**📋 Exemplos de Tipos (APENAS PARA REFERÊNCIA):**
 
-| Tipo | Descrição | Uso Principal |
+> ⚠️ **IMPORTANTE**: A tabela abaixo contém **APENAS EXEMPLOS ILUSTRATIVOS**. Estes **NÃO SÃO valores obrigatórios** nem taxonomia fechada. Cada organização define seus próprios tipos no CSH.
+
+| Exemplo de Tipo | Descrição Ilustrativa | Possível Uso |
 |------|-----------|---------------|
 | `concept` | Definição ou modelo teórico | Conceituação, estruturas de pensamento |
 | `rule` | Regra operacional ou normativa | Validação, lógica de decisão, normas |
@@ -77,6 +91,8 @@ types:
 | `procedure` | Sequência operacional | Processos, fluxos de trabalho, execução |
 | `glossary` | Definição de termos ou padrões | Padronização terminológica, referências |
 | `constraint` | Limitação formal aplicada | Restrições, limitações, controles |
+
+**🔄 Sua organização pode usar**: tipos completamente diferentes como `template`, `standard`, `guideline`, `decision`, `pattern`, ou qualquer categoria específica de seu contexto.
 
 ---
 
@@ -169,7 +185,15 @@ status_values:
 
 ## 🔖 1. Domains (`domain_of_influence` and `id`)
 
-List of valid semantic domains representing the main areas of conceptual influence:
+**Reference vocabulary (non-exhaustive)** of semantic domains representing common areas of conceptual influence:
+
+**🚨 Important**: This is a **starter set/reference list**, not a closed taxonomy. Organizations can:
+- Use these domains as a foundation
+- Add specific domains from their reality
+- Modify or remove as needed
+- Define their own hierarchies in CSH
+
+**🏛️ CSH is the definitive source**: Active domains are those defined in the organizational Semantic Hierarchy Catalog.
 
 ```yaml
 domains:
@@ -184,14 +208,18 @@ domains:
   - intelligence
 ```
 
-**Domain Descriptions:**
+**📋 Domain Examples (FOR REFERENCE ONLY):**
 
-| Domain | Description | Area of Influence |
+> ⚠️ **IMPORTANT**: The table below contains **ILLUSTRATIVE EXAMPLES ONLY**. These are **NOT mandatory values** nor closed taxonomy. Each organization defines its own domains in CSH.
+
+| Example Domain | Illustrative Description | Possible Area of Influence |
 |--------|-------------|-------------------|
 | `strategy` | High-level decisions, strategic planning | Organizational direction, long-term objectives |
 | `operations` | Operational processes, execution and procedures | Workflows, task execution |
 | `ethics` | Ethical considerations, compliance and responsibility | Regulatory compliance, social responsibility |
 | `finance` | Financial, budgetary and economic aspects | ROI, costs, investment decisions |
+
+**🔄 Your organization can use**: completely different terms like `innovation`, `quality`, `sustainability`, `customer-experience`, or any hierarchy specific to your context.
 | `security` | Security, protection and risk management | Access controls, vulnerability management |
 | `governance` | Governance, control and oversight | Control structures, organizational oversight |
 | `communication` | Communication, collaboration and relationships | Communication protocols, information flows |
@@ -215,9 +243,11 @@ types:
   - constraint    # formal limitation applied
 ```
 
-**Type Descriptions:**
+**📋 Type Examples (FOR REFERENCE ONLY):**
 
-| Type | Description | Primary Use |
+> ⚠️ **IMPORTANT**: The table below contains **ILLUSTRATIVE EXAMPLES ONLY**. These are **NOT mandatory values** nor closed taxonomy. Each organization defines its own types in CSH.
+
+| Example Type | Illustrative Description | Possible Use |
 |------|-------------|-------------|
 | `concept` | Definition or theoretical model | Conceptualization, thought structures |
 | `rule` | Operational or normative rule | Validation, decision logic, standards |
@@ -226,6 +256,8 @@ types:
 | `procedure` | Operational sequence | Processes, workflows, execution |
 | `glossary` | Definition of terms or standards | Terminological standardization, references |
 | `constraint` | Formal limitation applied | Restrictions, limitations, controls |
+
+**🔄 Your organization can use**: completely different types like `template`, `standard`, `guideline`, `decision`, `pattern`, or any category specific to your context.
 
 ---
 
