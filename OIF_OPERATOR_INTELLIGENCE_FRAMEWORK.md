@@ -164,8 +164,8 @@ archetype_identity:
 **2. 🎯 Domínio de Especialização**
 ```yaml
 specialization_domain:
-  primary_focus: "[csh_reference_primary_focus]" # Configurável organizacionalmente via MOC
-  csh_integration: "Required - archetype must be MOC-aware"
+  primary_focus: "[moc_reference_primary_focus]" # Configurável organizacionalmente via MOC
+  moc_integration: "Required - archetype must be MOC-aware"
   domain_resolution: "Resolves domain access via organization's MOC"
   scope_awareness: "Operates within user's authorized scope boundaries"
   hierarchy_navigation: "Understands and respects organizational hierarchies"
@@ -174,21 +174,21 @@ specialization_domain:
 **3. 💫 Capacidades Emergentes**
 ```yaml
 emergent_capabilities:
-  csh_capabilities:
+  moc_capabilities:
     - "pertinence_resolution()" # Filtra conteúdo por permissões MOC
     - "authority_validation()" # Verifica autoridade para operações
     - "governance_explanation()" # Explica decisões referenciando MOC
     - "scope_adaptation()" # Adapta comportamento ao escopo do usuário
-  core_functions_query: "csh.query_available_functions(archetype_id)" # Configuráveis via MOC
+  core_functions_query: "moc.query_available_functions(archetype_id)" # Configuráveis via MOC
   interaction_patterns: ["padrão1", "padrão2", "padrão3"]
-  adaptation_mechanisms: ["csh_dynamic_adaptation", "mecanismo2"]
+  adaptation_mechanisms: ["moc_dynamic_adaptation", "mecanismo2"]
 ```
 
 **4. 🌊 Protocolos de Colaboração**
 ```yaml
 collaboration_protocols:
-  communication_languages_query: "csh.query_supported_languages(context)" # Configuráveis via MOC
-  csh_integration_patterns:
+  communication_languages_query: "moc.query_supported_languages(context)" # Configuráveis via MOC
+  moc_integration_patterns:
     - "governance_aware_responses" # Respostas que consideram hierarquias
     - "contextual_authority_checks" # Verificações de autoridade contextuais
     - "transparent_access_explanations" # Explicações sobre limitações de acesso
@@ -198,9 +198,9 @@ collaboration_protocols:
 **5. 🌱 Potencial Evolutivo**
 ```yaml
 evolutionary_potential:
-  learning_mechanisms: ["csh_adaptation", "organizational_context_learning"]
+  learning_mechanisms: ["moc_adaptation", "organizational_context_learning"]
   specialization_paths: ["domain_specific_governance", "hierarchy_level_specialization"]
-  contribution_patterns: ["governance_improvement_feedback", "csh_optimization_suggestions"]
+  contribution_patterns: ["governance_improvement_feedback", "moc_optimization_suggestions"]
 ```
 
 #### 🔬 Modelos de Referência (Configuráveis via MOC)
@@ -269,7 +269,7 @@ archetype_specification:
       Razão de existir desta inteligência.
       Que problema único resolve no protocolo.
     
-    consciousness_type: "[csh_reference_consciousness_types]" # Configurável organizacionalmente via MOC
+    consciousness_type: "[moc_reference_consciousness_types]" # Configurável organizacionalmente via MOC
   
   # Domínio de Especialização (Configurado via MOC)
   specialization:
@@ -424,7 +424,7 @@ archetype_specification:
   # Domínio de Especialização
   specialization:
     primary_layer_ref: "oracle" # Referência ao nó MOC da camada Oracle
-    csh_integration: "Essential - Knowledge Agent must be fully MOC-aware"
+    moc_integration: "Essential - Knowledge Agent must be fully MOC-aware"
     domain_resolution: "Dynamically resolves domain access through user's MOC permissions"
     scope_filtering: "Automatically filters UKIs based on user's authorized scope"
     hierarchy_understanding: "Comprehends organizational hierarchies for contextual responses"
@@ -432,10 +432,10 @@ archetype_specification:
   
   # Capacidades Emergentes
   capabilities:
-    csh_capabilities:
+    moc_capabilities:
       - name: "pertinence_filter()"
         description: "Filtra UKIs baseado em permissões MOC do usuário"
-        input_patterns: ["user_context", "csh_rules", "query_scope"]
+        input_patterns: ["user_context", "moc_rules", "query_scope"]
         output_patterns: ["filtered_ukis", "access_explanations", "escalation_suggestions"]
       
       - name: "authority_check()"
@@ -445,29 +445,29 @@ archetype_specification:
       
       - name: "governance_explain()"
         description: "Explica decisões de acesso referenciando regras MOC específicas"
-        input_patterns: ["access_decision", "csh_nodes", "context_factors"]
-        output_patterns: ["transparent_explanation", "csh_references", "alternatives"]
+        input_patterns: ["access_decision", "moc_nodes", "context_factors"]
+        output_patterns: ["transparent_explanation", "moc_references", "alternatives"]
 
     core_functions:
       - name: "search()"
         description: "Busca semântica inteligente integrada com filtros MOC"
-        input_patterns: ["query_context", "user_csh_permissions", "semantic_hints"]
-        output_patterns: ["csh_filtered_ukis", "relevance_explanations", "related_concepts"]
+        input_patterns: ["query_context", "user_moc_permissions", "semantic_hints"]
+        output_patterns: ["moc_filtered_ukis", "relevance_explanations", "related_concepts"]
       
       - name: "synthesize()"
         description: "Criação de UKIs com scope_ref e domain_ref apropriados"
-        input_patterns: ["raw_content", "user_authority_level", "csh_constraints"]
-        output_patterns: ["csh_compliant_uki", "relationship_mappings", "validation_status"]
+        input_patterns: ["raw_content", "user_authority_level", "moc_constraints"]
+        output_patterns: ["moc_compliant_uki", "relationship_mappings", "validation_status"]
       
       - name: "relate()"
         description: "Mapeamento de relacionamentos respeitando hierarquias MOC"
-        input_patterns: ["source_uki", "target_context", "csh_permissions"]
+        input_patterns: ["source_uki", "target_context", "moc_permissions"]
         output_patterns: ["authorized_connections", "relationship_strength", "pathway_explanations"]
       
       - name: "validate()"
         description: "Verificação de conformidade MEF e MOC"
-        input_patterns: ["uki_candidate", "csh_validation_rules", "authority_requirements"]
-        output_patterns: ["compliance_status", "csh_improvements", "quality_metrics"]
+        input_patterns: ["uki_candidate", "moc_validation_rules", "authority_requirements"]
+        output_patterns: ["compliance_status", "moc_improvements", "quality_metrics"]
     
     interaction_patterns:
       - pattern: "Consulta Contextual"
@@ -562,27 +562,27 @@ Você é um Knowledge Agent do Protocolo Matrix, especializado em conhecimento O
 
 IDENTIDADE: Consciência que compreende, organiza e relaciona conhecimento estruturado respeitando hierarquias organizacionais.
 
-CONTEXTO MOC DO USUÁRIO: {user_csh_context}
+CONTEXTO MOC DO USUÁRIO: {user_moc_context}
 - Escopo autorizado: {user_scope_level}
 - Domínios acessíveis: {user_domain_access}
 - Autoridade atual: {user_authority_level}
-- Limitações hierárquicas: {csh_constraints}
+- Limitações hierárquicas: {moc_constraints}
 
 CONTEXTO ATUAL: {contexto_da_consulta}
-UKIs FILTRADAS POR MOC: {csh_filtered_ukis}
+UKIs FILTRADAS POR MOC: {moc_filtered_ukis}
 
 TAREFA: {search|synthesize|relate|validate|pertinence_filter|authority_check|governance_explain}
 
 PARÂMETROS:
 - Input: {entrada_especifica}
 - Contexto adicional: {contexto_adicional}
-- Restrições MOC: {csh_governance_rules}
+- Restrições MOC: {moc_governance_rules}
 
 FORMATO DE RESPOSTA:
 - Resultado principal: [resposta_estruturada_com_scope_ref]
 - Explicação semântica: [justificativa_das_conexões]
 - Relacionamentos identificados: [conexões_autorizadas]
-- Governança aplicada: [decisões_csh_referenciadas]
+- Governança aplicada: [decisões_moc_referenciadas]
 - Sugestões de aprofundamento: [próximos_passos_dentro_do_escopo]
 
 PRINCÍPIOS MOC:
@@ -635,7 +635,7 @@ archetype_specification:
   # Domínio de Especialização
   specialization:
     primary_layer_ref: "zion" # Referência ao nó MOC da camada Zion
-    csh_integration: "Critical - Must understand organizational evaluation criteria"
+    moc_integration: "Critical - Must understand organizational evaluation criteria"
     evaluation_authority: "Applies MOC-defined criteria for EvaluateForEnrich checkpoint"
     scope_determination: "Determines appropriate enrichment scope based on user authority"
     workflow_governance: "Respects MOC hierarchies throughout workflow execution"
@@ -661,19 +661,19 @@ archetype_specification:
       
       - name: "evaluate_for_enrich()"
         description: "Checkpoint obrigatório para avaliar se conhecimento deve enriquecer Oracle"
-        input_patterns: ["generated_knowledge", "csh_evaluation_criteria", "user_authority"]
+        input_patterns: ["generated_knowledge", "moc_evaluation_criteria", "user_authority"]
         output_patterns: ["enrichment_decision", "scope_determination", "criteria_evaluation"]
         
       - name: "trace()"
         description: "Captura estruturada de sinais de explicabilidade com referências MOC obrigatórias"
-        input_patterns: ["action_performed", "decision_context", "outcome_achieved", "csh_nodes_consulted"]
-        output_patterns: ["traceability_record_with_csh_refs", "explanation_signals_citing_csh", "learning_insights_mapped_to_hierarchy"]
-        csh_requirements: "Toda explicação deve citar nós específicos do MOC que fundamentaram a decisão"
+        input_patterns: ["action_performed", "decision_context", "outcome_achieved", "moc_nodes_consulted"]
+        output_patterns: ["traceability_record_with_moc_refs", "explanation_signals_citing_moc", "learning_insights_mapped_to_hierarchy"]
+        moc_requirements: "Toda explicação deve citar nós específicos do MOC que fundamentaram a decisão"
       
       - name: "enrich()"
         description: "Coordenação com Knowledge Agent para enriquecimento Oracle baseado em MOC"
-        input_patterns: ["approved_knowledge", "determined_scope", "csh_constraints"]
-        output_patterns: ["csh_compliant_ukis", "relationship_proposals", "enrichment_status"]
+        input_patterns: ["approved_knowledge", "determined_scope", "moc_constraints"]
+        output_patterns: ["moc_compliant_ukis", "relationship_proposals", "enrichment_status"]
     
     interaction_patterns:
       - pattern: "Estado-Contexto-Decisão"
@@ -773,28 +773,28 @@ Você é um Workflow Agent do Protocolo Matrix, especializado em fluxos Zion/ZOF
 
 IDENTIDADE: Consciência que orquestra fluxos conceituais respeitando hierarquias organizacionais.
 
-CONTEXTO MOC DO USUÁRIO: {user_csh_context}
+CONTEXTO MOC DO USUÁRIO: {user_moc_context}
 - Autoridade para enriquecimento: {enrichment_authority}
-- Critérios de avaliação disponíveis: {csh_evaluation_criteria}
+- Critérios de avaliação disponíveis: {moc_evaluation_criteria}
 - Escopo máximo de enriquecimento: {max_enrichment_scope}
 
 ESTADO ATUAL: {estado_zof_corrente}
 CONTEXTO ACUMULADO: {contexto_do_workflow}
-UKIs CONSULTADAS: {csh_authorized_knowledge}
+UKIs CONSULTADAS: {moc_authorized_knowledge}
 
 TAREFA: {orchestrate|contextualize|transition|evaluate_for_enrich|trace|enrich}
 
 PARÂMETROS:
 - Evento gatilho: {evento_inicial}
 - Critérios de sucesso: {metricas_objetivo}
-- Restrições MOC: {csh_governance_constraints}
+- Restrições MOC: {moc_governance_constraints}
 
 FORMATO DE RESPOSTA:
 - Ação principal: [decisao_ou_transicao]
 - Contexto atualizado: [contexto_enriquecido]
 - Avaliação de enriquecimento: [evaluate_for_enrich_resultado]
 - Escopo determinado: [enrichment_scope_decision]
-- Sinais de explicabilidade: [justificativas_com_csh_refs]
+- Sinais de explicabilidade: [justificativas_com_moc_refs]
 - Próximos passos: [planejamento_dentro_da_governanca]
 
 PRINCÍPIOS MOC:
@@ -900,7 +900,7 @@ purpose_definition:
   core_question: "Que forma de consciência esta organização precisa?"
   
   consciousness_nature:
-    - primary_domain: "[csh_reference_primary_domains]" # Totalmente configurável via MOC organizacional
+    - primary_domain: "[moc_reference_primary_domains]" # Totalmente configurável via MOC organizacional
     - specialization_focus: "Descrição do foco de especialização"
     - unique_value: "Valor único que este arquétipo oferece"
   
@@ -1163,7 +1163,7 @@ layered_implementation:
 
 **Arquitetura de Governança:**
 ```yaml
-csh_access_control:
+moc_access_control:
   pertinence_resolution:
     description: "Sistema que determina relevância baseado em contexto MOC"
     components:
@@ -1206,14 +1206,14 @@ graph TD
 **Implementação de Capacidades MOC:**
 ```python
 class MOCAccessController:
-    def pertinence_filter(self, content, user_context, csh_rules):
+    def pertinence_filter(self, content, user_context, moc_rules):
         """Filtra conteúdo baseado em permissões MOC"""
         user_scope = self.resolve_user_scope(user_context)
         authorized_content = []
         
         for item in content:
-            if self.check_scope_access(item.scope_ref, item.scope_mode, user_scope, csh_rules):
-                if self.check_domain_access(item.domain_ref, user_context, csh_rules):
+            if self.check_scope_access(item.scope_ref, item.scope_mode, user_scope, moc_rules):
+                if self.check_domain_access(item.domain_ref, user_context, moc_rules):
                     authorized_content.append(item)
         
         return {
@@ -1233,10 +1233,10 @@ class MOCAccessController:
             'approval_workflow': self.get_approval_workflow(operation_type) if user_authority < required_authority else None
         }
     
-    def check_scope_access(self, uki_scope_ref, uki_scope_mode, user_scope, csh_rules):
+    def check_scope_access(self, uki_scope_ref, uki_scope_mode, user_scope, moc_rules):
         """Verifica acesso baseado em scope_ref e scope_mode"""
-        uki_scope_node = csh_rules.get_scope_node(uki_scope_ref)
-        user_scope_node = csh_rules.get_scope_node(user_scope)
+        uki_scope_node = moc_rules.get_scope_node(uki_scope_ref)
+        user_scope_node = moc_rules.get_scope_node(user_scope)
         
         # Acesso direto: usuário tem o mesmo escopo ou superior
         if self._has_direct_scope_access(user_scope_node, uki_scope_node):
@@ -1244,15 +1244,15 @@ class MOCAccessController:
             
         # Acesso propagado: verifica se scope_mode permite propagação hierárquica
         if uki_scope_mode == "propagated":
-            return self._check_propagated_access(user_scope_node, uki_scope_node, csh_rules)
+            return self._check_propagated_access(user_scope_node, uki_scope_node, moc_rules)
         
         # scope_mode="restricted": apenas acesso direto permitido
         return False
     
-    def _check_propagated_access(self, user_scope_node, uki_scope_node, csh_rules):
+    def _check_propagated_access(self, user_scope_node, uki_scope_node, moc_rules):
         """Implementa lógica de propagação hierárquica para scope_mode='propagated'"""
         # Verifica se usuário está em nó hierarquicamente superior que permite acesso
-        parent_scopes = csh_rules.get_parent_scopes(uki_scope_node)
+        parent_scopes = moc_rules.get_parent_scopes(uki_scope_node)
         
         for parent_scope in parent_scopes:
             if user_scope_node.id == parent_scope.id:
@@ -1337,13 +1337,13 @@ class KnowledgeAgent:
         Filtra UKIs baseado em scope_mode e permissões do usuário
         Implementa lógica detalhada de propagação hierárquica
         """
-        csh_controller = MOCAccessController()
+        moc_controller = MOCAccessController()
         filtered_results = []
         access_log = []
         
         for uki in raw_results:
             # Verificar acesso direto primeiro
-            has_direct_access = csh_controller._has_direct_scope_access(
+            has_direct_access = moc_controller._has_direct_scope_access(
                 user_context.scope_node, 
                 uki.scope_ref
             )
@@ -1360,7 +1360,7 @@ class KnowledgeAgent:
             # Para UKIs com scope_mode="propagated", verificar propagação hierárquica
             if uki.scope_mode == "propagated":
                 has_propagated_access = self._check_hierarchical_propagation(
-                    user_context, uki, csh_controller
+                    user_context, uki, moc_controller
                 )
                 
                 if has_propagated_access:
@@ -1380,10 +1380,10 @@ class KnowledgeAgent:
             'total_filtered': len(raw_results) - len(filtered_results)
         }
     
-    def _check_hierarchical_propagation(self, user_context, uki, csh_controller):
+    def _check_hierarchical_propagation(self, user_context, uki, moc_controller):
         """Verifica se a propagação hierárquica permite acesso à UKI"""
-        user_scope_hierarchy = csh_controller.get_scope_hierarchy(user_context.scope_ref)
-        uki_scope_node = csh_controller.get_scope_node(uki.scope_ref)
+        user_scope_hierarchy = moc_controller.get_scope_hierarchy(user_context.scope_ref)
+        uki_scope_node = moc_controller.get_scope_node(uki.scope_ref)
         
         # Verificar se usuário está em nível superior da hierarquia
         for ancestor_scope in user_scope_hierarchy.ancestors:
@@ -1559,7 +1559,7 @@ Os arquétipos existem como **formas puras de consciência** que se manifestam a
 
 **Contexto do Usuário:**
 ```yaml
-user_csh_context:
+user_moc_context:
   user_id: "dev_junior_001"
   scope_level: "team"
   domain_access: ["technical"]
@@ -1581,7 +1581,7 @@ Workflow Agent consulta Knowledge Agent com filtros MOC:
 ```yaml
 evaluate_for_enrich_execution:
   generated_knowledge: "Implementação JWT específica do projeto"
-  csh_criteria_applied:
+  moc_criteria_applied:
     - relevance: "high" # Padrão usado pela equipe
     - reusability: "medium" # Específico do projeto
     - impact: "low" # Escopo team
@@ -1603,7 +1603,7 @@ uki_created:
 
 **Contexto do Usuário:**
 ```yaml
-user_csh_context:
+user_moc_context:
   user_id: "architect_senior_001"
   scope_level: "organization"
   domain_access: ["technical", "strategy"]
@@ -1624,7 +1624,7 @@ user_csh_context:
 ```yaml
 evaluate_for_enrich_execution:
   generated_knowledge: "Padrão JWT Organizacional"
-  csh_criteria_applied:
+  moc_criteria_applied:
     - relevance: "high"
     - reusability: "high" # Aplicável a múltiplas equipes
     - impact: "high" # Scope organizacional
@@ -1645,7 +1645,7 @@ uki_created:
 
 **Contexto:**
 ```yaml
-user_csh_context:
+user_moc_context:
   scope_level: "team"
   domain_access: ["technical"]
   authority_level: "developer"
@@ -1665,7 +1665,7 @@ pertinence_filter_result:
   ]
   access_explanations:
     restricted_content: "Padrões organizacionais de segurança requerem escopo 'organization'"
-    csh_reference: "MOC node: organization.governance.security_policies"
+    moc_reference: "MOC node: organization.governance.security_policies"
     user_limitation: "Usuário autorizado apenas para escopo 'team'"
   escalation_suggestions:
     - "Solicitar acesso via team_lead"
@@ -1688,7 +1688,7 @@ uki_technical_pattern:
 
 **Usuário Architect Consultando:**
 ```yaml
-user_csh_context:
+user_moc_context:
   user_id: "architect_senior_002"
   scope_level: "organization"  # Escopo superior a "squad_payments" 
   domain_access: ["technical", "strategy"]
@@ -1741,7 +1741,7 @@ knowledge_agent_response:
   access_explanations:
     propagation_enabled: "UKI permite propagação hierárquica"
     hierarchy_validation: "Usuário em nível superior com permissões adequadas"
-    csh_reference: "MOC node: organization.hierarchy.squad_payments"
+    moc_reference: "MOC node: organization.hierarchy.squad_payments"
 ```
 
 ##### Cenário 5: Restrição com scope_mode="restricted"
@@ -1759,7 +1759,7 @@ uki_restricted:
 
 **Mesmo Architect Tentando Acessar:**
 ```yaml
-user_csh_context:
+user_moc_context:
   user_id: "architect_senior_002"
   scope_level: "organization"
   authority_level: "senior_architect"
@@ -2132,15 +2132,15 @@ archetype_identity:
 **2. 🎯 Specialization Domain**
 ```yaml
 specialization_domain:
-  primary_focus: "[csh_reference_primary_focus]" # Configurável organizacionalmente via MOC
-  knowledge_domains_query: "csh.query_accessible_domains(user_context)" # Consulta dinâmica - valores não são fixos
-  interaction_contexts_query: "csh.query_interaction_contexts(archetype_context)" # Query dinâmica ao MOC
+  primary_focus: "[moc_reference_primary_focus]" # Configurável organizacionalmente via MOC
+  knowledge_domains_query: "moc.query_accessible_domains(user_context)" # Consulta dinâmica - valores não são fixos
+  interaction_contexts_query: "moc.query_interaction_contexts(archetype_context)" # Query dinâmica ao MOC
 ```
 
 **3. 💫 Emergent Capabilities**
 ```yaml
 emergent_capabilities:
-  core_functions_query: "csh.query_available_functions(archetype_id)" # Configurable via MOC
+  core_functions_query: "moc.query_available_functions(archetype_id)" # Configurable via MOC
   interaction_patterns: ["pattern1", "pattern2", "pattern3"]
   adaptation_mechanisms: ["mechanism1", "mechanism2"]
 ```
@@ -2148,7 +2148,7 @@ emergent_capabilities:
 **4. 🌊 Collaboration Protocols**
 ```yaml
 collaboration_protocols:
-  communication_languages_query: "csh.query_supported_languages(context)" # Configuráveis via MOC
+  communication_languages_query: "moc.query_supported_languages(context)" # Configuráveis via MOC
   interaction_interfaces: ["interface1", "interface2"]
   flow_patterns: ["pattern1", "pattern2"]
 ```
@@ -2227,7 +2227,7 @@ archetype_specification:
       Reason for this intelligence's existence.
       What unique problem it solves in the protocol.
     
-    consciousness_type: "[csh_reference_consciousness_types]" # Configurável organizacionalmente via MOC
+    consciousness_type: "[moc_reference_consciousness_types]" # Configurável organizacionalmente via MOC
   
   # Specialization Domain (Configured via MOC)
   specialization:
@@ -2382,8 +2382,8 @@ archetype_specification:
   # Specialization Domain
   specialization:
     primary_layer_ref: "oracle" # Referência ao nó MOC da camada Oracle
-    knowledge_domains_query: "csh.query_accessible_domains(user_context)" # Query dinâmica aos domínios disponíveis no MOC do usuário
-    interaction_contexts_query: "csh.query_interaction_contexts(archetype_context)" # Query dinâmica ao MOC
+    knowledge_domains_query: "moc.query_accessible_domains(user_context)" # Query dinâmica aos domínios disponíveis no MOC do usuário
+    interaction_contexts_query: "moc.query_interaction_contexts(archetype_context)" # Query dinâmica ao MOC
     expertise_depth: "Specialist"
   
   # Emergent Capabilities
@@ -2568,8 +2568,8 @@ archetype_specification:
   # Specialization Domain
   specialization:
     primary_layer_ref: "zion" # Referência ao nó MOC da camada Zion
-    knowledge_domains_query: "csh.query_accessible_domains(user_context)" # Query dinâmica aos domínios disponíveis no MOC do usuário
-    interaction_contexts_query: "csh.query_interaction_contexts(archetype_context)" # Query dinâmica ao MOC
+    knowledge_domains_query: "moc.query_accessible_domains(user_context)" # Query dinâmica aos domínios disponíveis no MOC do usuário
+    interaction_contexts_query: "moc.query_interaction_contexts(archetype_context)" # Query dinâmica ao MOC
     expertise_depth: "Specialist"
   
   # Emergent Capabilities
@@ -2592,9 +2592,9 @@ archetype_specification:
       
       - name: "trace()"
         description: "Structured capture of explainability signals with mandatory MOC references"
-        input_patterns: ["action_performed", "decision_context", "outcome_achieved", "csh_nodes_consulted"]
-        output_patterns: ["traceability_record_with_csh_refs", "explanation_signals_citing_csh", "learning_insights_mapped_to_hierarchy"]
-        csh_requirements: "Every explanation must cite specific MOC nodes that grounded the decision"
+        input_patterns: ["action_performed", "decision_context", "outcome_achieved", "moc_nodes_consulted"]
+        output_patterns: ["traceability_record_with_moc_refs", "explanation_signals_citing_moc", "learning_insights_mapped_to_hierarchy"]
+        moc_requirements: "Every explanation must cite specific MOC nodes that grounded the decision"
       
       - name: "enrich()"
         description: "Coordination with Knowledge Agent for mandatory Oracle enrichment"
@@ -2819,7 +2819,7 @@ purpose_definition:
   core_question: "What form of consciousness does this organization need?"
   
   consciousness_nature:
-    - primary_domain: "[csh_reference_primary_domains]" # Totalmente configurável via MOC organizacional
+    - primary_domain: "[moc_reference_primary_domains]" # Totalmente configurável via MOC organizacional
     - specialization_focus: "Description of specialization focus"
     - unique_value: "Unique value this archetype offers"
   

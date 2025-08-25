@@ -63,7 +63,7 @@ previous_version: "[MAJOR.MINOR.PATCH]"  # Versão anterior (opcional para vers�
 
 status: [active | deprecated | archived]  # OBRIGATÓRIO: controle de ciclo de vida
 
-domain_of_influence: [referência_ao_csh_organizational]  # RECOMENDADO: área de impacto configurada via MOC
+domain_of_influence: [referência_ao_moc_organizational]  # RECOMENDADO: área de impacto configurada via MOC
 
 # 🚨 AVISO: EXEMPLOS NÃO SÃO TAXONOMIA OBRIGATÓRIA
 # Os valores mostrados anteriormente (strategy, operations, etc.) são APENAS EXEMPLOS ILUSTRATIVOS.
@@ -1581,7 +1581,7 @@ change_impact: [major | minor | patch]  # Type of change impact
 previous_version: "[MAJOR.MINOR.PATCH]"  # Previous version (optional for 1.0.0)
 
 status: [active | deprecated | archived]  # Lifecycle control
-domain_of_influence: [organizational_csh_reference]  # Strategic impact area configured via MOC
+domain_of_influence: [organizational_moc_reference]  # Strategic impact area configured via MOC
 
 # 🚨 WARNING: EXAMPLES ARE NOT MANDATORY TAXONOMY
 # Previously shown values (strategy, operations, etc.) are ILLUSTRATIVE EXAMPLES ONLY.

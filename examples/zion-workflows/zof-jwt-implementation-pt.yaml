@@ -105,7 +105,7 @@ flow_execution:
   - state: evaluate_for_enrich
     timestamp: "2024-01-15T15:30:00Z"
     signals:
-      context: "Avaliando critérios CSH para enriquecimento"
+      context: "Avaliando critérios MOC para enriquecimento"
       decision: "Conhecimento aprovado para enriquecimento com escopo 'team'"
       result: "Autorizado para criar UKIs no escopo permitido"
     next_state: enrich

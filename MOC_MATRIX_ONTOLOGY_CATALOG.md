@@ -53,7 +53,7 @@ Todo conceito hierárquico deve:
 ### Formato Base
 
 ```yaml
-csh_version: "1.0"
+moc_version: "1.0"
 organization: "[Nome da Organização]"
 created_date: "[YYYY-MM-DD]"
 last_modified: "[YYYY-MM-DD]"
@@ -322,7 +322,7 @@ Every hierarchical concept must:
 ### Base Format
 
 ```yaml
-csh_version: "1.0"
+moc_version: "1.0"
 organization: "[Organization Name]"
 created_date: "[YYYY-MM-DD]"
 last_modified: "[YYYY-MM-DD]"

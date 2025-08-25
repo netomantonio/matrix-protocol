@@ -143,7 +143,7 @@ stateDiagram-v2
 
 ### 🔍 **EvaluateForEnrich**
 - **Propósito:** Avaliar se o resultado produz conhecimento estruturável com governança MOC
-- **Ações:** Aplicar can_enrich?(act_output, context, user_csh_context, csh_criteria) para decidir próximo estado
+- **Ações:** Aplicar can_enrich?(act_output, context, user_moc_context, moc_criteria) para decidir próximo estado
 - **Saída:** Decisão sobre necessidade de enriquecimento + escopo determinado + explicação de governança
 - **Função Semântica:** can_enrich?() avalia:
   - Divergência semântica em relação ao conhecimento existente
@@ -160,8 +160,8 @@ can_enrich_function:
     - act_output: resultado da execução
     - context: contexto do fluxo
     - proposed_uki: UKI candidato
-    - user_csh_context: contexto hierárquico do usuário
-    - csh_evaluation_criteria: critérios organizacionais configuráveis
+    - user_moc_context: contexto hierárquico do usuário
+    - moc_evaluation_criteria: critérios organizacionais configuráveis
   
   validation_checks:
     semantic_novelty:
@@ -174,7 +174,7 @@ can_enrich_function:
       - scope_ref_valid: true
       - domain_ref_valid: true
     
-    csh_governance:
+    moc_governance:
       - user_authority_sufficient: "resolve via MOC authority rules"
       - domain_access_authorized: "verify against user's domain_access"
       - scope_within_limits: "ensure scope_ref <= user's max_scope"
@@ -186,20 +186,20 @@ can_enrich_function:
       - governance_transparent: "explain MOC-based decisions"
   
   decision_logic: |
-    resolved_criteria = resolve_evaluation_criteria(csh_evaluation_criteria, user_csh_context)
-    authority_check = validate_user_authority(user_csh_context, proposed_uki.scope_ref)
+    resolved_criteria = resolve_evaluation_criteria(moc_evaluation_criteria, user_moc_context)
+    authority_check = validate_user_authority(user_moc_context, proposed_uki.scope_ref)
     
     IF (semantic_novelty AND structural_validity AND authority_check AND meets_criteria(resolved_criteria))
       THEN return {
         decision: ENRICH_APPROVED,
-        determined_scope: determine_enrichment_scope(user_csh_context),
+        determined_scope: determine_enrichment_scope(user_moc_context),
         criteria_applied: resolved_criteria,
-        governance_explanation: generate_csh_explanation()
+        governance_explanation: generate_moc_explanation()
       }
     ELSE return {
       decision: ENRICH_REJECTED,
       reason: identify_failure_reason(),
-      escalation_path: suggest_escalation_via_csh(),
+      escalation_path: suggest_escalation_via_moc(),
       alternative_actions: suggest_alternatives()
     }
 ```
@@ -236,12 +236,12 @@ O ZOF integra nativamente com o **MOC (Matrix Ontology Catalog)** organizacional
 ```yaml
 authority_flow_pattern:
   user_context_resolution:
-    - resolve_user_from_csh: "Identifica escopo e domínios autorizados"
+    - resolve_user_from_moc: "Identifica escopo e domínios autorizados"
     - load_evaluation_criteria: "Carrega critérios organizacionais"
     - determine_max_scope: "Define escopo máximo de enriquecimento"
   
   evaluate_for_enrich_execution:
-    - apply_csh_criteria: "Usa critérios configuráveis ao invés de fixos"
+    - apply_moc_criteria: "Usa critérios configuráveis ao invés de fixos"
     - validate_authority: "Verifica se usuário pode enriquecer no escopo proposto"
     - determine_scope: "Define escopo específico para nova UKI"
     - explain_governance: "Gera transparência sobre decisões MOC"
@@ -423,7 +423,7 @@ evaluation:
 
 result: ENRICH_REJECTED
 reason: "Domínio 'security' configurado no MOC como restrito para usuários com autoridade 'team_member'"
-csh_nodes_cited:
+moc_nodes_cited:
   - node_type: "domain"
     node_id: "security"
     restriction_rule: "requires_authority_level: security_lead"
@@ -442,9 +442,9 @@ alternatives: "Criar UKI em domínio 'technical' com escopo 'team' para implemen
 required_explanation_format:
   result: ENRICH_REJECTED
   reason: "[Explicação citando nós MOC específicos]"
-  csh_nodes_cited:
+  moc_nodes_cited:
     - node_type: "domain" | "scope" | "type" | "authority_level"
-      node_id: "[id_do_nó_csh]"
+      node_id: "[id_do_nó_moc]"
       restriction_rule: "[regra_específica_que_causou_rejeição]"
   escalation_path: "[Como o usuário pode escalar ou obter permissão]"
   alternatives: "[Sugestões de ações alternativas dentro da autoridade do usuário]"
@@ -572,12 +572,12 @@ Cada organização define no **MOC** quais domínios, tipos e escopos são restr
 
 #### **Validação Dinâmica via MOC**
 ```yaml
-csh_validation:
+moc_validation:
   can_create_uki: |
     # Consulta dinâmica ao MOC organizacional
-    domain_node = csh.get_domain(proposed_uki.domain_ref)
-    type_node = csh.get_type(proposed_uki.type_ref)
-    scope_node = csh.get_scope(proposed_uki.scope_ref)
+    domain_node = moc.get_domain(proposed_uki.domain_ref)
+    type_node = moc.get_type(proposed_uki.type_ref)
+    scope_node = moc.get_scope(proposed_uki.scope_ref)
     
     # Verifica autoridade do usuário para cada nó 
     IF validate_authority(user_context, domain_node, type_node, scope_node):
@@ -817,8 +817,8 @@ validation:
 preconditions:
   - action_executed: true
   - execution_result: documented
-  - user_csh_context: available
-  - csh_evaluation_criteria: loaded
+  - user_moc_context: available
+  - moc_evaluation_criteria: loaded
 postconditions:
   - enrichment_decision: made
   - can_enrich_evaluated: true
@@ -826,7 +826,7 @@ postconditions:
   - governance_explanation: generated
 validation:
   semantic_evaluation: completed
-  csh_authority_validated: true
+  moc_authority_validated: true
   evaluation_criteria_applied: true
   justification_documented: true
 context_required:
@@ -1422,7 +1422,7 @@ stateDiagram-v2
 
 ### 🔍 **EvaluateForEnrich**
 - **Purpose:** Assess whether the result produces structurable knowledge
-- **Actions:** Apply can_enrich?(act_output, context, user_csh_context, csh_criteria) to decide next state
+- **Actions:** Apply can_enrich?(act_output, context, user_moc_context, moc_criteria) to decide next state
 - **Output:** Decision about enrichment necessity
 - **MOC Authority Context:** Validates user authority for each MOC hierarchy (scope, domain, type, maturity)
 - **Semantic Function:** can_enrich?() evaluates:
@@ -1439,8 +1439,8 @@ can_enrich_function:
     - act_output: execution result
     - context: flow context
     - proposed_uki: candidate UKI
-    - user_csh_context: user hierarchical context
-    - csh_evaluation_criteria: organizational configurable criteria
+    - user_moc_context: user hierarchical context
+    - moc_evaluation_criteria: organizational configurable criteria
   
   validation_checks:
     semantic_novelty:
@@ -1451,19 +1451,19 @@ can_enrich_function:
       - mef_compliant: true
       - clear_relationships: true
     
-    csh_governance:
-      - scope_authority_valid: validate_scope_authority(user_csh_context, proposed_uki.scope_ref)
-      - domain_authority_valid: validate_domain_authority(user_csh_context, proposed_uki.domain_ref)
-      - type_authority_valid: validate_type_authority(user_csh_context, proposed_uki.type_ref)
-      - maturity_authority_valid: validate_maturity_authority(user_csh_context, proposed_uki.maturity_ref)
-      - visibility_compliance: validate_visibility_rules(proposed_uki, csh_evaluation_criteria)
+    moc_governance:
+      - scope_authority_valid: validate_scope_authority(user_moc_context, proposed_uki.scope_ref)
+      - domain_authority_valid: validate_domain_authority(user_moc_context, proposed_uki.domain_ref)
+      - type_authority_valid: validate_type_authority(user_moc_context, proposed_uki.type_ref)
+      - maturity_authority_valid: validate_maturity_authority(user_moc_context, proposed_uki.maturity_ref)
+      - visibility_compliance: validate_visibility_rules(proposed_uki, moc_evaluation_criteria)
     
     epistemic_clarity:
       - content_meaningful: true
       - user_confirmation: true
   
   decision_logic: |
-    IF (semantic_novelty AND structural_validity AND csh_governance AND epistemic_clarity)
+    IF (semantic_novelty AND structural_validity AND moc_governance AND epistemic_clarity)
       THEN return ENRICH_APPROVED
     ELSE return ENRICH_REJECTED
 ```
@@ -1612,7 +1612,7 @@ evaluation:
 
 result: ENRICH_REJECTED
 reason: "Domain 'security' configured in MOC as restricted for users with authority 'team_member'"
-csh_nodes_cited:
+moc_nodes_cited:
   - node_type: "domain"
     node_id: "security"
     restriction_rule: "requires_authority_level: security_lead"
@@ -1631,9 +1631,9 @@ alternatives: "Create UKI in 'technical' domain with 'team' scope for local impl
 required_explanation_format:
   result: ENRICH_REJECTED
   reason: "[Explanation citing specific MOC nodes]"
-  csh_nodes_cited:
+  moc_nodes_cited:
     - node_type: "domain" | "scope" | "type" | "authority_level"
-      node_id: "[csh_node_id]"
+      node_id: "[moc_node_id]"
       restriction_rule: "[specific_rule_that_caused_rejection]"
   escalation_path: "[How user can escalate or obtain permission]"
   alternatives: "[Suggested alternative actions within user's authority]"
@@ -1770,12 +1770,12 @@ flowchart TD
 ```yaml
 validate_scope_authority:
   input:
-    - user_csh_context: hierarchical context of requesting user
+    - user_moc_context: hierarchical context of requesting user
     - target_scope_ref: reference to scope node in MOC
   logic: |
-    scope_node = csh.get_node(target_scope_ref)
+    scope_node = moc.get_node(target_scope_ref)
     required_authority = scope_node.governance.authority_required
-    user_authorities = user_csh_context.authorities
+    user_authorities = user_moc_context.authorities
     
     IF required_authority IN user_authorities:
       RETURN authority_valid: true
@@ -1784,13 +1784,13 @@ validate_scope_authority:
 
 validate_domain_authority:
   input:
-    - user_csh_context: hierarchical context of requesting user
+    - user_moc_context: hierarchical context of requesting user
     - target_domain_ref: reference to domain node in MOC
   logic: |
-    domain_node = csh.get_node(target_domain_ref)
+    domain_node = moc.get_node(target_domain_ref)
     IF domain_node.governance.restricted_creation:
       required_authority = domain_node.governance.authority_required
-      IF required_authority IN user_csh_context.authorities:
+      IF required_authority IN user_moc_context.authorities:
         RETURN authority_valid: true
       ELSE:
         RETURN authority_valid: false
@@ -1803,19 +1803,19 @@ validate_domain_authority:
 pertinence_resolution:
   input:
     - query_context: user search context
-    - user_csh_context: user hierarchical permissions
+    - user_moc_context: user hierarchical permissions
     - available_ukis: candidate knowledge units
   process: |
     filtered_ukis = []
     FOR uki IN available_ukis:
-      uki_scope = csh.get_node(uki.scope_ref)
+      uki_scope = moc.get_node(uki.scope_ref)
       visibility_rules = uki_scope.governance.visibility
       
-      IF user_csh_context.authorities INTERSECTS visibility_rules:
+      IF user_moc_context.authorities INTERSECTS visibility_rules:
         filtered_ukis.append(uki)
       ELIF uki.scope_mode == "propagated":
         # Check if user has access through hierarchy propagation
-        IF check_propagated_access(user_csh_context, uki_scope):
+        IF check_propagated_access(user_moc_context, uki_scope):
           filtered_ukis.append(uki)
     
     RETURN filtered_ukis
@@ -2130,8 +2130,8 @@ validation:
 preconditions:
   - action_executed: true
   - execution_result: documented
-  - user_csh_context: available
-  - csh_evaluation_criteria: loaded
+  - user_moc_context: available
+  - moc_evaluation_criteria: loaded
 postconditions:
   - enrichment_decision: made
   - can_enrich_evaluated: true
@@ -2139,7 +2139,7 @@ postconditions:
   - governance_explanation: generated
 validation:
   semantic_evaluation: completed
-  csh_authority_validated: true
+  moc_authority_validated: true
   evaluation_criteria_applied: true
   justification_documented: true
 context_required:
