@@ -8,12 +8,15 @@ This repository contains the **Matrix Protocol** specification - a comprehensive
 
 The project includes the **Matrix Embedding Framework (MEF)** - a standardized knowledge structuring protocol that defines how to create, store, and utilize Units of Knowledge Interlinked (UKIs) for AI consumption.
 
+The protocol is guided by the **Matrix Epistemic Principle (MEP)** - an epistemological manifesto that establishes how knowledge is treated, evaluated, and promoted within the Matrix ecosystem.
+
 ## Repository Structure
 
 This repository contains comprehensive Matrix Protocol documentation and examples:
 
 - `MATRIX_PROTOCOL.md` - Complete Matrix Protocol specification (Portuguese/English)
 - `MEF_MATRIX_EMBEDDING_FRAMEWORK.md` - MEF technical specification and implementation guide
+- `MEP_MATRIX_EPISTEMIC_PRINCIPLE.md` - Epistemological manifesto defining knowledge principles
 - `examples/` - Practical UKI examples demonstrating MEF implementation across all domains
   - Technical domain examples (JWT authentication patterns)
   - Business domain examples (discount calculation rules)
@@ -62,7 +65,7 @@ When working with MEF specifications:
 
 ### UKI Structure Example
 ```yaml
-id: uki-[domain]-[identifier]
+id: uki:[domain_ref]:[type_ref]:[slug_or_id]
 title: [Descriptive title]
 domain: [product|business|technical|strategy|culture]
 type: [business_rule|function|template|guideline|pattern|decision|example]
@@ -79,7 +82,7 @@ examples:
   - input: [Real scenario]
     output: [Expected result]
 related_to:
-  - target: uki-[target-uki-id]
+  - target: uki:[domain_ref]:[type_ref]:[target-id]
     relation_type: [implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to]
     description: [Specific description of the relationship]
 last_validation: [YYYY-MM-DD]
@@ -144,7 +147,7 @@ team_context: "[Team/squad information]"
 
 oracle_context:
   motivating_ukis:
-    - uki-[domain]-[related-knowledge]
+    - uki:[domain_ref]:[type_ref]:[related-knowledge]
 
 flow_execution:
   - state: "intake"

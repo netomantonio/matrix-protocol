@@ -37,7 +37,16 @@ O ZOF utiliza o **Matrix Ontology Catalog (MOC)** para:
 - **Filtragem de Conhecimento**: Oracle retorna apenas UKIs compatíveis com contexto hierárquico do usuário
 - **Flexível por Organização**: Cada implementação pode definir suas hierarquias e regras
 
-**Documento de Referência**: `MOC_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+**Documento de Referência**: `MOC_MATRIX_ONTOLOGY_CATALOG.md`
+
+### 🧭 **Orientação Epistemológica (MEP)**
+
+O ZOF implementa os princípios epistemológicos do **Matrix Epistemic Principle (MEP)**:
+- **Avaliação Precedente**: Checkpoint obrigatório `EvaluateForEnrich` antes do enriquecimento
+- **Explicabilidade Necessária**: Sinais de `context`, `decision` e `result` registrados em cada estado
+- **Autoridade Derivada**: Oracle consulta MOC para verificar autoridade de criação baseada em contexto organizacional
+
+**Documento de Referência**: `MEP_MATRIX_EPISTEMIC_PRINCIPLE.md`
 
 ---
 
@@ -1316,7 +1325,16 @@ ZOF uses the **Matrix Ontology Catalog (MOC)** for:
 - **Knowledge Filtering**: Oracle returns only UKIs compatible with user's hierarchical context
 - **Organization Flexible**: Each implementation can define its hierarchies and rules
 
-**Reference Document**: `MOC_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+**Reference Document**: `MOC_MATRIX_ONTOLOGY_CATALOG.md`
+
+### 🧭 **Epistemological Guidance (MEP)**
+
+ZOF implements the epistemological principles of the **Matrix Epistemic Principle (MEP)**:
+- **Precedent Evaluation**: Mandatory `EvaluateForEnrich` checkpoint before enrichment
+- **Necessary Explainability**: Signals of `context`, `decision` and `result` recorded at each state
+- **Derived Authority**: Oracle consults MOC to verify creation authority based on organizational context
+
+**Reference Document**: `MEP_MATRIX_EPISTEMIC_PRINCIPLE.md`
 
 ---
 

@@ -31,7 +31,15 @@ O MEF utiliza o **MOC como fonte única de taxonomias organizacionais**:
 - **Campos *_ref**: Todos os campos hierárquicos (scope_ref, domain_ref, type_ref, maturity_ref) fazem referência a nós definidos no MOC organizacional
 - **Flexibilidade Local**: Organizações configuram suas próprias hierarquias mantendo estrutura universal MEF
 - **Governança Integrada**: MOC define regras de autoridade e visibilidade que o MEF respeita durante criação e consulta de UKIs
-- **Documento de Referência**: Ver especificação completa em `MOC_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+- **Documento de Referência**: Ver especificação completa em `MOC_MATRIX_ONTOLOGY_CATALOG.md`
+
+### 🧭 **Orientação Epistemológica (MEP)**
+
+O MEF implementa os princípios epistemológicos estabelecidos pelo **Matrix Epistemic Principle (MEP)**:
+- **Estratificação**: Campo `maturity_ref` reflete níveis epistemológicos (draft → validated → approved)
+- **Promoção Responsável**: Campo `promotion_rationale` documenta justificativas para evolução de conhecimento
+- **Autoridade Derivada**: Campos `scope_ref` e `governance_ref` implementam autoridade contextual e relativa
+- **Documento de Referência**: Ver manifesto completo em `MEP_MATRIX_EPISTEMIC_PRINCIPLE.md`
 
 ---
 
@@ -1550,7 +1558,15 @@ MEF uses **MOC as the single source of organizational taxonomies**:
 - ***_ref Fields**: All hierarchical fields (scope_ref, domain_ref, type_ref, maturity_ref) reference nodes defined in the organizational MOC
 - **Local Flexibility**: Organizations configure their own hierarchies while maintaining universal MEF structure
 - **Integrated Governance**: MOC defines authority and visibility rules that MEF respects during UKI creation and consultation
-- **Reference Document**: See complete specification in `MOC_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+- **Reference Document**: See complete specification in `MOC_MATRIX_ONTOLOGY_CATALOG.md`
+
+### 🧭 **Epistemological Guidance (MEP)**
+
+MEF implements the epistemological principles established by the **Matrix Epistemic Principle (MEP)**:
+- **Stratification**: Field `maturity_ref` reflects epistemological levels (draft → validated → approved)
+- **Responsible Promotion**: Field `promotion_rationale` documents justifications for knowledge evolution
+- **Derived Authority**: Fields `scope_ref` and `governance_ref` implement contextual and relative authority
+- **Reference Document**: See complete manifesto in `MEP_MATRIX_EPISTEMIC_PRINCIPLE.md`
 
 ---
 

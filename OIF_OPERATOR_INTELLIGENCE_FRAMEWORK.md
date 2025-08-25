@@ -28,7 +28,16 @@ O OIF é completamente **ciente de governança hierárquica** através do MOC:
 - **Filtragem Contextual**: Inteligências filtram conhecimento baseado no contexto hierárquico do usuário
 - **Validação de Autoridade**: Verificações de permissão são delegadas ao MOC organizacional
 
-**Documento de Referência**: `MOC_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+**Documento de Referência**: `MOC_MATRIX_ONTOLOGY_CATALOG.md`
+
+### 🧭 **Orientação Epistemológica (MEP)**
+
+O OIF implementa os princípios epistemológicos do **Matrix Epistemic Principle (MEP)**:
+- **Explicabilidade Necessária**: Toda resposta deve gerar narrativa epistemológica rastreável e auditável
+- **Autoridade Derivada**: Capacidades de inteligência baseadas em contexto organizacional definido no MOC
+- **Avaliação Precedente**: Filtros hierárquicos aplicados antes de consultas ao Oracle
+
+**Documento de Referência**: `MEP_MATRIX_EPISTEMIC_PRINCIPLE.md`
 
 ---
 
@@ -1996,7 +2005,16 @@ OIF is completely **hierarchical governance aware** through MOC:
 - **Contextual Filtering**: Intelligences filter knowledge based on user's hierarchical context
 - **Authority Validation**: Permission checks are delegated to organizational MOC
 
-**Reference Document**: `MOC_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+**Reference Document**: `MOC_MATRIX_ONTOLOGY_CATALOG.md`
+
+### 🧭 **Epistemological Guidance (MEP)**
+
+OIF implements the epistemological principles of the **Matrix Epistemic Principle (MEP)**:
+- **Necessary Explainability**: Every response must generate traceable and auditable epistemological narrative
+- **Derived Authority**: Intelligence capabilities based on organizational context defined in MOC
+- **Precedent Evaluation**: Hierarchical filters applied before Oracle queries
+
+**Reference Document**: `MEP_MATRIX_EPISTEMIC_PRINCIPLE.md`
 
 ---
 

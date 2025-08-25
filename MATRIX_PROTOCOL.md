@@ -47,6 +47,14 @@ O Protocolo Matrix separa **conceitos centrais universais** de **taxonomias orga
 
 > 💡 **Princípio MEP**: *"Conceitos universais garantem interoperabilidade; hierarquias configuráveis garantem adaptábil idade. O MOC é a fonte única de verdade para taxonomias organizacionais."*
 
+### 🧭 Fundamentos Epistemológicos
+
+O Protocolo Matrix é orientado pelo **MEP (Matrix Epistemic Principle)** — um manifesto epistemológico que estabelece como o conhecimento é tratado, avaliado e promovido no ecossistema.
+
+O MEP define os **"por quês"** e **"quando"** aplicar princípios epistemológicos, enquanto os frameworks (MEF, ZOF, OIF, MAL) implementam o **"como"** tecnicamente. Funciona como a "constituição epistemológica" que garante que todas as decisões sobre conhecimento sejam fundamentadas, explicáveis e contextualmente apropriadas.
+
+*Para o manifesto completo, consulte: [MEP_MATRIX_EPISTEMIC_PRINCIPLE.md](MEP_MATRIX_EPISTEMIC_PRINCIPLE.md)*
+
 ---
 
 ## 💬 Camada Oráculo
@@ -448,7 +456,15 @@ The Matrix Protocol separates **universal core concepts** from **organization-sp
 - **Translatability**: Different MOCs can map equivalent concepts
 - **Global Coherence**: Same fundamental principles regardless of local configuration
 
-> 💡 **MOCP Principle**: *"Universal concepts ensure interoperability; configurable hierarchies ensure adaptability. MOC is the single source of truth for organizational taxonomies."*
+> 💡 **MEP Principle**: *"Universal concepts ensure interoperability; configurable hierarchies ensure adaptability. MOC is the single source of truth for organizational taxonomies."*
+
+### 🧭 Epistemological Foundations
+
+The Matrix Protocol is guided by the **MEP (Matrix Epistemic Principle)** — an epistemological manifesto that establishes how knowledge is treated, evaluated, and promoted in the ecosystem.
+
+MEP defines the **"whys"** and **"when"** to apply epistemological principles, while frameworks (MEF, ZOF, OIF, MAL) implement the **"how"** technically. It functions as the "epistemological constitution" ensuring all knowledge decisions are grounded, explicable, and contextually appropriate.
+
+*For the complete manifesto, see: [MEP_MATRIX_EPISTEMIC_PRINCIPLE.md](MEP_MATRIX_EPISTEMIC_PRINCIPLE.md)*
 
 ---
 
