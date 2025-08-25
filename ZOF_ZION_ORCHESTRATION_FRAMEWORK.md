@@ -707,7 +707,7 @@ oracle_enrichment_metrics:
 ### 📋 **Template Completo de Métricas**
 ```yaml
 telemetry:
-  workflow_id: "zwf-jwt-implementation-001"
+  workflow_id: "zof-jwt-implementation-001"
   execution_start: "2024-01-15T14:30:22Z"
   execution_end: "2024-01-15T14:50:05Z"
   total_duration_seconds: 1183
@@ -1124,7 +1124,7 @@ oracle_ukis_used:
 #### **Validação Automática em Pipelines**
 ```bash
 # Exemplo de validação em CI/CD
-jsonschema -i workflow_step.yaml zwf_explainability_schema.json
+jsonschema -i workflow_step.yaml zof_explainability_schema.json
 if [ $? -eq 0 ]; then
   echo "✅ Sinais de explicabilidade válidos"
 else
@@ -2020,7 +2020,7 @@ oracle_enrichment_metrics:
 ### 📋 **Complete Metrics Template**
 ```yaml
 telemetry:
-  workflow_id: "zwf-jwt-implementation-001"
+  workflow_id: "zof-jwt-implementation-001"
   execution_start: "2024-01-15T14:30:22Z"
   execution_end: "2024-01-15T14:50:05Z"
   total_duration_seconds: 1183
@@ -2437,7 +2437,7 @@ oracle_ukis_used:
 #### **Automatic Validation in Pipelines**
 ```bash
 # Example validation in CI/CD
-jsonschema -i workflow_step.yaml zwf_explainability_schema.json
+jsonschema -i workflow_step.yaml zof_explainability_schema.json
 if [ $? -eq 0 ]; then
   echo "✅ Valid explainability signals"
 else

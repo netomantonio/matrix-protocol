@@ -492,7 +492,7 @@ flow_learnings:
   - "Semantic relationships essential for navigation"
 
 # ZOF Compliance
-zwf_compliance:
+zof_compliance:
   - "✅ Flow triggered by canonical event (knowledge.added)"
   - "✅ Consulted Oracle for integration patterns"
   - "✅ Recorded explainability signals for ingestion decisions"

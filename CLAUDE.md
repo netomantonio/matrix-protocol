@@ -109,7 +109,7 @@ The `examples/` directory contains comprehensive demonstrations:
 - **Request Flow**: Technical implementation following canonical states
 - **Refinement Flow**: Product optimization with incremental approach
 - **Ingestion Flow**: Knowledge processing from external sources
-- **Format**: Separate PT/EN files (e.g., `zwf-jwt-implementation-pt.yaml`, `zwf-jwt-implementation-en.yaml`)
+- **Format**: Separate PT/EN files (e.g., `zof-jwt-implementation-pt.yaml`, `zof-jwt-implementation-en.yaml`)
 
 ### Using Examples
 - Reference templates for creating new UKIs and ZOF flows
@@ -136,7 +136,7 @@ When working with ZOF workflow specifications:
 
 ### ZOF Flow Structure Example
 ```yaml
-flow_id: zwf-[workflow-type]-[identifier]
+flow_id: zof-[workflow-type]-[identifier]
 flow_name: "[Descriptive workflow name in PT/EN]"
 triggered_by: [knowledge.added|work.proposed|work.refine.requested|assistance.requested|test.authored|feedback.submitted]
 trigger_context: "[Context description in PT/EN]"

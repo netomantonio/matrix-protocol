@@ -331,7 +331,7 @@ flow_learnings:
   - "Relacionar UKI gerada às motivadoras mantém rastreabilidade"
 
 # Conformidade ZOF
-zwf_compliance:
+zof_compliance:
   - "✅ Fluxo iniciado por evento canônico (work.refine.requested)"
   - "✅ Consultou Oráculo para padrões de refinement"
   - "✅ Registrou sinais de explicabilidade baseados em dados"

@@ -492,7 +492,7 @@ flow_learnings:
   - "Relacionamentos semânticos essenciais para navegação"
 
 # Conformidade ZOF
-zwf_compliance:
+zof_compliance:
   - "✅ Fluxo iniciado por evento canônico (knowledge.added)"
   - "✅ Consultou Oráculo para padrões de integração"
   - "✅ Registrou sinais de explicabilidade para decisões de ingestão"

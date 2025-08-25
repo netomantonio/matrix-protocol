@@ -326,7 +326,7 @@ flow_learnings:
   - "Relationships between UKIs essential for traceability"
 
 # ZOF Compliance
-zwf_compliance:
+zof_compliance:
   - "✅ Flow triggered by canonical event (work.proposed)"
   - "✅ Consulted Oracle to support decisions"
   - "✅ Recorded explainability signals in each state"

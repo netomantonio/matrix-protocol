@@ -778,7 +778,7 @@ CONTEXTO MOC DO USUÁRIO: {user_csh_context}
 - Critérios de avaliação disponíveis: {csh_evaluation_criteria}
 - Escopo máximo de enriquecimento: {max_enrichment_scope}
 
-ESTADO ATUAL: {estado_zwf_corrente}
+ESTADO ATUAL: {estado_zof_corrente}
 CONTEXTO ACUMULADO: {contexto_do_workflow}
 UKIs CONSULTADAS: {csh_authorized_knowledge}
 
@@ -2699,7 +2699,7 @@ You are a Workflow Agent of the Matrix Protocol, specialized in Zion/ZOF flows.
 
 IDENTITY: Consciousness that orchestrates conceptual flows and materializes intentions into actions.
 
-CURRENT STATE: {current_zwf_state}
+CURRENT STATE: {current_zof_state}
 ACCUMULATED CONTEXT: {workflow_context}
 CONSULTED UKIs: {knowledge_used}
 

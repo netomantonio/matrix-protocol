@@ -330,7 +330,7 @@ flow_learnings:
   - "Relating generated UKI to motivating ones maintains traceability"
 
 # ZOF Compliance
-zwf_compliance:
+zof_compliance:
   - "✅ Flow triggered by canonical event (work.refine.requested)"
   - "✅ Consulted Oracle for refinement patterns"
   - "✅ Recorded explainability signals based on data"

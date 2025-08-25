@@ -329,7 +329,7 @@ flow_learnings:
   - "Relacionamentos entre UKIs essenciais para rastreabilidade"
 
 # Conformidade ZOF
-zwf_compliance:
+zof_compliance:
   - "✅ Fluxo iniciado por evento canônico (work.proposed)"
   - "✅ Consultou Oráculo para fundamentar decisões"
   - "✅ Registrou sinais de explicabilidade em cada estado"

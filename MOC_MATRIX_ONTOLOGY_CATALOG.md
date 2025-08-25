@@ -43,7 +43,7 @@ O MOC define **hierarquias configuráveis** para qualquer conceito que dependa d
 Todo conceito hierárquico deve:
 - Ser definido conceitualmente pelo protocolo
 - Ter sua hierarquia concreta fornecida pelo MOC
-- Permitir reorganização sem quebrar MEF, ZWF ou OIF
+- Permitir reorganização sem quebrar MEF, ZOF ou OIF
 - Manter relacionamentos semânticos estáveis
 
 ---
@@ -209,7 +209,7 @@ maturity_ref: "approved"
 - Aplica regras de governança automaticamente
 - Propaga mudanças conforme configuração
 
-### ZWF Integration
+### ZOF Integration
 
 **Checkpoint EvaluateForEnrich:**
 ```yaml
@@ -312,7 +312,7 @@ MOC defines **configurable hierarchies** for any concept that depends on organiz
 Every hierarchical concept must:
 - Be conceptually defined by the protocol
 - Have its concrete hierarchy provided by the MOC
-- Allow reorganization without breaking MEF, ZWF, or OIF
+- Allow reorganization without breaking MEF, ZOF, or OIF
 - Maintain stable semantic relationships
 
 ---
@@ -475,7 +475,7 @@ maturity_ref: "approved"
 - Applies governance rules automatically
 - Propagates changes according to configuration
 
-### ZWF Integration
+### ZOF Integration
 
 **EvaluateForEnrich Checkpoint:**
 ```yaml

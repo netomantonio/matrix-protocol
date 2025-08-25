@@ -17,8 +17,8 @@ Esta pasta contém exemplos práticos de fluxos ZOF (Zion Orchestration Framewor
 ## 📁 Estrutura dos Exemplos
 
 ### 🔧 Request Flow (work.proposed)
-- **zwf-jwt-implementation-pt.yaml** - Versão em Português
-- **zwf-jwt-implementation-en.yaml** - Versão em Inglês
+- **zof-jwt-implementation-pt.yaml** - Versão em Português
+- **zof-jwt-implementation-en.yaml** - Versão em Inglês
 
 **Contexto:** Implementação de autenticação seguindo estados canônicos ZOF  
 **Domínio:** Técnico  
@@ -30,8 +30,8 @@ Demonstra um fluxo completo de implementação técnica:
 - Enriquecimento com exemplos práticos e novos padrões
 
 ### 📈 Refinement Flow (work.refine.requested)
-- **zwf-onboarding-refinement-pt.yaml** - Versão em Português  
-- **zwf-onboarding-refinement-en.yaml** - Versão em Inglês
+- **zof-onboarding-refinement-pt.yaml** - Versão em Português  
+- **zof-onboarding-refinement-en.yaml** - Versão em Inglês
 
 **Contexto:** Refinamento de produto com abordagem incremental  
 **Domínio:** Produto
@@ -43,8 +43,8 @@ Exemplifica refinamento incremental baseado em dados:
 - Criação de padrão de refinement reutilizável
 
 ### 📚 Ingestion Flow (knowledge.added)
-- **zwf-knowledge-ingestion-pt.yaml** - Versão em Português
-- **zwf-knowledge-ingestion-en.yaml** - Versão em Inglês
+- **zof-knowledge-ingestion-pt.yaml** - Versão em Português
+- **zof-knowledge-ingestion-en.yaml** - Versão em Inglês
 
 **Contexto:** Processamento de documentação externa  
 **Domínio:** Técnico
@@ -239,8 +239,8 @@ This folder contains practical examples of ZOF (Zion Orchestration Framework) fl
 ## 📁 Examples Structure
 
 ### 🔧 Request Flow (work.proposed)
-- **zwf-jwt-implementation-pt.yaml** - Portuguese Version
-- **zwf-jwt-implementation-en.yaml** - English Version
+- **zof-jwt-implementation-pt.yaml** - Portuguese Version
+- **zof-jwt-implementation-en.yaml** - English Version
 
 **Context:** Authentication implementation following ZOF canonical states  
 **Domain:** Technical  
@@ -252,8 +252,8 @@ Demonstrates a complete technical implementation flow:
 - Enrichment with practical examples and new patterns
 
 ### 📈 Refinement Flow (work.refine.requested)
-- **zwf-onboarding-refinement-pt.yaml** - Portuguese Version
-- **zwf-onboarding-refinement-en.yaml** - English Version
+- **zof-onboarding-refinement-pt.yaml** - Portuguese Version
+- **zof-onboarding-refinement-en.yaml** - English Version
 
 **Context:** Product refinement with incremental approach  
 **Domain:** Product
@@ -265,8 +265,8 @@ Exemplifies incremental refinement based on data:
 - Creation of reusable refinement pattern
 
 ### 📚 Ingestion Flow (knowledge.added)
-- **zwf-knowledge-ingestion-pt.yaml** - Portuguese Version
-- **zwf-knowledge-ingestion-en.yaml** - English Version
+- **zof-knowledge-ingestion-pt.yaml** - Portuguese Version
+- **zof-knowledge-ingestion-en.yaml** - English Version
 
 **Context:** External documentation processing  
 **Domain:** Technical
