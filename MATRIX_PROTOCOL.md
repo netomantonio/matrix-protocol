@@ -1,8 +1,8 @@
 # 📜 MATRIX PROTOCOL | PROTOCOLO MATRIX
 
-> 🚨 **IMPORTANTE**: Este documento contém exemplos ilustrativos que **NÃO são taxonomias obrigatórias**. Todas as taxonomias são configuráveis via CSH organizacional.
+> 🚨 **IMPORTANTE**: Este documento contém exemplos ilustrativos que **NÃO são taxonomias obrigatórias**. Todas as taxonomias são configuráveis via MOC organizacional.
 
-> 🚨 **IMPORTANT**: This document contains illustrative examples that are **NOT mandatory taxonomies**. All taxonomies are configurable via organizational CSH.
+> 🚨 **IMPORTANT**: This document contains illustrative examples that are **NOT mandatory taxonomies**. All taxonomies are configurable via organizational MOC.
 
 ## 🌎 Idioma / Language
 
@@ -26,7 +26,7 @@ Cada camada desempenha um papel único no fluxo estratégico, técnico e operaci
 
 ### 🔧 Flexibilidade Local com Coerência Global
 
-O Protocolo Matrix separa **conceitos centrais universais** de **taxonomias organizacionais específicas** seguindo o **PHSC (Princípio das Hierarquias Semânticas Configuráveis)**:
+O Protocolo Matrix separa **conceitos centrais universais** de **taxonomias organizacionais específicas** seguindo o **MEP (Matrix Elasticity Principle)**:
 
 #### 🏆 Conceitos Universais (Fixos)
 - **Estados Canonônicos**: Intake → Understand → Decide → Act → EvaluateForEnrich → Review → Enrich
@@ -34,18 +34,18 @@ O Protocolo Matrix separa **conceitos centrais universais** de **taxonomias orga
 - **Campos Estruturais**: scope_ref, domain_ref, type_ref, maturity_ref (referências, não valores)
 - **Relacionamentos Semânticos**: Tipos de relação entre UKIs (implements, depends_on, extends, etc.)
 
-#### 🏛️ Hierarquias Locais (Configuráveis via CSH)
-- **Catálogo Semântico**: Cada organização define sua estrutura hierárquica no **CSH (Catálogo Semântico de Hierarquias)**
+#### 🏛️ Hierarquias Locais (Configuráveis via MOC)
+- **Catálogo Semântico**: Cada organização define sua estrutura hierárquica no **MOC (Matrix Ontology Catalog)**
 - **Taxonomias Organizacionais**: Domínios, tipos, escopos e níveis de maturidade específicos
 - **Regras de Governança**: Autoridades, visibilidade e propagação definidas por contexto
 - **Critérios de Enriquecimento**: Parâmetros do EvaluateForEnrich adaptáveis ao contexto organizacional
 
 #### 🤝 Interoperabilidade Semântica
 - **Conceitos Compartilháveis**: Conhecimento pode ser exportado entre organizações mantendo estrutura universal
-- **Tradutibilidade**: CSHs diferentes podem mapear conceitos equivalentes
+- **Tradutibilidade**: MOCs diferentes podem mapear conceitos equivalentes
 - **Coerência Global**: Mesmos princípios fundamentais independente da configuração local
 
-> 💡 **Princípio PHSC**: *"Conceitos universais garantem interoperabilidade; hierarquias configuráveis garantem adaptábil idade. O CSH é a fonte única de verdade para taxonomias organizacionais."*
+> 💡 **Princípio MEP**: *"Conceitos universais garantem interoperabilidade; hierarquias configuráveis garantem adaptábil idade. O MOC é a fonte única de verdade para taxonomias organizacionais."*
 
 ---
 
@@ -67,8 +67,8 @@ Aqui nasce e é embebida a orientação, as diretrizes estratégicas e os padrõ
 
 #### 📏 Governança Estratégica através do MEF
 
-* Definir diretrizes fundamentais através de **UKIs de domínios estratégicos** (configuráveis via CSH) versionadas e rastreáveis.
-* Estabelecer métricas de sucesso para colaboração humano-IA como **UKIs de tipos apropriados** definidos no CSH organizacional.
+* Definir diretrizes fundamentais através de **UKIs de domínios estratégicos** (configuráveis via MOC) versionadas e rastreáveis.
+* Estabelecer métricas de sucesso para colaboração humano-IA como **UKIs de tipos apropriados** definidos no MOC organizacional.
 * Criar **UKIs de decision** para registrar alinhamentos de práticas ágeis aos objetivos estratégicos.
 * Garantir que toda decisão estratégica seja capturada, versionada e relacionada semanticamente no MEF.
 
@@ -77,18 +77,18 @@ Aqui nasce e é embebida a orientação, as diretrizes estratégicas e os padrõ
 * Implementar **governança através de UKIs**: cada diretriz, regra e padrão é uma UKI versionada e rastreável.
 * Estruturar **Knowledge Sources governados** onde mudanças estratégicas propagam automaticamente.
 * Garantir **rastreabilidade de decisões** através de relacionamentos semânticos entre UKIs estratégicas.
-* Criar **ciclos de governança MEF** baseados nas hierarquias definidas no CSH organizacional (exemplo: UKIs estratégicas → UKIs técnicas → UKIs operacionais).
+* Criar **ciclos de governança MEF** baseados nas hierarquias definidas no MOC organizacional (exemplo: UKIs estratégicas → UKIs técnicas → UKIs operacionais).
 
 #### 🔧 Estruturação de Padrões com Governança Integrada
 
 * Aplicar **governance templates MEF** onde cada padrão técnico está ligado a decisões estratégicas.
-* Implementar **validation chains**: UKIs de níveis hierárquicos inferiores devem referenciar UKIs que as justificam conforme CSH.
+* Implementar **validation chains**: UKIs de níveis hierárquicos inferiores devem referenciar UKIs que as justificam conforme MOC.
 * Estabelecer **semantic governance**: mudanças em UKIs de maior autoridade invalidam UKIs relacionadas de níveis inferiores.
 * Garantir **compliance via relacionamentos**: toda UKI técnica rastreia sua origem estratégica.
 
 #### 👁️ Diretrizes de Iteração Governadas
 
-* Implementar **governance workflows** através de UKIs de domínios culturais/organizacionais conforme definido no CSH.
+* Implementar **governance workflows** através de UKIs de domínios culturais/organizacionais conforme definido no MOC.
 * Criar **adaptation rules** como UKIs que definem como o protocolo evolui mantendo governança.
 * Estabelecer **feedback loops** onde insights das camadas Zion/Operador atualizam UKIs estratégicas.
 
@@ -97,7 +97,7 @@ Aqui nasce e é embebida a orientação, as diretrizes estratégicas e os padrõ
 | Componente              | Função/Exemplo                                                    |
 | ----------------------- | ----------------------------------------------------------------- |
 | **Governed Knowledge Sources** | Repositórios MEF com governança estratégica integrada via relacionamentos. |
-| **Governance Templates** | Templates MEF configuráveis que seguem regras de linkagem definidas no CSH organizacional. |
+| **Governance Templates** | Templates MEF configuráveis que seguem regras de linkagem definidas no MOC organizacional. |
 | **Compliance Validator** | Validação de conformidade MEF + verificação de rastreabilidade estratégica. |
 | **Governance Navigator** | Navegação semântica que mostra cadeias de decisão Strategy → Technical. |
 | **Strategic Version Manager** | Versionamento que propaga mudanças estratégicas para UKIs dependentes. |
@@ -106,7 +106,7 @@ Aqui nasce e é embebida a orientação, as diretrizes estratégicas e os padrõ
 
 #### Exemplo Prático com Governança MEF Integrada
 
-> 🚨 **EXEMPLO ILUSTRATIVO** - Os valores `strategy`, `security-policy`, etc. são apenas demonstrativos. Organizações definem suas próprias taxonomias via CSH.
+> 🚨 **EXEMPLO ILUSTRATIVO** - Os valores `strategy`, `security-policy`, etc. são apenas demonstrativos. Organizações definem suas próprias taxonomias via MOC.
 
 > Durante um planejamento estratégico, o Oráculo redefine diretrizes de segurança em desenvolvimento.
 > 
@@ -123,7 +123,7 @@ Aqui nasce e é embebida a orientação, as diretrizes estratégicas e os padrõ
 
 ## 🔬 Camada Zion
 
-### Framework Conceitual de Workflows Orientados a IA (ZWF)
+### Framework Conceitual de Workflows Orientados a IA (ZOF)
 
 > "Zion é a ponte entre o mundo das ideias e o mundo da ação."
 
@@ -131,15 +131,15 @@ Aqui nasce e é embebida a orientação, as diretrizes estratégicas e os padrõ
 
 A Camada Zion é o elo vital entre estratégia (Oráculo) e operação (Operador).
 
-Ela transforma diretrizes em workflows conceituais através do **ZWF (Zion Workflow Framework)** - um modelo de máquinas de estado independentes de tecnologia que orienta **como pensar** os fluxos de trabalho orientados a IA, sem prescrever **como implementar**.
+Ela transforma diretrizes em workflows conceituais através do **ZOF (Zion Orchestration Framework)** - um modelo de máquinas de estado independentes de tecnologia que orienta **como pensar** os fluxos de trabalho orientados a IA, sem prescrever **como implementar**.
 
 ### Principais Responsabilidades
 
-#### 🔨 Estruturação Conceitual via ZWF
+#### 🔨 Estruturação Conceitual via ZOF
 
 * **Definir padrões de fluxo** seguindo estados canônicos: `Intake → Understand → Decide → Act → EvaluateForEnrich → Review → Enrich`
 * **Catalogar eventos canônicos** que iniciam workflows: `knowledge.added`, `work.proposed`, `work.refine.requested`, `assistance.requested`, `test.authored`, `feedback.submitted`
-* **Checkpoint condicional**: `EvaluateForEnrich` aplica critérios definidos no CSH organizacional para decidir se conhecimento deve enriquecer Oracle
+* **Checkpoint condicional**: `EvaluateForEnrich` aplica critérios definidos no MOC organizacional para decidir se conhecimento deve enriquecer Oracle
 * **Garantir ciclo fechado**: sempre consultar Oráculo → agir → avaliar para enriquecimento → enriquecer Oráculo
 
 #### 🧬 Explicabilidade e Rastreabilidade
@@ -150,19 +150,19 @@ Ela transforma diretrizes em workflows conceituais através do **ZWF (Zion Workf
 
 #### 🚧 Orquestração Conceitual
 
-* **Independência tecnológica**: ZWF define "como pensar" não "como implementar"
+* **Independência tecnológica**: ZOF define "como pensar" não "como implementar"
 * **Flexibilidade de ferramentas**: cada equipe implementa com suas tecnologias preferidas
 * **Padronização de raciocínio**: mesmo padrão conceitual independente da implementação
 
 #### ♻️ Enriquecimento Condicional do Oráculo
 
-* **Execuções ZWF** que passam no `EvaluateForEnrich` geram/atualizam UKIs MEF relacionadas às UKIs motivadoras
-* **Aprendizados estruturados** capturados como conhecimento reutilizável quando justificáveis via critérios CSH
+* **Execuções ZOF** que passam no `EvaluateForEnrich` geram/atualizam UKIs MEF relacionadas às UKIs motivadoras
+* **Aprendizados estruturados** capturados como conhecimento reutilizável quando justificáveis via critérios MOC
 * **Evolução contínua** da base de conhecimento através de enriquecimento criterioso e validado
 
-### Padrões de Workflow ZWF
+### Padrões de Workflow ZOF
 
-| Padrão ZWF | Evento Gatilho | Exemplo de Aplicação |
+| Padrão ZOF | Evento Gatilho | Exemplo de Aplicação |
 |------------|----------------|---------------------|
 | **Request Flow** | `work.proposed` | Implementação de nova funcionalidade seguindo estados canônicos |
 | **Refinement Flow** | `work.refine.requested` | Otimização de processo existente com abordagem incremental |  
@@ -171,7 +171,7 @@ Ela transforma diretrizes em workflows conceituais através do **ZWF (Zion Workf
 | **Testing Flow** | `test.authored` | Criação de cenários de teste baseados em conhecimento |
 | **Feedback Flow** | `feedback.submitted` | Processamento de correções e aprendizados |
 
-### Estados Canônicos ZWF
+### Estados Canônicos ZOF
 
 ```mermaid
 stateDiagram-v2
@@ -192,7 +192,7 @@ stateDiagram-v2
     
     note right of EvaluateForEnrich
       Checkpoint: avalia critérios
-      CSH para enriquecimento
+      MOC para enriquecimento
     end note
     
     note right of Enrich
@@ -201,16 +201,16 @@ stateDiagram-v2
     end note
 ```
 
-#### Exemplo Prático: Implementação de Autenticação via ZWF
+#### Exemplo Prático: Implementação de Autenticação via ZOF
 
-> 🚨 **EXEMPLO ILUSTRATIVO** - UKIs como `jwt-authentication`, `security-requirements` são demonstrativas. Organizações configuram taxonomias via CSH.
+> 🚨 **EXEMPLO ILUSTRATIVO** - UKIs como `jwt-authentication`, `security-requirements` são demonstrativas. Organizações configuram taxonomias via MOC.
 
 > **Evento:** `work.proposed` - Nova necessidade de autenticação JWT  
 > **Intake:** Captura história e contexto, organiza requisitos  
 > **Understand:** Consulta `uki:technical:pattern:jwt-authentication`, `uki:business:rule:security-requirements`  
 > **Decide:** Escolhe biblioteca baseada em `uki:business:policy:vendor-approval`  
 > **Act:** Implementa solução usando ferramentas da equipe  
-> **EvaluateForEnrich:** Avalia critérios CSH (relevância=alta, reusabilidade=média, impacto=alto) → aprovado para enriquecimento com escopo "team"
+> **EvaluateForEnrich:** Avalia critérios MOC (relevância=alta, reusabilidade=média, impacto=alto) → aprovado para enriquecimento com escopo "team"
 > **Review:** Validação opcional seguindo `uki:culture:guideline:code-review-process`  
 > **Enrich:** Cria `uki:technical:example:auth-implementation` e `uki:technical:pattern:token-refresh`
 >
@@ -234,52 +234,52 @@ Ela é implementada através do **OIF (Operator Intelligence Framework)** - um f
 
 #### 🧠 Definição de Arquétipos via OIF
 
-* **Knowledge Agent (Oracle Intelligence)** - arquétipo especializado em compreensão, organização e relacionamento de conhecimento estruturado MEF com controle de acesso baseado no CSH.
-* **Workflow Agent (Zion Intelligence)** - arquétipo especializado em orquestração de fluxos conceituais ZWF incluindo execução do checkpoint EvaluateForEnrich.
-* **Arquétipos Especializados** - metodologia para criação de inteligências customizadas para domínios específicos com níveis de autoridade definidos pelo CSH.
+* **Knowledge Agent (Oracle Intelligence)** - arquétipo especializado em compreensão, organização e relacionamento de conhecimento estruturado MEF com controle de acesso baseado no MOC.
+* **Workflow Agent (Zion Intelligence)** - arquétipo especializado em orquestração de fluxos conceituais ZOF incluindo execução do checkpoint EvaluateForEnrich.
+* **Arquétipos Especializados** - metodologia para criação de inteligências customizadas para domínios específicos com níveis de autoridade definidos pelo MOC.
 
-#### 🔧 Capacidades Integradas ao CSH via OIF
+#### 🔧 Capacidades Integradas ao MOC via OIF
 
-* **Resolução de Pertinência** - filtrar e apresentar UKIs baseado nas permissões de escopo e domínio do usuário definidas no CSH
-* **Validação de Autoridade** - verificar se o usuário possui autoridade necessária para operações baseado nas regras de governança do CSH
-* **Explicabilidade da Governança** - fornecer explicações transparentes para decisões de acesso referenciando nós específicos do CSH
-* **Caminhos de Escalonamento** - rotear automaticamente solicitações que requerem autoridade superior conforme configuração do CSH
+* **Resolução de Pertinência** - filtrar e apresentar UKIs baseado nas permissões de escopo e domínio do usuário definidas no MOC
+* **Validação de Autoridade** - verificar se o usuário possui autoridade necessária para operações baseado nas regras de governança do MOC
+* **Explicabilidade da Governança** - fornecer explicações transparentes para decisões de acesso referenciando nós específicos do MOC
+* **Caminhos de Escalonamento** - rotear automaticamente solicitações que requerem autoridade superior conforme configuração do MOC
 
 #### 🎯 Implementação Ciente de Governança via OIF
 
-* **Controle de Acesso Baseado no CSH** - todas as operações de agentes respeitam hierarquia organizacional e regras de governança
+* **Controle de Acesso Baseado no MOC** - todas as operações de agentes respeitam hierarquia organizacional e regras de governança
 * **Assistência Ciente de Contexto** - agentes compreendem e operam dentro do escopo e domínio autorizado do usuário
-* **Tomada de Decisão Auditável** - todas as ações dos agentes são rastrearáveis às regras do CSH e permissões do usuário
+* **Tomada de Decisão Auditável** - todas as ações dos agentes são rastrearáveis às regras do MOC e permissões do usuário
 * **Adaptação Dinâmica de Autoridade** - agentes adaptam suas capacidades baseadas no papel atual e contexto do usuário
 
 ### Ferramentas & Componentes
 
 | Componente                 | Função/Exemplo                                                    |
 | -------------------------- | ----------------------------------------------------------------- |
-| **OIF Framework Specification** | Especificação completa dos arquétipos de inteligência com capacidades de integração ao CSH. |
-| **Templates de Agentes Cientes do CSH** | Templates para Knowledge e Workflow Agents com padrões cientes de governança. |
-| **Motor de Resolução de Pertinência** | Sistema para filtrar UKIs baseado no acesso de escopo e domínio definido pelo CSH do usuário. |
-| **Camada de Validação de Autoridade** | Componente que verifica permissões do usuário contra regras de governança do CSH. |
-| **Sistema de Explicação de Governança** | Fornece explicações transparentes referenciando nós e regras específicos do CSH. |
-| **Adaptação Dinâmica de Autoridade** | Framework para adaptar capacidades de agentes baseado no contexto atual do usuário no CSH. |
+| **OIF Framework Specification** | Especificação completa dos arquétipos de inteligência com capacidades de integração ao MOC. |
+| **Templates de Agentes Cientes do MOC** | Templates para Knowledge e Workflow Agents com padrões cientes de governança. |
+| **Motor de Resolução de Pertinência** | Sistema para filtrar UKIs baseado no acesso de escopo e domínio definido pelo MOC do usuário. |
+| **Camada de Validação de Autoridade** | Componente que verifica permissões do usuário contra regras de governança do MOC. |
+| **Sistema de Explicação de Governança** | Fornece explicações transparentes referenciando nós e regras específicos do MOC. |
+| **Adaptação Dinâmica de Autoridade** | Framework para adaptar capacidades de agentes baseado no contexto atual do usuário no MOC. |
 
 #### Exemplo Prático: Implementação JWT via OIF
 
-> 🚨 **EXEMPLO ILUSTRATIVO** - Escopo `team`, domínio `technical`, arquétipo `Knowledge Agent` são demonstrativos. CSH define taxonomias organizacionais.
+> 🚨 **EXEMPLO ILUSTRATIVO** - Escopo `team`, domínio `technical`, arquétipo `Knowledge Agent` são demonstrativos. MOC define taxonomias organizacionais.
 
-> **Contexto do Usuário:** Desenvolvedor com CSH scope="team", domain_access=["technical"], authority="developer"
+> **Contexto do Usuário:** Desenvolvedor com MOC scope="team", domain_access=["technical"], authority="developer"
 >
-> **Workflow Agent** inicia orquestração `work.proposed`, valida autoridade do usuário via CSH
+> **Workflow Agent** inicia orquestração `work.proposed`, valida autoridade do usuário via MOC
 > 
-> **Estado Understand:** Workflow Agent solicita busca ao Knowledge Agent com filtros CSH (scope≤"team", domain="technical")
+> **Estado Understand:** Workflow Agent solicita busca ao Knowledge Agent com filtros MOC (scope≤"team", domain="technical")
 > 
 > **Knowledge Agent** retorna UKIs acessíveis ao usuário: `uki:technical:pattern:jwt-standard` (scope="team"), filtrando padrões de nível organizacional
 > 
-> **Estado EvaluateForEnrich:** Workflow Agent aplica critérios de avaliação do CSH e determina enrichment scope="team" baseado na autoridade do usuário
+> **Estado EvaluateForEnrich:** Workflow Agent aplica critérios de avaliação do MOC e determina enrichment scope="team" baseado na autoridade do usuário
 >
-> **Estado Enrich:** Knowledge Agent cria novas UKIs com scope_ref="team", respeitando permissões CSH do usuário
+> **Estado Enrich:** Knowledge Agent cria novas UKIs com scope_ref="team", respeitando permissões MOC do usuário
 > 
-> **Resultado:** Implementação concluída + Oracle enriquecido dentro do escopo autorizado do usuário, governança CSH completa aplicada
+> **Resultado:** Implementação concluída + Oracle enriquecido dentro do escopo autorizado do usuário, governança MOC completa aplicada
 
 ---
 
@@ -291,7 +291,7 @@ O Protocolo Matrix é implementado através do **Matrix Embedding Framework (MEF
 
 - **Estruturação de Conhecimento**: UKIs fornecem formato padronizado para todos os tipos de conhecimento
 - **Versionamento Semântico**: Evolução controlada do conhecimento com rastreabilidade completa
-- **Organização por Domínios**: Domínios organizacionais (exemplos: technical, business, product - definidos no CSH organizacional) estruturam todo conhecimento
+- **Organização por Domínios**: Domínios organizacionais (exemplos: technical, business, product - definidos no MOC organizacional) estruturam todo conhecimento
 - **Framework de Validação**: Verificação automática de conformidade garante qualidade do conhecimento
 - **Mapeamento de Relacionamentos**: Conexões semânticas permitem navegação inteligente do conhecimento
 - **Promoção de Conhecimento**: Transição formal de UKIs de escopo limitado para amplo através de reconhecimento de valor consolidado
@@ -328,47 +328,47 @@ Para garantir consistência entre implementações, o protocolo estabelece a seg
 
 ```mermaid
 flowchart TD
-    A[Solicitação de Consulta] --> B[1. Contexto CSH do Usuário]
+    A[Solicitação de Consulta] --> B[1. Contexto MOC do Usuário]
     B --> C[2. Filtragem de Pertinência]
     C --> D[3. Validação de Autoridade]
     D --> E[4. Filtragem por Escopo]
     E --> F[5. Consulta ao Oráculo]
     F --> G[UKIs Filtradas & Autorizadas]
     
-    H[CSH Organizacional] --> B
+    H[MOC Organizacional] --> B
     H --> C
     H --> D
     H --> E
 ```
 
 **Sequência Operacional:**
-1. **Contexto CSH**: Identificar hierarquia, autoridades e escopo do usuário via CSH
+1. **Contexto MOC**: Identificar hierarquia, autoridades e escopo do usuário via MOC
 2. **Filtragem de Pertinência**: Aplicar regras de visibilidade baseadas no contexto hierárquico
 3. **Validação de Autoridade**: Verificar se o usuário tem autoridade para acessar domínios/tipos solicitados
-4. **Filtragem por Escopo**: Aplicar restrições de escopo (restricted vs propagated) conforme CSH
+4. **Filtragem por Escopo**: Aplicar restrições de escopo (restricted vs propagated) conforme MOC
 5. **Consulta ao Oráculo**: Executar busca semântica apenas no subconjunto autorizado de UKIs
 
 **🛑 Importante**: A filtragem **sempre precede** a consulta, nunca o contrário, para garantir segurança e eficiência.
 
 ---
 
-## 🏛️ CSH - Catálogo Semântico de Hierarquias
+## 🏛️ MOC - Matrix Ontology Catalog
 
-O **Catálogo Semântico de Hierarquias (CSH)** é a **fonte única de verdade** para taxonomias e governança organizacional no Protocolo Matrix:
+O **Matrix Ontology Catalog (MOC)** é a **fonte única de verdade** para taxonomias e governança organizacional no Protocolo Matrix:
 
-### 🎯 **Função do CSH**
+### 🎯 **Função do MOC**
 - **Taxonomias Configuráveis**: Define domínios, tipos, escopos e níveis de maturidade específicos da organização
 - **Governança Hierárquica**: Estabelece regras de autoridade, visibilidade e propagação por contexto
 - **Critérios de Enriquecimento**: Define parâmetros para o checkpoint EvaluateForEnrich
 - **Interoperabilidade**: Permite mapeamento entre diferentes estruturas organizacionais
 
 ### 🔗 **Integração com Camadas Matrix**
-- **Oraculo + CSH**: UKIs MEF usam *_ref fields que referenciam nós do CSH em vez de valores fixos
-- **Zion + CSH**: ZWF consulta CSH para validação de autoridade durante EvaluateForEnrich
-- **Operador + CSH**: OIF usa CSH para filtrar conhecimento e validar explicações baseadas em hierarquias
+- **Oraculo + MOC**: UKIs MEF usam *_ref fields que referenciam nós do MOC em vez de valores fixos
+- **Zion + MOC**: ZOF consulta MOC para validação de autoridade durante EvaluateForEnrich
+- **Operador + MOC**: OIF usa MOC para filtrar conhecimento e validar explicações baseadas em hierarquias
 
 ### 📋 **Documento de Referência**
-Ver especificação completa: `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+Ver especificação completa: `MOC_CATALOGO_SEMANTICO_HIERARQUIAS.md`
 
 ---
 
@@ -379,17 +379,17 @@ O Protocolo Matrix serve como framework fundamental para organizações implemen
 ### **Mapeamento de Implementação**
 
 - **Camada Oráculo** → **Sistemas de Gestão de Conhecimento**: Governança estruturada através do MEF (UKIs versionadas com capacidades de promoção)
-- **Camada Zion** → **Framework Conceitual de Workflows**: Padrões ZWF independentes de tecnologia para fluxos orientados a IA
+- **Camada Zion** → **Framework Conceitual de Workflows**: Padrões ZOF independentes de tecnologia para fluxos orientados a IA
 - **Camada Operador** → **Framework de Inteligência de Agentes**: Especificações OIF de arquétipos com capacidades mínimas e padrões de colaboração
 
 ### **Benefícios do Framework**
 
 Este framework filosófico e técnico fornece às organizações:
 - **Arquitetura Clara**: Camadas bem definidas para diferentes responsabilidades
-- **Conhecimento Padronizado**: MEF garante representação consistente do conhecimento com flexibilidade hierárquica via CSH
-- **Workflows Conceituais**: ZWF orienta "como pensar" fluxos orientados a IA com checkpoint EvaluateForEnrich
-- **Especificações de Agentes**: OIF define arquétipos de inteligência cientes de governança com integração ao CSH
-- **Flexibilidade Local**: CSH permite adaptação completa às estruturas organizacionais preservando conceitos globais
+- **Conhecimento Padronizado**: MEF garante representação consistente do conhecimento com flexibilidade hierárquica via MOC
+- **Workflows Conceituais**: ZOF orienta "como pensar" fluxos orientados a IA com checkpoint EvaluateForEnrich
+- **Especificações de Agentes**: OIF define arquétipos de inteligência cientes de governança com integração ao MOC
+- **Flexibilidade Local**: MOC permite adaptação completa às estruturas organizacionais preservando conceitos globais
 - **Independência Tecnológica**: Todas as camadas permitem flexibilidade de ferramentas mantendo consistência conceitual
 - **Rastreabilidade Completa**: Relacionamentos semânticos entre conhecimento e decisões com transparência de governança
 - **Governança Adaptável**: Regras de autoridade, visibilidade e propagação configuradas por contexto organizacional
@@ -429,7 +429,7 @@ Each layer plays a unique role in the strategic, technical, and operational flow
 
 ### 🔧 Local Flexibility with Global Coherence
 
-The Matrix Protocol separates **universal core concepts** from **organization-specific taxonomies** following the **CSHP (Configurable Semantic Hierarchies Principle)**:
+The Matrix Protocol separates **universal core concepts** from **organization-specific taxonomies** following the **MOCP (Matrix Elasticity Principle)**:
 
 #### 🏆 Universal Concepts (Fixed)
 - **Canonical States**: Intake → Understand → Decide → Act → EvaluateForEnrich → Review → Enrich
@@ -437,18 +437,18 @@ The Matrix Protocol separates **universal core concepts** from **organization-sp
 - **Structural Fields**: scope_ref, domain_ref, type_ref, maturity_ref (references, not values)
 - **Semantic Relationships**: Relationship types between UKIs (implements, depends_on, extends, etc.)
 
-#### 🏛️ Local Hierarchies (Configurable via CSH)
-- **Semantic Catalog**: Each organization defines its hierarchical structure in **CSH (Semantic Hierarchy Catalog)**
+#### 🏛️ Local Hierarchies (Configurable via MOC)
+- **Semantic Catalog**: Each organization defines its hierarchical structure in **MOC (Matrix Ontology Catalog)**
 - **Organizational Taxonomies**: Domains, types, scopes, and maturity levels specific to context
 - **Governance Rules**: Authorities, visibility, and propagation defined by context
 - **Enrichment Criteria**: EvaluateForEnrich parameters adaptable to organizational context
 
 #### 🤝 Semantic Interoperability
 - **Shareable Concepts**: Knowledge can be exported between organizations maintaining universal structure
-- **Translatability**: Different CSHs can map equivalent concepts
+- **Translatability**: Different MOCs can map equivalent concepts
 - **Global Coherence**: Same fundamental principles regardless of local configuration
 
-> 💡 **CSHP Principle**: *"Universal concepts ensure interoperability; configurable hierarchies ensure adaptability. CSH is the single source of truth for organizational taxonomies."*
+> 💡 **MOCP Principle**: *"Universal concepts ensure interoperability; configurable hierarchies ensure adaptability. MOC is the single source of truth for organizational taxonomies."*
 
 ---
 
@@ -480,12 +480,12 @@ It is the protocol that proactively promotes consistency, accessibility, and con
 * Implement **governance through UKIs**: every guideline, rule, and pattern is a versioned and traceable UKI.
 * Structure **governed Knowledge Sources** where strategic changes propagate automatically.
 * Ensure **decision traceability** through semantic relationships between strategic UKIs.
-* Create **MEF governance cycles** based on hierarchies defined in organizational CSH (example: strategic UKIs → technical UKIs → operational UKIs).
+* Create **MEF governance cycles** based on hierarchies defined in organizational MOC (example: strategic UKIs → technical UKIs → operational UKIs).
 
 #### 🔧 Pattern Structuring with Integrated Governance
 
 * Apply **governance templates MEF** where every technical pattern links to strategic decisions.
-* Implement **validation chains**: UKIs from lower hierarchical levels must reference justifying UKIs according to CSH.
+* Implement **validation chains**: UKIs from lower hierarchical levels must reference justifying UKIs according to MOC.
 * Establish **semantic governance**: changes in higher-authority UKIs invalidate related UKIs from lower levels.
 * Ensure **compliance via relationships**: every technical UKI traces its strategic origin.
 
@@ -500,7 +500,7 @@ It is the protocol that proactively promotes consistency, accessibility, and con
 | Component               | Function/Example                                                  |
 | ----------------------- | ----------------------------------------------------------------- |
 | **Governed Knowledge Sources** | MEF repositories with integrated strategic governance via relationships. |
-| **Governance Templates** | Configurable MEF templates following linkage rules defined in organizational CSH. |
+| **Governance Templates** | Configurable MEF templates following linkage rules defined in organizational MOC. |
 | **Compliance Validator** | MEF compliance validation + strategic traceability verification. |
 | **Governance Navigator** | Semantic navigation showing Strategy → Technical decision chains. |
 | **Strategic Version Manager** | Versioning that propagates strategic changes to dependent UKIs. |
@@ -509,7 +509,7 @@ It is the protocol that proactively promotes consistency, accessibility, and con
 
 #### Practical Example with Integrated MEF Governance
 
-> 🚨 **ILLUSTRATIVE EXAMPLE** - Values like `strategy`, `security-policy`, etc. are demonstrative. Organizations define their taxonomies via CSH.
+> 🚨 **ILLUSTRATIVE EXAMPLE** - Values like `strategy`, `security-policy`, etc. are demonstrative. Organizations define their taxonomies via MOC.
 
 > During strategic planning, Oracle redefines security guidelines for development.
 > 
@@ -526,7 +526,7 @@ It is the protocol that proactively promotes consistency, accessibility, and con
 
 ## 🔬 Zion Layer
 
-### AI-Oriented Workflow Conceptual Framework (ZWF)
+### AI-Oriented Workflow Conceptual Framework (ZOF)
 
 > "Zion is the bridge between the world of ideas and the world of action."
 
@@ -534,15 +534,15 @@ It is the protocol that proactively promotes consistency, accessibility, and con
 
 The Zion Layer is the vital link between strategy (Oracle) and operation (Operator).
 
-It transforms guidelines into conceptual workflows through the **ZWF (Zion Workflow Framework)** - a technology-independent state machine model that guides **how to think** about AI-oriented workflows, without prescribing **how to implement**.
+It transforms guidelines into conceptual workflows through the **ZOF (Zion Orchestration Framework)** - a technology-independent state machine model that guides **how to think** about AI-oriented workflows, without prescribing **how to implement**.
 
 ### Main Responsibilities
 
-#### 🔨 Conceptual Structuring via ZWF
+#### 🔨 Conceptual Structuring via ZOF
 
 * **Define flow patterns** following canonical states: `Intake → Understand → Decide → Act → EvaluateForEnrich → Review → Enrich`
 * **Catalog canonical events** that initiate workflows: `knowledge.added`, `work.proposed`, `work.refine.requested`, `assistance.requested`, `test.authored`, `feedback.submitted`
-* **Mandatory checkpoint**: `EvaluateForEnrich` applies CSH-defined organizational criteria to decide if knowledge should enrich Oracle
+* **Mandatory checkpoint**: `EvaluateForEnrich` applies MOC-defined organizational criteria to decide if knowledge should enrich Oracle
 * **Ensure closed loop**: always consult Oracle → act → evaluate for enrichment → enrich Oracle
 
 #### 🧬 Explainability and Traceability
@@ -553,19 +553,19 @@ It transforms guidelines into conceptual workflows through the **ZWF (Zion Workf
 
 #### 🚧 Conceptual Orchestration
 
-* **Technology independence**: ZWF defines "how to think" not "how to implement"
+* **Technology independence**: ZOF defines "how to think" not "how to implement"
 * **Tool flexibility**: each team implements with their preferred technologies
 * **Reasoning standardization**: same conceptual pattern regardless of implementation
 
 #### ♻️ Conditional Oracle Enrichment
 
-* **ZWF executions** that pass `EvaluateForEnrich` generate/update MEF UKIs related to motivating UKIs
-* **Structured learnings** captured as reusable knowledge when justifiable via CSH criteria
+* **ZOF executions** that pass `EvaluateForEnrich` generate/update MEF UKIs related to motivating UKIs
+* **Structured learnings** captured as reusable knowledge when justifiable via MOC criteria
 * **Continuous evolution** of knowledge base through criterious and validated enrichment
 
-### ZWF Workflow Patterns
+### ZOF Workflow Patterns
 
-| ZWF Pattern | Trigger Event | Application Example |
+| ZOF Pattern | Trigger Event | Application Example |
 |-------------|---------------|---------------------|
 | **Request Flow** | `work.proposed` | New functionality implementation following canonical states |
 | **Refinement Flow** | `work.refine.requested` | Existing process optimization with incremental approach |  
@@ -574,7 +574,7 @@ It transforms guidelines into conceptual workflows through the **ZWF (Zion Workf
 | **Testing Flow** | `test.authored` | Test scenario creation based on knowledge |
 | **Feedback Flow** | `feedback.submitted` | Processing corrections and learnings |
 
-### ZWF Canonical States
+### ZOF Canonical States
 
 ```mermaid
 stateDiagram-v2
@@ -594,7 +594,7 @@ stateDiagram-v2
     end note
     
     note right of EvaluateForEnrich
-      Checkpoint: evaluates CSH
+      Checkpoint: evaluates MOC
       criteria for enrichment
     end note
     
@@ -604,16 +604,16 @@ stateDiagram-v2
     end note
 ```
 
-#### Practical Example: JWT Authentication Implementation via ZWF
+#### Practical Example: JWT Authentication Implementation via ZOF
 
-> 🚨 **ILLUSTRATIVE EXAMPLE** - UKIs like `jwt-authentication`, `security-requirements` are demonstrative. Organizations configure taxonomies via CSH.
+> 🚨 **ILLUSTRATIVE EXAMPLE** - UKIs like `jwt-authentication`, `security-requirements` are demonstrative. Organizations configure taxonomies via MOC.
 
 > **Event:** `work.proposed` - New JWT authentication requirement  
 > **Intake:** Captures story and context, organizes requirements  
 > **Understand:** Consults `uki:technical:pattern:jwt-authentication`, `uki:business:rule:security-requirements`  
 > **Decide:** Chooses library based on `uki:business:policy:vendor-approval`  
 > **Act:** Implements solution using team tools  
-> **EvaluateForEnrich:** Evaluates CSH criteria (relevance=high, reusability=medium, impact=high) → approved for enrichment with "team" scope
+> **EvaluateForEnrich:** Evaluates MOC criteria (relevance=high, reusability=medium, impact=high) → approved for enrichment with "team" scope
 > **Review:** Optional validation following `uki:culture:guideline:code-review-process`  
 > **Enrich:** Creates `uki:technical:example:auth-implementation` and `uki:technical:pattern:token-refresh`
 >
@@ -637,52 +637,52 @@ It is implemented through the **OIF (Operator Intelligence Framework)** - a conc
 
 #### 🧠 Archetype Definition via OIF
 
-* **Knowledge Agent (Oracle Intelligence)** - archetype specialized in comprehension, organization, and relationship of structured MEF knowledge with CSH-based access control.
-* **Workflow Agent (Zion Intelligence)** - archetype specialized in orchestration of conceptual ZWF flows including EvaluateForEnrich checkpoint execution.
-* **Specialized Archetypes** - methodology for creating customized intelligences for specific domains with CSH-defined authority levels.
+* **Knowledge Agent (Oracle Intelligence)** - archetype specialized in comprehension, organization, and relationship of structured MEF knowledge with MOC-based access control.
+* **Workflow Agent (Zion Intelligence)** - archetype specialized in orchestration of conceptual ZOF flows including EvaluateForEnrich checkpoint execution.
+* **Specialized Archetypes** - methodology for creating customized intelligences for specific domains with MOC-defined authority levels.
 
-#### 🔧 CSH-Integrated Capabilities via OIF
+#### 🔧 MOC-Integrated Capabilities via OIF
 
-* **Pertinence Resolution** - filter and present UKIs based on user's scope and domain permissions from CSH
-* **Authority Validation** - verify user has required authority for operations based on CSH governance rules
-* **Explaining Governance** - provide transparent explanations for access decisions referencing specific CSH nodes
-* **Escalation Pathways** - automatically route requests requiring higher authority per CSH configuration
+* **Pertinence Resolution** - filter and present UKIs based on user's scope and domain permissions from MOC
+* **Authority Validation** - verify user has required authority for operations based on MOC governance rules
+* **Explaining Governance** - provide transparent explanations for access decisions referencing specific MOC nodes
+* **Escalation Pathways** - automatically route requests requiring higher authority per MOC configuration
 
 #### 🎯 Governance-Aware Implementation via OIF
 
-* **CSH-Based Access Control** - all agent operations respect organizational hierarchy and governance rules
+* **MOC-Based Access Control** - all agent operations respect organizational hierarchy and governance rules
 * **Context-Aware Assistance** - agents understand and operate within user's authorized scope and domain
-* **Auditable Decision Making** - all agent actions are traceable to CSH rules and user permissions
+* **Auditable Decision Making** - all agent actions are traceable to MOC rules and user permissions
 * **Dynamic Authority Adaptation** - agents adapt their capabilities based on user's current role and context
 
 ### Tools & Components
 
 | Component                    | Function/Example                                                  |
 | ---------------------------- | ----------------------------------------------------------------- |
-| **OIF Framework Specification** | Complete specification of intelligence archetypes with CSH integration capabilities. |
-| **CSH-Aware Agent Templates** | Templates for Knowledge and Workflow Agents with governance-aware patterns. |
-| **Pertinence Resolution Engine** | System for filtering UKIs based on user's CSH-defined scope and domain access. |
-| **Authority Validation Layer** | Component that verifies user permissions against CSH governance rules. |
-| **Governance Explanation System** | Provides transparent explanations referencing specific CSH nodes and rules. |
-| **Dynamic Authority Adaptation** | Framework for adapting agent capabilities based on user's current CSH context. |
+| **OIF Framework Specification** | Complete specification of intelligence archetypes with MOC integration capabilities. |
+| **MOC-Aware Agent Templates** | Templates for Knowledge and Workflow Agents with governance-aware patterns. |
+| **Pertinence Resolution Engine** | System for filtering UKIs based on user's MOC-defined scope and domain access. |
+| **Authority Validation Layer** | Component that verifies user permissions against MOC governance rules. |
+| **Governance Explanation System** | Provides transparent explanations referencing specific MOC nodes and rules. |
+| **Dynamic Authority Adaptation** | Framework for adapting agent capabilities based on user's current MOC context. |
 
 #### Practical Example: JWT Implementation via OIF
 
-> 🚨 **ILLUSTRATIVE EXAMPLE** - Scope `team`, domain `technical`, archetype `Knowledge Agent` are demonstrative. CSH defines organizational taxonomies.
+> 🚨 **ILLUSTRATIVE EXAMPLE** - Scope `team`, domain `technical`, archetype `Knowledge Agent` are demonstrative. MOC defines organizational taxonomies.
 
-> **User Context:** Developer with CSH scope="team", domain_access=["technical"], authority="developer"
+> **User Context:** Developer with MOC scope="team", domain_access=["technical"], authority="developer"
 >
-> **Workflow Agent** initiates `work.proposed` orchestration, validates user authority via CSH
+> **Workflow Agent** initiates `work.proposed` orchestration, validates user authority via MOC
 > 
-> **Understand State:** Workflow Agent requests Knowledge Agent search with CSH filters (scope≤"team", domain="technical")
+> **Understand State:** Workflow Agent requests Knowledge Agent search with MOC filters (scope≤"team", domain="technical")
 > 
 > **Knowledge Agent** returns UKIs accessible to user: `uki:technical:pattern:jwt-standard` (scope="team"), filtering out organization-level patterns
 > 
-> **EvaluateForEnrich State:** Workflow Agent applies CSH evaluation criteria and determines enrichment scope="team" based on user authority
+> **EvaluateForEnrich State:** Workflow Agent applies MOC evaluation criteria and determines enrichment scope="team" based on user authority
 >
-> **Enrich State:** Knowledge Agent creates new UKIs with scope_ref="team", respecting user's CSH permissions
+> **Enrich State:** Knowledge Agent creates new UKIs with scope_ref="team", respecting user's MOC permissions
 > 
-> **Result:** Implementation completed + Oracle enriched within user's authorized scope, full CSH governance applied
+> **Result:** Implementation completed + Oracle enriched within user's authorized scope, full MOC governance applied
 
 ---
 
@@ -730,47 +730,47 @@ To ensure consistency between implementations, the protocol establishes the foll
 
 ```mermaid
 flowchart TD
-    A[Query Request] --> B[1. User CSH Context]
+    A[Query Request] --> B[1. User MOC Context]
     B --> C[2. Pertinence Filtering]
     C --> D[3. Authority Validation]
     D --> E[4. Scope Filtering]
     E --> F[5. Oracle Query]
     F --> G[Filtered & Authorized UKIs]
     
-    H[Organizational CSH] --> B
+    H[Organizational MOC] --> B
     H --> C
     H --> D
     H --> E
 ```
 
 **Operational Sequence:**
-1. **CSH Context**: Identify user hierarchy, authorities and scope via CSH
+1. **MOC Context**: Identify user hierarchy, authorities and scope via MOC
 2. **Pertinence Filtering**: Apply visibility rules based on hierarchical context
 3. **Authority Validation**: Verify user has authority to access requested domains/types
-4. **Scope Filtering**: Apply scope restrictions (restricted vs propagated) per CSH
+4. **Scope Filtering**: Apply scope restrictions (restricted vs propagated) per MOC
 5. **Oracle Query**: Execute semantic search only on authorized UKI subset
 
 **🛑 Important**: Filtering **always precedes** the query, never the reverse, to ensure security and efficiency.
 
 ---
 
-## 🏛️ CSH - Semantic Hierarchy Catalog
+## 🏛️ MOC - Matrix Ontology Catalog
 
-The **Semantic Hierarchy Catalog (CSH)** is the **single source of truth** for taxonomies and organizational governance in the Matrix Protocol:
+The **Matrix Ontology Catalog (MOC)** is the **single source of truth** for taxonomies and organizational governance in the Matrix Protocol:
 
-### 🎯 **CSH Function**
+### 🎯 **MOC Function**
 - **Configurable Taxonomies**: Defines domains, types, scopes, and maturity levels specific to the organization
 - **Hierarchical Governance**: Establishes authority, visibility, and propagation rules by context
 - **Enrichment Criteria**: Defines parameters for the EvaluateForEnrich checkpoint
 - **Interoperability**: Enables mapping between different organizational structures
 
 ### 🔗 **Integration with Matrix Layers**
-- **Oracle + CSH**: MEF UKIs use *_ref fields that reference CSH nodes instead of fixed values
-- **Zion + CSH**: ZWF consults CSH for authority validation during EvaluateForEnrich
-- **Operator + CSH**: OIF uses CSH to filter knowledge and validate explanations based on hierarchies
+- **Oracle + MOC**: MEF UKIs use *_ref fields that reference MOC nodes instead of fixed values
+- **Zion + MOC**: ZOF consults MOC for authority validation during EvaluateForEnrich
+- **Operator + MOC**: OIF uses MOC to filter knowledge and validate explanations based on hierarchies
 
 ### 📋 **Reference Document**
-See complete specification: `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+See complete specification: `MOC_CATALOGO_SEMANTICO_HIERARQUIAS.md`
 
 ---
 
@@ -781,17 +781,17 @@ The Matrix Protocol serves as a foundational framework for organizations impleme
 ### **Implementation Mapping**
 
 - **Oracle Layer** → **Knowledge Management Systems**: Structured governance through MEF (versioned and traceable UKIs with promotion capabilities)
-- **Zion Layer** → **Conceptual Workflow Framework**: ZWF patterns for technology-independent AI-oriented workflows
+- **Zion Layer** → **Conceptual Workflow Framework**: ZOF patterns for technology-independent AI-oriented workflows
 - **Operator Layer** → **Agent Intelligence Framework**: OIF archetype specifications with minimum capabilities and collaboration patterns
 
 ### **Framework Benefits**
 
 This philosophical and technical framework provides organizations with:
 - **Clear Architecture**: Well-defined layers for different responsibilities
-- **Standardized Knowledge**: MEF ensures consistent knowledge representation with CSH-based hierarchical flexibility
-- **Conceptual Workflows**: ZWF guides "how to think" about AI-oriented flows with EvaluateForEnrich checkpoint
-- **Agent Specifications**: OIF defines governance-aware intelligence archetypes with CSH integration
-- **Local Flexibility**: CSH allows complete adaptation to organizational structures while preserving global concepts
+- **Standardized Knowledge**: MEF ensures consistent knowledge representation with MOC-based hierarchical flexibility
+- **Conceptual Workflows**: ZOF guides "how to think" about AI-oriented flows with EvaluateForEnrich checkpoint
+- **Agent Specifications**: OIF defines governance-aware intelligence archetypes with MOC integration
+- **Local Flexibility**: MOC allows complete adaptation to organizational structures while preserving global concepts
 - **Technology Independence**: All layers allow tool flexibility while maintaining conceptual consistency
 - **Complete Traceability**: Semantic relationships between knowledge and decisions with governance transparency
 - **Adaptive Governance**: Authority, visibility, and propagation rules configured per organizational context

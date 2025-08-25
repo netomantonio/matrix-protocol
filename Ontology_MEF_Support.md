@@ -26,9 +26,9 @@
 - Usar estes domínios como base
 - Adicionar domínios específicos de sua realidade
 - Modificar ou remover conforme necessidade
-- Definir hierarquias próprias no CSH
+- Definir hierarquias próprias no MOC
 
-**🏛️ CSH é a fonte definitiva**: Domínios ativos são aqueles definidos no Catálogo Semântico de Hierarquias organizacional.
+**🏛️ MOC é a fonte definitiva**: Domínios ativos são aqueles definidos no Matrix Ontology Catalog organizacional.
 
 ```yaml
 domains:
@@ -45,7 +45,7 @@ domains:
 
 **📋 Exemplos de Domínios (APENAS PARA REFERÊNCIA):**
 
-> ⚠️ **IMPORTANTE**: A tabela abaixo contém **APENAS EXEMPLOS ILUSTRATIVOS**. Estes **NÃO SÃO valores obrigatórios** nem taxonomia fechada. Cada organização define seus próprios domínios no CSH.
+> ⚠️ **IMPORTANTE**: A tabela abaixo contém **APENAS EXEMPLOS ILUSTRATIVOS**. Estes **NÃO SÃO valores obrigatórios** nem taxonomia fechada. Cada organização define seus próprios domínios no MOC.
 
 | Exemplo de Domínio | Descrição Ilustrativa | Possível Área de Influência |
 |---------|-----------|-------------------|
@@ -80,7 +80,7 @@ types:
 
 **📋 Exemplos de Tipos (APENAS PARA REFERÊNCIA):**
 
-> ⚠️ **IMPORTANTE**: A tabela abaixo contém **APENAS EXEMPLOS ILUSTRATIVOS**. Estes **NÃO SÃO valores obrigatórios** nem taxonomia fechada. Cada organização define seus próprios tipos no CSH.
+> ⚠️ **IMPORTANTE**: A tabela abaixo contém **APENAS EXEMPLOS ILUSTRATIVOS**. Estes **NÃO SÃO valores obrigatórios** nem taxonomia fechada. Cada organização define seus próprios tipos no MOC.
 
 | Exemplo de Tipo | Descrição Ilustrativa | Possível Uso |
 |------|-----------|---------------|
@@ -191,9 +191,9 @@ status_values:
 - Use these domains as a foundation
 - Add specific domains from their reality
 - Modify or remove as needed
-- Define their own hierarchies in CSH
+- Define their own hierarchies in MOC
 
-**🏛️ CSH is the definitive source**: Active domains are those defined in the organizational Semantic Hierarchy Catalog.
+**🏛️ MOC is the definitive source**: Active domains are those defined in the organizational Matrix Ontology Catalog.
 
 ```yaml
 domains:
@@ -210,7 +210,7 @@ domains:
 
 **📋 Domain Examples (FOR REFERENCE ONLY):**
 
-> ⚠️ **IMPORTANT**: The table below contains **ILLUSTRATIVE EXAMPLES ONLY**. These are **NOT mandatory values** nor closed taxonomy. Each organization defines its own domains in CSH.
+> ⚠️ **IMPORTANT**: The table below contains **ILLUSTRATIVE EXAMPLES ONLY**. These are **NOT mandatory values** nor closed taxonomy. Each organization defines its own domains in MOC.
 
 | Example Domain | Illustrative Description | Possible Area of Influence |
 |--------|-------------|-------------------|
@@ -245,7 +245,7 @@ types:
 
 **📋 Type Examples (FOR REFERENCE ONLY):**
 
-> ⚠️ **IMPORTANT**: The table below contains **ILLUSTRATIVE EXAMPLES ONLY**. These are **NOT mandatory values** nor closed taxonomy. Each organization defines its own types in CSH.
+> ⚠️ **IMPORTANT**: The table below contains **ILLUSTRATIVE EXAMPLES ONLY**. These are **NOT mandatory values** nor closed taxonomy. Each organization defines its own types in MOC.
 
 | Example Type | Illustrative Description | Possible Use |
 |------|-------------|-------------|

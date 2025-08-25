@@ -1,6 +1,6 @@
-# 📜 MATRIX ZWF PROTOCOL | PROTOCOLO MATRIX ZWF
+# 📜 MATRIX ZOF PROTOCOL | PROTOCOLO MATRIX ZOF
 
-> 🚨 **AVISO IMPORTANTE**: Este documento contém EXEMPLOS ILUSTRATIVOS (como `strategy`, `operations`, etc.) que NÃO são taxonomias obrigatórias. O **CSH (Catálogo Semântico de Hierarquias)** é a única fonte definitiva para taxonomias organizacionais. Exemplos servem apenas como referência conceitual.
+> 🚨 **AVISO IMPORTANTE**: Este documento contém EXEMPLOS ILUSTRATIVOS (como `strategy`, `operations`, etc.) que NÃO são taxonomias obrigatórias. O **MOC (Matrix Ontology Catalog)** é a única fonte definitiva para taxonomias organizacionais. Exemplos servem apenas como referência conceitual.
 
 ## 🌎 Idioma / Language
 
@@ -12,7 +12,7 @@
 <a name="português"></a>
 # Português 🇧🇷
 
-> Zion Workflow Framework
+> Zion Orchestration Framework
 
 **Versão:** 1.0
 **Status:** Ativo
@@ -23,21 +23,21 @@
 
 ## 📟️ VISÃO GERAL
 
-O Protocolo Matrix ZWF define um **modelo conceitual para fluxos de trabalho orientados a IA** que permite que equipes multidisciplinares descrevam workflows como máquinas de estado independentes de tecnologia. Todos os fluxos seguem o padrão: **Evento → Consulta Oráculo → Decisão → Ação → Avaliação → Enriquecimento Condicional do Oráculo**.
+O Protocolo Matrix ZOF define um **modelo conceitual para fluxos de trabalho orientados a IA** que permite que equipes multidisciplinares descrevam workflows como máquinas de estado independentes de tecnologia. Todos os fluxos seguem o padrão: **Evento → Consulta Oráculo → Decisão → Ação → Avaliação → Enriquecimento Condicional do Oráculo**.
 
-O ZWF integra nativamente com o **CSH (Catálogo Semântico de Hierarquias)** organizacional, respeitando estruturas de autoridade, escopos de conhecimento e critérios de governança específicos de cada implementação. Esta integração permite que o checkpoint **EvaluateForEnrich** aplique regras configuráveis ao invés de restrições fixas.
+O ZOF integra nativamente com o **MOC (Matrix Ontology Catalog)** organizacional, respeitando estruturas de autoridade, escopos de conhecimento e critérios de governança específicos de cada implementação. Esta integração permite que o checkpoint **EvaluateForEnrich** aplique regras configuráveis ao invés de restrições fixas.
 
-O ZWF não prescreve ferramentas, motores de orquestração ou implementações técnicas - apenas direciona **como pensar e registrar o caminho** de forma conceitual, rastreável e governada.
+O ZOF não prescreve ferramentas, motores de orquestração ou implementações técnicas - apenas direciona **como pensar e registrar o caminho** de forma conceitual, rastreável e governada.
 
-### 🏛️ **CSH - Fonte Única de Governança**
+### 🏛️ **MOC - Fonte Única de Governança**
 
-O ZWF utiliza o **Catálogo Semântico de Hierarquias (CSH)** para:
-- **Critérios de Enriquecimento**: O checkpoint `EvaluateForEnrich` consulta regras configuráveis no CSH
+O ZOF utiliza o **Matrix Ontology Catalog (MOC)** para:
+- **Critérios de Enriquecimento**: O checkpoint `EvaluateForEnrich` consulta regras configuráveis no MOC
 - **Validação de Autoridade**: Verifica se usuário tem autoridade para criar UKIs em escopos específicos
 - **Filtragem de Conhecimento**: Oracle retorna apenas UKIs compatíveis com contexto hierárquico do usuário
 - **Flexível por Organização**: Cada implementação pode definir suas hierarquias e regras
 
-**Documento de Referência**: `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+**Documento de Referência**: `MOC_CATALOGO_SEMANTICO_HIERARQUIAS.md`
 
 ---
 
@@ -50,21 +50,21 @@ O ZWF utiliza o **Catálogo Semântico de Hierarquias (CSH)** para:
 - **Enriquecimento:** Recebe novos/atualizados UKIs ao final dos fluxos
 
 ### 👥 **Equipes**
-- **Função:** Descrevem fluxos em linguagem conceitual ZWF
+- **Função:** Descrevem fluxos em linguagem conceitual ZOF
 - **Responsabilidade:** Implementam os fluxos usando suas próprias ferramentas e tecnologias
-- **Contexto CSH:** Operam dentro de escopos e domínios autorizados pelo CSH organizacional
-- **Autoridade:** Determinam escopo de enriquecimento baseado em hierarquias CSH
+- **Contexto MOC:** Operam dentro de escopos e domínios autorizados pelo MOC organizacional
+- **Autoridade:** Determinam escopo de enriquecimento baseado em hierarquias MOC
 - **Papéis:** Dev/Eng/Tech/PM/UX/Analistas com níveis de autoridade configuráveis
 
 ### ⚙️ **Operador**
 - **Função:** Executa na prática (CI/CD, IDE, orquestradores, etc.)
-- **Limitação:** ZWF não prescreve como implementar - apenas o que desenhar
+- **Limitação:** ZOF não prescreve como implementar - apenas o que desenhar
 
 ---
 
 ## 📡 EVENTOS CANÔNICOS (GATILHOS)
 
-O ZWF reconhece seis tipos de eventos que iniciam fluxos:
+O ZOF reconhece seis tipos de eventos que iniciam fluxos:
 
 | Evento | Descrição | Contexto Típico |
 |--------|-----------|-----------------|
@@ -79,7 +79,7 @@ O ZWF reconhece seis tipos de eventos que iniciam fluxos:
 
 ## 🔄 ESTADOS CANÔNICOS (MÁQUINA DE ESTADO)
 
-Todo fluxo ZWF segue esta sequência conceitual:
+Todo fluxo ZOF segue esta sequência conceitual:
 
 ```mermaid
 stateDiagram-v2
@@ -142,18 +142,18 @@ stateDiagram-v2
 - **Saída:** Confirmação ou redirecionamento
 
 ### 🔍 **EvaluateForEnrich**
-- **Propósito:** Avaliar se o resultado produz conhecimento estruturável com governança CSH
+- **Propósito:** Avaliar se o resultado produz conhecimento estruturável com governança MOC
 - **Ações:** Aplicar can_enrich?(act_output, context, user_csh_context, csh_criteria) para decidir próximo estado
 - **Saída:** Decisão sobre necessidade de enriquecimento + escopo determinado + explicação de governança
 - **Função Semântica:** can_enrich?() avalia:
   - Divergência semântica em relação ao conhecimento existente
-  - Possibilidade de estruturação como UKI válida segundo MEF com campos CSH
+  - Possibilidade de estruturação como UKI válida segundo MEF com campos MOC
   - Clareza epistêmica da contribuição
-  - **Autoridade CSH:** Valida se usuário tem autoridade para enriquecer no escopo proposto
-  - **Critérios organizacionais:** Aplica evaluation_criteria definidos no CSH
-  - **Governança transparente:** Gera explicações baseadas em regras CSH específicas
+  - **Autoridade MOC:** Valida se usuário tem autoridade para enriquecer no escopo proposto
+  - **Critérios organizacionais:** Aplica evaluation_criteria definidos no MOC
+  - **Governança transparente:** Gera explicações baseadas em regras MOC específicas
 
-#### **Implementação da Função can_enrich?() com CSH**
+#### **Implementação da Função can_enrich?() com MOC**
 ```yaml
 can_enrich_function:
   input_parameters:
@@ -175,15 +175,15 @@ can_enrich_function:
       - domain_ref_valid: true
     
     csh_governance:
-      - user_authority_sufficient: "resolve via CSH authority rules"
+      - user_authority_sufficient: "resolve via MOC authority rules"
       - domain_access_authorized: "verify against user's domain_access"
       - scope_within_limits: "ensure scope_ref <= user's max_scope"
-      - evaluation_criteria_met: "apply CSH evaluation_criteria nodes"
+      - evaluation_criteria_met: "apply MOC evaluation_criteria nodes"
     
     epistemic_clarity:
       - content_meaningful: true
       - user_confirmation: true
-      - governance_transparent: "explain CSH-based decisions"
+      - governance_transparent: "explain MOC-based decisions"
   
   decision_logic: |
     resolved_criteria = resolve_evaluation_criteria(csh_evaluation_criteria, user_csh_context)
@@ -211,21 +211,21 @@ can_enrich_function:
 
 ---
 
-## 🏛️ GOVERNANÇA HIERÁRQUICA COM CSH
+## 🏛️ GOVERNANÇA HIERÁRQUICA COM MOC
 
-### 🎯 **Integração CSH no ZWF**
+### 🎯 **Integração MOC no ZOF**
 
-O ZWF integra nativamente com o **CSH (Catálogo Semântico de Hierarquias)** organizacional para aplicar governança configurável ao invés de restrições fixas.
+O ZOF integra nativamente com o **MOC (Matrix Ontology Catalog)** organizacional para aplicar governança configurável ao invés de restrições fixas.
 
 #### **Conceitos Universais vs. Configurações Locais**
 
-**Universais no ZWF:**
+**Universais no ZOF:**
 - Estados canônicos (Intake → Understand → Decide → Act → EvaluateForEnrich → Review → Enrich)
 - Checkpoint obrigatório EvaluateForEnrich
 - Consulta ao Oráculo no estado Understand
 - Enriquecimento condicional baseado em avaliação
 
-**Configuráveis via CSH:**
+**Configuráveis via MOC:**
 - Critérios de avaliação para EvaluateForEnrich
 - Níveis de autoridade para diferentes escopos de enriquecimento
 - Domínios acessíveis por papel/usuário
@@ -244,10 +244,10 @@ authority_flow_pattern:
     - apply_csh_criteria: "Usa critérios configuráveis ao invés de fixos"
     - validate_authority: "Verifica se usuário pode enriquecer no escopo proposto"
     - determine_scope: "Define escopo específico para nova UKI"
-    - explain_governance: "Gera transparência sobre decisões CSH"
+    - explain_governance: "Gera transparência sobre decisões MOC"
   
   escalation_when_needed:
-    - identify_required_authority: "Resolve autoridade necessária via CSH"
+    - identify_required_authority: "Resolve autoridade necessária via MOC"
     - suggest_approval_workflow: "Propõe caminho de aprovação"
     - provide_alternatives: "Sugere alternativas dentro do escopo autorizado"
 ```
@@ -290,7 +290,7 @@ evaluate_for_enrich_attempt:
 
 ### 💫 **Fundamentação Epistemológica**
 
-A função `can_enrich?()` representa o **ponto de decisão epistemológica** do protocolo ZWF. Ela materializa a compreensão de que nem toda interação ou resultado de execução constitui conhecimento estruturável e reutilizável.
+A função `can_enrich?()` representa o **ponto de decisão epistemológica** do protocolo ZOF. Ela materializa a compreensão de que nem toda interação ou resultado de execução constitui conhecimento estruturável e reutilizável.
 
 **Princípio Fundamental:** O enriquecimento do Oráculo deve ser uma **ocorrência cognitiva**, não uma **imposição processual**.
 
@@ -353,7 +353,7 @@ conceptual_level:
     - semantic_novelty: "Há conhecimento novo?"
     - structural_validity: "É estruturável como MEF?"
     - epistemic_clarity: "É cognitivamente claro?"
-    - authority_validation: "Usuário tem autoridade via CSH para criar UKI?"
+    - authority_validation: "Usuário tem autoridade via MOC para criar UKI?"
     - relevance_confirmation: "O usuário confirma relevância?"
 ```
 
@@ -381,7 +381,7 @@ evaluation:
   semantic_divergence: PASS # "Nova lógica de validação"
   mef_structurability: PASS # "Pode ser UKI tipo 'constraint'"
   epistemic_clarity: PASS # "Função bem documentada"
-  authority_validation: PASS # "Usuário autorizado via CSH para domínio 'technical'"
+  authority_validation: PASS # "Usuário autorizado via MOC para domínio 'technical'"
   user_confirmation: PASS # "Desenvolvedor confirma utilidade"
 
 result: ENRICH_APPROVED
@@ -418,11 +418,11 @@ evaluation:
   semantic_divergence: PASS # "Conhecimento novo"
   mef_structurability: PASS # "Estruturável como policy"
   epistemic_clarity: PASS # "Política bem definida"
-  authority_validation: FAIL # "Usuário não autorizado via CSH para domínio 'security'"
+  authority_validation: FAIL # "Usuário não autorizado via MOC para domínio 'security'"
   user_confirmation: N/A
 
 result: ENRICH_REJECTED
-reason: "Domínio 'security' configurado no CSH como restrito para usuários com autoridade 'team_member'"
+reason: "Domínio 'security' configurado no MOC como restrito para usuários com autoridade 'team_member'"
 csh_nodes_cited:
   - node_type: "domain"
     node_id: "security"
@@ -436,12 +436,12 @@ alternatives: "Criar UKI em domínio 'technical' com escopo 'team' para implemen
 
 ### 📝 **Requisitos de Explicabilidade para ENRICH_REJECTED**
 
-**Obrigatório**: Toda decisão `ENRICH_REJECTED` deve incluir explicação baseada em nós específicos do CSH:
+**Obrigatório**: Toda decisão `ENRICH_REJECTED` deve incluir explicação baseada em nós específicos do MOC:
 
 ```yaml
 required_explanation_format:
   result: ENRICH_REJECTED
-  reason: "[Explicação citando nós CSH específicos]"
+  reason: "[Explicação citando nós MOC específicos]"
   csh_nodes_cited:
     - node_type: "domain" | "scope" | "type" | "authority_level"
       node_id: "[id_do_nó_csh]"
@@ -450,9 +450,9 @@ required_explanation_format:
   alternatives: "[Sugestões de ações alternativas dentro da autoridade do usuário]"
 ```
 
-**Benefícios da Explicabilidade CSH:**
+**Benefícios da Explicabilidade MOC:**
 - **Transparência**: Usuário compreende exatamente por que foi rejeitado
-- **Rastreabilidade**: Decisões auditáveis via nós CSH
+- **Rastreabilidade**: Decisões auditáveis via nós MOC
 - **Orientação**: Caminhos claros para resolução ou escalation
 - **Consistência**: Explicações padronizadas entre implementações
 
@@ -540,7 +540,7 @@ Fluxos que justifiquem enriquecimento devem retornar conhecimento ao Oráculo es
 
 **📋 Exemplos de Tipos UKI (APENAS PARA REFERÊNCIA):**
 
-> 🚨 **IMPORTANTE**: A tabela abaixo contém **APENAS EXEMPLOS ILUSTRATIVOS**. Estes **NÃO SÃO valores obrigatórios** nem taxonomia fechada. Cada organização define seus próprios tipos no CSH.
+> 🚨 **IMPORTANTE**: A tabela abaixo contém **APENAS EXEMPLOS ILUSTRATIVOS**. Estes **NÃO SÃO valores obrigatórios** nem taxonomia fechada. Cada organização define seus próprios tipos no MOC.
 
 | Exemplo de Tipo | Quando Usar (Ilustrativo) | Possível Saída (Escopo de Equipe) |
 |----------|-------------|------------------|
@@ -555,26 +555,26 @@ Fluxos que justifiquem enriquecimento devem retornar conhecimento ao Oráculo es
 
 ### 🚫 **Restrições de Escopo Organizacional**
 
-Fluxos ZWF **NÃO PODEM** criar UKIs que impactem múltiplas equipes sem curadoria:
+Fluxos ZOF **NÃO PODEM** criar UKIs que impactem múltiplas equipes sem curadoria:
 
-#### **Restrições Configuráveis via CSH**
+#### **Restrições Configuráveis via MOC**
 
-Cada organização define no **CSH** quais domínios, tipos e escopos são restritos para diferentes níveis de autoridade:
+Cada organização define no **MOC** quais domínios, tipos e escopos são restritos para diferentes níveis de autoridade:
 
 **🚨 Exemplos puramente ilustrativos de configuração organizacional:**
 > Estas são **sugestões conceituais**, não implementações obrigatórias:
 - **Domínios organizacionais**: Organizações podem configurar que alguns domínios requeiram autoridade elevada
-- **Tipos críticos**: Possível restringir certos tipos a papéis específicos no CSH
+- **Tipos críticos**: Possível restringir certos tipos a papéis específicos no MOC
 - **Escopos hierárquicos**: Configurável que criação em escopos superiores exija aprovação
-- **Combinações**: CSH permite regras especiais para combinações domínio+tipo
+- **Combinações**: MOC permite regras especiais para combinações domínio+tipo
 
-**🏛️ Cada organização define suas próprias regras no CSH** - não há restrições universais.
+**🏛️ Cada organização define suas próprias regras no MOC** - não há restrições universais.
 
-#### **Validação Dinâmica via CSH**
+#### **Validação Dinâmica via MOC**
 ```yaml
 csh_validation:
   can_create_uki: |
-    # Consulta dinâmica ao CSH organizacional
+    # Consulta dinâmica ao MOC organizacional
     domain_node = csh.get_domain(proposed_uki.domain_ref)
     type_node = csh.get_type(proposed_uki.type_ref)
     scope_node = csh.get_scope(proposed_uki.scope_ref)
@@ -586,7 +586,7 @@ csh_validation:
       REQUIRE escalation_to_authorized_role = true
 ```
 
-**Nota**: Os valores anteriormente listados (policy, governance, etc.) eram apenas exemplos. Cada organização configura suas próprias restrições no CSH.
+**Nota**: Os valores anteriormente listados (policy, governance, etc.) eram apenas exemplos. Cada organização configura suas próprias restrições no MOC.
 
 ### 🔗 **Relacionamentos Requeridos**
 Cada UKI gerada deve incluir:
@@ -628,7 +628,7 @@ timestamp: "2024-01-15 14:30:22"
 
 ## 📊 MÉTRICAS CANÔNICAS DE TELEMETRIA
 
-Para observabilidade e monitoramento efetivo de workflows ZWF, estabelecemos métricas padronizadas que podem ser coletadas durante a execução de cada fluxo.
+Para observabilidade e monitoramento efetivo de workflows ZOF, estabelecemos métricas padronizadas que podem ser coletadas durante a execução de cada fluxo.
 
 ### 🕘 **Métricas de Tempo entre Estados**
 ```yaml
@@ -696,7 +696,7 @@ oracle_enrichment_metrics:
   relationship_count: 3
 # 🚨 AVISO: EXEMPLOS NÃO SÃO TAXONOMIA OBRIGATÓRIA
 # Os valores mostrados abaixo (security, governance, etc.) são APENAS EXEMPLOS ILUSTRATIVOS.
-# 🏛️ CSH é a única fonte de taxonomias válidas.
+# 🏛️ MOC é a única fonte de taxonomias válidas.
   knowledge_domains_touched:
     - security     # EXEMPLO - cada organização define seus domínios
     - governance   # EXEMPLO - cada organização define seus domínios
@@ -734,7 +734,7 @@ telemetry:
 
 ## ⚖️ INVARIANTES DE ESTADO (FORMAL)
 
-Para garantir a execução robusta e determinística, cada estado ZWF pode implementar invariantes conceituais que podem ser implementados por engines duráveis:
+Para garantir a execução robusta e determinística, cada estado ZOF pode implementar invariantes conceituais que podem ser implementados por engines duráveis:
 
 ### 📋 **Invariantes por Estado**
 
@@ -830,10 +830,10 @@ validation:
   evaluation_criteria_applied: true
   justification_documented: true
 context_required:
-  user_authority_level: "from CSH"
-  available_evaluation_criteria: "from CSH"
-  max_enrichment_scope: "from CSH"
-  domain_access_permissions: "from CSH"
+  user_authority_level: "from MOC"
+  available_evaluation_criteria: "from MOC"
+  max_enrichment_scope: "from MOC"
+  domain_access_permissions: "from MOC"
 ```
 
 #### 🔄 **Enrich State (Conditional)**
@@ -934,7 +934,7 @@ consistency_checks:
 
 ## 🔍 ESQUEMAS DE EXPLICABILIDADE VERIFICÁVEIS
 
-Para garantir a qualidade e consistência dos sinais de explicabilidade, o ZWF define schemas JSON formais para validação automática dos campos `context`, `decision` e `result` em cada estado do workflow.
+Para garantir a qualidade e consistência dos sinais de explicabilidade, o ZOF define schemas JSON formais para validação automática dos campos `context`, `decision` e `result` em cada estado do workflow.
 
 ### 📋 **Schema Base para Sinais**
 
@@ -1229,7 +1229,7 @@ stateDiagram-v2
 
 ## 🚫 LIMITES DE ZION
 
-### ❌ **O que ZWF NÃO especifica:**
+### ❌ **O que ZOF NÃO especifica:**
 - Ferramentas específicas de implementação
 - Motores de orquestração ou workflow engines
 - Prompts ou interfaces de agentes
@@ -1242,13 +1242,13 @@ stateDiagram-v2
 - **REQUER** curadoria humana para UKIs que impactem múltiplas equipes
 - **LIMITA** escopo de enriquecimento à equipe executora
 
-### ❌ **O que ZWF NÃO adiciona ao MEF:**
+### ❌ **O que ZOF NÃO adiciona ao MEF:**
 - Novos campos na estrutura UKI
 - Modificações no formato YAML
 - Tipos de UKI adicionais
 - Apenas usa `relationships` para relacionamentos
 
-### ✅ **O que ZWF especifica:**
+### ✅ **O que ZOF especifica:**
 - Padrão conceitual de estados de fluxo
 - Tipos de eventos que iniciam workflows
 - Relacionamento obrigatório com o Oráculo
@@ -1259,7 +1259,7 @@ stateDiagram-v2
 
 ## 🎯 RESULTADO ESPERADO
 
-Com o ZWF, qualquer equipe pode:
+Com o ZOF, qualquer equipe pode:
 
 1. **Desenhar fluxos conceituais** seguindo os estados canônicos
 2. **Consultar o Oráculo** para fundamentar decisões
@@ -1275,23 +1275,23 @@ Com o ZWF, qualquer equipe pode:
 ## 🔄 INTEGRAÇÃO COM AS CAMADAS MATRIX
 
 ### 🔮 **Relação com Oracle (MEF)**
-- **Entrada:** ZWF consulta UKIs do Oráculo para fundamentar decisões
-- **Saída:** ZWF produz novos UKIs MEF para enriquecer o Oráculo
+- **Entrada:** ZOF consulta UKIs do Oráculo para fundamentar decisões
+- **Saída:** ZOF produz novos UKIs MEF para enriquecer o Oráculo
 - **Formato:** Todos os relacionamentos usam `relationships` do MEF
 
 ### ⚙️ **Relação com Operator**
-- **ZWF → Operator:** Fornece o desenho conceitual do fluxo
+- **ZOF → Operator:** Fornece o desenho conceitual do fluxo
 - **Operator:** Implementa usando tecnologias específicas da equipe
-- **ZWF:** Não prescreve como implementar, apenas o que desenhar
+- **ZOF:** Não prescreve como implementar, apenas o que desenhar
 
 ---
 
 <a name="english"></a>
 # English 🇺🇸
 
-> 🚨 **IMPORTANT WARNING**: This document contains ILLUSTRATIVE EXAMPLES (such as `strategy`, `operations`, etc.) that are NOT mandatory taxonomies. The **CSH (Semantic Hierarchy Catalog)** is the only definitive source for organizational taxonomies. Examples serve only as conceptual reference.
+> 🚨 **IMPORTANT WARNING**: This document contains ILLUSTRATIVE EXAMPLES (such as `strategy`, `operations`, etc.) that are NOT mandatory taxonomies. The **MOC (Matrix Ontology Catalog)** is the only definitive source for organizational taxonomies. Examples serve only as conceptual reference.
 
-> Zion Workflow Framework
+> Zion Orchestration Framework
 
 **Version:** 1.0
 **Status:** Active
@@ -1302,21 +1302,21 @@ Com o ZWF, qualquer equipe pode:
 
 ## 📟️ OVERVIEW
 
-The Matrix ZWF Protocol defines a **conceptual model for AI-oriented workflows** that allows multidisciplinary teams to describe workflows as technology-independent state machines. All flows follow the pattern: **Event → Query Oracle → Decision → Action → Evaluation → Conditional Oracle Enrichment**.
+The Matrix ZOF Protocol defines a **conceptual model for AI-oriented workflows** that allows multidisciplinary teams to describe workflows as technology-independent state machines. All flows follow the pattern: **Event → Query Oracle → Decision → Action → Evaluation → Conditional Oracle Enrichment**.
 
-ZWF does not prescribe tools, orchestration engines, or technical implementations - it only directs **how to think and record the path** in a conceptual and traceable way.
+ZOF does not prescribe tools, orchestration engines, or technical implementations - it only directs **how to think and record the path** in a conceptual and traceable way.
 
-**CSH Integration:** ZWF integrates with the Semantic Hierarchy Catalog (CSH) to enable governance-aware workflows that respect organizational hierarchies and authority levels during both Oracle consultation and knowledge enrichment phases.
+**MOC Integration:** ZOF integrates with the Matrix Ontology Catalog (MOC) to enable governance-aware workflows that respect organizational hierarchies and authority levels during both Oracle consultation and knowledge enrichment phases.
 
-### 🏛️ **CSH - Single Source of Governance**
+### 🏛️ **MOC - Single Source of Governance**
 
-ZWF uses the **Semantic Hierarchy Catalog (CSH)** for:
-- **Enrichment Criteria**: The `EvaluateForEnrich` checkpoint consults configurable rules in CSH
+ZOF uses the **Matrix Ontology Catalog (MOC)** for:
+- **Enrichment Criteria**: The `EvaluateForEnrich` checkpoint consults configurable rules in MOC
 - **Authority Validation**: Verifies if user has authority to create UKIs in specific scopes
 - **Knowledge Filtering**: Oracle returns only UKIs compatible with user's hierarchical context
 - **Organization Flexible**: Each implementation can define its hierarchies and rules
 
-**Reference Document**: `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+**Reference Document**: `MOC_CATALOGO_SEMANTICO_HIERARQUIAS.md`
 
 ---
 
@@ -1325,25 +1325,25 @@ ZWF uses the **Semantic Hierarchy Catalog (CSH)** for:
 ### 🔮 **Oracle**
 - **Function:** Strategic/semantic repository that maintains UKIs (MEF)
 - **Input:** Queries for guidelines, rules, decisions, patterns and examples
-- **Output:** Contextual knowledge to support flow decisions filtered by CSH permissions
+- **Output:** Contextual knowledge to support flow decisions filtered by MOC permissions
 - **Enrichment:** Receives new/updated UKIs at the end of flows within governance scope
-- **CSH Context:** Respects organizational hierarchies and visibility rules defined in CSH
+- **MOC Context:** Respects organizational hierarchies and visibility rules defined in MOC
 
 ### 👥 **Teams**
-- **Function:** Describe flows in ZWF conceptual language
+- **Function:** Describe flows in ZOF conceptual language
 - **Responsibility:** Implement flows using their own tools and technologies
 - **Roles:** Dev/Eng/Tech/PM/UX/Analysts
-- **Authority Levels:** Each team member has CSH authority context that affects Oracle access and enrichment permissions
+- **Authority Levels:** Each team member has MOC authority context that affects Oracle access and enrichment permissions
 
 ### ⚙️ **Operator**
 - **Function:** Executes in practice (CI/CD, IDE, orchestrators, etc.)
-- **Limitation:** ZWF does not prescribe how to implement - only what to design
+- **Limitation:** ZOF does not prescribe how to implement - only what to design
 
 ---
 
 ## 📡 CANONICAL EVENTS (TRIGGERS)
 
-ZWF recognizes six types of events that initiate flows:
+ZOF recognizes six types of events that initiate flows:
 
 | Event | Description | Typical Context |
 |--------|-------------|-----------------|
@@ -1358,7 +1358,7 @@ ZWF recognizes six types of events that initiate flows:
 
 ## 🔄 CANONICAL STATES (STATE MACHINE)
 
-Every ZWF flow follows this conceptual sequence:
+Every ZOF flow follows this conceptual sequence:
 
 ```mermaid
 stateDiagram-v2
@@ -1424,12 +1424,12 @@ stateDiagram-v2
 - **Purpose:** Assess whether the result produces structurable knowledge
 - **Actions:** Apply can_enrich?(act_output, context, user_csh_context, csh_criteria) to decide next state
 - **Output:** Decision about enrichment necessity
-- **CSH Authority Context:** Validates user authority for each CSH hierarchy (scope, domain, type, maturity)
+- **MOC Authority Context:** Validates user authority for each MOC hierarchy (scope, domain, type, maturity)
 - **Semantic Function:** can_enrich?() evaluates:
   - Semantic divergence from existing knowledge
   - UKI structuring possibility according to MEF
   - Epistemic clarity of contribution
-  - **CSH Governance:** Authority validation for all hierarchical references
+  - **MOC Governance:** Authority validation for all hierarchical references
   - **Organizational Compliance:** Respects configured visibility and authority rules
 
 #### **can_enrich?() Function Implementation**
@@ -1479,7 +1479,7 @@ can_enrich_function:
 
 ### 💫 **Epistemological Foundation**
 
-The `can_enrich?()` function represents the **epistemological decision point** of the ZWF protocol. It materializes the understanding that not every interaction or execution result constitutes structurable and reusable knowledge.
+The `can_enrich?()` function represents the **epistemological decision point** of the ZOF protocol. It materializes the understanding that not every interaction or execution result constitutes structurable and reusable knowledge.
 
 **Fundamental Principle:** Oracle enrichment should be a **cognitive occurrence**, not a **procedural imposition**.
 
@@ -1524,7 +1524,7 @@ organizational_scope:
   purpose: "Prevent unintentional organizational impacts"
   questions:
     - "Does the proposed UKI affect only the executing team?"
-    - "Does it respect CSH-configured domain restrictions for this user's authority level?"
+    - "Does it respect MOC-configured domain restrictions for this user's authority level?"
     - "Does it not require organizational stakeholder curation?"
   threshold: "Scope limited to team autonomy"
 ```
@@ -1542,7 +1542,7 @@ conceptual_level:
     - semantic_novelty: "Is there new knowledge?"
     - structural_validity: "Is it structurable as MEF?"
     - epistemic_clarity: "Is it cognitively clear?"
-    - authority_validation: "Does user have CSH authority to create UKI?"
+    - authority_validation: "Does user have MOC authority to create UKI?"
     - relevance_confirmation: "Does the user confirm relevance?"
 ```
 
@@ -1570,7 +1570,7 @@ evaluation:
   semantic_divergence: PASS # "New validation logic"
   mef_structurability: PASS # "Can be UKI type 'constraint'"
   epistemic_clarity: PASS # "Well-documented function"
-  authority_validation: PASS # "User authorized via CSH for 'technical' domain"
+  authority_validation: PASS # "User authorized via MOC for 'technical' domain"
   user_confirmation: PASS # "Developer confirms utility"
 
 result: ENRICH_APPROVED
@@ -1607,11 +1607,11 @@ evaluation:
   semantic_divergence: PASS # "New knowledge"
   mef_structurability: PASS # "Structurable as policy"
   epistemic_clarity: PASS # "Well-defined policy"
-  authority_validation: FAIL # "User not authorized via CSH for 'security' domain"
+  authority_validation: FAIL # "User not authorized via MOC for 'security' domain"
   user_confirmation: N/A
 
 result: ENRICH_REJECTED
-reason: "Domain 'security' configured in CSH as restricted for users with authority 'team_member'"
+reason: "Domain 'security' configured in MOC as restricted for users with authority 'team_member'"
 csh_nodes_cited:
   - node_type: "domain"
     node_id: "security"
@@ -1625,12 +1625,12 @@ alternatives: "Create UKI in 'technical' domain with 'team' scope for local impl
 
 ### 📝 **Explainability Requirements for ENRICH_REJECTED**
 
-**Mandatory**: Every `ENRICH_REJECTED` decision must include explanation based on specific CSH nodes:
+**Mandatory**: Every `ENRICH_REJECTED` decision must include explanation based on specific MOC nodes:
 
 ```yaml
 required_explanation_format:
   result: ENRICH_REJECTED
-  reason: "[Explanation citing specific CSH nodes]"
+  reason: "[Explanation citing specific MOC nodes]"
   csh_nodes_cited:
     - node_type: "domain" | "scope" | "type" | "authority_level"
       node_id: "[csh_node_id]"
@@ -1639,9 +1639,9 @@ required_explanation_format:
   alternatives: "[Suggested alternative actions within user's authority]"
 ```
 
-**Benefits of CSH Explainability:**
+**Benefits of MOC Explainability:**
 - **Transparency**: User understands exactly why rejection occurred
-- **Traceability**: Auditable decisions via CSH nodes
+- **Traceability**: Auditable decisions via MOC nodes
 - **Guidance**: Clear paths for resolution or escalation
 - **Consistency**: Standardized explanations across implementations
 
@@ -1736,15 +1736,15 @@ Flows that justify enrichment must return knowledge to Oracle choosing among MEF
 | `constraint` | Technical limitation | Team-specific JWT validation function |
 | `glossary` | Team technical terms | Specific endpoint definition |
 
-### 🏛️ **HIERARCHICAL GOVERNANCE WITH CSH**
+### 🏛️ **HIERARCHICAL GOVERNANCE WITH MOC**
 
 #### **Authority Flow Model**
 
-ZWF integrates with CSH (Semantic Hierarchy Catalog) to enable governance-aware workflows that respect organizational hierarchies and authority levels:
+ZOF integrates with MOC (Matrix Ontology Catalog) to enable governance-aware workflows that respect organizational hierarchies and authority levels:
 
 ```mermaid
 flowchart TD
-    A[User CSH Context] --> B[Oracle Query]
+    A[User MOC Context] --> B[Oracle Query]
     B --> C{Visibility Check}
     C -->|Authorized| D[Access Granted]
     C -->|Restricted| E[Access Filtered]
@@ -1764,14 +1764,14 @@ flowchart TD
     L -->|No| N[Enrichment Rejected]
 ```
 
-#### **CSH Governance Functions**
+#### **MOC Governance Functions**
 
 ##### **Authority Validation**
 ```yaml
 validate_scope_authority:
   input:
     - user_csh_context: hierarchical context of requesting user
-    - target_scope_ref: reference to scope node in CSH
+    - target_scope_ref: reference to scope node in MOC
   logic: |
     scope_node = csh.get_node(target_scope_ref)
     required_authority = scope_node.governance.authority_required
@@ -1785,7 +1785,7 @@ validate_scope_authority:
 validate_domain_authority:
   input:
     - user_csh_context: hierarchical context of requesting user
-    - target_domain_ref: reference to domain node in CSH
+    - target_domain_ref: reference to domain node in MOC
   logic: |
     domain_node = csh.get_node(target_domain_ref)
     IF domain_node.governance.restricted_creation:
@@ -1886,7 +1886,7 @@ validation_result:
   final_decision: ENRICHMENT_APPROVED
 ```
 
-#### **CSH Integration Benefits**
+#### **MOC Integration Benefits**
 
 ##### **For Organizations**
 - **Configurable Governance**: Define hierarchies and authority levels per organizational structure
@@ -1907,7 +1907,7 @@ validation_result:
 Each generated UKI must include:
 - `related_to`: UKIs that motivated/impacted the flow using valid types (implements, depends_on, extends, replaces, complies_with, conflicts_with, derives_from, relates_to)
 - Clear summary of relationship intention in `description` field within each relationship
-- CSH compliance: Referenced UKIs should be accessible within user's authority context as defined by organizational CSH
+- MOC compliance: Referenced UKIs should be accessible within user's authority context as defined by organizational MOC
 
 ---
 
@@ -1944,7 +1944,7 @@ timestamp: "2024-01-15 14:30:22"
 
 ## 📊 CANONICAL TELEMETRY METRICS
 
-For effective observability and monitoring of ZWF workflows, we establish standardized metrics that should be collected during the execution of each flow.
+For effective observability and monitoring of ZOF workflows, we establish standardized metrics that should be collected during the execution of each flow.
 
 ### 🕘 **State Transition Duration Metrics**
 ```yaml
@@ -2047,7 +2047,7 @@ telemetry:
 
 ## ⚖️ STATE INVARIANTS (FORMAL)
 
-To ensure robust and deterministic execution, each ZWF state can implement conceptual invariants that can be implemented by durable engines:
+To ensure robust and deterministic execution, each ZOF state can implement conceptual invariants that can be implemented by durable engines:
 
 ### 📋 **Invariants per State**
 
@@ -2143,10 +2143,10 @@ validation:
   evaluation_criteria_applied: true
   justification_documented: true
 context_required:
-  user_authority_level: "from CSH"
-  available_evaluation_criteria: "from CSH"
-  max_enrichment_scope: "from CSH"
-  domain_access_permissions: "from CSH"
+  user_authority_level: "from MOC"
+  available_evaluation_criteria: "from MOC"
+  max_enrichment_scope: "from MOC"
+  domain_access_permissions: "from MOC"
 ```
 
 #### 🔄 **Enrich State (Conditional)**
@@ -2247,7 +2247,7 @@ consistency_checks:
 
 ## 🔍 VERIFIABLE EXPLAINABILITY SCHEMAS
 
-To ensure quality and consistency of explainability signals, ZWF defines formal JSON schemas for automatic validation of `context`, `decision` and `result` fields in each workflow state.
+To ensure quality and consistency of explainability signals, ZOF defines formal JSON schemas for automatic validation of `context`, `decision` and `result` fields in each workflow state.
 
 ### 📋 **Base Schemas for Signals**
 
@@ -2542,7 +2542,7 @@ stateDiagram-v2
 
 ## 🚫 ZION BOUNDARIES
 
-### ❌ **What ZWF does NOT specify:**
+### ❌ **What ZOF does NOT specify:**
 - Specific implementation tools
 - Orchestration engines or workflow engines
 - Agent prompts or interfaces
@@ -2555,13 +2555,13 @@ stateDiagram-v2
 - **REQUIRES** human curation for UKIs that impact multiple teams
 - **LIMITS** enrichment scope to executing team
 
-### ❌ **What ZWF does NOT add to MEF:**
+### ❌ **What ZOF does NOT add to MEF:**
 - New fields in UKI structure
 - YAML format modifications
 - Additional UKI types
 - Only uses `relationships` for relationships
 
-### ✅ **What ZWF specifies:**
+### ✅ **What ZOF specifies:**
 - Conceptual pattern of flow states
 - Types of events that initiate workflows
 - Mandatory relationship with Oracle
@@ -2572,7 +2572,7 @@ stateDiagram-v2
 
 ## 🎯 EXPECTED RESULT
 
-With ZWF, any team can:
+With ZOF, any team can:
 
 1. **Design conceptual flows** following canonical states
 2. **Query Oracle** to support decisions
@@ -2588,11 +2588,11 @@ With ZWF, any team can:
 ## 🔄 INTEGRATION WITH MATRIX LAYERS
 
 ### 🔮 **Relationship with Oracle (MEF)**
-- **Input:** ZWF queries Oracle UKIs to support decisions
-- **Output:** ZWF produces new MEF UKIs to enrich Oracle
+- **Input:** ZOF queries Oracle UKIs to support decisions
+- **Output:** ZOF produces new MEF UKIs to enrich Oracle
 - **Format:** All relationships use MEF's `relationships`
 
 ### ⚙️ **Relationship with Operator**
-- **ZWF → Operator:** Provides conceptual flow design
+- **ZOF → Operator:** Provides conceptual flow design
 - **Operator:** Implements using team-specific technologies
-- **ZWF:** Does not prescribe how to implement, only what to design
+- **ZOF:** Does not prescribe how to implement, only what to design

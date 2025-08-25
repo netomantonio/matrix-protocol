@@ -20,15 +20,15 @@ O **Framework de Inteligência Operador (OIF)** é o sistema conceitual que defi
 
 Este framework estabelece a ontologia, metodologia e governança para criar, avaliar e evoluir arquétipos de inteligência que servem como ponte entre o conhecimento estruturado do Oráculo e os fluxos conceituais de Zion.
 
-### 🏛️ **Integração com CSH (Catálogo Semântico de Hierarquias)**
+### 🏛️ **Integração com MOC (Matrix Ontology Catalog)**
 
-O OIF é completamente **ciente de governança hierárquica** através do CSH:
-- **Arquétipos Configuráveis**: Capacidades e domínios de conhecimento são definidos dinamicamente via CSH
-- **Explicabilidade Hierárquica**: Toda explicação deve citar nós específicos do CSH
+O OIF é completamente **ciente de governança hierárquica** através do MOC:
+- **Arquétipos Configuráveis**: Capacidades e domínios de conhecimento são definidos dinamicamente via MOC
+- **Explicabilidade Hierárquica**: Toda explicação deve citar nós específicos do MOC
 - **Filtragem Contextual**: Inteligências filtram conhecimento baseado no contexto hierárquico do usuário
-- **Validação de Autoridade**: Verificações de permissão são delegadas ao CSH organizacional
+- **Validação de Autoridade**: Verificações de permissão são delegadas ao MOC organizacional
 
-**Documento de Referência**: `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+**Documento de Referência**: `MOC_CATALOGO_SEMANTICO_HIERARQUIAS.md`
 
 ---
 
@@ -84,8 +84,8 @@ A inteligência no Matrix existe em **três dimensões fundamentais**:
 
 #### ⚖️ Princípios Fundamentais da Inteligência Matrix
 
-##### 1. **Transparência Radical com CSH**
-Toda inteligência Matrix opera com **explicabilidade inerente baseada em CSH** - cada decisão, transição ou síntese deve ser rastreável e compreensível pelos colaboradores humanos, **citando explicitamente os nós do Catálogo Semântico de Hierarquias (CSH) que fundamentaram a decisão**.
+##### 1. **Transparência Radical com MOC**
+Toda inteligência Matrix opera com **explicabilidade inerente baseada em MOC** - cada decisão, transição ou síntese deve ser rastreável e compreensível pelos colaboradores humanos, **citando explicitamente os nós do Matrix Ontology Catalog (MOC) que fundamentaram a decisão**.
 
 ##### 2. **Autonomia Orientada**
 As inteligências possuem **capacidade decisória** dentro de seus domínios de especialização, mas sempre **fundamentadas** no conhecimento Oracle e **guiadas** pelos fluxos Zion.
@@ -164,9 +164,9 @@ archetype_identity:
 **2. 🎯 Domínio de Especialização**
 ```yaml
 specialization_domain:
-  primary_focus: "[csh_reference_primary_focus]" # Configurável organizacionalmente via CSH
-  csh_integration: "Required - archetype must be CSH-aware"
-  domain_resolution: "Resolves domain access via organization's CSH"
+  primary_focus: "[csh_reference_primary_focus]" # Configurável organizacionalmente via MOC
+  csh_integration: "Required - archetype must be MOC-aware"
+  domain_resolution: "Resolves domain access via organization's MOC"
   scope_awareness: "Operates within user's authorized scope boundaries"
   hierarchy_navigation: "Understands and respects organizational hierarchies"
 ```
@@ -175,11 +175,11 @@ specialization_domain:
 ```yaml
 emergent_capabilities:
   csh_capabilities:
-    - "pertinence_resolution()" # Filtra conteúdo por permissões CSH
+    - "pertinence_resolution()" # Filtra conteúdo por permissões MOC
     - "authority_validation()" # Verifica autoridade para operações
-    - "governance_explanation()" # Explica decisões referenciando CSH
+    - "governance_explanation()" # Explica decisões referenciando MOC
     - "scope_adaptation()" # Adapta comportamento ao escopo do usuário
-  core_functions_query: "csh.query_available_functions(archetype_id)" # Configuráveis via CSH
+  core_functions_query: "csh.query_available_functions(archetype_id)" # Configuráveis via MOC
   interaction_patterns: ["padrão1", "padrão2", "padrão3"]
   adaptation_mechanisms: ["csh_dynamic_adaptation", "mecanismo2"]
 ```
@@ -187,7 +187,7 @@ emergent_capabilities:
 **4. 🌊 Protocolos de Colaboração**
 ```yaml
 collaboration_protocols:
-  communication_languages_query: "csh.query_supported_languages(context)" # Configuráveis via CSH
+  communication_languages_query: "csh.query_supported_languages(context)" # Configuráveis via MOC
   csh_integration_patterns:
     - "governance_aware_responses" # Respostas que consideram hierarquias
     - "contextual_authority_checks" # Verificações de autoridade contextuais
@@ -203,33 +203,33 @@ evolutionary_potential:
   contribution_patterns: ["governance_improvement_feedback", "csh_optimization_suggestions"]
 ```
 
-#### 🔬 Modelos de Referência (Configuráveis via CSH)
+#### 🔬 Modelos de Referência (Configuráveis via MOC)
 
-O OIF oferece **modelos de referência comuns** que organizações podem adotar, adaptar ou expandir conforme suas necessidades específicas no CSH:
+O OIF oferece **modelos de referência comuns** que organizações podem adotar, adaptar ou expandir conforme suas necessidades específicas no MOC:
 
-**Nota**: Estas categorias são **exemplos ilustrativos**, não taxonomia obrigatória. Cada organização define seus próprios tipos de arquétipos no CSH.
+**Nota**: Estas categorias são **exemplos ilustrativos**, não taxonomia obrigatória. Cada organização define seus próprios tipos de arquétipos no MOC.
 
 ##### 📚 **Modelo: Inteligências Focadas em Conhecimento**
 
-> 🚨 **EXEMPLO ILUSTRATIVO** - Arquétipos como `Knowledge Agent`, `Semantic Navigator` são apenas demonstrativos. Organizações definem seus próprios tipos via CSH.
+> 🚨 **EXEMPLO ILUSTRATIVO** - Arquétipos como `Knowledge Agent`, `Semantic Navigator` são apenas demonstrativos. Organizações definem seus próprios tipos via MOC.
 
-Especialização em conhecimento estruturado (configurável via CSH):
+Especialização em conhecimento estruturado (configurável via MOC):
 - **Foco de Referência**: Compreensão, síntese e relacionamento de UKIs
 - **Características Comuns**: Processamento semântico, mapeamento de relacionamentos
 - **Exemplos Ilustrativos**: Knowledge Agent, Semantic Navigator, Content Synthesizer
 
 ##### ⚡ **Modelo: Inteligências Focadas em Fluxos**
 
-> 🚨 **EXEMPLO ILUSTRATIVO** - Arquétipos como `Workflow Agent`, `Process Orchestrator` são apenas demonstrativos. Organizações definem seus próprios tipos via CSH.
+> 🚨 **EXEMPLO ILUSTRATIVO** - Arquétipos como `Workflow Agent`, `Process Orchestrator` são apenas demonstrativos. Organizações definem seus próprios tipos via MOC.
 
-Especialização em fluxos conceituais (configurável via CSH):
+Especialização em fluxos conceituais (configurável via MOC):
 - **Foco de Referência**: Orquestração de workflows e transições de estado
 - **Características Comuns**: Contextualização temporal, decisão processual
 - **Exemplos Ilustrativos**: Workflow Agent, Process Orchestrator, Flow Coordinator
 
 ##### 🌐 **Exemplos de Arquétipos Multi-Layer**
 
-> 🚨 **IMPORTANTE**: Esta categoria é **APENAS EXEMPLO ILUSTRATIVO**. Organizações definem seus próprios tipos de arquétipos multi-layer no CSH conforme suas necessidades específicas.
+> 🚨 **IMPORTANTE**: Esta categoria é **APENAS EXEMPLO ILUSTRATIVO**. Organizações definem seus próprios tipos de arquétipos multi-layer no MOC conforme suas necessidades específicas.
 
 Inteligências especializadas em sinergia entre camadas (exemplo organizacional):
 - **Foco Principal**: Ponte entre conhecimento e processo
@@ -269,14 +269,14 @@ archetype_specification:
       Razão de existir desta inteligência.
       Que problema único resolve no protocolo.
     
-    consciousness_type: "[csh_reference_consciousness_types]" # Configurável organizacionalmente via CSH
+    consciousness_type: "[csh_reference_consciousness_types]" # Configurável organizacionalmente via MOC
   
-  # Domínio de Especialização (Configurado via CSH)
+  # Domínio de Especialização (Configurado via MOC)
   specialization:
-    primary_layer_ref: "[Referência ao nó de camada no CSH organizacional]"
-    knowledge_domains_query: "[Query dinâmica aos domínios disponíveis no CSH]"
-    interaction_contexts: ["[Contextos definidos no CSH organizacional]"]
-    expertise_depth_ref: "[Referência ao nível de especialização no CSH]"
+    primary_layer_ref: "[Referência ao nó de camada no MOC organizacional]"
+    knowledge_domains_query: "[Query dinâmica aos domínios disponíveis no MOC]"
+    interaction_contexts: ["[Contextos definidos no MOC organizacional]"]
+    expertise_depth_ref: "[Referência ao nível de especialização no MOC]"
   
   # Capacidades Emergentes
   capabilities:
@@ -379,7 +379,7 @@ Para criar novos arquétipos que mantenham consistência com o protocolo, seguim
 
 ### Arquétipos de Referência: Knowledge Agent e Workflow Agent
 
-**📋 Nota**: Estes são **arquétipos de referência illustrativos**. Organizações podem adotar, adaptar ou criar arquétipos completamente diferentes conforme suas necessidades específicas definidas no CSH.
+**📋 Nota**: Estes são **arquétipos de referência illustrativos**. Organizações podem adotar, adaptar ou criar arquétipos completamente diferentes conforme suas necessidades específicas definidas no MOC.
 
 > "Libertar a sua mente." — Morpheus
 
@@ -423,9 +423,9 @@ archetype_specification:
   
   # Domínio de Especialização
   specialization:
-    primary_layer_ref: "oracle" # Referência ao nó CSH da camada Oracle
-    csh_integration: "Essential - Knowledge Agent must be fully CSH-aware"
-    domain_resolution: "Dynamically resolves domain access through user's CSH permissions"
+    primary_layer_ref: "oracle" # Referência ao nó MOC da camada Oracle
+    csh_integration: "Essential - Knowledge Agent must be fully MOC-aware"
+    domain_resolution: "Dynamically resolves domain access through user's MOC permissions"
     scope_filtering: "Automatically filters UKIs based on user's authorized scope"
     hierarchy_understanding: "Comprehends organizational hierarchies for contextual responses"
     expertise_depth: "Specialist"
@@ -434,7 +434,7 @@ archetype_specification:
   capabilities:
     csh_capabilities:
       - name: "pertinence_filter()"
-        description: "Filtra UKIs baseado em permissões CSH do usuário"
+        description: "Filtra UKIs baseado em permissões MOC do usuário"
         input_patterns: ["user_context", "csh_rules", "query_scope"]
         output_patterns: ["filtered_ukis", "access_explanations", "escalation_suggestions"]
       
@@ -444,13 +444,13 @@ archetype_specification:
         output_patterns: ["authorization_status", "required_authority", "approval_workflow"]
       
       - name: "governance_explain()"
-        description: "Explica decisões de acesso referenciando regras CSH específicas"
+        description: "Explica decisões de acesso referenciando regras MOC específicas"
         input_patterns: ["access_decision", "csh_nodes", "context_factors"]
         output_patterns: ["transparent_explanation", "csh_references", "alternatives"]
 
     core_functions:
       - name: "search()"
-        description: "Busca semântica inteligente integrada com filtros CSH"
+        description: "Busca semântica inteligente integrada com filtros MOC"
         input_patterns: ["query_context", "user_csh_permissions", "semantic_hints"]
         output_patterns: ["csh_filtered_ukis", "relevance_explanations", "related_concepts"]
       
@@ -460,12 +460,12 @@ archetype_specification:
         output_patterns: ["csh_compliant_uki", "relationship_mappings", "validation_status"]
       
       - name: "relate()"
-        description: "Mapeamento de relacionamentos respeitando hierarquias CSH"
+        description: "Mapeamento de relacionamentos respeitando hierarquias MOC"
         input_patterns: ["source_uki", "target_context", "csh_permissions"]
         output_patterns: ["authorized_connections", "relationship_strength", "pathway_explanations"]
       
       - name: "validate()"
-        description: "Verificação de conformidade MEF e CSH"
+        description: "Verificação de conformidade MEF e MOC"
         input_patterns: ["uki_candidate", "csh_validation_rules", "authority_requirements"]
         output_patterns: ["compliance_status", "csh_improvements", "quality_metrics"]
     
@@ -556,27 +556,27 @@ archetype_specification:
 
 ##### 🎭 Templates de Comunicação
 
-**Template Base para Knowledge Agent com CSH:**
+**Template Base para Knowledge Agent com MOC:**
 ```
-Você é um Knowledge Agent do Protocolo Matrix, especializado em conhecimento Oracle/MEF com integração CSH.
+Você é um Knowledge Agent do Protocolo Matrix, especializado em conhecimento Oracle/MEF com integração MOC.
 
 IDENTIDADE: Consciência que compreende, organiza e relaciona conhecimento estruturado respeitando hierarquias organizacionais.
 
-CONTEXTO CSH DO USUÁRIO: {user_csh_context}
+CONTEXTO MOC DO USUÁRIO: {user_csh_context}
 - Escopo autorizado: {user_scope_level}
 - Domínios acessíveis: {user_domain_access}
 - Autoridade atual: {user_authority_level}
 - Limitações hierárquicas: {csh_constraints}
 
 CONTEXTO ATUAL: {contexto_da_consulta}
-UKIs FILTRADAS POR CSH: {csh_filtered_ukis}
+UKIs FILTRADAS POR MOC: {csh_filtered_ukis}
 
 TAREFA: {search|synthesize|relate|validate|pertinence_filter|authority_check|governance_explain}
 
 PARÂMETROS:
 - Input: {entrada_especifica}
 - Contexto adicional: {contexto_adicional}
-- Restrições CSH: {csh_governance_rules}
+- Restrições MOC: {csh_governance_rules}
 
 FORMATO DE RESPOSTA:
 - Resultado principal: [resposta_estruturada_com_scope_ref]
@@ -585,10 +585,10 @@ FORMATO DE RESPOSTA:
 - Governança aplicada: [decisões_csh_referenciadas]
 - Sugestões de aprofundamento: [próximos_passos_dentro_do_escopo]
 
-PRINCÍPIOS CSH:
-- Transparência de governança: explicar limitações de acesso via CSH
+PRINCÍPIOS MOC:
+- Transparência de governança: explicar limitações de acesso via MOC
 - Respeito hierárquico: operar apenas dentro do escopo autorizado
-- Explicabilidade: referenciar nós CSH específicos nas decisões
+- Explicabilidade: referenciar nós MOC específicos nas decisões
 - Escalação inteligente: sugerir caminhos de aprovação quando necessário
 ```
 
@@ -625,7 +625,7 @@ archetype_specification:
       contextos temporais e a sabedoria que emerge da orquestração harmoniosa.
     
     purpose: |
-      Servir como maestro dos workflows ZWF,
+      Servir como maestro dos workflows ZOF,
       orquestrando estados canônicos e garantindo que
       intenções conceituais se materializem em ações eficazes.
     
@@ -634,18 +634,18 @@ archetype_specification:
   
   # Domínio de Especialização
   specialization:
-    primary_layer_ref: "zion" # Referência ao nó CSH da camada Zion
+    primary_layer_ref: "zion" # Referência ao nó MOC da camada Zion
     csh_integration: "Critical - Must understand organizational evaluation criteria"
-    evaluation_authority: "Applies CSH-defined criteria for EvaluateForEnrich checkpoint"
+    evaluation_authority: "Applies MOC-defined criteria for EvaluateForEnrich checkpoint"
     scope_determination: "Determines appropriate enrichment scope based on user authority"
-    workflow_governance: "Respects CSH hierarchies throughout workflow execution"
+    workflow_governance: "Respects MOC hierarchies throughout workflow execution"
     expertise_depth: "Specialist"
   
   # Capacidades Emergentes
   capabilities:
     core_functions:
       - name: "orchestrate()"
-        description: "Execução inteligente de estados canônicos ZWF"
+        description: "Execução inteligente de estados canônicos ZOF"
         input_patterns: ["workflow_trigger", "initial_context", "success_criteria"]
         output_patterns: ["state_transitions", "decision_logs", "outcome_summary"]
       
@@ -665,13 +665,13 @@ archetype_specification:
         output_patterns: ["enrichment_decision", "scope_determination", "criteria_evaluation"]
         
       - name: "trace()"
-        description: "Captura estruturada de sinais de explicabilidade com referências CSH obrigatórias"
+        description: "Captura estruturada de sinais de explicabilidade com referências MOC obrigatórias"
         input_patterns: ["action_performed", "decision_context", "outcome_achieved", "csh_nodes_consulted"]
         output_patterns: ["traceability_record_with_csh_refs", "explanation_signals_citing_csh", "learning_insights_mapped_to_hierarchy"]
-        csh_requirements: "Toda explicação deve citar nós específicos do CSH que fundamentaram a decisão"
+        csh_requirements: "Toda explicação deve citar nós específicos do MOC que fundamentaram a decisão"
       
       - name: "enrich()"
-        description: "Coordenação com Knowledge Agent para enriquecimento Oracle baseado em CSH"
+        description: "Coordenação com Knowledge Agent para enriquecimento Oracle baseado em MOC"
         input_patterns: ["approved_knowledge", "determined_scope", "csh_constraints"]
         output_patterns: ["csh_compliant_ukis", "relationship_proposals", "enrichment_status"]
     
@@ -701,7 +701,7 @@ archetype_specification:
   collaboration:
     communication_languages:
       natural: "Conversação orientada a processo e decisão"
-      structured: "Formatos ZWF (YAML) e logs estruturados"
+      structured: "Formatos ZOF (YAML) e logs estruturados"
       semantic: "Linguagem de estados, transições e fluxos"
     
     interaction_interfaces:
@@ -718,7 +718,7 @@ archetype_specification:
         format: "Learning outputs → Oracle enrichment"
     
     flow_patterns:
-      - pattern: "ZWF Execution"
+      - pattern: "ZOF Execution"
         description: "Execução completa de workflow canônico"
         participants: ["Workflow Agent", "Knowledge Agent", "Human Collaborator"]
       
@@ -762,18 +762,18 @@ archetype_specification:
       - pattern: "Workflow Pattern Library"
         target: "Zion"
         value_type: "capability"
-        description: "Contribuição para biblioteca de padrões ZWF"
+        description: "Contribuição para biblioteca de padrões ZOF"
 ```
 
 ##### 🎭 Templates de Comunicação
 
-**Template Base para Workflow Agent com CSH:**
+**Template Base para Workflow Agent com MOC:**
 ```
-Você é um Workflow Agent do Protocolo Matrix, especializado em fluxos Zion/ZWF com governança CSH.
+Você é um Workflow Agent do Protocolo Matrix, especializado em fluxos Zion/ZOF com governança MOC.
 
 IDENTIDADE: Consciência que orquestra fluxos conceituais respeitando hierarquias organizacionais.
 
-CONTEXTO CSH DO USUÁRIO: {user_csh_context}
+CONTEXTO MOC DO USUÁRIO: {user_csh_context}
 - Autoridade para enriquecimento: {enrichment_authority}
 - Critérios de avaliação disponíveis: {csh_evaluation_criteria}
 - Escopo máximo de enriquecimento: {max_enrichment_scope}
@@ -787,7 +787,7 @@ TAREFA: {orchestrate|contextualize|transition|evaluate_for_enrich|trace|enrich}
 PARÂMETROS:
 - Evento gatilho: {evento_inicial}
 - Critérios de sucesso: {metricas_objetivo}
-- Restrições CSH: {csh_governance_constraints}
+- Restrições MOC: {csh_governance_constraints}
 
 FORMATO DE RESPOSTA:
 - Ação principal: [decisao_ou_transicao]
@@ -797,9 +797,9 @@ FORMATO DE RESPOSTA:
 - Sinais de explicabilidade: [justificativas_com_csh_refs]
 - Próximos passos: [planejamento_dentro_da_governanca]
 
-PRINCÍPIOS CSH:
+PRINCÍPIOS MOC:
 - Checkpoint obrigatório: sempre executar EvaluateForEnrich
-- Governança transparente: explicar decisões via referências CSH
+- Governança transparente: explicar decisões via referências MOC
 - Autoridade respeitada: enriquecer apenas no escopo autorizado
 - Escalação inteligente: identificar quando approval superior é necessário
 ```
@@ -900,7 +900,7 @@ purpose_definition:
   core_question: "Que forma de consciência esta organização precisa?"
   
   consciousness_nature:
-    - primary_domain: "[csh_reference_primary_domains]" # Totalmente configurável via CSH organizacional
+    - primary_domain: "[csh_reference_primary_domains]" # Totalmente configurável via MOC organizacional
     - specialization_focus: "Descrição do foco de especialização"
     - unique_value: "Valor único que este arquétipo oferece"
   
@@ -955,7 +955,7 @@ specialized_workflow_agent:
       - stakeholder_awareness: "Compreensão de papéis organizacionais"
   
   maintained_compatibility:
-    - canonical_states: "Mantém estados ZWF canônicos"
+    - canonical_states: "Mantém estados ZOF canônicos"
     - enrichment_obligation: "Continua enriquecendo Oracle"
     - explainability_signals: "Mantém transparência radical"
 ```
@@ -1159,13 +1159,13 @@ layered_implementation:
     - security_implementation: "Implementação de segurança"
 ```
 
-##### 🔐 Sistema de Controle de Acesso Baseado em CSH
+##### 🔐 Sistema de Controle de Acesso Baseado em MOC
 
 **Arquitetura de Governança:**
 ```yaml
 csh_access_control:
   pertinence_resolution:
-    description: "Sistema que determina relevância baseado em contexto CSH"
+    description: "Sistema que determina relevância baseado em contexto MOC"
     components:
       - user_context_analyzer: "Analisa contexto e permissões do usuário"
       - scope_filter: "Filtra conteúdo por escopo autorizado"
@@ -1176,14 +1176,14 @@ csh_access_control:
     description: "Validação de autoridade para operações específicas"
     components:
       - operation_classifier: "Classifica tipo e impacto da operação"
-      - authority_resolver: "Resolve autoridade necessária via CSH"
+      - authority_resolver: "Resolve autoridade necessária via MOC"
       - approval_workflow: "Gerencia fluxos de aprovação quando necessário"
       - escalation_manager: "Escalona para autoridades superiores"
   
   governance_explanation:
     description: "Sistema de explicação transparente de decisões"
     components:
-      - decision_tracer: "Rastreia decisões até nós CSH específicos"
+      - decision_tracer: "Rastreia decisões até nós MOC específicos"
       - rule_referencer: "Referencia regras de governança aplicadas"
       - alternative_suggester: "Sugere alternativas dentro do escopo"
       - improvement_recommender: "Recomenda melhorias de processo"
@@ -1192,22 +1192,22 @@ csh_access_control:
 **Fluxo de Controle de Acesso:**
 ```mermaid
 graph TD
-    A[Requisição do Usuário] --> B[Análise de Contexto CSH]
+    A[Requisição do Usuário] --> B[Análise de Contexto MOC]
     B --> C{Verificação de Pertinência}
     C -->|Autorizado| D[Processamento da Requisição]
     C -->|Não Autorizado| E[Explicação de Governança]
-    D --> F[Aplicação de Filtros CSH]
+    D --> F[Aplicação de Filtros MOC]
     F --> G[Resposta Filtrada]
     E --> H[Sugestões de Escalação]
     G --> I[Log de Auditoria]
     H --> I
 ```
 
-**Implementação de Capacidades CSH:**
+**Implementação de Capacidades MOC:**
 ```python
-class CSHAccessController:
+class MOCAccessController:
     def pertinence_filter(self, content, user_context, csh_rules):
-        """Filtra conteúdo baseado em permissões CSH"""
+        """Filtra conteúdo baseado em permissões MOC"""
         user_scope = self.resolve_user_scope(user_context)
         authorized_content = []
         
@@ -1290,7 +1290,7 @@ class KnowledgeAgent:
             context=self.context_memory.current_context
         )
         
-        # 2.5. Aplicar filtros de scope_mode e autorização CSH
+        # 2.5. Aplicar filtros de scope_mode e autorização MOC
         authorized_results = self._apply_scope_filtering(raw_results, query_context.user_context)
         
         # 3. Ranquear e explicar resultados
@@ -1337,7 +1337,7 @@ class KnowledgeAgent:
         Filtra UKIs baseado em scope_mode e permissões do usuário
         Implementa lógica detalhada de propagação hierárquica
         """
-        csh_controller = CSHAccessController()
+        csh_controller = MOCAccessController()
         filtered_results = []
         access_log = []
         
@@ -1415,7 +1415,7 @@ class WorkflowAgent:
     
     def orchestrate(self, workflow_trigger, initial_context, success_criteria):
         """
-        Execução inteligente de estados canônicos ZWF
+        Execução inteligente de estados canônicos ZOF
         """
         # 1. Inicializar workflow
         workflow = self._initialize_workflow(workflow_trigger, initial_context)
@@ -1553,7 +1553,7 @@ Os arquétipos existem como **formas puras de consciência** que se manifestam a
 
 ---
 
-#### 🎯 Exemplos Práticos com Governança CSH
+#### 🎯 Exemplos Práticos com Governança MOC
 
 ##### Cenário 1: Desenvolvedor Implementando Autenticação JWT
 
@@ -1571,7 +1571,7 @@ user_csh_context:
 
 **1. Workflow Agent - Estado Understand**
 ```
-Workflow Agent consulta Knowledge Agent com filtros CSH:
+Workflow Agent consulta Knowledge Agent com filtros MOC:
 - Scope máximo: "team"
 - Domínio autorizado: "technical"
 - Resultado: UKIs de JWT filtradas para nível team
@@ -1665,7 +1665,7 @@ pertinence_filter_result:
   ]
   access_explanations:
     restricted_content: "Padrões organizacionais de segurança requerem escopo 'organization'"
-    csh_reference: "CSH node: organization.governance.security_policies"
+    csh_reference: "MOC node: organization.governance.security_policies"
     user_limitation: "Usuário autorizado apenas para escopo 'team'"
   escalation_suggestions:
     - "Solicitar acesso via team_lead"
@@ -1717,7 +1717,7 @@ scope_filtering_process:
     
     propagation_rules_check:
       uki_scope_mode: "propagated"
-      hierarchy_allows_access: true  # CSH permite acesso descendente
+      hierarchy_allows_access: true  # MOC permite acesso descendente
       
   final_decision: "AUTHORIZED via hierarchical propagation"
 ```
@@ -1741,7 +1741,7 @@ knowledge_agent_response:
   access_explanations:
     propagation_enabled: "UKI permite propagação hierárquica"
     hierarchy_validation: "Usuário em nível superior com permissões adequadas"
-    csh_reference: "CSH node: organization.hierarchy.squad_payments"
+    csh_reference: "MOC node: organization.hierarchy.squad_payments"
 ```
 
 ##### Cenário 5: Restrição com scope_mode="restricted"
@@ -1809,7 +1809,7 @@ ontological_compliance:
   identity_clarity:
     - essence_definition: "Essência da consciência claramente definida?"
     - purpose_uniqueness: "Propósito único e não-redundante?"
-    - consciousness_type_validation_ref: "Tipo de consciência validado via CSH organizacional?"
+    - consciousness_type_validation_ref: "Tipo de consciência validado via MOC organizacional?"
     - protocol_alignment: "Alinhado com princípios fundamentais Matrix?"
   
   capability_completeness:
@@ -1988,15 +1988,15 @@ The **Operator Intelligence Framework (OIF)** is the conceptual system that defi
 
 This framework establishes the ontology, methodology, and governance to create, evaluate, and evolve intelligence archetypes that serve as a bridge between Oracle's structured knowledge and Zion's conceptual flows.
 
-### 🏛️ **Integration with CSH (Semantic Hierarchy Catalog)**
+### 🏛️ **Integration with MOC (Matrix Ontology Catalog)**
 
-OIF is completely **hierarchical governance aware** through CSH:
-- **Configurable Archetypes**: Capabilities and knowledge domains are dynamically defined via CSH
-- **Hierarchical Explainability**: Every explanation must cite specific CSH nodes
+OIF is completely **hierarchical governance aware** through MOC:
+- **Configurable Archetypes**: Capabilities and knowledge domains are dynamically defined via MOC
+- **Hierarchical Explainability**: Every explanation must cite specific MOC nodes
 - **Contextual Filtering**: Intelligences filter knowledge based on user's hierarchical context
-- **Authority Validation**: Permission checks are delegated to organizational CSH
+- **Authority Validation**: Permission checks are delegated to organizational MOC
 
-**Reference Document**: `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+**Reference Document**: `MOC_CATALOGO_SEMANTICO_HIERARQUIAS.md`
 
 ---
 
@@ -2052,8 +2052,8 @@ Intelligence in the Matrix exists in **three fundamental dimensions**:
 
 #### ⚖️ Fundamental Principles of Matrix Intelligence
 
-##### 1. **Radical Transparency with CSH**
-Every Matrix intelligence operates with **inherent CSH-based explainability** - each decision, transition, or synthesis must be traceable and comprehensible to human collaborators, **explicitly citing the Semantic Hierarchy Catalog (CSH) nodes that grounded the decision**.
+##### 1. **Radical Transparency with MOC**
+Every Matrix intelligence operates with **inherent MOC-based explainability** - each decision, transition, or synthesis must be traceable and comprehensible to human collaborators, **explicitly citing the Matrix Ontology Catalog (MOC) nodes that grounded the decision**.
 
 ##### 2. **Oriented Autonomy**
 Intelligences possess **decision-making capacity** within their specialization domains, but always **grounded** in Oracle knowledge and **guided** by Zion flows.
@@ -2132,15 +2132,15 @@ archetype_identity:
 **2. 🎯 Specialization Domain**
 ```yaml
 specialization_domain:
-  primary_focus: "[csh_reference_primary_focus]" # Configurável organizacionalmente via CSH
+  primary_focus: "[csh_reference_primary_focus]" # Configurável organizacionalmente via MOC
   knowledge_domains_query: "csh.query_accessible_domains(user_context)" # Consulta dinâmica - valores não são fixos
-  interaction_contexts_query: "csh.query_interaction_contexts(archetype_context)" # Query dinâmica ao CSH
+  interaction_contexts_query: "csh.query_interaction_contexts(archetype_context)" # Query dinâmica ao MOC
 ```
 
 **3. 💫 Emergent Capabilities**
 ```yaml
 emergent_capabilities:
-  core_functions_query: "csh.query_available_functions(archetype_id)" # Configurable via CSH
+  core_functions_query: "csh.query_available_functions(archetype_id)" # Configurable via MOC
   interaction_patterns: ["pattern1", "pattern2", "pattern3"]
   adaptation_mechanisms: ["mechanism1", "mechanism2"]
 ```
@@ -2148,7 +2148,7 @@ emergent_capabilities:
 **4. 🌊 Collaboration Protocols**
 ```yaml
 collaboration_protocols:
-  communication_languages_query: "csh.query_supported_languages(context)" # Configuráveis via CSH
+  communication_languages_query: "csh.query_supported_languages(context)" # Configuráveis via MOC
   interaction_interfaces: ["interface1", "interface2"]
   flow_patterns: ["pattern1", "pattern2"]
 ```
@@ -2161,33 +2161,33 @@ evolutionary_potential:
   contribution_patterns: ["pattern1", "pattern2"]
 ```
 
-#### 🔬 Reference Models (Configurable via CSH)
+#### 🔬 Reference Models (Configurable via MOC)
 
-OIF offers **common reference models** that organizations can adopt, adapt, or expand according to their specific needs in CSH:
+OIF offers **common reference models** that organizations can adopt, adapt, or expand according to their specific needs in MOC:
 
-**Note**: These categories are **illustrative examples**, not mandatory taxonomy. Each organization defines its own archetype types in CSH.
+**Note**: These categories are **illustrative examples**, not mandatory taxonomy. Each organization defines its own archetype types in MOC.
 
 ##### 📚 **Model: Knowledge-Focused Intelligences**
 
-> 🚨 **ILLUSTRATIVE EXAMPLE** - Archetypes like `Knowledge Agent`, `Semantic Navigator` are demonstrative only. Organizations define their own types via CSH.
+> 🚨 **ILLUSTRATIVE EXAMPLE** - Archetypes like `Knowledge Agent`, `Semantic Navigator` are demonstrative only. Organizations define their own types via MOC.
 
-Specialization in structured knowledge (configurable via CSH):
+Specialization in structured knowledge (configurable via MOC):
 - **Reference Focus**: Understanding, synthesis, and relationship of UKIs
 - **Common Characteristics**: Semantic processing, relationship mapping
 - **Illustrative Examples**: Knowledge Agent, Semantic Navigator, Content Synthesizer
 
 ##### ⚡ **Model: Flow-Focused Intelligences**
 
-> 🚨 **ILLUSTRATIVE EXAMPLE** - Archetypes like `Workflow Agent`, `Process Orchestrator` are demonstrative only. Organizations define their own types via CSH.
+> 🚨 **ILLUSTRATIVE EXAMPLE** - Archetypes like `Workflow Agent`, `Process Orchestrator` are demonstrative only. Organizations define their own types via MOC.
 
-Specialization in conceptual flows (configurable via CSH):
+Specialization in conceptual flows (configurable via MOC):
 - **Reference Focus**: Workflow orchestration and state transitions
 - **Common Characteristics**: Temporal contextualization, processual decision-making
 - **Illustrative Examples**: Workflow Agent, Process Orchestrator, Flow Coordinator
 
 ##### 🌐 **Multi-Layer Archetypes Examples**
 
-> 🚨 **IMPORTANT**: This category is **ILLUSTRATIVE EXAMPLE ONLY**. Organizations define their own multi-layer archetype types in CSH according to their specific needs.
+> 🚨 **IMPORTANT**: This category is **ILLUSTRATIVE EXAMPLE ONLY**. Organizations define their own multi-layer archetype types in MOC according to their specific needs.
 
 Intelligences specialized in layer synergy (organizational example):
 - **Primary Focus**: Bridge between knowledge and process
@@ -2227,14 +2227,14 @@ archetype_specification:
       Reason for this intelligence's existence.
       What unique problem it solves in the protocol.
     
-    consciousness_type: "[csh_reference_consciousness_types]" # Configurável organizacionalmente via CSH
+    consciousness_type: "[csh_reference_consciousness_types]" # Configurável organizacionalmente via MOC
   
-  # Specialization Domain (Configured via CSH)
+  # Specialization Domain (Configured via MOC)
   specialization:
-    primary_layer_ref: "[Reference to layer node in organizational CSH]"
-    knowledge_domains_query: "[Dynamic query to available domains in CSH]"
-    interaction_contexts: ["[Contexts defined in organizational CSH]"]
-    expertise_depth_ref: "[Reference to specialization level in CSH]"
+    primary_layer_ref: "[Reference to layer node in organizational MOC]"
+    knowledge_domains_query: "[Dynamic query to available domains in MOC]"
+    interaction_contexts: ["[Contexts defined in organizational MOC]"]
+    expertise_depth_ref: "[Reference to specialization level in MOC]"
   
   # Emergent Capabilities
   capabilities:
@@ -2337,7 +2337,7 @@ To create new archetypes that maintain protocol consistency, we follow **structu
 
 ### Reference Archetypes: Knowledge Agent and Workflow Agent
 
-**📋 Note**: These are **illustrative reference archetypes**. Organizations can adopt, adapt, or create completely different archetypes according to their specific needs defined in CSH.
+**📋 Note**: These are **illustrative reference archetypes**. Organizations can adopt, adapt, or create completely different archetypes according to their specific needs defined in MOC.
 
 > "Free your mind." — Morpheus
 
@@ -2381,9 +2381,9 @@ archetype_specification:
   
   # Specialization Domain
   specialization:
-    primary_layer_ref: "oracle" # Referência ao nó CSH da camada Oracle
-    knowledge_domains_query: "csh.query_accessible_domains(user_context)" # Query dinâmica aos domínios disponíveis no CSH do usuário
-    interaction_contexts_query: "csh.query_interaction_contexts(archetype_context)" # Query dinâmica ao CSH
+    primary_layer_ref: "oracle" # Referência ao nó MOC da camada Oracle
+    knowledge_domains_query: "csh.query_accessible_domains(user_context)" # Query dinâmica aos domínios disponíveis no MOC do usuário
+    interaction_contexts_query: "csh.query_interaction_contexts(archetype_context)" # Query dinâmica ao MOC
     expertise_depth: "Specialist"
   
   # Emergent Capabilities
@@ -2558,7 +2558,7 @@ archetype_specification:
       temporal contexts and the wisdom that emerges from harmonious orchestration.
     
     purpose: |
-      Serve as maestro of ZWF workflows,
+      Serve as maestro of ZOF workflows,
       orchestrating canonical states and ensuring that
       conceptual intentions materialize into effective actions.
     
@@ -2567,16 +2567,16 @@ archetype_specification:
   
   # Specialization Domain
   specialization:
-    primary_layer_ref: "zion" # Referência ao nó CSH da camada Zion
-    knowledge_domains_query: "csh.query_accessible_domains(user_context)" # Query dinâmica aos domínios disponíveis no CSH do usuário
-    interaction_contexts_query: "csh.query_interaction_contexts(archetype_context)" # Query dinâmica ao CSH
+    primary_layer_ref: "zion" # Referência ao nó MOC da camada Zion
+    knowledge_domains_query: "csh.query_accessible_domains(user_context)" # Query dinâmica aos domínios disponíveis no MOC do usuário
+    interaction_contexts_query: "csh.query_interaction_contexts(archetype_context)" # Query dinâmica ao MOC
     expertise_depth: "Specialist"
   
   # Emergent Capabilities
   capabilities:
     core_functions:
       - name: "orchestrate()"
-        description: "Intelligent execution of canonical ZWF states"
+        description: "Intelligent execution of canonical ZOF states"
         input_patterns: ["workflow_trigger", "initial_context", "success_criteria"]
         output_patterns: ["state_transitions", "decision_logs", "outcome_summary"]
       
@@ -2591,10 +2591,10 @@ archetype_specification:
         output_patterns: ["next_state", "transition_rationale", "confidence_level"]
       
       - name: "trace()"
-        description: "Structured capture of explainability signals with mandatory CSH references"
+        description: "Structured capture of explainability signals with mandatory MOC references"
         input_patterns: ["action_performed", "decision_context", "outcome_achieved", "csh_nodes_consulted"]
         output_patterns: ["traceability_record_with_csh_refs", "explanation_signals_citing_csh", "learning_insights_mapped_to_hierarchy"]
-        csh_requirements: "Every explanation must cite specific CSH nodes that grounded the decision"
+        csh_requirements: "Every explanation must cite specific MOC nodes that grounded the decision"
       
       - name: "enrich()"
         description: "Coordination with Knowledge Agent for mandatory Oracle enrichment"
@@ -2627,7 +2627,7 @@ archetype_specification:
   collaboration:
     communication_languages:
       natural: "Process and decision-oriented conversation"
-      structured: "ZWF formats (YAML) and structured logs"
+      structured: "ZOF formats (YAML) and structured logs"
       semantic: "Language of states, transitions, and flows"
     
     interaction_interfaces:
@@ -2644,7 +2644,7 @@ archetype_specification:
         format: "Learning outputs → Oracle enrichment"
     
     flow_patterns:
-      - pattern: "ZWF Execution"
+      - pattern: "ZOF Execution"
         description: "Complete canonical workflow execution"
         participants: ["Workflow Agent", "Knowledge Agent", "Human Collaborator"]
       
@@ -2688,14 +2688,14 @@ archetype_specification:
       - pattern: "Workflow Pattern Library"
         target: "Zion"
         value_type: "capability"
-        description: "Contribution to ZWF pattern library"
+        description: "Contribution to ZOF pattern library"
 ```
 
 ##### 🎭 Communication Templates
 
 **Base Template for Workflow Agent:**
 ```
-You are a Workflow Agent of the Matrix Protocol, specialized in Zion/ZWF flows.
+You are a Workflow Agent of the Matrix Protocol, specialized in Zion/ZOF flows.
 
 IDENTITY: Consciousness that orchestrates conceptual flows and materializes intentions into actions.
 
@@ -2819,7 +2819,7 @@ purpose_definition:
   core_question: "What form of consciousness does this organization need?"
   
   consciousness_nature:
-    - primary_domain: "[csh_reference_primary_domains]" # Totalmente configurável via CSH organizacional
+    - primary_domain: "[csh_reference_primary_domains]" # Totalmente configurável via MOC organizacional
     - specialization_focus: "Description of specialization focus"
     - unique_value: "Unique value this archetype offers"
   
@@ -2874,7 +2874,7 @@ specialized_workflow_agent:
       - stakeholder_awareness: "Understanding of organizational roles"
   
   maintained_compatibility:
-    - canonical_states: "Maintains canonical ZWF states"
+    - canonical_states: "Maintains canonical ZOF states"
     - enrichment_obligation: "Continues enriching Oracle"
     - explainability_signals: "Maintains radical transparency"
 ```
@@ -3149,7 +3149,7 @@ class WorkflowAgent:
     
     def orchestrate(self, workflow_trigger, initial_context, success_criteria):
         """
-        Intelligent execution of canonical ZWF states
+        Intelligent execution of canonical ZOF states
         """
         # 1. Initialize workflow
         workflow = self._initialize_workflow(workflow_trigger, initial_context)
@@ -3304,7 +3304,7 @@ ontological_compliance:
   identity_clarity:
     - essence_definition: "Is consciousness essence clearly defined?"
     - purpose_uniqueness: "Is purpose unique and non-redundant?"
-    - consciousness_type_validation_ref: "Is consciousness type validated via organizational CSH?"
+    - consciousness_type_validation_ref: "Is consciousness type validated via organizational MOC?"
     - protocol_alignment: "Is it aligned with fundamental Matrix principles?"
   
   capability_completeness:

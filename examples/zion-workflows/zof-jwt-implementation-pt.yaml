@@ -1,4 +1,4 @@
-flow_id: zwf-jwt-implementation-202401
+flow_id: zof-jwt-implementation-202401
 flow_name: Implementação de Padrão de Autenticação
 triggered_by: work.proposed
 trigger_context: Necessidade de implementar autenticação segura na API do produto
@@ -98,7 +98,7 @@ flow_execution:
         - Aplicadas melhorias baseadas em padrões do Oráculo
         - Documentação alinhada com diretrizes existentes
         - Solução validada contra conhecimento estabelecido
-      validation_outcome: "Conforme padrões ZWF"
+      validation_outcome: "Conforme padrões ZOF"
     next_state: enrich
 
   # Estado 6: EVALUATE FOR ENRICH
@@ -231,7 +231,7 @@ flow_execution:
 
 # Métricas de Telemetria
 telemetry:
-  workflow_id: "zwf-jwt-implementation-202401"
+  workflow_id: "zof-jwt-implementation-202401"
   execution_start: "2024-01-15T09:00:00Z"
   execution_end: "2024-01-15T16:30:00Z"
   total_duration_seconds: 27000
@@ -328,7 +328,7 @@ flow_learnings:
   - "Processo de review opcional útil para conhecimento crítico"
   - "Relacionamentos entre UKIs essenciais para rastreabilidade"
 
-# Conformidade ZWF
+# Conformidade ZOF
 zwf_compliance:
   - "✅ Fluxo iniciado por evento canônico (work.proposed)"
   - "✅ Consultou Oráculo para fundamentar decisões"
@@ -338,5 +338,5 @@ zwf_compliance:
 
 # Fluxos Relacionados
 related_flows:
-  - zwf-api-deployment-202401  # Próximo fluxo: deploy da API
-  - zwf-frontend-auth-integration-202401  # Fluxo paralelo: integração frontend
+  - zof-api-deployment-202401  # Próximo fluxo: deploy da API
+  - zof-frontend-auth-integration-202401  # Fluxo paralelo: integração frontend

@@ -1,4 +1,4 @@
-flow_id: zwf-jwt-implementation-202401
+flow_id: zof-jwt-implementation-202401
 flow_name: Authentication Pattern Implementation
 triggered_by: work.proposed
 trigger_context: Need to implement secure authentication in product API
@@ -98,7 +98,7 @@ flow_execution:
         - Applied improvements based on Oracle patterns
         - Documentation aligned with existing guidelines
         - Solution validated against established knowledge
-      validation_outcome: "Compliant with ZWF standards"
+      validation_outcome: "Compliant with ZOF standards"
     next_state: enrich
 
   # State 6: EVALUATE FOR ENRICH
@@ -228,7 +228,7 @@ flow_execution:
 
 # Telemetry Metrics
 telemetry:
-  workflow_id: "zwf-jwt-implementation-202401"
+  workflow_id: "zof-jwt-implementation-202401"
   execution_start: "2024-01-15T09:00:00Z"
   execution_end: "2024-01-15T16:30:00Z"
   total_duration_seconds: 27000
@@ -325,7 +325,7 @@ flow_learnings:
   - "Optional review process useful for critical knowledge"
   - "Relationships between UKIs essential for traceability"
 
-# ZWF Compliance
+# ZOF Compliance
 zwf_compliance:
   - "✅ Flow triggered by canonical event (work.proposed)"
   - "✅ Consulted Oracle to support decisions"
@@ -335,5 +335,5 @@ zwf_compliance:
 
 # Related Flows
 related_flows:
-  - zwf-api-deployment-202401  # Next flow: API deployment
-  - zwf-frontend-auth-integration-202401  # Parallel flow: frontend integration
+  - zof-api-deployment-202401  # Next flow: API deployment
+  - zof-frontend-auth-integration-202401  # Parallel flow: frontend integration

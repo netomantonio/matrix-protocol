@@ -1,4 +1,4 @@
-flow_id: zwf-onboarding-refinement-202401
+flow_id: zof-onboarding-refinement-202401
 flow_name: User Onboarding Process Refinement
 triggered_by: work.refine.requested
 trigger_context: Feedback indicating need for optimization in user entry process
@@ -236,7 +236,7 @@ flow_execution:
 
 # Telemetry Metrics
 telemetry:
-  workflow_id: "zwf-onboarding-refinement-202401"
+  workflow_id: "zof-onboarding-refinement-202401"
   execution_start: "2024-01-20T14:00:00Z"
   execution_end: "2024-01-22T17:30:00Z"
   total_duration_seconds: 185400
@@ -329,7 +329,7 @@ flow_learnings:
   - "Documenting each wave facilitates process replication"
   - "Relating generated UKI to motivating ones maintains traceability"
 
-# ZWF Compliance
+# ZOF Compliance
 zwf_compliance:
   - "✅ Flow triggered by canonical event (work.refine.requested)"
   - "✅ Consulted Oracle for refinement patterns"
@@ -345,5 +345,5 @@ conceptual_continuity:
 
 # Related Flows
 related_flows:
-  - zwf-onboarding-refinement-continuation-202402  # Refinement pattern continuation
-  - zwf-user-activation-analysis-202401  # Process-related analysis
+  - zof-onboarding-refinement-continuation-202402  # Refinement pattern continuation
+  - zof-user-activation-analysis-202401  # Process-related analysis

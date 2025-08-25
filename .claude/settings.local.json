@@ -11,7 +11,8 @@
       "Bash(do echo \"Processing $file...\")",
       "Bash(do echo \"Fixing $file...\")",
       "Bash(do echo \"Processing remaining patterns in $file...\")",
-      "Bash(do echo \"Processing more patterns in $file...\")"
+      "Bash(do echo \"Processing more patterns in $file...\")",
+      "Bash(do sed -i 's/zwf-/zof-/g; s/ZWF/ZOF/g' \"$file\")"
     ],
     "deny": [],
     "ask": []

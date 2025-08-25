@@ -1,4 +1,4 @@
-# 📜 ZWF WORKFLOW EXAMPLES | EXEMPLOS DE FLUXOS ZWF
+# 📜 ZOF ORCHESTRATION EXAMPLES | EXEMPLOS DE FLUXOS ZOF
 
 ## 🌎 Idioma / Language
 
@@ -10,9 +10,9 @@
 <a name="português"></a>
 # Português 🇧🇷
 
-# Exemplos de Fluxos ZWF - Zion Workflow Framework
+# Exemplos de Fluxos ZOF - Zion Orchestration Framework
 
-Esta pasta contém exemplos práticos de fluxos ZWF (Zion Workflow Framework) demonstrando como implementar os padrões conceituais definidos na especificação.
+Esta pasta contém exemplos práticos de fluxos ZOF (Zion Orchestration Framework) demonstrando como implementar os padrões conceituais definidos na especificação.
 
 ## 📁 Estrutura dos Exemplos
 
@@ -20,7 +20,7 @@ Esta pasta contém exemplos práticos de fluxos ZWF (Zion Workflow Framework) de
 - **zwf-jwt-implementation-pt.yaml** - Versão em Português
 - **zwf-jwt-implementation-en.yaml** - Versão em Inglês
 
-**Contexto:** Implementação de autenticação seguindo estados canônicos ZWF  
+**Contexto:** Implementação de autenticação seguindo estados canônicos ZOF  
 **Domínio:** Técnico  
 
 Demonstra um fluxo completo de implementação técnica:
@@ -57,7 +57,7 @@ Mostra como processar conhecimento externo estruturadamente:
 
 ---
 
-## 🎯 Padrões ZWF Demonstrados
+## 🎯 Padrões ZOF Demonstrados
 
 ### Estados Canônicos
 - **Intake:** Captura e organiza contexto inicial
@@ -130,7 +130,7 @@ Estes exemplos são **independentes de tecnologia**. Cada equipe pode implementa
 - Azure DevOps (work items + pipelines)
 
 **Tracking Systems:**
-- Jira (custom fields para sinais ZWF)
+- Jira (custom fields para sinais ZOF)
 - Linear (estados customizados)
 - Monday.com (boards com automações)
 - Notion (databases com relacionamentos)
@@ -145,7 +145,7 @@ Estes exemplos são **independentes de tecnologia**. Cada equipe pode implementa
 
 ## 📊 Métricas Canônicas de Telemetria
 
-Todos os exemplos incluem **métricas de telemetria padronizadas** para observabilidade e monitoramento de workflows ZWF.
+Todos os exemplos incluem **métricas de telemetria padronizadas** para observabilidade e monitoramento de workflows ZOF.
 
 ### 🕘 Métricas de Tempo entre Estados
 - **Timestamps precisos:** Início e fim de cada transição
@@ -207,9 +207,9 @@ telemetry:
 
 ## 📊 Elementos Conceituais Demonstrados
 
-### Conformidade com ZWF
+### Conformidade com ZOF
 - Todos os fluxos seguem estados canônicos
-- Eventos iniciais são de tipos reconhecidos pelo ZWF
+- Eventos iniciais são de tipos reconhecidos pelo ZOF
 - Consultas ao Oráculo documentadas e justificadas
 - Sinais de explicabilidade registrados
 
@@ -225,16 +225,16 @@ telemetry:
 
 ---
 
-> **Atenção:** Para dúvidas sobre implementação, consulte a especificação completa em [`ZWF_ZION_WORKFLOW_FRAMEWORK.md`](../ZWF_ZION_WORKFLOW_FRAMEWORK.md).
+> **Atenção:** Para dúvidas sobre implementação, consulte a especificação completa em [`ZOF_ZION_WORKFLOW_FRAMEWORK.md`](../ZOF_ZION_WORKFLOW_FRAMEWORK.md).
 
 ---
 
 <a name="english"></a>
 # English 🇺🇸
 
-# ZWF Flow Examples - Zion Workflow Framework
+# ZOF Flow Examples - Zion Orchestration Framework
 
-This folder contains practical examples of ZWF (Zion Workflow Framework) flows demonstrating how to implement the conceptual patterns defined in the specification.
+This folder contains practical examples of ZOF (Zion Orchestration Framework) flows demonstrating how to implement the conceptual patterns defined in the specification.
 
 ## 📁 Examples Structure
 
@@ -242,7 +242,7 @@ This folder contains practical examples of ZWF (Zion Workflow Framework) flows d
 - **zwf-jwt-implementation-pt.yaml** - Portuguese Version
 - **zwf-jwt-implementation-en.yaml** - English Version
 
-**Context:** Authentication implementation following ZWF canonical states  
+**Context:** Authentication implementation following ZOF canonical states  
 **Domain:** Technical  
 
 Demonstrates a complete technical implementation flow:
@@ -279,7 +279,7 @@ Shows how to process external knowledge in a structured way:
 
 ---
 
-## 🎯 ZWF Patterns Demonstrated
+## 🎯 ZOF Patterns Demonstrated
 
 ### Canonical States
 - **Intake:** Capture and organize initial context
@@ -352,7 +352,7 @@ These examples are **technology-independent**. Each team can implement using:
 - Azure DevOps (work items + pipelines)
 
 **Tracking Systems:**
-- Jira (custom fields for ZWF signals)
+- Jira (custom fields for ZOF signals)
 - Linear (custom states)
 - Monday.com (boards with automations)
 - Notion (databases with relationships)
@@ -367,7 +367,7 @@ These examples are **technology-independent**. Each team can implement using:
 
 ## 📊 Canonical Telemetry Metrics
 
-All examples include **standardized telemetry metrics** for ZWF workflow observability and monitoring.
+All examples include **standardized telemetry metrics** for ZOF workflow observability and monitoring.
 
 ### 🕘 State Transition Duration Metrics
 - **Precise timestamps:** Start and end of each transition
@@ -429,9 +429,9 @@ telemetry:
 
 ## 📊 Demonstrated Conceptual Elements
 
-### ZWF Compliance
+### ZOF Compliance
 - All flows follow canonical states
-- Initial events are ZWF-recognized types
+- Initial events are ZOF-recognized types
 - Oracle consultations documented and justified
 - Explainability signals recorded
 
@@ -447,4 +447,4 @@ telemetry:
 
 ---
 
-> **Warning:** For implementation questions, consult the complete specification at [`ZWF_ZION_WORKFLOW_FRAMEWORK.md`](../ZWF_ZION_WORKFLOW_FRAMEWORK.md).
+> **Warning:** For implementation questions, consult the complete specification at [`ZOF_ZION_WORKFLOW_FRAMEWORK.md`](../ZOF_ZION_WORKFLOW_FRAMEWORK.md).

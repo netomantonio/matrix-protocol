@@ -8,7 +8,7 @@
 * Matrix\_Protocol\_Academic\_Analysis.md
 * MEF\_MATRIX\_EMBEDDING\_FRAMEWORK.md
 * OIF\_OPERATOR\_INTELLIGENCE\_FRAMEWORK.md
-* ZWF\_ZION\_WORKFLOW\_FRAMEWORK.md
+* ZOF\_ZION\_WORKFLOW\_FRAMEWORK.md
 
 ---
 
@@ -35,7 +35,7 @@ A camada Oráculo tem forte fundação conceitual, mas depende de integração e
 
 ---
 
-## Etapa 2 — Modelagem de Fluxos (ZWF)
+## Etapa 2 — Modelagem de Fluxos (ZOF)
 
 **Análise liderada por:** Dr. Caio Fluxmann
 
@@ -53,7 +53,7 @@ A camada Oráculo tem forte fundação conceitual, mas depende de integração e
 ### Veredito
 
 **Aprovado com reforço estrutural.**
-O ZWF se mostrou maduro, desde que o Oráculo esteja bem fundamentado. Recomendação para mecanismos de priorização entre fluxos.
+O ZOF se mostrou maduro, desde que o Oráculo esteja bem fundamentado. Recomendação para mecanismos de priorização entre fluxos.
 
 ---
 
@@ -107,7 +107,7 @@ Pronta para adoção conceitual organizacional, com caminhos claros para evoluç
 
 Durante a mesa redonda final, surgiram lacunas relevantes:
 
-1. Prioridade entre fluxos concorrentes (ZWF)
+1. Prioridade entre fluxos concorrentes (ZOF)
 2. Resolução de conflitos semânticos entre UKIs (MEF)
 3. Consistência entre instâncias de agentes (OIF)
 4. Ciclo de vida completo das UKIs: archiving, obsolescência e aposentadoria (MEF)

@@ -25,13 +25,13 @@ O Protocolo Matrix MEF define um **modelo padronizado de estruturação do conhe
 
 Essas unidades são embebidas e consumidas por agentes inteligentes, garantindo rastreabilidade, aplicabilidade, evolução controlada e inteligência contextual em tempo real.
 
-### 🏛️ **Integração com CSH (Catálogo Semântico de Hierarquias)**
+### 🏛️ **Integração com MOC (Matrix Ontology Catalog)**
 
-O MEF utiliza o **CSH como fonte única de taxonomias organizacionais**:
-- **Campos *_ref**: Todos os campos hierárquicos (scope_ref, domain_ref, type_ref, maturity_ref) fazem referência a nós definidos no CSH organizacional
+O MEF utiliza o **MOC como fonte única de taxonomias organizacionais**:
+- **Campos *_ref**: Todos os campos hierárquicos (scope_ref, domain_ref, type_ref, maturity_ref) fazem referência a nós definidos no MOC organizacional
 - **Flexibilidade Local**: Organizações configuram suas próprias hierarquias mantendo estrutura universal MEF
-- **Governança Integrada**: CSH define regras de autoridade e visibilidade que o MEF respeita durante criação e consulta de UKIs
-- **Documento de Referência**: Ver especificação completa em `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+- **Governança Integrada**: MOC define regras de autoridade e visibilidade que o MEF respeita durante criação e consulta de UKIs
+- **Documento de Referência**: Ver especificação completa em `MOC_CATALOGO_SEMANTICO_HIERARQUIAS.md`
 
 ---
 
@@ -49,12 +49,12 @@ version: "[MAJOR.MINOR.PATCH]"
 
 id: uki:[domain_ref]:[type_ref]:[slug_or_id]
 title: [Título objetivo e descritivo da unidade]
-scope_ref: [Referência ao nó de escopo no CSH]
+scope_ref: [Referência ao nó de escopo no MOC]
 scope_mode: [restricted | propagated]  # Modo de propagação do escopo
-domain_ref: [Referência ao nó de domínio no CSH]
-type_ref: [Referência ao nó de tipo no CSH]
-context_ref: [Referência ao nó de contexto no CSH]  # Opcional se definido no CSH
-maturity_ref: [Referência ao nó de maturidade no CSH]  # Controla validação e confiabilidade
+domain_ref: [Referência ao nó de domínio no MOC]
+type_ref: [Referência ao nó de tipo no MOC]
+context_ref: [Referência ao nó de contexto no MOC]  # Opcional se definido no MOC
+maturity_ref: [Referência ao nó de maturidade no MOC]  # Controla validação e confiabilidade
 created_date: [YYYY-MM-DD]  # Data de criação da primeira versão
 last_modified: [YYYY-MM-DD]  # Data da última modificação
 change_summary: [Resumo das mudanças na versão atual]  # Opcional para versão inicial
@@ -63,12 +63,12 @@ previous_version: "[MAJOR.MINOR.PATCH]"  # Versão anterior (opcional para vers�
 
 status: [active | deprecated | archived]  # OBRIGATÓRIO: controle de ciclo de vida
 
-domain_of_influence: [referência_ao_csh_organizational]  # RECOMENDADO: área de impacto configurada via CSH
+domain_of_influence: [referência_ao_csh_organizational]  # RECOMENDADO: área de impacto configurada via MOC
 
 # 🚨 AVISO: EXEMPLOS NÃO SÃO TAXONOMIA OBRIGATÓRIA
 # Os valores mostrados anteriormente (strategy, operations, etc.) são APENAS EXEMPLOS ILUSTRATIVOS.
-# Cada organização define seus domínios de influência no CSH.
-# 🏛️ CSH é a única fonte de taxonomias válidas.
+# Cada organização define seus domínios de influência no MOC.
+# 🏛️ MOC é a única fonte de taxonomias válidas.
 
 relationships:  # OBRIGATÓRIO: ontologia formal com tipos padronizados
   - type: [depends_on | overrides | conflicts_with | complements | amends | precedes | equivalent_to]
@@ -165,7 +165,7 @@ Define a versão semântica da **UKI em si**, seguindo convenção de versioname
 
 Identificador único seguindo o padrão `uki:[domain]:[type]:[identifier]`:
 - **uki**: Prefixo fixo indicando uma Unidade de Conhecimento
-- **domain**: Domínio organizacional (exemplos: product, business, technical - definidos no CSH organizacional)
+- **domain**: Domínio organizacional (exemplos: product, business, technical - definidos no MOC organizacional)
 - **identifier**: Slug descritivo ou código único
 
 **Exemplos:**
@@ -192,10 +192,10 @@ Título claro, objetivo e descritivo que resume a unidade de conhecimento em uma
 ### 🔹 `scope_ref`
 **Obrigatório** | **String**
 
-Referência ao identificador de um nó de escopo definido no CSH (Catálogo Semântico de Hierarquias) da organização.
+Referência ao identificador de um nó de escopo definido no MOC (Matrix Ontology Catalog) da organização.
 
 - **Propósito**: Define o alcance e visibilidade da UKI
-- **Resolução**: Sistema consulta o CSH para aplicar regras de governança
+- **Resolução**: Sistema consulta o MOC para aplicar regras de governança
 - **Exemplos**: "personal", "team", "organization", "public"
 
 ### 🔹 `scope_mode`
@@ -208,7 +208,7 @@ Modo de propagação e aplicabilidade do escopo. **Valores aceitos:**
 ### 🔹 `domain_ref`
 **Obrigatório** | **String**
 
-Referência ao identificador de um nó de domínio definido no CSH da organização. O sistema resolve automaticamente as regras de propriedade, revisão e autoridade baseadas na configuração do CSH.
+Referência ao identificador de um nó de domínio definido no MOC da organização. O sistema resolve automaticamente as regras de propriedade, revisão e autoridade baseadas na configuração do MOC.
 
 **Conceitos universais (exemplos)**:
 - Conhecimento técnico e implementação
@@ -217,12 +217,12 @@ Referência ao identificador de um nó de domínio definido no CSH da organizaç
 - Cultura e práticas colaborativas
 - Segurança e compliance
 
-**Implementação local**: Cada organização define no CSH seus domínios específicos e hierarquia.
+**Implementação local**: Cada organização define no MOC seus domínios específicos e hierarquia.
 
 ### 🔹 `type_ref`
 **Obrigatório** | **String**
 
-Referência ao identificador de um nó de tipo definido no CSH da organização.
+Referência ao identificador de um nó de tipo definido no MOC da organização.
 
 **Conceitos universais (exemplos)**:
 - Padrões e templates reutilizáveis
@@ -231,12 +231,12 @@ Referência ao identificador de um nó de tipo definido no CSH da organização.
 - Decisões e justificativas
 - Exemplos e casos de uso
 
-**Implementação local**: Cada organização define no CSH seus tipos específicos e critérios de classificação.
+**Implementação local**: Cada organização define no MOC seus tipos específicos e critérios de classificação.
 
 ### 🔹 `context_ref`
 **Opcional** | **String**
 
-Referência ao identificador de um nó de contexto definido no CSH da organização, quando aplicável.
+Referência ao identificador de um nó de contexto definido no MOC da organização, quando aplicável.
 
 **Conceitos universais (exemplos)**:
 - Descoberta e pesquisa
@@ -248,7 +248,7 @@ Referência ao identificador de um nó de contexto definido no CSH da organizaç
 ### 🔹 `maturity_ref`
 **Obrigatório** | **String**
 
-Referência ao identificador de um nó de maturidade definido no CSH da organização.
+Referência ao identificador de um nó de maturidade definido no MOC da organização.
 
 **Conceitos universais**:
 - **Pré-validação**: Rascunho, experimental
@@ -256,7 +256,7 @@ Referência ao identificador de um nó de maturidade definido no CSH da organiza
 - **Endosso**: Aprovado, confiável
 - **Depreciação**: Obsoleto, descontinuado
 
-**Implementação local**: Cada organização define no CSH seus níveis intermediários e critérios de progressão.
+**Implementação local**: Cada organização define no MOC seus níveis intermediários e critérios de progressão.
 
 
 ### 🔹 `version`
@@ -788,13 +788,13 @@ Essa separação garante organização semântica, versionamento independente po
 
 ### 🌍 **Campo `domain_of_influence` (Recomendado)**
 - Organizações podem configurar para UKIs com impacto organizacional significativo
-- **Valores exclusivamente definidos no CSH organizacional**
+- **Valores exclusivamente definidos no MOC organizacional**
 
 **🚨 Importante**: Os exemplos abaixo são **puramente ilustrativos** e **não constituem taxonomia oficial**:
 
 > Algumas organizações podem configurar domínios como "estratégia" para decisões de alto nível, "finanças" para regras de impacto financeiro, "ética" para questões de compliance, ou "operações" para eficiência processual. Outras podem usar termos completamente diferentes como "inovação", "qualidade", "sustentabilidade" ou qualquer hierarquia que faça sentido em seu contexto.
 
-**🏛️ CSH é a fonte única**: Cada organização define seus próprios domínios de influência exclusivamente no Catálogo Semântico de Hierarquias.
+**🏛️ MOC é a fonte única**: Cada organização define seus próprios domínios de influência exclusivamente no Matrix Ontology Catalog.
 
 ### 📊 **Campo `impact_analysis` (Opcional)**
 - **MAPEAR** cadeias de propagação previstas antes de mudanças MAJOR
@@ -1544,13 +1544,13 @@ The Matrix MEF Protocol defines a **standardized versioned knowledge structuring
 
 These units are embedded and consumed by intelligent agents, ensuring traceability, applicability, controlled evolution and contextual intelligence in real time.
 
-### 🏛️ **Integration with CSH (Semantic Hierarchy Catalog)**
+### 🏛️ **Integration with MOC (Matrix Ontology Catalog)**
 
-MEF uses **CSH as the single source of organizational taxonomies**:
-- ***_ref Fields**: All hierarchical fields (scope_ref, domain_ref, type_ref, maturity_ref) reference nodes defined in the organizational CSH
+MEF uses **MOC as the single source of organizational taxonomies**:
+- ***_ref Fields**: All hierarchical fields (scope_ref, domain_ref, type_ref, maturity_ref) reference nodes defined in the organizational MOC
 - **Local Flexibility**: Organizations configure their own hierarchies while maintaining universal MEF structure
-- **Integrated Governance**: CSH defines authority and visibility rules that MEF respects during UKI creation and consultation
-- **Reference Document**: See complete specification in `CSH_CATALOGO_SEMANTICO_HIERARQUIAS.md`
+- **Integrated Governance**: MOC defines authority and visibility rules that MEF respects during UKI creation and consultation
+- **Reference Document**: See complete specification in `MOC_CATALOGO_SEMANTICO_HIERARQUIAS.md`
 
 ---
 
@@ -1568,12 +1568,12 @@ version: "[MAJOR.MINOR.PATCH]"
 
 id: uki:[domain_ref]:[type_ref]:[slug_or_id]
 title: [Objective and descriptive title of the unit]
-scope_ref: [Reference to scope node in CSH]
+scope_ref: [Reference to scope node in MOC]
 scope_mode: [restricted | propagated]  # Scope propagation mode
-domain_ref: [Reference to domain node in CSH]
-type_ref: [Reference to type node in CSH]
-context_ref: [Reference to context node in CSH]  # Optional if defined in CSH
-maturity_ref: [Reference to maturity node in CSH]  # Controls validation and reliability
+domain_ref: [Reference to domain node in MOC]
+type_ref: [Reference to type node in MOC]
+context_ref: [Reference to context node in MOC]  # Optional if defined in MOC
+maturity_ref: [Reference to maturity node in MOC]  # Controls validation and reliability
 created_date: [YYYY-MM-DD]  # Date of first version creation
 last_modified: [YYYY-MM-DD]  # Date of last modification
 change_summary: [Summary of changes in current version]  # Optional for initial version
@@ -1581,12 +1581,12 @@ change_impact: [major | minor | patch]  # Type of change impact
 previous_version: "[MAJOR.MINOR.PATCH]"  # Previous version (optional for 1.0.0)
 
 status: [active | deprecated | archived]  # Lifecycle control
-domain_of_influence: [organizational_csh_reference]  # Strategic impact area configured via CSH
+domain_of_influence: [organizational_csh_reference]  # Strategic impact area configured via MOC
 
 # 🚨 WARNING: EXAMPLES ARE NOT MANDATORY TAXONOMY
 # Previously shown values (strategy, operations, etc.) are ILLUSTRATIVE EXAMPLES ONLY.
-# Each organization defines its influence domains in CSH.
-# 🏛️ CSH is the only source of valid taxonomies.
+# Each organization defines its influence domains in MOC.
+# 🏛️ MOC is the only source of valid taxonomies.
 
 relationships:  # Formal ontology of typed relationships from Ontology_MEF_Support v1.0
   - type: [depends_on | overrides | conflicts_with | complements | amends | precedes | equivalent_to]
@@ -1681,7 +1681,7 @@ Defines the semantic version of the **UKI itself**, following semantic versionin
 
 Unique identifier following the pattern `uki:[domain]:[type]:[identifier]`:
 - **uki**: Fixed prefix indicating it's a Knowledge Unit
-- **domain**: Organizational domain (examples: product, business, technical - defined in organizational CSH)
+- **domain**: Organizational domain (examples: product, business, technical - defined in organizational MOC)
 - **identifier**: Descriptive slug or unique code
 
 **Examples:**
@@ -1708,10 +1708,10 @@ Clear, objective and descriptive title that summarizes the knowledge unit in one
 ### 🔹 `scope_ref`
 **Required** | **String**
 
-Reference to a scope node identifier defined in the organization's CSH (Semantic Hierarchy Catalog).
+Reference to a scope node identifier defined in the organization's MOC (Matrix Ontology Catalog).
 
 - **Purpose**: Defines the reach and visibility of the UKI
-- **Resolution**: System consults CSH to apply governance rules
+- **Resolution**: System consults MOC to apply governance rules
 - **Examples**: "personal", "team", "organization", "public"
 
 ### 🔹 `scope_mode`
@@ -1724,7 +1724,7 @@ Propagation and applicability mode of the scope. **Accepted values:**
 ### 🔹 `domain_ref`
 **Required** | **String**
 
-Reference to a domain node identifier defined in the organization's CSH. The system automatically resolves ownership, review, and authority rules based on CSH configuration.
+Reference to a domain node identifier defined in the organization's MOC. The system automatically resolves ownership, review, and authority rules based on MOC configuration.
 
 **Universal concepts (examples)**:
 - Technical knowledge and implementation
@@ -1733,12 +1733,12 @@ Reference to a domain node identifier defined in the organization's CSH. The sys
 - Culture and collaborative practices
 - Security and compliance
 
-**Local implementation**: Each organization defines its specific domains and hierarchy in CSH.
+**Local implementation**: Each organization defines its specific domains and hierarchy in MOC.
 
 ### 🔹 `type_ref`
 **Required** | **String**
 
-Reference to a type node identifier defined in the organization's CSH.
+Reference to a type node identifier defined in the organization's MOC.
 
 **Universal concepts (examples)**:
 - Patterns and reusable templates
@@ -1747,12 +1747,12 @@ Reference to a type node identifier defined in the organization's CSH.
 - Decisions and justifications
 - Examples and use cases
 
-**Local implementation**: Each organization defines its specific types and classification criteria in CSH.
+**Local implementation**: Each organization defines its specific types and classification criteria in MOC.
 
 ### 🔹 `context_ref`
 **Optional** | **String**
 
-Reference to a context node identifier defined in the organization's CSH, when applicable.
+Reference to a context node identifier defined in the organization's MOC, when applicable.
 
 **Universal concepts (examples)**:
 - Discovery and research
@@ -1764,7 +1764,7 @@ Reference to a context node identifier defined in the organization's CSH, when a
 ### 🔹 `maturity_ref`
 **Required** | **String**
 
-Reference to a maturity node identifier defined in the organization's CSH.
+Reference to a maturity node identifier defined in the organization's MOC.
 
 **Universal concepts**:
 - **Pre-validation**: Draft, experimental
@@ -1772,7 +1772,7 @@ Reference to a maturity node identifier defined in the organization's CSH.
 - **Endorsement**: Approved, reliable
 - **Deprecation**: Obsolete, discontinued
 
-**Local implementation**: Each organization defines its intermediate levels and progression criteria in CSH.
+**Local implementation**: Each organization defines its intermediate levels and progression criteria in MOC.
 
 ### 🔹 `version`
 **Required** | **String**
@@ -2704,19 +2704,19 @@ knowledge-base/
 
 Organizations implementing MEF should consider:
 
-- **CSH Integration**: Implement Catálogo Semântico de Hierarquias (CSH) for organizational hierarchy management
-- **Validation**: Implement validation against MEF specification and CSH references before storing UKIs
+- **MOC Integration**: Implement Matrix Ontology Catalog (MOC) for organizational hierarchy management
+- **Validation**: Implement validation against MEF specification and MOC references before storing UKIs
 - **Indexing**: Extract structured metadata from UKI fields for search capabilities  
 - **Versioning**: Track UKI evolution through the version control fields
 - **Relationships**: Build semantic navigation through `relationships` connections
-- **Hierarchy Resolution**: Resolve `scope_ref`, `domain_ref`, `type_ref`, and `maturity_ref` through CSH configuration
-- **Governance Automation**: Apply CSH-defined governance rules automatically during UKI operations
+- **Hierarchy Resolution**: Resolve `scope_ref`, `domain_ref`, `type_ref`, and `maturity_ref` through MOC configuration
+- **Governance Automation**: Apply MOC-defined governance rules automatically during UKI operations
 
-## CSH Integration
+## MOC Integration
 
 ### Resolving Hierarchical References
 
-MEF fields ending with `_ref` are resolved through the organization's CSH:
+MEF fields ending with `_ref` are resolved through the organization's MOC:
 
 ```yaml
 # In UKI
@@ -2725,7 +2725,7 @@ domain_ref: "technical"
 type_ref: "pattern"
 maturity_ref: "approved"
 
-# Resolved from CSH
+# Resolved from MOC
 hierarchies:
   scope:
     nodes:
@@ -2743,29 +2743,29 @@ hierarchies:
 
 ### Automatic Governance Application
 
-The system automatically applies CSH governance rules:
+The system automatically applies MOC governance rules:
 
 - **Access Control**: Filter UKIs based on user's scope and domain permissions
 - **Authority Validation**: Verify user has required authority for operations
-- **Propagation Rules**: Apply CSH-defined propagation patterns
-- **Maturity Progression**: Enforce CSH maturity level requirements
+- **Propagation Rules**: Apply MOC-defined propagation patterns
+- **Maturity Progression**: Enforce MOC maturity level requirements
 
 ### Flexibility Benefits
 
 - **Local Adaptation**: Each organization defines its own hierarchies
 - **Global Consistency**: Core MEF concepts remain universal
-- **Evolution Support**: CSH changes don't break existing UKIs
+- **Evolution Support**: MOC changes don't break existing UKIs
 - **AI Integration**: Rich hierarchical context for intelligent systems
 
 # 📚 AUXILIARY ONTOLOGY
 
 ## Controlled Vocabulary for MEF Fields
 
-This section defines the controlled vocabulary for fixed MEF fields and provides examples of hierarchical concepts that organizations can implement via CSH for fields ending with `_ref`.
+This section defines the controlled vocabulary for fixed MEF fields and provides examples of hierarchical concepts that organizations can implement via MOC for fields ending with `_ref`.
 
-### Domain Concepts (CSH Configurable via `domain_ref`)
+### Domain Concepts (MOC Configurable via `domain_ref`)
 
-Universal domain concepts that organizations can adapt in their CSH:
+Universal domain concepts that organizations can adapt in their MOC:
 
 | Domain Concept | Description | Examples |
 |----------------|-------------|----------|
@@ -2775,9 +2775,9 @@ Universal domain concepts that organizations can adapt in their CSH:
 | Cultural Practices | Processes, methodology, team practices | Ceremonies, guidelines, collaboration values |
 | Security & Compliance | Security, protection and risk management | Security policies, access controls, vulnerability management |
 
-### Type Concepts (CSH Configurable via `type_ref`)
+### Type Concepts (MOC Configurable via `type_ref`)
 
-Universal type concepts that organizations can adapt in their CSH:
+Universal type concepts that organizations can adapt in their MOC:
 
 | Type Concept | Description | Usage |
 |--------------|-------------|-------|
@@ -2829,15 +2829,15 @@ Universal type concepts that organizations can adapt in their CSH:
 | `analysis` | Technical analysis, research, or investigation |
 | `experiment` | Controlled test, proof of concept, or pilot |
 
-### Influence Domains (`domain_of_influence`) - **CSH Configurable**
+### Influence Domains (`domain_of_influence`) - **MOC Configurable**
 
-Organizations can configure this field for UKIs with significant organizational impact. **Values are exclusively defined in the organizational CSH**.
+Organizations can configure this field for UKIs with significant organizational impact. **Values are exclusively defined in the organizational MOC**.
 
 **🚨 Important**: The examples below are **purely illustrative** and **do not constitute official taxonomy**:
 
 > Some organizations might configure domains like "strategy" for high-level decisions, "finance" for financial impact rules, "ethics" for compliance matters, or "operations" for process efficiency. Others might use completely different terms like "innovation", "quality", "sustainability" or any hierarchy that makes sense in their context.
 
-**🏛️ CSH is the single source**: Each organization defines its influence domains exclusively in the Semantic Hierarchy Catalog.
+**🏛️ MOC is the single source**: Each organization defines its influence domains exclusively in the Matrix Ontology Catalog.
 
 ---
 

@@ -1,4 +1,4 @@
-flow_id: zwf-knowledge-ingest-202401
+flow_id: zof-knowledge-ingest-202401
 flow_name: Ingestão de Documentação Externa
 triggered_by: knowledge.added
 trigger_context: Nova documentação externa com mudanças significativas disponibilizada
@@ -398,7 +398,7 @@ flow_execution:
 
 # Métricas de Telemetria
 telemetry:
-  workflow_id: "zwf-knowledge-ingest-202401"
+  workflow_id: "zof-knowledge-ingest-202401"
   execution_start: "2024-01-18T10:15:00Z"
   execution_end: "2024-01-18T15:45:00Z"
   total_duration_seconds: 19800
@@ -491,7 +491,7 @@ flow_learnings:
   - "Criar templates durante ingestão facilita replicação"
   - "Relacionamentos semânticos essenciais para navegação"
 
-# Conformidade ZWF
+# Conformidade ZOF
 zwf_compliance:
   - "✅ Fluxo iniciado por evento canônico (knowledge.added)"
   - "✅ Consultou Oráculo para padrões de integração"
@@ -501,5 +501,5 @@ zwf_compliance:
 
 # Fluxos Relacionados
 related_flows:
-  - zwf-api-migration-implementation-202402  # Próximo fluxo: execução da migração
-  - zwf-integration-testing-automation-202401  # Fluxo paralelo: testes automatizados
+  - zof-api-migration-implementation-202402  # Próximo fluxo: execução da migração
+  - zof-integration-testing-automation-202401  # Fluxo paralelo: testes automatizados

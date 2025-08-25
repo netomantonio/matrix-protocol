@@ -1,4 +1,4 @@
-flow_id: zwf-knowledge-ingest-202401
+flow_id: zof-knowledge-ingest-202401
 flow_name: External Documentation Ingestion
 triggered_by: knowledge.added
 trigger_context: New external documentation with significant changes released
@@ -398,7 +398,7 @@ flow_execution:
 
 # Telemetry Metrics
 telemetry:
-  workflow_id: "zwf-knowledge-ingest-202401"
+  workflow_id: "zof-knowledge-ingest-202401"
   execution_start: "2024-01-18T10:15:00Z"
   execution_end: "2024-01-18T15:45:00Z"
   total_duration_seconds: 19800
@@ -491,7 +491,7 @@ flow_learnings:
   - "Creating templates during ingestion facilitates replication"
   - "Semantic relationships essential for navigation"
 
-# ZWF Compliance
+# ZOF Compliance
 zwf_compliance:
   - "✅ Flow triggered by canonical event (knowledge.added)"
   - "✅ Consulted Oracle for integration patterns"
@@ -501,5 +501,5 @@ zwf_compliance:
 
 # Related Flows
 related_flows:
-  - zwf-api-migration-implementation-202402  # Next flow: migration execution
-  - zwf-integration-testing-automation-202401  # Parallel flow: automated testing
+  - zof-api-migration-implementation-202402  # Next flow: migration execution
+  - zof-integration-testing-automation-202401  # Parallel flow: automated testing

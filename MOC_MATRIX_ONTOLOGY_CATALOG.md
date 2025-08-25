@@ -1,4 +1,4 @@
-# 📊 CSH - CATÁLOGO SEMÂNTICO DE HIERARQUIAS | SEMANTIC HIERARCHY CATALOG
+# 📊 MOC - MATRIX ONTOLOGY CATALOG
 
 > 🚨 **AVISO IMPORTANTE**: Este documento contém EXEMPLOS ILUSTRATIVOS (como `technical`, `business`, `draft`, etc.) que NÃO são taxonomias obrigatórias. Cada organização define suas próprias hierarquias conforme suas necessidades específicas. Exemplos servem apenas como referência conceitual.
 
@@ -16,11 +16,11 @@
 
 ---
 
-## 🌐 Visão Geral do CSH
+## 🌐 Visão Geral do MOC
 
-O **Catálogo Semântico de Hierarquias (CSH)** é o componente fundamental que permite ao Protocolo Matrix separar conceitos centrais universais de taxonomias e estruturas organizacionais específicas.
+O **Matrix Ontology Catalog (MOC)** é o componente fundamental que permite ao Protocolo Matrix separar conceitos centrais universais de taxonomias e estruturas organizacionais específicas.
 
-O CSH define **hierarquias configuráveis** para qualquer conceito que dependa de estruturas organizacionais, mantendo consistência conceitual global enquanto permite adaptabilidade local total.
+O MOC define **hierarquias configuráveis** para qualquer conceito que dependa de estruturas organizacionais, mantendo consistência conceitual global enquanto permite adaptabilidade local total.
 
 ---
 
@@ -34,7 +34,7 @@ O CSH define **hierarquias configuráveis** para qualquer conceito que dependa d
 - Definidos pelo Protocolo Matrix
 
 **Taxonomias Locais (Configuráveis)**
-- Definidas pelo implementador no CSH
+- Definidas pelo implementador no MOC
 - Exemplos: nomes específicos de escopos, estrutura de domínios, papéis organizacionais
 - Adaptáveis ao contexto organizacional
 
@@ -42,13 +42,13 @@ O CSH define **hierarquias configuráveis** para qualquer conceito que dependa d
 
 Todo conceito hierárquico deve:
 - Ser definido conceitualmente pelo protocolo
-- Ter sua hierarquia concreta fornecida pelo CSH
+- Ter sua hierarquia concreta fornecida pelo MOC
 - Permitir reorganização sem quebrar MEF, ZWF ou OIF
 - Manter relacionamentos semânticos estáveis
 
 ---
 
-## 🗂️ Estrutura do CSH
+## 🗂️ Estrutura do MOC
 
 ### Formato Base
 
@@ -195,7 +195,7 @@ governance:
 
 ### MEF Integration
 
-**Campos CSH no MEF:**
+**Campos MOC no MEF:**
 ```yaml
 scope_ref: "team"
 scope_mode: "restricted"  # ou "propagated"
@@ -205,7 +205,7 @@ maturity_ref: "approved"
 ```
 
 **Resolução Automática:**
-- Sistema consulta CSH para validar referências
+- Sistema consulta MOC para validar referências
 - Aplica regras de governança automaticamente
 - Propaga mudanças conforme configuração
 
@@ -218,7 +218,7 @@ flow_execution:
     signals:
       context: "Avaliando se conhecimento gerado deve enriquecer Oracle"
       criteria_refs: ["relevance", "reusability", "impact"]
-      decision: "Baseado em critérios CSH específicos da organização"
+      decision: "Baseado em critérios MOC específicos da organização"
       result: "Aprovado para enriquecimento com escopo 'team'"
 ```
 
@@ -227,7 +227,7 @@ flow_execution:
 **Controle de Acesso:**
 - Resolução de pertinência baseada em `scope_ref` do usuário
 - Filtragem automática por `domain_ref` e autoridade
-- Explicabilidade referenciando nós CSH específicos
+- Explicabilidade referenciando nós MOC específicos
 
 ---
 
@@ -250,14 +250,14 @@ flow_execution:
 ### Auditabilidade
 
 **Rastros Obrigatórios:**
-- Histórico completo de versões CSH
+- Histórico completo de versões MOC
 - Registro de quem aprovou cada mudança
 - Análise de impacto em UKIs existentes
 - Notificações automáticas para afetados
 
 ---
 
-## 🎯 Benefícios do CSH
+## 🎯 Benefícios do MOC
 
 ### Para Organizações
 - **Flexibilidade Total**: Adapt estruturas às necessidades específicas
@@ -272,7 +272,7 @@ flow_execution:
 ### Para IA e Automação
 - **Contexto Rico**: IA entende hierarquias organizacionais específicas
 - **Decisões Inteligentes**: Automação baseada em regras de governança locais
-- **Explicabilidade**: Transparência total sobre decisões baseadas no CSH
+- **Explicabilidade**: Transparência total sobre decisões baseadas no MOC
 
 ---
 
@@ -285,11 +285,11 @@ flow_execution:
 
 ---
 
-## 🌐 CSH Overview
+## 🌐 MOC Overview
 
-The **Semantic Hierarchy Catalog (CSH)** is the fundamental component that allows the Matrix Protocol to separate universal core concepts from organization-specific taxonomies and structures.
+The **Matrix Ontology Catalog (MOC)** is the fundamental component that allows the Matrix Protocol to separate universal core concepts from organization-specific taxonomies and structures.
 
-CSH defines **configurable hierarchies** for any concept that depends on organizational structures, maintaining global conceptual consistency while enabling total local adaptability.
+MOC defines **configurable hierarchies** for any concept that depends on organizational structures, maintaining global conceptual consistency while enabling total local adaptability.
 
 ---
 
@@ -303,7 +303,7 @@ CSH defines **configurable hierarchies** for any concept that depends on organiz
 - Defined by the Matrix Protocol
 
 **Local Taxonomies (Configurable)**
-- Defined by the implementer in the CSH
+- Defined by the implementer in the MOC
 - Examples: specific scope names, domain structure, organizational roles
 - Adaptable to organizational context
 
@@ -311,13 +311,13 @@ CSH defines **configurable hierarchies** for any concept that depends on organiz
 
 Every hierarchical concept must:
 - Be conceptually defined by the protocol
-- Have its concrete hierarchy provided by the CSH
+- Have its concrete hierarchy provided by the MOC
 - Allow reorganization without breaking MEF, ZWF, or OIF
 - Maintain stable semantic relationships
 
 ---
 
-## 🗂️ CSH Structure
+## 🗂️ MOC Structure
 
 ### Base Format
 
@@ -461,7 +461,7 @@ governance:
 
 ### MEF Integration
 
-**CSH Fields in MEF:**
+**MOC Fields in MEF:**
 ```yaml
 scope_ref: "team"
 scope_mode: "restricted"  # or "propagated"
@@ -471,7 +471,7 @@ maturity_ref: "approved"
 ```
 
 **Automatic Resolution:**
-- System consults CSH to validate references
+- System consults MOC to validate references
 - Applies governance rules automatically
 - Propagates changes according to configuration
 
@@ -484,7 +484,7 @@ flow_execution:
     signals:
       context: "Evaluating if generated knowledge should enrich Oracle"
       criteria_refs: ["relevance", "reusability", "impact"]
-      decision: "Based on organization-specific CSH criteria"
+      decision: "Based on organization-specific MOC criteria"
       result: "Approved for enrichment with 'team' scope"
 ```
 
@@ -493,7 +493,7 @@ flow_execution:
 **Access Control:**
 - Pertinence resolution based on user's `scope_ref`
 - Automatic filtering by `domain_ref` and authority
-- Explainability referencing specific CSH nodes
+- Explainability referencing specific MOC nodes
 
 ---
 
@@ -516,14 +516,14 @@ flow_execution:
 ### Auditability
 
 **Mandatory Trails:**
-- Complete CSH version history
+- Complete MOC version history
 - Record of who approved each change
 - Impact analysis on existing UKIs
 - Automatic notifications to affected parties
 
 ---
 
-## 🎯 CSH Benefits
+## 🎯 MOC Benefits
 
 ### For Organizations
 - **Total Flexibility**: Adapt structures to specific needs
@@ -538,6 +538,6 @@ flow_execution:
 ### For AI and Automation
 - **Rich Context**: AI understands specific organizational hierarchies
 - **Intelligent Decisions**: Automation based on local governance rules
-- **Explainability**: Complete transparency about CSH-based decisions
+- **Explainability**: Complete transparency about MOC-based decisions
 
 ---

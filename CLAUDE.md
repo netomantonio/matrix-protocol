@@ -26,7 +26,7 @@ This repository contains comprehensive Matrix Protocol documentation and example
 
 ### Matrix Protocol Layers
 1. **Oracle Layer**: Strategic governance & knowledge base management (MEF)
-2. **Zion Layer**: Conceptual workflow framework for AI-oriented teams (ZWF)
+2. **Zion Layer**: Conceptual workflow framework for AI-oriented teams (ZOF)
 3. **Operator Layer**: Practical execution and implementation by development teams
 
 ### MEF (Matrix Embedding Framework)
@@ -35,7 +35,7 @@ This repository contains comprehensive Matrix Protocol documentation and example
 - Types: `business_rule`, `function`, `template`, `guideline`, `pattern`, `decision`, `example`
 - Contexts: `discovery`, `implementation`, `refinement`, `qa`, `documentation`, `support`
 
-### ZWF (Zion Workflow Framework)
+### ZOF (Zion Orchestration Framework)
 - Conceptual framework for AI-oriented workflows as state machines
 - Canonical states: `Intake → Understand → Decide → Act → Review → Enrich`
 - Events: `knowledge.added`, `work.proposed`, `work.refine.requested`, `assistance.requested`, `test.authored`, `feedback.submitted`
@@ -105,18 +105,18 @@ The `examples/` directory contains comprehensive demonstrations:
 - **Culture**: Code review processes with collaboration principles
 - **Format**: Separate PT/EN files (e.g., `uki:technical:pattern:auth-pt.yaml`, `uki:technical:pattern:auth-en.yaml`)
 
-### Zion ZWF Examples (`examples/zion-workflows/`)
+### Zion ZOF Examples (`examples/zion-workflows/`)
 - **Request Flow**: Technical implementation following canonical states
 - **Refinement Flow**: Product optimization with incremental approach
 - **Ingestion Flow**: Knowledge processing from external sources
 - **Format**: Separate PT/EN files (e.g., `zwf-jwt-implementation-pt.yaml`, `zwf-jwt-implementation-en.yaml`)
 
 ### Using Examples
-- Reference templates for creating new UKIs and ZWF flows
-- Study MEF field usage patterns and ZWF state transitions
+- Reference templates for creating new UKIs and ZOF flows
+- Study MEF field usage patterns and ZOF state transitions
 - Understand versioning implementation and flow traceability
 - Learn bilingual documentation approaches
-- Validate MEF parser implementations and ZWF compliance
+- Validate MEF parser implementations and ZOF compliance
 
 ## AI Integration Considerations
 
@@ -130,11 +130,11 @@ This framework is designed for:
 
 The MEF format enables AI systems to understand not just the content but also the intent, context, evolution history, and relationships of knowledge units for more intelligent assistance.
 
-## ZWF Implementation
+## ZOF Implementation
 
-When working with ZWF workflow specifications:
+When working with ZOF workflow specifications:
 
-### ZWF Flow Structure Example
+### ZOF Flow Structure Example
 ```yaml
 flow_id: zwf-[workflow-type]-[identifier]
 flow_name: "[Descriptive workflow name in PT/EN]"
@@ -154,7 +154,7 @@ flow_execution:
       result: "[What came out / O que saiu]"
 ```
 
-### ZWF Guidelines
+### ZOF Guidelines
 - All flows must follow canonical states: Intake → Understand → Decide → Act → Review → Enrich
 - Always consult Oracle UKIs to justify decisions
 - Record explainability signals (context, decision, result) at each state
