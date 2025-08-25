@@ -9,10 +9,10 @@ timestamp_end: "2024-01-15 16:30:00"
 # Vínculo inicial ao Oráculo
 oracle_context:
   motivating_ukis:
-    - unik-technical-jwt-authentication-pattern
-    - unik-business-security-requirements
-    - unik-culture-code-review-process
-    - unik-technical-api-error-handling
+    - uki-technical-jwt-authentication-pattern
+    - uki-business-security-requirements
+    - uki-culture-code-review-process
+    - uki-technical-api-error-handling
 
 # Fluxo de Estados
 flow_execution:
@@ -34,9 +34,9 @@ flow_execution:
   - state: understand
     timestamp: "2024-01-15 09:30:00"
     oracle_ukis_consulted:
-      - unik-technical-jwt-authentication-pattern
-      - unik-business-security-requirements
-      - unik-technical-token-expiration-policy
+      - uki-technical-jwt-authentication-pattern
+      - uki-business-security-requirements
+      - uki-technical-token-expiration-policy
     signals:
       context: "Consultados padrões de autenticação e políticas de segurança no Oráculo"
       decision: "Identificado padrão Bearer Token com renovação, expiração conforme política de negócio"
@@ -51,8 +51,8 @@ flow_execution:
   - state: decide  
     timestamp: "2024-01-15 10:00:00"
     reasoning_ukis:
-      - unik-technical-jwt-authentication-pattern
-      - unik-business-vendor-approval-policy
+      - uki-technical-jwt-authentication-pattern
+      - uki-business-vendor-approval-policy
     signals:
       context: "Avaliadas opções de implementação baseadas em diretrizes do Oráculo"
       decision: "Escolhida abordagem aprovada pela política de vendors com middleware customizado"
@@ -92,8 +92,8 @@ flow_execution:
       result: "Solução validada e refinada conforme diretrizes"
     conceptual_validation:
       oracle_ukis_applied:
-        - unik-culture-code-review-process
-        - unik-technical-api-error-handling
+        - uki-culture-code-review-process
+        - uki-technical-api-error-handling
       knowledge_refinements:
         - Aplicadas melhorias baseadas em padrões do Oráculo
         - Documentação alinhada com diretrizes existentes
@@ -156,13 +156,13 @@ flow_execution:
           - input: "Solicitação de renovação com token válido"
             output: "Novo token de acesso gerado mantendo token de renovação"
         related_to:
-          - target: unik-technical-jwt-authentication-pattern
+          - target: uki-technical-jwt-authentication-pattern
             relation_type: derives_from
             description: Derivada do padrão técnico de autenticação JWT
-          - target: unik-business-security-requirements
+          - target: uki-business-security-requirements
             relation_type: implements
             description: Implementa requisitos de segurança do negócio
-          - target: unik-technical-api-error-handling
+          - target: uki-technical-api-error-handling
             relation_type: relates_to
             description: Relaciona-se com padrões de tratamento de erros
         intent_of_use:
@@ -214,10 +214,10 @@ flow_execution:
           - input: "Logout"
             output: "Token de renovação invalidado"
         related_to:
-          - target: unik-technical-jwt-authentication-pattern
+          - target: uki-technical-jwt-authentication-pattern
             relation_type: extends
             description: Estende o padrão com exemplo de melhoria
-          - target: unik-technical-authentication-implementation-example
+          - target: uki-technical-authentication-implementation-example
             relation_type: replaces
             description: Substitui implementação anterior com melhorias
         intent_of_use:

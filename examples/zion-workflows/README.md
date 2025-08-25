@@ -83,7 +83,7 @@ Todos os exemplos demonstram o novo formato de relacionamentos tipados:
 
 ```yaml
 related_to:
-  - target: unik-target-id
+  - target: uki-target-id
     relation_type: implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to
     description: Descrição clara da relação
 ```
@@ -305,7 +305,7 @@ All examples demonstrate the new typed relationship format:
 
 ```yaml
 related_to:
-  - target: unik-target-id
+  - target: uki-target-id
     relation_type: implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to
     description: Clear description of the relationship
 ```

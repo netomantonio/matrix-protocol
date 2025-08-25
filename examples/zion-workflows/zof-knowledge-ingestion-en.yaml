@@ -9,10 +9,10 @@ timestamp_end: "2024-01-18 15:45:00"
 # Initial Oracle Binding
 oracle_context:
   motivating_ukis:
-    - unik-technical-api-integration-standards
-    - unik-culture-knowledge-management-process
-    - unik-business-vendor-integration-policy
-    - unik-technical-documentation-standards
+    - uki-technical-api-integration-standards
+    - uki-culture-knowledge-management-process
+    - uki-business-vendor-integration-policy
+    - uki-technical-documentation-standards
 
 # State Flow Execution
 flow_execution:
@@ -39,9 +39,9 @@ flow_execution:
   - state: understand
     timestamp: "2024-01-18 10:45:00"
     oracle_ukis_consulted:
-      - unik-technical-api-integration-standards
-      - unik-business-vendor-integration-policy
-      - unik-technical-existing-integration-patterns
+      - uki-technical-api-integration-standards
+      - uki-business-vendor-integration-policy
+      - uki-technical-existing-integration-patterns
     signals:
       context: "Analyzed documentation vs internal standards and current integration"
       decision: "Identified critical impacts based on Oracle knowledge"
@@ -65,8 +65,8 @@ flow_execution:
   - state: decide
     timestamp: "2024-01-18 11:30:00"
     reasoning_ukis:
-      - unik-technical-api-integration-standards
-      - unik-culture-knowledge-management-process
+      - uki-technical-api-integration-standards
+      - uki-culture-knowledge-management-process
     signals:
       context: "Evaluated options based on Oracle guidelines"
       decision: "Chosen selective ingestion focused on critical changes + transition guide"

@@ -9,10 +9,10 @@ timestamp_end: "2024-01-18 15:45:00"
 # Vínculo inicial ao Oráculo
 oracle_context:
   motivating_ukis:
-    - unik-technical-api-integration-standards
-    - unik-culture-knowledge-management-process
-    - unik-business-vendor-integration-policy
-    - unik-technical-documentation-standards
+    - uki-technical-api-integration-standards
+    - uki-culture-knowledge-management-process
+    - uki-business-vendor-integration-policy
+    - uki-technical-documentation-standards
 
 # Fluxo de Estados
 flow_execution:
@@ -39,9 +39,9 @@ flow_execution:
   - state: understand
     timestamp: "2024-01-18 10:45:00"
     oracle_ukis_consulted:
-      - unik-technical-api-integration-standards
-      - unik-business-vendor-integration-policy
-      - unik-technical-existing-integration-patterns
+      - uki-technical-api-integration-standards
+      - uki-business-vendor-integration-policy
+      - uki-technical-existing-integration-patterns
     signals:
       context: "Analisada documentação vs padrões internos e integração atual"
       decision: "Identificados impactos críticos baseados em conhecimento do Oráculo"
@@ -65,8 +65,8 @@ flow_execution:
   - state: decide
     timestamp: "2024-01-18 11:30:00"
     reasoning_ukis:
-      - unik-technical-api-integration-standards
-      - unik-culture-knowledge-management-process
+      - uki-technical-api-integration-standards
+      - uki-culture-knowledge-management-process
     signals:
       context: "Avaliadas opções baseadas em diretrizes do Oráculo"
       decision: "Escolhida ingestão seletiva focada em mudanças críticas + guia de transição"

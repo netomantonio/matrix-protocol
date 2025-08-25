@@ -9,10 +9,10 @@ timestamp_end: "2024-01-22 17:30:00"
 # Vínculo inicial ao Oráculo
 oracle_context:
   motivating_ukis:
-    - unik-product-user-onboarding-flow
-    - unik-business-conversion-optimization
-    - unik-strategy-user-retention-goals
-    - unik-product-ux-research-methodology
+    - uki-product-user-onboarding-flow
+    - uki-business-conversion-optimization
+    - uki-strategy-user-retention-goals
+    - uki-product-ux-research-methodology
 
 # Fluxo de Estados
 flow_execution:
@@ -39,10 +39,10 @@ flow_execution:
   - state: understand
     timestamp: "2024-01-20 14:30:00"
     oracle_ukis_consulted:
-      - unik-product-user-onboarding-flow
-      - unik-business-conversion-optimization
-      - unik-product-ux-research-methodology
-      - unik-strategy-user-retention-goals
+      - uki-product-user-onboarding-flow
+      - uki-business-conversion-optimization
+      - uki-product-ux-research-methodology
+      - uki-strategy-user-retention-goals
     signals:
       context: "Analisado processo atual vs diretrizes de otimização e pesquisa UX"
       decision: "Identificados pontos críticos baseados em conhecimento do Oráculo"
@@ -63,8 +63,8 @@ flow_execution:
   - state: decide
     timestamp: "2024-01-20 16:00:00"
     reasoning_ukis:
-      - unik-product-user-onboarding-flow
-      - unik-business-conversion-optimization
+      - uki-product-user-onboarding-flow
+      - uki-business-conversion-optimization
     signals:
       context: "Avaliadas abordagens baseadas em diretrizes do Oráculo"
       decision: "Escolhida abordagem incremental fundamentada em UKIs de otimização"
@@ -112,7 +112,7 @@ flow_execution:
       decision: "Atualizar UKI de onboarding com nova versão e criar padrão de refinement"
       result: "UKI onboarding atualizada v2.0, novo padrão de refinement incremental criado"
     new_ukis_created:
-      - id: unik-product-user-onboarding-flow
+      - id: uki-product-user-onboarding-flow
         type: guideline
         domain: product
         context: implementation
@@ -153,13 +153,13 @@ flow_execution:
           - input: "Primeira semana de uso"
             output: "Coleta progressiva: informações adicionais via micro-interações"
         related_to:
-          - target: unik-business-conversion-optimization
+          - target: uki-business-conversion-optimization
             relation_type: implements
             description: Implementa estratégias de otimização de conversão
-          - target: unik-strategy-user-retention-goals
+          - target: uki-strategy-user-retention-goals
             relation_type: complies_with
             description: Atende objetivos estratégicos de retenção
-          - target: unik-product-incremental-refinement-pattern
+          - target: uki-product-incremental-refinement-pattern
             relation_type: extends
             description: Estende padrão de refinamento incremental
         intent_of_use:
@@ -172,7 +172,7 @@ flow_execution:
           - testing
         last_validation: "2024-01-22"
 
-      - id: unik-product-incremental-refinement-pattern
+      - id: uki-product-incremental-refinement-pattern
         type: pattern
         domain: product
         context: refinement
@@ -216,13 +216,13 @@ flow_execution:
           - input: "Indicador piora em validação"
             output: "Reversão automática para versão anterior"
         related_to:
-          - target: unik-product-user-onboarding-flow
+          - target: uki-product-user-onboarding-flow
             relation_type: extends
             description: Estende fluxo de onboarding com melhorias
-          - target: unik-business-conversion-optimization
+          - target: uki-business-conversion-optimization
             relation_type: implements
             description: Implementa otimizações de conversão validadas
-          - target: unik-product-validation-methodology
+          - target: uki-product-validation-methodology
             relation_type: derives_from
             description: Derivada da metodologia de validação
         intent_of_use:

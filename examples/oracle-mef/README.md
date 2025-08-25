@@ -10,24 +10,24 @@ The examples are organized by domain and language:
 Os exemplos estão organizados por domínio e idioma:
 
 ### 🔧 Technical Domain | Domínio Técnico
-- `unik-technical-authentication-pattern-pt.yaml` - JWT authentication pattern (`uki:technical:pattern:jwt-authentication`) (Portuguese)
-- `unik-technical-authentication-pattern-en.yaml` - JWT authentication pattern (`uki:technical:pattern:jwt-authentication`) (English)
+- `uki-technical-authentication-pattern-pt.yaml` - JWT authentication pattern (`uki:technical:pattern:jwt-authentication`) (Portuguese)
+- `uki-technical-authentication-pattern-en.yaml` - JWT authentication pattern (`uki:technical:pattern:jwt-authentication`) (English)
 
 ### 💼 Business Domain | Domínio de Negócio
-- `unik-business-discount-rule-pt.yaml` - Customer loyalty discount rule (`uki:business:rule:loyalty-discount`) (Portuguese)
-- `unik-business-discount-rule-en.yaml` - Customer loyalty discount rule (`uki:business:rule:loyalty-discount`) (English)
+- `uki-business-discount-rule-pt.yaml` - Customer loyalty discount rule (`uki:business:rule:loyalty-discount`) (Portuguese)
+- `uki-business-discount-rule-en.yaml` - Customer loyalty discount rule (`uki:business:rule:loyalty-discount`) (English)
 
 ### 🎨 Product Domain | Domínio de Produto
-- `unik-product-modal-guideline-pt.yaml` - Modal design guidelines (`uki:product:guideline:modal-design`) (Portuguese)
-- `unik-product-modal-guideline-en.yaml` - Modal design guidelines (`uki:product:guideline:modal-design`) (English)
+- `uki-product-modal-guideline-pt.yaml` - Modal design guidelines (`uki:product:guideline:modal-design`) (Portuguese)
+- `uki-product-modal-guideline-en.yaml` - Modal design guidelines (`uki:product:guideline:modal-design`) (English)
 
 ### 🎯 Strategy Domain | Domínio de Estratégia
-- `unik-strategy-api-evolution-pt.yaml` - API evolution strategy (`uki:strategy:decision:api-evolution`) (Portuguese)
-- `unik-strategy-api-evolution-en.yaml` - API evolution strategy (`uki:strategy:decision:api-evolution`) (English)
+- `uki-strategy-api-evolution-pt.yaml` - API evolution strategy (`uki:strategy:decision:api-evolution`) (Portuguese)
+- `uki-strategy-api-evolution-en.yaml` - API evolution strategy (`uki:strategy:decision:api-evolution`) (English)
 
 ### 🤝 Culture Domain | Domínio de Cultura
-- `unik-culture-code-review-pt.yaml` - Code review process (`uki:culture:process:code-review`) (Portuguese)
-- `unik-culture-code-review-en.yaml` - Code review process (`uki:culture:process:code-review`) (English)
+- `uki-culture-code-review-pt.yaml` - Code review process (`uki:culture:process:code-review`) (Portuguese)
+- `uki-culture-code-review-en.yaml` - Code review process (`uki:culture:process:code-review`) (English)
 
 ## 🎯 Purpose | Propósito
 
@@ -72,7 +72,7 @@ Todos os exemplos demonstram o novo formato de relacionamentos tipados:
 
 ```yaml
 related_to:
-  - target: unik-target-id
+  - target: uki-target-id
     relation_type: implements|depends_on|extends|replaces|complies_with|conflicts_with|derives_from|relates_to
     description: Clear description of the relationship
 ```
