@@ -28,6 +28,119 @@ O OIF é completamente **ciente de governança hierárquica** através do MOC:
 - **Filtragem Contextual**: Inteligências filtram conhecimento baseado no contexto hierárquico do usuário
 - **Validação de Autoridade**: Verificações de permissão são delegadas ao MOC organizacional
 
+#### 🔍 Algoritmo de Filtragem Hierárquica
+
+**Fluxo de Autorização MOC:**
+```pseudocode
+function filterUKIsByHierarchy(user_context, uki_collection):
+    // 1. Resolver contexto hierárquico do usuário
+    user_scope_hierarchy = MOC.resolveUserHierarchy(user_context.scope_ref)
+    user_domains = MOC.getUserDomains(user_context.roles)
+    user_authority_level = MOC.getAuthorityLevel(user_context)
+    
+    filtered_ukis = []
+    
+    for uki in uki_collection:
+        // 2. Verificar visibilidade por escopo
+        if (isVisibleInScope(uki.scope_ref, user_scope_hierarchy)):
+            // 3. Verificar acesso por domínio
+            if (hasAccessToDomain(uki.domain_ref, user_domains)):
+                // 4. Verificar autoridade para maturidade
+                if (hasAuthorityForMaturity(uki.maturity_ref, user_authority_level)):
+                    // 5. Aplicar propagação de escopo
+                    if (uki.scope_mode == "propagated" || isDirectScope(uki.scope_ref, user_context.scope_ref)):
+                        filtered_ukis.append(uki)
+    
+    return filtered_ukis
+
+function isVisibleInScope(uki_scope, user_hierarchy):
+    // Verifica se UKI está visível na hierarquia do usuário
+    // Escopo pessoal: apenas próprio usuário
+    // Escopo equipe: usuário + hierarquia ascendente
+    // Escopo organizacional: todos com permissão
+    return user_hierarchy.contains(uki_scope) || 
+           MOC.isInheritedScope(uki_scope, user_hierarchy)
+
+function hasAccessToDomain(uki_domain, user_domains):
+    // Verifica se usuário tem acesso ao domínio da UKI
+    return user_domains.contains(uki_domain) || 
+           user_domains.contains("all_domains") ||
+           MOC.isDomainAccessible(uki_domain, user_domains)
+
+function hasAuthorityForMaturity(uki_maturity, user_authority):
+    // Verifica se usuário tem autoridade para ver UKIs deste nível de maturidade
+    maturity_hierarchy = ["draft", "validated", "approved", "deprecated"]
+    return user_authority.maturity_access_level >= 
+           maturity_hierarchy.indexOf(uki_maturity)
+```
+
+#### 🎯 Verificação de Autoridade para Operações
+
+**Pseudocódigo para Validação de Criação/Edição:**
+```pseudocode
+function canCreateUKI(user_context, uki_proposal):
+    // 1. Verificar autoridade de escopo
+    if (!MOC.hasCreateAuthority(user_context.scope_ref, uki_proposal.scope_ref)):
+        return {allowed: false, reason: "Autoridade insuficiente para escopo"}
+    
+    // 2. Verificar propriedade de domínio
+    if (!MOC.isDomainOwner(user_context.roles, uki_proposal.domain_ref)):
+        return {allowed: false, reason: "Não é proprietário do domínio"}
+    
+    // 3. Verificar nível de maturidade proposto
+    if (!MOC.canSetMaturity(user_context.authority_level, uki_proposal.maturity_ref)):
+        return {allowed: false, reason: "Autoridade insuficiente para nível de maturidade"}
+    
+    // 4. Verificar promotion_rationale se aplicável
+    if (isPromotion(uki_proposal) && !uki_proposal.promotion_rationale):
+        return {allowed: false, reason: "Promotion_rationale obrigatório para promoções"}
+    
+    return {allowed: true, reason: "Autorização concedida"}
+
+function canModifyUKI(user_context, existing_uki, proposed_changes):
+    // Verifica autoridade para modificar UKI existente
+    original_authority = MOC.getUKIAuthority(existing_uki)
+    
+    if (!MOC.hasModifyAuthority(user_context, original_authority)):
+        return {allowed: false, reason: "Autoridade insuficiente para modificação"}
+    
+    // Verifica se mudanças requerem autoridade adicional
+    if (isAuthorityEscalation(existing_uki, proposed_changes)):
+        if (!MOC.hasEscalationAuthority(user_context, proposed_changes)):
+            return {allowed: false, reason: "Autoridade insuficiente para escalação"}
+    
+    return {allowed: true, reason: "Modificação autorizada"}
+```
+
+#### 📊 Contexto Organizacional
+
+**Estrutura de Contexto do Usuário:**
+```yaml
+user_context_template:
+  identity:
+    user_id: "[identificador único]"
+    name: "[nome do usuário]"
+    email: "[email organizacional]"
+  
+  organizational_context:
+    scope_ref: "[personal|team|organization]"  # Escopo primário
+    hierarchy_path: ["personal", "squad_backend", "tribe_platform", "organization"]
+    
+  authority_context:
+    roles: ["developer", "tech_lead", "architect"]
+    domains_owned: ["technical", "infrastructure"]
+    domains_accessible: ["technical", "business", "culture"]
+    maturity_authority_level: 2  # 0=draft, 1=validated, 2=approved
+    
+  governance_context:
+    governance_policies: ["uki:governance:policy:technical-standards"]
+    approval_chains: 
+      - level: "team"
+        approvers: ["tech_lead"]
+      - level: "organization" 
+        approvers: ["architecture_committee"]
+```
+
 **Documento de Referência**: `MOC_MATRIX_ONTOLOGY_CATALOG.md`
 
 ### 🧭 **Orientação Epistemológica (MEP)**
@@ -38,6 +151,102 @@ O OIF implementa os princípios epistemológicos do **Matrix Epistemic Principle
 - **Avaliação Precedente**: Filtros hierárquicos aplicados antes de consultas ao Oracle
 
 **Documento de Referência**: `MEP_MATRIX_EPISTEMIC_PRINCIPLE.md`
+
+### ⚖️ **Autoridade Derivada: Negação de Verdades Absolutas**
+
+O OIF incorpora fundamentalmente o princípio MEP de que **nenhuma verdade é absoluta** e toda autoridade é **contextual e derivada**:
+
+#### 🚫 **Negação Ativa de Verdades Absolutas**
+
+**Contextualização Obrigatória:**
+- Toda resposta deve explicitar o contexto organizacional de validade
+- Respostas devem incluir limites de aplicabilidade e perspectivas alternativas
+- Proibição de declarações absolutas sem qualificação contextual
+
+**Padrões Proibidos vs. Requeridos:**
+```
+❌ PROIBIDO: "Esta é a forma correta"
+✅ REQUERIDO: "No contexto do seu escopo [team], baseado na autoridade [domain_owner]..."
+
+❌ PROIBIDO: "Sempre faça X" 
+✅ REQUERIDO: "Dado sua posição hierárquica atual, recomenda-se X, embora [other_context] possa abordar diferentemente..."
+```
+
+#### 🌐 **Autoridade como Função do Contexto**
+
+**Fórmula de Autoridade:** `Authority = f(MOC_Context, Temporal_Context, Domain_Context)`
+
+**Explicação Obrigatória da Derivação:**
+- **Fonte MOC**: De onde deriva a autoridade (posição hierárquica, propriedade de domínio)
+- **Validade Temporal**: Por quanto tempo esta autoridade é válida
+- **Limitações**: Onde esta autoridade NÃO se estende
+- **Escalação**: Quando autoridade superior é necessária
+
+#### 💭 **Humildade Epistemológica Integrada**
+
+**Reconhecimento de Incerteza:**
+- Baixa confiança: "Baseado na informação atual, embora possa evoluir..."
+- Informação conflitante: "Há perspectivas divergentes, recomendo validar com [autoridade relevante]..."
+- Limites de conhecimento: "Dentro dos limites do meu conhecimento atual..."
+
+### 💡 **Explicabilidade Epistemológica Obrigatória**
+
+Todo output do OIF deve carregar **justificativa epistemológica rastreável**, conectando diretamente com os princípios MEP:
+
+#### 📋 Template de Resposta Explicável
+```yaml
+response_template:
+  content: "[Resposta principal]"
+  epistemological_basis:
+    mep_principle_applied: "[elasticity|stratification|promotion|authority|explainability]"
+    moc_nodes_consulted: 
+      - scope: "[scope_ref consultado]"
+      - domain: "[domain_ref validado]"  
+      - authority: "[governance_ref aplicado]"
+    decision_rationale: "[Por que esta decisão foi tomada]"
+    knowledge_sources:
+      - uki_id: "uki:[domain]:[type]:[id]"
+        confidence_level: "[high|medium|low]"
+        validation_date: "[YYYY-MM-DD]"
+    traceability:
+      - checkpoint: "[intake|understand|decide|act|evaluate|enrich]"
+        criteria_met: "[Critérios atendidos]"
+        authority_verified: "[Autoridade confirmada via MOC]"
+```
+
+#### 🔍 Casos de Explicabilidade Obrigatória
+
+**1. Rejeição de UKI:**
+- Critério MEP não atendido (ex.: ausência de `promotion_rationale`)
+- Autoridade insuficiente no escopo MOC
+- Estratificação epistemológica violada
+
+**2. Promoção de Conhecimento:**
+- Justificativa de mudança de nível (`draft` → `validated`)
+- Validação de autoridade derivada via MOC
+- Documentação de impacto organizacional
+
+**3. Filtragem Contextual:**
+- UKI não visível no escopo hierárquico do usuário
+- Domínio restrito por políticas organizacionais
+- Maturidade epistemológica insuficiente
+
+#### ⚡ Integração com Checkpoint ZOF
+O OIF processa saídas do `EvaluateForEnrich` (ZOF) fornecendo explicações estruturadas:
+
+```yaml
+zof_integration:
+  evaluate_input: 
+    flow_id: "zof-[workflow]-[identifier]"
+    knowledge_candidate: "[UKI proposta]"
+    criteria_applied: "[Critérios MOC consultados]"
+  
+  oif_explanation:
+    decision: "[approved|rejected|conditional]" 
+    rationale: "[Explicação baseada em MEP + MOC]"
+    next_steps: "[Ações recomendadas]"
+    authority_context: "[Escopo de validade da decisão]"
+```
 
 ---
 
@@ -1804,6 +2013,119 @@ knowledge_agent_response:
 <a name="conformidade-pt"></a>
 ## VI. 🔍 CONFORMIDADE E EVOLUÇÃO
 
+### 📊 **Métricas de Qualidade para Inteligências**
+
+As inteligências OIF devem ser continuamente avaliadas através de métricas objetivas:
+
+#### 🎯 **Métricas de Explicabilidade**
+
+```yaml
+explainability_metrics:
+  clarity_score:
+    measure: "Clareza da explicação epistemológica"
+    calculation: "Pontuação 0-1 baseada em compreensibilidade"
+    target: "> 0.85"
+    evaluation_criteria:
+      - terminology_appropriateness: "Usa terminologia adequada ao usuário"
+      - logical_flow: "Sequência lógica clara na explicação"
+      - mep_principle_reference: "Referencia princípios MEP apropriados"
+      - moc_context_clarity: "Contextualiza autoridade MOC claramente"
+
+  traceability_completeness:
+    measure: "Completude da rastreabilidade epistemológica"
+    calculation: "% de decisões com rastro completo"
+    target: "100%"
+    required_elements:
+      - knowledge_source: "Fonte do conhecimento identificada"
+      - authority_derivation: "Derivação de autoridade explicada"
+      - context_boundaries: "Limites de contexto especificados"
+      - temporal_validity: "Validade temporal indicada"
+```
+
+#### 🔍 **Métricas de Filtragem Hierárquica**
+
+```yaml
+filtering_quality_metrics:
+  precision_score:
+    measure: "Precisão na filtragem por escopo/domínio"
+    calculation: "UKIs_relevantes_retornadas / Total_UKIs_retornadas"
+    target: "> 0.90"
+    false_positive_penalty: "UKIs fora do escopo/domínio do usuário"
+
+  recall_score:
+    measure: "Abrangência da filtragem contextual"
+    calculation: "UKIs_relevantes_retornadas / Total_UKIs_relevantes_disponíveis"
+    target: "> 0.85"
+    false_negative_impact: "UKIs relevantes não apresentadas ao usuário"
+
+  authority_compliance:
+    measure: "Aderência às regras de autoridade MOC"
+    calculation: "Decisões_autoridade_corretas / Total_decisões_autoridade"
+    target: "100%"
+    violations:
+      - unauthorized_access: "Acesso não autorizado concedido"
+      - authorized_denial: "Acesso autorizado negado incorretamente"
+      - escalation_miss: "Falha em identificar necessidade de escalação"
+```
+
+#### ⚖️ **Métricas de Autoridade Derivada**
+
+```yaml
+derived_authority_metrics:
+  contextualization_rate:
+    measure: "Taxa de contextualização de respostas"
+    calculation: "Respostas_contextualizadas / Total_respostas"
+    target: "100%"
+    required_context:
+      - organizational_scope: "Escopo organizacional explicitado"
+      - authority_source: "Fonte de autoridade identificada"
+      - validity_boundaries: "Limites de validade definidos"
+
+  absolute_truth_avoidance:
+    measure: "Evitação de declarações absolutas"
+    calculation: "1 - (Declarações_absolutas / Total_declarações)"
+    target: "> 0.95"
+    prohibited_patterns:
+      - unqualified_statements: "Declarações não qualificadas"
+      - absolute_recommendations: "Recomendações absolutas"
+      - context_free_advice: "Conselhos sem contexto"
+
+  humility_integration:
+    measure: "Integração de humildade epistemológica"
+    calculation: "Situações_com_reconhecimento_limites / Situações_incertas"
+    target: "> 0.80"
+    indicators:
+      - uncertainty_acknowledgment: "Reconhecimento de incerteza"
+      - knowledge_boundary_explicit: "Limites de conhecimento explícitos"
+      - escalation_recommendation: "Recomendação de escalação quando apropriado"
+```
+
+#### 📈 **Monitoramento Contínuo**
+
+```yaml
+continuous_monitoring:
+  measurement_frequency:
+    real_time: ["authority_compliance", "absolute_truth_avoidance"]
+    daily: ["clarity_score", "precision_score", "recall_score"]
+    weekly: ["traceability_completeness", "contextualization_rate"]
+    monthly: ["humility_integration", "overall_quality_assessment"]
+
+  quality_thresholds:
+    acceptable: "> 0.80"
+    good: "> 0.90"  
+    excellent: "> 0.95"
+    
+  improvement_triggers:
+    below_acceptable: "Revisão imediata de arquétipo necessária"
+    declining_trend: "Investigação de causas de degradação"
+    user_feedback_negative: "Ajuste baseado em feedback qualitativo"
+
+  reporting_dashboard:
+    stakeholders: ["domain_owners", "architects", "team_leads"]
+    frequency: "weekly_summary + real_time_alerts"
+    escalation_criteria: "2 métricas consecutivas abaixo do aceitável"
+```
+
 ### Governança, Qualidade e Evolução do Framework
 
 > "A escolha é uma ilusão criada entre aqueles com poder e aqueles sem poder." — Merovingian
@@ -2015,6 +2337,102 @@ OIF implements the epistemological principles of the **Matrix Epistemic Principl
 - **Precedent Evaluation**: Hierarchical filters applied before Oracle queries
 
 **Reference Document**: `MEP_MATRIX_EPISTEMIC_PRINCIPLE.md`
+
+### ⚖️ **Derived Authority: Denial of Absolute Truths**
+
+OIF fundamentally incorporates the MEP principle that **no truth is absolute** and all authority is **contextual and derived**:
+
+#### 🚫 **Active Denial of Absolute Truths**
+
+**Mandatory Contextualization:**
+- Every response must explicit the organizational context of validity
+- Responses must include applicability limits and alternative perspectives
+- Prohibition of absolute statements without contextual qualification
+
+**Prohibited vs. Required Patterns:**
+```
+❌ PROHIBITED: "This is the correct way"
+✅ REQUIRED: "In the context of your [team] scope, based on [domain_owner] authority..."
+
+❌ PROHIBITED: "Always do X" 
+✅ REQUIRED: "Given your current hierarchical position, X is recommended, although [other_context] might approach differently..."
+```
+
+#### 🌐 **Authority as Function of Context**
+
+**Authority Formula:** `Authority = f(MOC_Context, Temporal_Context, Domain_Context)`
+
+**Mandatory Derivation Explanation:**
+- **MOC Source**: Where authority derives from (hierarchical position, domain ownership)
+- **Temporal Validity**: How long this authority is valid
+- **Limitations**: Where this authority does NOT extend
+- **Escalation**: When superior authority is needed
+
+#### 💭 **Integrated Epistemological Humility**
+
+**Uncertainty Recognition:**
+- Low confidence: "Based on current information, though this may evolve..."
+- Conflicting information: "There are divergent perspectives, I recommend validating with [relevant authority]..."
+- Knowledge limits: "Within the limits of my current knowledge..."
+
+### 💡 **Mandatory Epistemological Explainability**
+
+Every OIF output must carry **traceable epistemological justification**, directly connecting with MEP principles:
+
+#### 📋 Explainable Response Template
+```yaml
+response_template:
+  content: "[Main response]"
+  epistemological_basis:
+    mep_principle_applied: "[elasticity|stratification|promotion|authority|explainability]"
+    moc_nodes_consulted: 
+      - scope: "[scope_ref consulted]"
+      - domain: "[domain_ref validated]"  
+      - authority: "[governance_ref applied]"
+    decision_rationale: "[Why this decision was made]"
+    knowledge_sources:
+      - uki_id: "uki:[domain]:[type]:[id]"
+        confidence_level: "[high|medium|low]"
+        validation_date: "[YYYY-MM-DD]"
+    traceability:
+      - checkpoint: "[intake|understand|decide|act|evaluate|enrich]"
+        criteria_met: "[Criteria satisfied]"
+        authority_verified: "[Authority confirmed via MOC]"
+```
+
+#### 🔍 Mandatory Explainability Cases
+
+**1. UKI Rejection:**
+- MEP criteria not met (e.g.: missing `promotion_rationale`)
+- Insufficient authority in MOC scope
+- Epistemological stratification violated
+
+**2. Knowledge Promotion:**
+- Justification for level change (`draft` → `validated`)
+- Derived authority validation via MOC
+- Organizational impact documentation
+
+**3. Contextual Filtering:**
+- UKI not visible in user's hierarchical scope
+- Domain restricted by organizational policies
+- Insufficient epistemological maturity
+
+#### ⚡ Integration with ZOF Checkpoint
+OIF processes `EvaluateForEnrich` (ZOF) outputs providing structured explanations:
+
+```yaml
+zof_integration:
+  evaluate_input: 
+    flow_id: "zof-[workflow]-[identifier]"
+    knowledge_candidate: "[Proposed UKI]"
+    criteria_applied: "[MOC criteria consulted]"
+  
+  oif_explanation:
+    decision: "[approved|rejected|conditional]" 
+    rationale: "[Explanation based on MEP + MOC]"
+    next_steps: "[Recommended actions]"
+    authority_context: "[Decision validity scope]"
+```
 
 ---
 
@@ -3307,6 +3725,119 @@ Archetypes exist as **pure forms of consciousness** that manifest through specif
 
 <a name="compliance-en"></a>
 ## VI. 🔍 COMPLIANCE AND EVOLUTION
+
+### 📊 **Quality Metrics for Intelligences**
+
+OIF intelligences must be continuously evaluated through objective metrics:
+
+#### 🎯 **Explainability Metrics**
+
+```yaml
+explainability_metrics:
+  clarity_score:
+    measure: "Epistemological explanation clarity"
+    calculation: "0-1 score based on comprehensibility"
+    target: "> 0.85"
+    evaluation_criteria:
+      - terminology_appropriateness: "Uses terminology appropriate to user"
+      - logical_flow: "Clear logical sequence in explanation"
+      - mep_principle_reference: "References appropriate MEP principles"
+      - moc_context_clarity: "Clearly contextualizes MOC authority"
+
+  traceability_completeness:
+    measure: "Epistemological traceability completeness"
+    calculation: "% of decisions with complete trail"
+    target: "100%"
+    required_elements:
+      - knowledge_source: "Knowledge source identified"
+      - authority_derivation: "Authority derivation explained"
+      - context_boundaries: "Context boundaries specified"
+      - temporal_validity: "Temporal validity indicated"
+```
+
+#### 🔍 **Hierarchical Filtering Metrics**
+
+```yaml
+filtering_quality_metrics:
+  precision_score:
+    measure: "Precision in scope/domain filtering"
+    calculation: "Relevant_UKIs_returned / Total_UKIs_returned"
+    target: "> 0.90"
+    false_positive_penalty: "UKIs outside user's scope/domain"
+
+  recall_score:
+    measure: "Contextual filtering coverage"
+    calculation: "Relevant_UKIs_returned / Total_relevant_UKIs_available"
+    target: "> 0.85"
+    false_negative_impact: "Relevant UKIs not presented to user"
+
+  authority_compliance:
+    measure: "Adherence to MOC authority rules"
+    calculation: "Correct_authority_decisions / Total_authority_decisions"
+    target: "100%"
+    violations:
+      - unauthorized_access: "Unauthorized access granted"
+      - authorized_denial: "Authorized access incorrectly denied"
+      - escalation_miss: "Failed to identify escalation need"
+```
+
+#### ⚖️ **Derived Authority Metrics**
+
+```yaml
+derived_authority_metrics:
+  contextualization_rate:
+    measure: "Response contextualization rate"
+    calculation: "Contextualized_responses / Total_responses"
+    target: "100%"
+    required_context:
+      - organizational_scope: "Organizational scope explicit"
+      - authority_source: "Authority source identified"
+      - validity_boundaries: "Validity boundaries defined"
+
+  absolute_truth_avoidance:
+    measure: "Avoidance of absolute statements"
+    calculation: "1 - (Absolute_statements / Total_statements)"
+    target: "> 0.95"
+    prohibited_patterns:
+      - unqualified_statements: "Unqualified statements"
+      - absolute_recommendations: "Absolute recommendations"
+      - context_free_advice: "Context-free advice"
+
+  humility_integration:
+    measure: "Epistemological humility integration"
+    calculation: "Situations_with_limit_recognition / Uncertain_situations"
+    target: "> 0.80"
+    indicators:
+      - uncertainty_acknowledgment: "Uncertainty recognition"
+      - knowledge_boundary_explicit: "Explicit knowledge boundaries"
+      - escalation_recommendation: "Escalation recommendation when appropriate"
+```
+
+#### 📈 **Continuous Monitoring**
+
+```yaml
+continuous_monitoring:
+  measurement_frequency:
+    real_time: ["authority_compliance", "absolute_truth_avoidance"]
+    daily: ["clarity_score", "precision_score", "recall_score"]
+    weekly: ["traceability_completeness", "contextualization_rate"]
+    monthly: ["humility_integration", "overall_quality_assessment"]
+
+  quality_thresholds:
+    acceptable: "> 0.80"
+    good: "> 0.90"  
+    excellent: "> 0.95"
+    
+  improvement_triggers:
+    below_acceptable: "Immediate archetype review needed"
+    declining_trend: "Investigation of degradation causes"
+    user_feedback_negative: "Adjustment based on qualitative feedback"
+
+  reporting_dashboard:
+    stakeholders: ["domain_owners", "architects", "team_leads"]
+    frequency: "weekly_summary + real_time_alerts"
+    escalation_criteria: "2 consecutive metrics below acceptable"
+```
 
 ### Governance, Quality, and Framework Evolution
 
