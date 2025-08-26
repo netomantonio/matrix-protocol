@@ -101,6 +101,36 @@ These terms are used by multiple frameworks and have unified definitions:
 - **Used By**: ZOF (Oracle consultation/enrichment), OIF (knowledge processing), MOC (validation)
 - **Related Terms**: Knowledge Enrichment, Semantic Versioning, Oracle Layer
 
+### **Arbitration Outcome**
+- **Definition**: Result classification from MAL arbitration decisions: winner (specific UKI selected), coexist (multiple UKIs allowed), reject_all (no UKI accepted), defer (escalation required)
+- **Primary Framework**: MAL (Matrix Arbiter Layer)
+- **Used By**: OIF (explanation templates), ZOF (workflow decision), MEF (decision record persistence)
+- **Related Terms**: MAL Decision Record, Conflict Resolution, Precedence Policies
+
+### **Archetype Level**
+- **Definition**: Classification of OIF intelligence archetypes: canonical (immutable protocol core), specialized (organizational customization), ephemeral (ad-hoc temporary)
+- **Primary Framework**: OIF (Operator Intelligence Framework)
+- **Used By**: MOC (validation requirements), MEF (archetype metadata storage)
+- **Related Terms**: Canonical Prompt Preservation, Intelligence Archetypes, Organizational Customization
+
+### **Lifecycle Reference (lifecycle_ref)**
+- **Definition**: Field referencing MOC-defined lifecycle management policies for temporal governance of knowledge evolution and validation schedules
+- **Primary Framework**: MOC (Matrix Ontology Catalog)
+- **Used By**: MEF (UKI lifecycle metadata), ZOF (EvaluateForEnrich lifecycle validation), MAL (lifecycle-aware arbitration)
+- **Related Terms**: Knowledge Evolution, Temporal Governance, MOC Integration
+
+### **Ontology Evolution**
+- **Definition**: Systematic process where UKI promotion patterns provide feedback for taxonomic refinement via curatorial governance, never automatic updates
+- **Primary Framework**: MOC (evolution analysis and control)
+- **Used By**: MEF (promotion pattern detection), MAL (taxonomic conflict indicators)
+- **Related Terms**: Promotion Feedback, Curatorial Governance, Taxonomic Refinement
+
+### **Scope Mode Validation**
+- **Definition**: Multi-scope enrichment logic where 'any' requires one scope validation (OR logic) and 'all' requires every scope validation (AND logic)
+- **Primary Framework**: ZOF (Zion Orchestration Framework)
+- **Used By**: MOC (scope validation rules), OIF (cross-boundary explanation)
+- **Related Terms**: EvaluateForEnrich, Cross-boundary Enrichment, Authority Validation
+
 ---
 
 ## 3. Framework-Specific Terms
@@ -150,6 +180,11 @@ These terms are used by multiple frameworks and have unified definitions:
 - **Definition**: Intelligence archetype specialized in MEF knowledge comprehension, organization, and semantic relationships with MOC-based access control
 - **Capabilities**: semantic search, knowledge filtering, explanation generation, relationship mapping
 - **Related Terms**: Oracle Intelligence, Contextual Filtering, Pertinence Resolution
+
+#### **Canonical Prompt Preservation**
+- **Definition**: Immutable protection of canonical archetype prompts (KAG, WAG) preventing any organizational override or modification while enabling specialized archetype customization
+- **Implementation**: Archetype customization matrix with FORBIDDEN prompt modification for canonical level
+- **Related Terms**: Archetype Level, Protocol Integrity, Organizational Customization
 
 #### **Workflow Agent** 
 - **Definition**: Intelligence archetype specialized in ZOF conceptual flow orchestration and EvaluateForEnrich checkpoint execution
@@ -260,6 +295,11 @@ These terms are used by multiple frameworks and have unified definitions:
 - **Implementation**: Node-level governance rules, authority matrices, escalation paths
 - **Related Terms**: Authority Validation, Governance Rules, Escalation Paths
 
+#### **Policy Reference (policy_ref)**
+- **Definition**: Structured reference to named arbitration policies in MOC using namespace format "moc:arbitration:{policy_name}"
+- **Implementation**: MAL event field linking to specific precedence configurations in organizational MOC
+- **Related Terms**: Arbitration Policies, Named Policies, Precedence Configuration
+
 ### **MEP (Matrix Epistemic Principle)**
 
 #### **Epistemological Humility**
@@ -290,10 +330,13 @@ These terms are used by multiple frameworks and have unified definitions:
 |----------|---------------|-------------------|
 | Arbitration Event | MAL | MAL Terms |
 | Arbitration Explanation Template | OIF | MAL Terms |
+| Arbitration Outcome | MAL | Cross-Framework Terms |
+| Archetype Level | OIF | Cross-Framework Terms |
 | Authority Validation | MOC | Cross-Framework Terms |
 | Authority Validation Service | MOC | Cross-Framework Terms |
 | can_enrich() Function | ZOF | Framework-Specific Terms |
 | Canonical Events | ZOF | Framework-Specific Terms |
+| Canonical Prompt Preservation | OIF | Framework-Specific Terms |
 | Canonical States | ZOF | Cross-Framework Terms |
 | Concurrent Enrichment (H2) | MAL | MAL Terms |
 | Configurable Hierarchies | MOC | Framework-Specific Terms |
@@ -311,18 +354,22 @@ These terms are used by multiple frameworks and have unified definitions:
 | Knowledge Agent | OIF | Framework-Specific Terms |
 | Knowledge Enrichment | MEF | Cross-Framework Terms |
 | Knowledge Promotion | MEF | Framework-Specific Terms |
+| Lifecycle Reference | MOC | Cross-Framework Terms |
 | Maturity Reference | MEF | Framework-Specific Terms |
 | MOC Integration | MOC | Cross-Framework Terms |
 | MOC Nodes | MOC | Framework-Specific Terms |
 | Ontological Relationships | MEF | Cross-Framework Terms |
+| Ontology Evolution | MOC | Cross-Framework Terms |
 | Organizational Governance | MOC | Framework-Specific Terms |
 | Organizational MOC | MOC | Cross-Framework Terms |
+| Policy Reference | MOC | Framework-Specific Terms |
 | Precedence Applied | MAL | MAL Terms |
 | Promotion Contention (H3) | MAL | MAL Terms |
 | Promotion Rationale | MEF | Extended Framework Terms |
 | Responsible Promotion | MEP | Framework-Specific Terms |
 | Safe Default | MAL | MAL Terms |
 | Scope Mode | ZOF | Framework-Specific Terms |
+| Scope Mode Validation | ZOF | Cross-Framework Terms |
 | Scope Reference | MEF | Cross-Framework Terms |
 | Semantic Elasticity | MEP | Framework-Specific Terms |
 | Semantic Versioning | MEF | Framework-Specific Terms |

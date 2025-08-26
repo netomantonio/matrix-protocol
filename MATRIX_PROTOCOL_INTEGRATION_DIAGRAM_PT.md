@@ -45,6 +45,22 @@ Diferentemente da documentação individual de cada framework que foca em capaci
 - MEF estrutura a UKI resultante com metadados apropriados
 - OIF fornece feedback explicável aos usuários
 
+### Padrão 4: Validação de Enriquecimento Multi-escopo
+**Fluxo**: `Requisição Multi-escopo → Validação Modo Escopo ZOF → Verificação Autoridade MOC → Lógica Escopo ANY/ALL → Decisão Enriquecimento`
+- Requisição afeta múltiplos escopos organizacionais
+- ZOF aplica validação scope_mode (any vs all)
+- MOC valida autoridade para cada escopo afetado
+- Portas lógicas determinam aprovação baseada na configuração scope_mode
+- Enriquecimento prossegue apenas com validação de escopo suficiente
+
+### Padrão 5: Loop de Feedback Epistemológico MAL-MEF-MEP
+**Fluxo**: `Decisão Arbitragem MAL → Registro Decisão MEF → Validação Epistemológica MEP → Feedback Taxonômico → Evolução MOC`
+- MAL toma decisões de arbitragem com justificativa epistêmica
+- MEF persiste registros de decisão como artefatos de conhecimento permanentes
+- MEP valida conformidade e coerência epistemológica
+- Padrões de decisão informam propostas de evolução taxonômica
+- MOC analisa feedback para possíveis refinamentos ontológicos
+
 ---
 
 ## 3. Diagrama de Fluxo End-to-End

@@ -43,6 +43,22 @@ Unlike individual framework documentation that focuses on specific capabilities,
 - MEF structures the resulting UKI with proper metadata
 - OIF provides explainable feedback to users
 
+### Pattern 4: Multi-scope Enrichment Validation
+**Flow**: `Multi-scope Request → ZOF Scope Mode Validation → MOC Authority Check → Scope ANY/ALL Logic → Enrichment Decision`
+- Request affects multiple organizational scopes
+- ZOF applies scope_mode validation (any vs all)
+- MOC validates authority for each affected scope
+- Logic gates determine approval based on scope_mode configuration
+- Enrichment proceeds only with sufficient scope validation
+
+### Pattern 5: MAL-MEF-MEP Epistemological Feedback Loop
+**Flow**: `MAL Arbitration Decision → MEF Decision Record → MEP Epistemological Validation → Taxonomic Feedback → MOC Evolution`
+- MAL makes arbitration decisions with epistemic rationale
+- MEF persists decision records as permanent knowledge artifacts
+- MEP validates epistemological compliance and coherence
+- Decision patterns inform taxonomic evolution proposals
+- MOC analyzes feedback for potential ontology refinements
+
 ---
 
 ## 3. End-to-End Flow Diagram
@@ -172,6 +188,11 @@ graph TB
 | **MAL → OIF** | Outcome Communication | Arbitration Explanation | Explain arbitration outcomes using structured templates |
 | **MOC → MAL** | Policy Configuration | Precedence Rule Supply | Provide arbitration policies and authority hierarchies |
 | **MEP → MAL** | Epistemic Foundation | Rationale Generation | Guide epistemological justification in arbitration decisions |
+| **ZOF → MOC** | Multi-scope Validation | Scope Mode Configuration | Apply scope_mode validation for any/all enrichment logic |
+| **MOC → ZOF** | Lifecycle Management | Lifecycle Policy Supply | Provide lifecycle_ref policies for temporal governance |
+| **MAL → MEP** | Epistemic Feedback | Decision Pattern Analysis | Inform epistemological consistency through arbitration outcomes |
+| **MEF → MOC** | Ontology Evolution | Promotion Pattern Feedback | Provide promotion pattern data for taxonomic refinement |
+| **OIF → MEF** | Archetype Metadata | Archetype Level Validation | Validate archetype_level for canonical prompt preservation |
 
 ---
 
@@ -332,6 +353,65 @@ mef_decision_record:
       resolution: "authority_precedence"
   
   audit_trail: "Complete MAL arbitration recorded for future reference"
+```
+
+### **Example 2B: Multi-scope Enrichment with Scope Mode Validation**
+
+```yaml
+# Cross-organizational Security Guideline Creation
+user_request: "Create security guideline affecting multiple teams"
+affected_scopes: ["team-frontend", "team-backend", "team-devops"]
+
+# 1. ZOF Multi-scope Detection
+zof_scope_mode_evaluation:
+  detected_scopes: ["team-frontend", "team-backend", "team-devops"]
+  knowledge_type: "guideline" 
+  
+  # MOC Configuration Lookup
+  moc_scope_mode_determination:
+    explicit_config: "not_specified"
+    knowledge_type_based:
+      guideline_knowledge: "any"  # Guidelines can use ANY validation
+    applied_mode: "any"  # OR logic - one team validation sufficient
+    
+# 2. Multi-scope Authority Validation  
+moc_authority_validation:
+  validation_results:
+    team_frontend: 
+      user_authority: "tech_lead"
+      scope_authority_required: "tech_lead"
+      validation: "PASS"
+    team_backend:
+      user_authority: "tech_lead" 
+      scope_authority_required: "tech_lead"
+      validation: "PASS"
+    team_devops:
+      user_authority: "tech_lead"
+      scope_authority_required: "senior_engineer"  
+      validation: "FAIL - insufficient authority"
+
+# 3. Scope Mode Logic Application
+zof_scope_validation:
+  mode: "any"
+  logic: "OR operation across all affected scopes"
+  results:
+    team_frontend: "PASS"
+    team_backend: "PASS" 
+    team_devops: "FAIL"
+  
+  final_decision: "APPROVED - ANY mode satisfied by frontend AND backend"
+  rationale: "Guideline knowledge allows any-scope validation per MOC config"
+
+# 4. Enrichment Execution
+enrichment_result:
+  scope_coverage: ["team-frontend", "team-backend"]
+  scope_excluded: ["team-devops"]  # Due to authority failure
+  advisory_note: "DevOps team can adopt guideline but cannot enforce it"
+  
+  created_uki:
+    scope_ref: ["team-frontend", "team-backend"] 
+    lifecycle_ref: "quarterly_review"
+    authority_validation_record: "multi_scope_any_mode_approved"
 ```
 
 ### **Example 3: Authority Escalation Scenario**

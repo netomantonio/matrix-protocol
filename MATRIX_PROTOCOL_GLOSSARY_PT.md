@@ -103,6 +103,36 @@ Estes termos são utilizados por múltiplos frameworks e possuem definições un
 - **Usado Por**: ZOF (consulta/enriquecimento do Oráculo), OIF (processamento de conhecimento), MOC (validação)
 - **Termos Relacionados**: Enriquecimento de Conhecimento, Versionamento Semântico, Camada Oráculo
 
+### **Resultado de Arbitragem**
+- **Definição**: Classificação de resultado de decisões de arbitragem MAL: winner (UKI específico selecionado), coexist (múltiplos UKIs permitidos), reject_all (nenhum UKI aceito), defer (escalação requerida)
+- **Framework Primário**: MAL (Matrix Arbiter Layer)
+- **Usado Por**: OIF (templates de explicação), ZOF (decisão de workflow), MEF (persistência de registro de decisão)
+- **Termos Relacionados**: Registro de Decisão MAL, Resolução de Conflito, Políticas de Precedência
+
+### **Nível de Arquétipo**
+- **Definição**: Classificação de arquétipos de inteligência OIF: canonical (núcleo protocolo imutável), specialized (customização organizacional), ephemeral (temporário ad-hoc)
+- **Framework Primário**: OIF (Operator Intelligence Framework)
+- **Usado Por**: MOC (requisitos de validação), MEF (armazenamento de metadados de arquétipo)
+- **Termos Relacionados**: Preservação de Prompts Canônicos, Arquétipos de Inteligência, Customização Organizacional
+
+### **Referência de Ciclo de Vida (lifecycle_ref)**
+- **Definição**: Campo referenciando políticas de gestão de ciclo de vida definidas pelo MOC para governança temporal de evolução de conhecimento e cronogramas de validação
+- **Framework Primário**: MOC (Matrix Ontology Catalog)
+- **Usado Por**: MEF (metadados de ciclo de vida UKI), ZOF (validação de ciclo de vida EvaluateForEnrich), MAL (arbitragem consciente de ciclo de vida)
+- **Termos Relacionados**: Evolução de Conhecimento, Governança Temporal, Integração MOC
+
+### **Evolução Ontológica**
+- **Definição**: Processo sistemático onde padrões de promoção UKI fornecem feedback para refinamento taxonômico via governança curatorial, nunca atualizações automáticas
+- **Framework Primário**: MOC (análise e controle de evolução)
+- **Usado Por**: MEF (detecção de padrões de promoção), MAL (indicadores de conflito taxonômico)
+- **Termos Relacionados**: Feedback de Promoção, Governança Curatorial, Refinamento Taxonômico
+
+### **Validação de Modo de Escopo**
+- **Definição**: Lógica de enriquecimento multi-escopo onde 'any' requer uma validação de escopo (lógica OR) e 'all' requer validação de todos os escopos (lógica AND)
+- **Framework Primário**: ZOF (Zion Orchestration Framework)
+- **Usado Por**: MOC (regras de validação de escopo), OIF (explicação cross-boundary)
+- **Termos Relacionados**: EvaluateForEnrich, Enriquecimento Cross-boundary, Validação de Autoridade
+
 ---
 
 ## 3. Termos Específicos de Framework
@@ -152,6 +182,11 @@ Estes termos são utilizados por múltiplos frameworks e possuem definições un
 - **Definição**: Arquétipo de inteligência especializado em compreensão, organização e relacionamentos semânticos de conhecimento MEF com controle de acesso baseado no MOC
 - **Capacidades**: busca semântica, filtragem de conhecimento, geração de explicação, mapeamento de relacionamento
 - **Termos Relacionados**: Inteligência do Oráculo, Filtragem Contextual, Resolução de Pertinência
+
+#### **Preservação de Prompts Canônicos**
+- **Definição**: Proteção imutável de prompts de arquétipos canônicos (KAG, WAG) prevenindo qualquer override organizacional ou modificação enquanto permite customização de arquétipos especializados
+- **Implementação**: Matriz de customização de arquétipo com modificação de prompt PROIBIDA para nível canônico
+- **Termos Relacionados**: Nível de Arquétipo, Integridade do Protocolo, Customização Organizacional
 
 #### **Workflow Agent** 
 - **Definição**: Arquétipo de inteligência especializado em orquestração de fluxo conceitual ZOF e execução de checkpoint EvaluateForEnrich
@@ -261,6 +296,11 @@ Estes termos são utilizados por múltiplos frameworks e possuem definições un
 - **Definição**: Regras específicas para autoridade, visibilidade e propagação de conhecimento definidas por cada organização em seu MOC
 - **Implementação**: Regras de governança no nível de nó, matrizes de autoridade, caminhos de escalação
 - **Termos Relacionados**: Validação de Autoridade, Regras de Governança, Caminhos de Escalação
+
+#### **Referência de Política (policy_ref)**
+- **Definição**: Referência estruturada para políticas de arbitragem nomeadas no MOC usando formato de namespace "moc:arbitration:{policy_name}"
+- **Implementação**: Campo de evento MAL vinculando a configurações específicas de precedência no MOC organizacional
+- **Termos Relacionados**: Políticas de Arbitragem, Políticas Nomeadas, Configuração de Precedência
 
 ### **MEP (Matrix Epistemic Principle)**
 
