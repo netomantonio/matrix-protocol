@@ -12,7 +12,9 @@
       "Bash(do echo \"Fixing $file...\")",
       "Bash(do echo \"Processing remaining patterns in $file...\")",
       "Bash(do echo \"Processing more patterns in $file...\")",
-      "Bash(do sed -i 's/zwf-/zof-/g; s/ZWF/ZOF/g' \"$file\")"
+      "Bash(do sed -i 's/zwf-/zof-/g; s/ZWF/ZOF/g' \"$file\")",
+      "Bash(do echo \"=== Updating $file ===\")",
+      "Bash(do echo \"=== Cleaning $file ===\")"
     ],
     "deny": [],
     "ask": []

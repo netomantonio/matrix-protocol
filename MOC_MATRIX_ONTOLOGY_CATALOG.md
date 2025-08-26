@@ -1,283 +1,8 @@
-# 📊 MOC - MATRIX ONTOLOGY CATALOG
-
-> 🚨 **AVISO IMPORTANTE**: Este documento contém EXEMPLOS ILUSTRATIVOS (como `technical`, `business`, `draft`, etc.) que NÃO são taxonomias obrigatórias. Cada organização define suas próprias hierarquias conforme suas necessidades específicas. Exemplos servem apenas como referência conceitual.
-
-## 🌎 Idioma / Language
-
-- [Português 🇧🇷](#português)
-- [English 🇺🇸](#english)
-
----
-
-<a name="português"></a>
-# Português 🇧🇷
-
-> "A flexibilidade local preserva a coerência global."
-
----
-
-## 🌐 Visão Geral do MOC
-
-O **Matrix Ontology Catalog (MOC)** é o componente fundamental que permite ao Protocolo Matrix separar conceitos centrais universais de taxonomias e estruturas organizacionais específicas.
-
-O MOC define **hierarquias configuráveis** para qualquer conceito que dependa de estruturas organizacionais, mantendo consistência conceitual global enquanto permite adaptabilidade local total.
-
----
-
-## 📋 Princípios Fundamentais
-
-### 🔧 Separação Conceitual
-
-**Conceitos Centrais (Universais)**
-- Fixos e imutáveis em todas as implementações
-- Exemplos: escopo, domínio, maturidade, propagação, checkpoints de fluxo
-- Definidos pelo Protocolo Matrix
-
-**Taxonomias Locais (Configuráveis)**
-- Definidas pelo implementador no MOC
-- Exemplos: nomes específicos de escopos, estrutura de domínios, papéis organizacionais
-- Adaptáveis ao contexto organizacional
-
-### 🏗️ Hierarquias Semânticas Configuráveis
-
-Todo conceito hierárquico deve:
-- Ser definido conceitualmente pelo protocolo
-- Ter sua hierarquia concreta fornecida pelo MOC
-- Permitir reorganização sem quebrar MEF, ZOF ou OIF
-- Manter relacionamentos semânticos estáveis
-
----
-
-## 🗂️ Estrutura do MOC
-
-### Formato Base
-
-```yaml
-moc_version: "1.0"
-organization: "[Nome da Organização]"
-created_date: "[YYYY-MM-DD]"
-last_modified: "[YYYY-MM-DD]"
-version: "[MAJOR.MINOR.PATCH]"
-
-hierarchies:
-  scope:
-    metadata:
-      concept: "Alcance e visibilidade do conhecimento"
-      governance_rules: |
-        [Regras de governança para escopos]
-    nodes:
-      - id: "personal"
-        label: "Pessoal"
-        parent: null
-        level: 0
-        governance:
-          visibility: ["owner"]
-          propagation: "none"
-          authority_required: "self"
-      - id: "team"
-        label: "Equipe"
-        parent: "personal"
-        level: 1
-        governance:
-          visibility: ["team_members"]
-          propagation: "restricted"
-          authority_required: "team_lead"
-      - id: "organization"
-        label: "Organizacional"
-        parent: "team"
-        level: 2
-        governance:
-          visibility: ["all_members"]
-          propagation: "automatic"
-          authority_required: "architecture_committee"
-
-  domain:
-    metadata:
-      concept: "Área de conhecimento e especialização"
-      governance_rules: |
-        [Regras de classificação e propriedade por domínio]
-# 🚨 AVISO: EXEMPLOS NÃO SÃO TAXONOMIA OBRIGATÓRIA
-# Os nós mostrados abaixo (technical, business, etc.) são APENAS EXEMPLOS ILUSTRATIVOS.
-# 🏛️ Cada organização define seus próprios nós conforme sua realidade específica.
-    nodes:
-      - id: "technical"    # EXEMPLO - cada organização define seus domínios
-        label: "Técnico"
-        parent: null
-        level: 0
-        governance:
-          owners: ["engineering"]    # EXEMPLO - definir conforme estrutura organizacional
-          reviewers: ["tech_leads", "architects"]
-      - id: "business"    # EXEMPLO - cada organização define seus domínios
-        label: "Negócio"
-        parent: null
-        level: 0
-        governance:
-          owners: ["product_managers", "business_analysts"]
-          reviewers: ["stakeholders"]
-
-  maturity:
-    metadata:
-      concept: "Nível de validação e confiabilidade"
-      governance_rules: |
-        [Critérios para progressão entre níveis]
-    nodes:
-      - id: "draft"
-        label: "Rascunho"
-        parent: null
-        level: 0
-        governance:
-          auto_promotion: false
-          validation_required: false
-      - id: "review"
-        label: "Revisão"
-        parent: "draft"
-        level: 1
-        governance:
-          auto_promotion: false
-          validation_required: true
-          reviewers_required: 2
-      - id: "approved"
-        label: "Aprovado"
-        parent: "review"
-        level: 2
-        governance:
-          auto_promotion: false
-          validation_required: true
-          authority_required: "domain_owner"
-
-  evaluation_criteria:
-    metadata:
-      concept: "Critérios para checkpoint EvaluateForEnrich"
-      governance_rules: |
-        [Definição de quando conhecimento deve ser enriquecido]
-    nodes:
-      - id: "relevance"
-        label: "Relevância"
-        parent: null
-        level: 0
-        governance:
-          threshold: "medium"
-          evaluators: ["domain_experts"]
-      - id: "reusability"
-        label: "Reusabilidade"
-        parent: null
-        level: 0
-        governance:
-          threshold: "high"
-          evaluators: ["architects"]
-      - id: "impact"
-        label: "Impacto"
-        parent: null
-        level: 0
-        governance:
-          threshold: "medium"
-          evaluators: ["stakeholders"]
-
-governance:
-  version_control:
-    change_approval_required: true
-    change_authority: "architecture_committee"
-    impact_analysis_required: true
-  
-  audit_trail:
-    track_changes: true
-    change_notifications: ["all_users"]
-    validation_frequency_days: 90
-  
-  conflict_resolution:
-    escalation_path: ["team_lead", "architecture_committee", "cto"]
-    resolution_timeout_days: 14
-```
-
----
-
-## 🔄 Integração com Componentes Matrix
-
-### MEF Integration
-
-**Campos MOC no MEF:**
-```yaml
-scope_ref: "team"
-scope_mode: "restricted"  # ou "propagated"
-domain_ref: "technical"
-type_ref: "pattern"
-maturity_ref: "approved"
-```
-
-**Resolução Automática:**
-- Sistema consulta MOC para validar referências
-- Aplica regras de governança automaticamente
-- Propaga mudanças conforme configuração
-
-### ZOF Integration
-
-**Checkpoint EvaluateForEnrich:**
-```yaml
-flow_execution:
-  - state: "evaluate_for_enrich"
-    signals:
-      context: "Avaliando se conhecimento gerado deve enriquecer Oracle"
-      criteria_refs: ["relevance", "reusability", "impact"]
-      decision: "Baseado em critérios MOC específicos da organização"
-      result: "Aprovado para enriquecimento com escopo 'team'"
-```
-
-### OIF Integration
-
-**Controle de Acesso:**
-- Resolução de pertinência baseada em `scope_ref` do usuário
-- Filtragem automática por `domain_ref` e autoridade
-- Explicabilidade referenciando nós MOC específicos
-
----
-
-## 📚 Governança e Versionamento
-
-### Controle de Mudanças
-
-**Impacto de Alterações:**
-- **Adição de nós**: Impacto baixo, retrocompatível
-- **Modificação de hierarquia**: Impacto médio, validação necessária
-- **Remoção de nós**: Impacto alto, análise de dependências obrigatória
-
-**Processo de Atualização:**
-1. Proposta de mudança com análise de impacto
-2. Validação de UKIs dependentes
-3. Aprovação pela autoridade competente
-4. Versionamento e notificação
-5. Período de migração para dependentes
-
-### Auditabilidade
-
-**Rastros Obrigatórios:**
-- Histórico completo de versões MOC
-- Registro de quem aprovou cada mudança
-- Análise de impacto em UKIs existentes
-- Notificações automáticas para afetados
-
----
-
-## 🎯 Benefícios do MOC
-
-### Para Organizações
-- **Flexibilidade Total**: Adapt estruturas às necessidades específicas
-- **Governança Transparente**: Regras claras e auditáveis
-- **Evolução Orgânica**: Mudanças organizacionais não quebram o protocolo
-
-### Para o Protocolo Matrix
-- **Coerência Conceitual**: Conceitos universais mantidos
-- **Interoperabilidade**: Diferentes organizações podem compartilhar conhecimento
-- **Escalabilidade**: De equipes pequenas a grandes corporações
-
-### Para IA e Automação
-- **Contexto Rico**: IA entende hierarquias organizacionais específicas
-- **Decisões Inteligentes**: Automação baseada em regras de governança locais
-- **Explicabilidade**: Transparência total sobre decisões baseadas no MOC
-
----
-
-<a name="english"></a>
-# English 🇺🇸
+# MOC — Matrix Ontology Catalog
+**Acronym:** MOC  
+**Status:** Stable  
+**Version:** 1.0.0  
+**Date:** 2025-01-25  
 
 > 🚨 **IMPORTANT WARNING**: This document contains ILLUSTRATIVE EXAMPLES (such as `technical`, `business`, `draft`, etc.) that are NOT mandatory taxonomies. Each organization defines its own hierarchies according to their specific needs. Examples serve only as conceptual reference.
 
@@ -285,17 +10,31 @@ flow_execution:
 
 ---
 
-## 🌐 MOC Overview
+## 1. Introduction
 
 The **Matrix Ontology Catalog (MOC)** is the fundamental component that allows the Matrix Protocol to separate universal core concepts from organization-specific taxonomies and structures.
 
 MOC defines **configurable hierarchies** for any concept that depends on organizational structures, maintaining global conceptual consistency while enabling total local adaptability.
 
+MOC serves as the governance and configuration system that allows different organizations to adapt the Matrix Protocol to their specific structures without losing conceptual interoperability.
+
 ---
 
-## 📋 Fundamental Principles
+## 2. Terms and Definitions
 
-### 🔧 Conceptual Separation
+- **Core Concepts**: Universal fixed elements of the protocol (scope, domain, maturity)
+- **Local Taxonomies**: Organization-specific hierarchical structures defined by each organization
+- **Configurable Hierarchies**: Classification systems adaptable to organizational needs
+- **MOC Nodes**: Individual elements within a hierarchy (e.g., "team", "technical", "draft")
+- **Organizational Governance**: Specific rules for authority, visibility, and propagation
+
+Cross-reference to **organizational MOC** for specific ontological definitions.
+
+---
+
+## 3. Core Concepts
+
+### Fundamental Conceptual Separation
 
 **Core Concepts (Universal)**
 - Fixed and immutable across all implementations
@@ -307,21 +46,103 @@ MOC defines **configurable hierarchies** for any concept that depends on organiz
 - Examples: specific scope names, domain structure, organizational roles
 - Adaptable to organizational context
 
-### 🏗️ Configurable Semantic Hierarchies
+### Configurable Semantic Hierarchies
 
-Every hierarchical concept must:
+Every hierarchical concept MUST:
 - Be conceptually defined by the protocol
 - Have its concrete hierarchy provided by the MOC
 - Allow reorganization without breaking MEF, ZOF, or OIF
 - Maintain stable semantic relationships
 
+### Local Flexibility Principle
+MOC ensures that organization-specific structures do not conflict with the protocol's conceptual interoperability, enabling total adaptation while maintaining global coherence.
+
 ---
 
-## 🗂️ MOC Structure
+## 4. Normative Rules
 
-### Base Format
+> ⚠️ This section is **normative**.
 
+### Mandatory MOC Structure
+Every organizational MOC MUST contain:
+1. **Version metadata**: version, organization, creation/modification dates
+2. **Minimum hierarchies**: scope, domain, maturity, evaluation_criteria
+3. **Governance rules**: version control, audit, conflict resolution
+4. **Nodes with complete metadata**: id, label, parent, level, governance
+
+### Required Hierarchies
+- **scope**: MUST define knowledge reach and visibility
+- **domain**: MUST define knowledge areas and specialization  
+- **maturity**: MUST define validation and reliability levels
+- **evaluation_criteria**: MUST define criteria for EvaluateForEnrich checkpoint
+
+### Integrity Rules
+- Nodes MUST have unique identifiers within each hierarchy
+- Parent-child relationships MUST be consistent
+- Hierarchical levels MUST be sequential (0, 1, 2...)
+- Governance rules MUST be defined for all nodes
+
+### Change Control Rules
+- MOC alterations MUST be versioned
+- Impact on dependent UKIs MUST be analyzed
+- Approval by competent authority MUST be mandatory
+- Automatic notifications MUST be sent to affected parties
+
+### 🔐 Authority Validation Service (Normative)
+
+The **MOC (Matrix Ontology Catalog)** provides the canonical reference for **authority validation** in the Matrix Protocol.  
+This service does not execute orchestration or decision-making (ZOF, OIF roles), but defines the **rules and ontology** required to validate whether a user MAY perform a given operation.
+
+#### Service Interface
+- **Input parameters**:  
+  - `user_moc_context` (hierarchical claims: scope, domain, authority levels)  
+  - `operation` (read, enrich, promote, create, update, delete)  
+  - `scope_ref` (target knowledge scope)  
+  - `domain_ref` (target knowledge domain)  
+  - `type_ref` (target knowledge type: rule, procedure, policy, etc.)  
+  - `maturity_ref` (target knowledge maturity level)  
+
+- **Output**:  
+  - `authorized: true|false` (authorization result)  
+  - `required_authority` (node or level expected for authorization)  
+  - `escalation_hint` (possible higher authority node for delegation/override)  
+  - `moc_nodes_cited` (specific MOC nodes used in validation decision)
+
+#### Framework Integration Requirements
+- The **ZOF** MUST consume this service before enrichment (EvaluateForEnrich checkpoint)  
+- The **OIF** MUST explain validation decisions to users, citing relevant MOC nodes  
+- The **MEF** MUST validate UKI creation authority via this service before persisting knowledge
+
+---
+
+## 5. Interoperability
+
+MOC serves as the governance foundation that enables organizational customization across all frameworks:
+
+- **MEF (Matrix Embedding Framework)**: Validates all *_ref field references against MOC hierarchies; enforces organizational taxonomy constraints; provides governance rules for UKI creation and promotion workflows
+- **ZOF (Zion Orchestration Framework)**: Supplies evaluation criteria for EvaluateForEnrich checkpoint; validates user authority for enrichment operations; defines organizational workflow governance rules
+- **OIF (Operator Intelligence Framework)**: Provides hierarchical context for intelligence filtering; validates user authority for archetype operations; supplies escalation paths for authority requirements
+- **MEP (Matrix Epistemic Principle)**: Implements organizational context for derived authority; provides taxonomic foundation for epistemological stratification; enables local flexibility with global coherence
+
+See [Matrix Protocol Integration Diagram](MATRIX_PROTOCOL_INTEGRATION_DIAGRAM.md) for MOC validation and governance flows.
+
+---
+
+## 6. Conventions and Examples
+
+All examples in this document are **illustrative only** and do not define normative behavior.  
+Normative semantics (scopes, governance, archetypes, enrich criteria) are always derived from the **MOC (Matrix Ontology Catalog)** of each organization.  
+Examples are provided for clarity and MAY be adapted to local contexts, but MUST NOT be treated as protocol-level obligations.
+
+---
+
+## 7. Illustrative Examples (Appendix)
+
+> **Example (Informative, MOC-dependent)**
+
+### **Base MOC Structure**
 ```yaml
+# --- Illustrative Example ---
 moc_version: "1.0"
 organization: "[Organization Name]"
 created_date: "[YYYY-MM-DD]"
@@ -335,7 +156,7 @@ hierarchies:
       governance_rules: |
         [Governance rules for scopes]
     nodes:
-      - id: "personal"
+      - id: "personal"    # EXAMPLE - each org defines their scopes
         label: "Personal"
         parent: null
         level: 0
@@ -343,7 +164,7 @@ hierarchies:
           visibility: ["owner"]
           propagation: "none"
           authority_required: "self"
-      - id: "team"
+      - id: "team"        # EXAMPLE - each org defines their scopes
         label: "Team"
         parent: "personal"
         level: 1
@@ -351,7 +172,7 @@ hierarchies:
           visibility: ["team_members"]
           propagation: "restricted"
           authority_required: "team_lead"
-      - id: "organization"
+      - id: "organization" # EXAMPLE - each org defines their scopes
         label: "Organization"
         parent: "team"
         level: 2
@@ -366,14 +187,14 @@ hierarchies:
       governance_rules: |
         [Domain classification and ownership rules]
     nodes:
-      - id: "technical"
+      - id: "technical"    # EXAMPLE - each org defines their domains
         label: "Technical"
         parent: null
         level: 0
         governance:
           owners: ["engineering"]
           reviewers: ["tech_leads", "architects"]
-      - id: "business"
+      - id: "business"     # EXAMPLE - each org defines their domains
         label: "Business"
         parent: null
         level: 0
@@ -387,14 +208,14 @@ hierarchies:
       governance_rules: |
         [Criteria for progression between levels]
     nodes:
-      - id: "draft"
+      - id: "draft"        # EXAMPLE - each org defines their maturity levels
         label: "Draft"
         parent: null
         level: 0
         governance:
           auto_promotion: false
           validation_required: false
-      - id: "review"
+      - id: "review"       # EXAMPLE - each org defines their maturity levels
         label: "Review"
         parent: "draft"
         level: 1
@@ -402,7 +223,7 @@ hierarchies:
           auto_promotion: false
           validation_required: true
           reviewers_required: 2
-      - id: "approved"
+      - id: "approved"     # EXAMPLE - each org defines their maturity levels
         label: "Approved"
         parent: "review"
         level: 2
@@ -417,27 +238,20 @@ hierarchies:
       governance_rules: |
         [Definition of when knowledge should be enriched]
     nodes:
-      - id: "relevance"
+      - id: "relevance"    # EXAMPLE - each org defines their criteria
         label: "Relevance"
         parent: null
         level: 0
         governance:
           threshold: "medium"
           evaluators: ["domain_experts"]
-      - id: "reusability"
+      - id: "reusability"  # EXAMPLE - each org defines their criteria
         label: "Reusability"
         parent: null
         level: 0
         governance:
           threshold: "high"
           evaluators: ["architects"]
-      - id: "impact"
-        label: "Impact"
-        parent: null
-        level: 0
-        governance:
-          threshold: "medium"
-          evaluators: ["stakeholders"]
 
 governance:
   version_control:
@@ -455,89 +269,82 @@ governance:
     resolution_timeout_days: 14
 ```
 
----
-
-## 🔄 Matrix Components Integration
-
-### MEF Integration
-
-**MOC Fields in MEF:**
+### **MEF Integration**
 ```yaml
-scope_ref: "team"
-scope_mode: "restricted"  # or "propagated"
-domain_ref: "technical"
-type_ref: "pattern"
-maturity_ref: "approved"
+# --- Illustrative Example ---
+# MOC Fields in MEF:
+scope_ref: "team"           # Reference to MOC node
+scope_mode: "restricted"    # or "propagated"
+domain_ref: "technical"     # Reference to MOC node
+type_ref: "pattern"         # Reference to MOC node
+maturity_ref: "approved"    # Reference to MOC node
+
+# Automatic Resolution:
+# - System consults MOC to validate references
+# - Applies governance rules automatically
+# - Propagates changes according to configuration
 ```
 
-**Automatic Resolution:**
-- System consults MOC to validate references
-- Applies governance rules automatically
-- Propagates changes according to configuration
-
-### ZOF Integration
-
-**EvaluateForEnrich Checkpoint:**
+### **ZOF Integration**
 ```yaml
+# --- Illustrative Example ---
+# EvaluateForEnrich Checkpoint:
 flow_execution:
   - state: "evaluate_for_enrich"
     signals:
       context: "Evaluating if generated knowledge should enrich Oracle"
-      criteria_refs: ["relevance", "reusability", "impact"]
+      criteria_refs: ["relevance", "reusability", "impact"]  # MOC references
       decision: "Based on organization-specific MOC criteria"
       result: "Approved for enrichment with 'team' scope"
 ```
 
-### OIF Integration
+### **OIF Integration**
+```yaml
+# --- Illustrative Example ---
+# Access Control:
+user_context:
+  scope_level: "team" 
+  domain_access: ["technical", "business"]
+  
+access_control:
+  uki_filtering: "based on user's scope_ref and domain_ref"
+  explanation_refs: "references specific MOC nodes in justifications"
+```
 
-**Access Control:**
-- Pertinence resolution based on user's `scope_ref`
-- Automatic filtering by `domain_ref` and authority
-- Explainability referencing specific MOC nodes
+### **Change Control Process**
+```yaml
+# --- Illustrative Example ---
+change_process:
+  impact_analysis:
+    - node_addition: "Low impact, backward compatible"
+    - hierarchy_modification: "Medium impact, validation required"
+    - node_removal: "High impact, mandatory dependency analysis"
+  
+  update_process:
+    1: "Change proposal with impact analysis"
+    2: "Dependent UKI validation"
+    3: "Approval by competent authority"
+    4: "Versioning and notification"
+    5: "Migration period for dependents"
+```
 
----
-
-## 📚 Governance and Versioning
-
-### Change Control
-
-**Change Impact:**
-- **Node addition**: Low impact, backward compatible
-- **Hierarchy modification**: Medium impact, validation required
-- **Node removal**: High impact, mandatory dependency analysis
-
-**Update Process:**
-1. Change proposal with impact analysis
-2. Dependent UKI validation
-3. Approval by competent authority
-4. Versioning and notification
-5. Migration period for dependents
-
-### Auditability
-
-**Mandatory Trails:**
-- Complete MOC version history
-- Record of who approved each change
-- Impact analysis on existing UKIs
-- Automatic notifications to affected parties
-
----
-
-## 🎯 MOC Benefits
-
-### For Organizations
-- **Total Flexibility**: Adapt structures to specific needs
-- **Transparent Governance**: Clear and auditable rules
-- **Organic Evolution**: Organizational changes don't break the protocol
-
-### For Matrix Protocol
-- **Conceptual Coherence**: Universal concepts maintained
-- **Interoperability**: Different organizations can share knowledge
-- **Scalability**: From small teams to large corporations
-
-### For AI and Automation
-- **Rich Context**: AI understands specific organizational hierarchies
-- **Intelligent Decisions**: Automation based on local governance rules
-- **Explainability**: Complete transparency about MOC-based decisions
+**Benefits Examples:**
+- *Total Flexibility*: Adapt structures to specific organizational needs
+- *Transparent Governance*: Clear and auditable rules for changes
+- *Organic Evolution*: Organizational changes don't break the protocol
+- *Interoperability*: Different organizations can share knowledge
+- *Rich AI Context*: AI understands specific organizational hierarchies
 
 ---
+
+## 8. Cross-References
+
+- [Matrix Protocol — Main Specification](MATRIX_PROTOCOL.md)  
+- [Matrix Protocol Integration Diagram](MATRIX_PROTOCOL_INTEGRATION_DIAGRAM.md)  
+- [Matrix Protocol Glossary](MATRIX_PROTOCOL_GLOSSARY.md)  
+- [Matrix Protocol Integration Diagram — Portuguese](MATRIX_PROTOCOL_INTEGRATION_DIAGRAM_PT.md)  
+- [Matrix Protocol Glossary — Portuguese](MATRIX_PROTOCOL_GLOSSARY_PT.md)  
+- [MEF — Matrix Embedding Framework](MEF_MATRIX_EMBEDDING_FRAMEWORK.md)  
+- [ZOF — Zion Orchestration Framework](ZOF_ZION_ORCHESTRATION_FRAMEWORK.md)  
+- [OIF — Operator Intelligence Framework](OIF_OPERATOR_INTELLIGENCE_FRAMEWORK.md)  
+- [MEP — Matrix Epistemic Principle](MEP_MATRIX_EPISTEMIC_PRINCIPLE.md)  

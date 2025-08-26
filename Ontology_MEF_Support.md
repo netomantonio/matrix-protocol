@@ -1,338 +1,402 @@
-# 📚 ONTOLOGIA AUXILIAR DE SUPORTE AO MEF | MEF AUXILIARY SUPPORT ONTOLOGY
+# MEF Support Ontology — Matrix Embedding Framework Support Ontology
+**Acronym:** MEF Support Ontology  
+**Status:** Stable  
+**Version:** 1.0.0  
+**Date:** 2025-01-25  
 
-## 🌎 Idioma / Language
-
-- [Português 🇧🇷](#português)
-- [English 🇺🇸](#english)
-
----
-
-<a name="português"></a>
-# Português 🇧🇷
-
-> Ontologia Auxiliar de Suporte ao MEF (Matrix Embedding Framework)
-
-**Versão:** 1.0
-**Status:** Ativo
-**Finalidade:** Definir os vocabulários controlados que devem ser utilizados na estrutura das UKIs, garantindo consistência semântica, interoperabilidade e validação automática em todas as instâncias do protocolo Matrix.
+> 🚨 **IMPORTANT WARNING**: This document contains **ILLUSTRATIVE EXAMPLES ONLY** (such as `technical`, `business`, `draft`, etc.) that are NOT mandatory taxonomies. The **MOC (Matrix Ontology Catalog)** is the only definitive source for organizational taxonomies.
 
 ---
 
-## 🔖 1. Domínios (`domain_of_influence` e `id`)
+## 1. Introduction
 
-**Vocabulário de referência (não exaustivo)** de domínios semânticos que representam áreas comuns de influência conceitual:
+The **MEF Support Ontology** defines reference controlled vocabularies that can be used in UKI structures, serving as a starter set for organizations implementing the Matrix Embedding Framework.
 
-**🚨 Importante**: Esta é uma **lista de starter set/referência**, não taxonomia fechada. Organizações podem:
-- Usar estes domínios como base
-- Adicionar domínios específicos de sua realidade
-- Modificar ou remover conforme necessidade
-- Definir hierarquias próprias no MOC
+This document provides illustrative examples of domains, types, relationships, and other structural elements that organizations can use as a starting point when configuring their own organizational MOC.
 
-**🏛️ MOC é a fonte definitiva**: Domínios ativos são aqueles definidos no Matrix Ontology Catalog organizacional.
+It is important to emphasize that these are **reference examples**, not mandatory taxonomies.
 
+---
+
+## 2. Terms and Definitions
+
+- **Controlled Vocabularies**: Standardized term sets to ensure consistency
+- **Starter Set**: Initial example set to facilitate implementation
+- **Reference Domains**: Examples of organizational knowledge areas
+- **UKI Types**: Structural categories of knowledge units
+- **Ontological Relationships**: Semantic connections between UKIs
+- **Severity Levels**: Impact classifications for changes
+- **Lifecycle States**: Status progression of knowledge units
+
+Cross-reference to **organizational MOC** for specific validated taxonomies.
+
+---
+
+## 3. Core Concepts
+
+### Principle of Organizational Flexibility
+All elements in this document are **configurable suggestions**:
+- Organizations can use as foundation
+- Can add specific elements
+- Can modify or remove as needed
+- Must define their own hierarchies in MOC
+
+### Separation of Reference vs Implementation
+- **This Document**: Illustrative examples and guidance
+- **Organizational MOC**: Specific authoritative definitions
+- **Implementations**: Must consult MOC, not this document
+
+### Vocabulary Categories
+This ontology covers five main categories:
+- **Reference Domains**: Example knowledge areas
+- **UKI Types**: Structural knowledge categories
+- **Relationship Types**: Semantic connection types
+- **Severity Levels**: Impact classification system
+- **Lifecycle States**: Knowledge unit status progression
+
+---
+
+## 4. Normative Rules
+
+> ⚠️ This section is **normative**.
+
+### Reference Vocabulary Usage
+- Organizations MAY use examples in this document as starting point
+- Organizations MUST define their specific vocabularies in organizational MOC
+- Systems MUST validate UKI fields against organizational MOC, not this document
+- Implementations MUST treat this document as illustrative reference only
+
+### Controlled Extensibility
+- Vocabularies MAY be extended through organizational MOC
+- Semantic validation MUST be centralized in MOC
+- Changes MUST follow defined organizational governance process
+
+### Validation Requirements
+- Automated systems MUST validate UKI fields based on MOC-defined vocabularies
+- All UKI field values MUST reference valid nodes in organizational MOC
+- Cross-references between UKIs MUST be validated against MOC relationship rules
+
+---
+
+## 5. Interoperability
+
+- **MEF (Matrix Embedding Framework)**: Uses vocabularies defined in organizational MOC
+- **MOC (Matrix Ontology Catalog)**: Authoritative source for all organizational vocabularies
+- **ZOF (Zion Orchestration Framework)**: Consults vocabularies during EvaluateForEnrich checkpoint
+- **OIF (Operator Intelligence Framework)**: Applies vocabularies in filtering and explanations
+
+---
+
+## 6. Conventions and Examples
+
+All examples in this document are **illustrative only** and do not define normative behavior.  
+Normative semantics (scopes, governance, archetypes, enrich criteria) are always derived from the **MOC (Matrix Ontology Catalog)** of each organization.  
+Examples are provided for clarity and MAY be adapted to local contexts, but MUST NOT be treated as protocol-level obligations.
+
+---
+
+## 7. Illustrative Examples (Appendix)
+
+> **Example (Informative, MOC-dependent)**
+
+### **Reference Domains**
 ```yaml
-domains:
-  - strategy
-  - operations
-  - ethics
-  - finance
-  - security
-  - governance
-  - communication
-  - automation
-  - intelligence
+# --- Illustrative Examples ---
+reference_domains:
+  strategy:
+    description: "High-level decisions, strategic planning"
+    area_of_influence: "Organizational direction, long-term objectives"
+    
+  operations:
+    description: "Operational processes, execution and procedures"
+    area_of_influence: "Workflows, task execution"
+    
+  security:
+    description: "Security, protection and risk management"
+    area_of_influence: "Access controls, vulnerability management"
+    
+  governance:
+    description: "Governance, control and oversight"
+    area_of_influence: "Control structures, organizational oversight"
+    
+  communication:
+    description: "Communication, collaboration and relationships"
+    area_of_influence: "Communication protocols, information flows"
+
+# Your organization can use completely different terms:
+alternative_domain_examples:
+  innovation: "Innovation processes and research"
+  quality: "Quality management and continuous improvement"
+  sustainability: "Sustainable practices and environmental responsibility"
+  customer_experience: "Customer experience management"
+  data_governance: "Data management and governance"
 ```
 
-**📋 Exemplos de Domínios (APENAS PARA REFERÊNCIA):**
-
-> ⚠️ **IMPORTANTE**: A tabela abaixo contém **APENAS EXEMPLOS ILUSTRATIVOS**. Estes **NÃO SÃO valores obrigatórios** nem taxonomia fechada. Cada organização define seus próprios domínios no MOC.
-
-| Exemplo de Domínio | Descrição Ilustrativa | Possível Área de Influência |
-|---------|-----------|-------------------|
-| `strategy` | Decisões de alto nível, planejamento estratégico | Direcionamento organizacional, objetivos de longo prazo |
-| `operations` | Processos operacionais, execução e procedimentos | Fluxos de trabalho, execução de tarefas |
-| `ethics` | Considerações éticas, compliance e responsabilidade | Conformidade regulatória, responsabilidade social |
-| `finance` | Aspectos financeiros, orçamentários e econômicos | ROI, custos, decisões de investimento |
-| `security` | Segurança, proteção e gerenciamento de riscos | Controles de acesso, gestão de vulnerabilidades |
-
-**🔄 Sua organização pode usar**: termos completamente diferentes como `inovação`, `qualidade`, `sustentabilidade`, `experiência-cliente`, ou qualquer hierarquia específica de seu contexto.
-| `governance` | Governança, controle e supervisão | Estruturas de controle, supervisão organizacional |
-| `communication` | Comunicação, colaboração e relacionamentos | Protocolos de comunicação, fluxos informativos |
-| `automation` | Automação, eficiência e otimização de processos | Processos automatizados, eficiência operacional |
-| `intelligence` | Inteligência, análise e tomada de decisão | Insights estratégicos, suporte à decisão |
-
----
-
-## 🧩 2. Tipos de UKIs (`type` e `id`)
-
-Tipos formais de unidades de conhecimento (UKIs), utilizados tanto para identificação quanto para estruturação de inferência e visualização:
-
+### **UKI Type References**
 ```yaml
-types:
-  - concept       # definição ou modelo teórico
-  - rule          # regra operacional ou normativa
-  - metric        # indicador quantitativo
-  - policy        # diretriz institucional ou adaptativa
-  - procedure     # sequência operacional
-  - glossary      # definição de termos ou padrões
-  - constraint    # limitação formal aplicada
+# --- Illustrative Examples ---
+reference_types:
+  pattern:
+    description: "Reusable solution to common problem"
+    typical_content: "Implementation approaches, architectural solutions"
+    
+  rule:
+    description: "Business logic or constraint"
+    typical_content: "Validation logic, business constraints"
+    
+  guideline:
+    description: "Best practice recommendation"
+    typical_content: "Recommended approaches, standards"
+    
+  template:
+    description: "Structured format for specific use"
+    typical_content: "Document templates, code scaffolding"
+    
+  constraint:
+    description: "Limitation or requirement"
+    typical_content: "System limitations, regulatory requirements"
+    
+  decision:
+    description: "Strategic or tactical choice made"
+    typical_content: "Architecture decisions, policy choices"
+    
+  example:
+    description: "Concrete implementation instance"
+    typical_content: "Code examples, implementation samples"
+
+# Your organization can use specific categories:
+alternative_type_examples:
+  procedure: "Standardized operational sequence"
+  policy: "Institutional organizational directive"
+  metric: "Quantitative performance indicator"
+  concept: "Definition or theoretical model"
 ```
 
-**📋 Exemplos de Tipos (APENAS PARA REFERÊNCIA):**
-
-> ⚠️ **IMPORTANTE**: A tabela abaixo contém **APENAS EXEMPLOS ILUSTRATIVOS**. Estes **NÃO SÃO valores obrigatórios** nem taxonomia fechada. Cada organização define seus próprios tipos no MOC.
-
-| Exemplo de Tipo | Descrição Ilustrativa | Possível Uso |
-|------|-----------|---------------|
-| `concept` | Definição ou modelo teórico | Conceituação, estruturas de pensamento |
-| `rule` | Regra operacional ou normativa | Validação, lógica de decisão, normas |
-| `metric` | Indicador quantitativo | Medição, avaliação, monitoramento |
-| `policy` | Diretriz institucional ou adaptativa | Orientação organizacional, políticas |
-| `procedure` | Sequência operacional | Processos, fluxos de trabalho, execução |
-| `glossary` | Definição de termos ou padrões | Padronização terminológica, referências |
-| `constraint` | Limitação formal aplicada | Restrições, limitações, controles |
-
-**🔄 Sua organização pode usar**: tipos completamente diferentes como `template`, `standard`, `guideline`, `decision`, `pattern`, ou qualquer categoria específica de seu contexto.
-
----
-
-## 🔗 3. Tipos de Relacionamentos (`relationships.type`)
-
-Relações formais entre UKIs, utilizadas para inferência semântica, navegação em grafos e validação de coerência:
-
+### **Ontological Relationships**
 ```yaml
+# --- Illustrative Examples ---
 relationship_types:
-  - depends_on       # depende semanticamente de outra UKI
-  - overrides        # substitui ou anula o conteúdo de outra UKI
-  - conflicts_with   # contradiz propositalmente outra UKI
-  - complements      # expande ou detalha outra UKI
-  - amends           # corrige ou atualiza parcialmente
-  - precedes         # estabelece ordem ou prioridade
-  - equivalent_to    # representa equivalência semântica
+  depends_on:
+    description: "Semantically depends on another UKI"
+    usage: "Structural dependencies, prerequisites"
+    validation: "Target UKI must exist and be active"
+    
+  overrides:
+    description: "Replaces or nullifies content of another UKI"
+    usage: "Direct replacements, deprecation patterns"
+    validation: "Target UKI should be marked as deprecated"
+    
+  conflicts_with:
+    description: "Intentionally contradicts another UKI"
+    usage: "Intentional incompatibilities, alternative approaches"
+    validation: "Both UKIs cannot be active simultaneously in same scope"
+    
+  complements:
+    description: "Expands or details another UKI"
+    usage: "Collaborative extensions, additional details"
+    validation: "Target UKI must be compatible and active"
+    
+  amends:
+    description: "Corrects or partially updates"
+    usage: "Corrections, incremental improvements"
+    validation: "Target UKI version must be tracked"
+    
+  precedes:
+    description: "Establishes order or priority"
+    usage: "Sequences, implementation order"
+    validation: "Circular dependencies must be prevented"
+    
+  equivalent_to:
+    description: "Represents semantic equivalence"
+    usage: "Equivalences, alternative representations"
+    validation: "Semantic consistency must be maintained"
+
+relationship_usage_examples:
+  technical_dependency:
+    source: "uki:technical:pattern:jwt-authentication"
+    target: "uki:technical:constraint:security-requirements"
+    type: "depends_on"
+    description: "JWT implementation must follow security requirements"
+    
+  policy_override:
+    source: "uki:business:policy:remote-work-2024"
+    target: "uki:business:policy:office-mandatory-2019"
+    type: "overrides"
+    description: "New remote work policy replaces office-mandatory policy"
+    
+  architectural_conflict:
+    source: "uki:technical:pattern:microservices-architecture"
+    target: "uki:technical:pattern:monolithic-architecture"
+    type: "conflicts_with"
+    description: "Cannot implement both patterns simultaneously"
 ```
 
-**Descrições dos Relacionamentos:**
-
-| Tipo | Descrição | Uso Principal |
-|------|-----------|---------------|
-| `depends_on` | Depende semanticamente de outra UKI | Dependências estruturais |
-| `overrides` | Substitui ou anula o conteúdo de outra UKI | Substituições diretas |
-| `conflicts_with` | Contradiz propositalmente outra UKI | Incompatibilidades intencionais |
-| `complements` | Expande ou detalha outra UKI | Extensões colaborativas |
-| `amends` | Corrige ou atualiza parcialmente | Correções e ajustes |
-| `precedes` | Estabelece ordem ou prioridade | Sequências e hierarquias |
-| `equivalent_to` | Representa equivalência semântica | Equivalências e sinônimos |
-
----
-
-## 📉 4. Níveis de Severidade de Impacto (`impact_analysis.severity`)
-
+### **Severity Levels**
 ```yaml
-severity_levels:
-  - low
-  - medium
-  - high
-  - critical
+# --- Illustrative Examples ---
+severity_classification:
+  low:
+    description: "Minor impact, informational or enhancement suggestions"
+    business_impact: "Minimal disruption to operations"
+    technical_impact: "Non-critical system changes"
+    examples:
+      - "Documentation improvements"
+      - "UI/UX enhancements"
+      - "Performance optimizations"
+    
+  medium:
+    description: "Moderate impact, affects specific functionality or processes"
+    business_impact: "Localized impact on specific workflows"
+    technical_impact: "Non-critical API changes"
+    examples:
+      - "Feature modifications"
+      - "Process workflow updates"
+      - "Integration adjustments"
+    
+  high:
+    description: "Significant impact, affects core functionality or operations"
+    business_impact: "Substantial impact on business operations"
+    technical_impact: "Critical system functionality changes"
+    examples:
+      - "Core API modifications"
+      - "Database schema changes"
+      - "Security model updates"
+    
+  critical:
+    description: "Critical impact, system failure or major disruption"
+    business_impact: "Severe disruption to business operations"
+    technical_impact: "System failure or major architecture changes"
+    examples:
+      - "Breaking API changes"
+      - "Security vulnerabilities"
+      - "Data migration requirements"
+
+impact_assessment_matrix:
+  technical_factors:
+    - "API compatibility"
+    - "Database schema impact"
+    - "Integration dependencies"
+    - "Performance implications"
+    
+  business_factors:
+    - "User experience impact"
+    - "Operational workflow changes"
+    - "Compliance requirements"
+    - "Revenue implications"
 ```
 
-**Descrições dos Níveis:**
-
-| Nível | Descrição | Impacto |
-|-------|-----------|---------|
-| `low` | Impacto menor, informacional ou sugestões de melhoria | Impacto mínimo nos negócios ou técnico |
-| `medium` | Impacto moderado, afeta funcionalidades ou processos específicos | Impacto localizado na funcionalidade ou experiência |
-| `high` | Impacto significativo, afeta funcionalidades centrais ou operações | Impacto substancial na funcionalidade do sistema |
-| `critical` | Impacto crítico, falha do sistema ou grande disrupção | Impacto severo causando falha ou disrupção major |
-
----
-
-## ⏳ 5. Ciclo de Vida (`status`)
-
+### **Lifecycle Management**
 ```yaml
-status_values:
-  - active
-  - deprecated
-  - archived
+# --- Illustrative Examples ---
+lifecycle_states:
+  active:
+    description: "UKI active and in normal use"
+    usage: "Current and valid knowledge"
+    allowed_operations:
+      - "can be referenced by other UKIs"
+      - "can be updated with version control"
+      - "visible in search and discovery"
+    
+  deprecated:
+    description: "UKI discontinued but still referenced"
+    usage: "Obsolete knowledge, avoid use"
+    allowed_operations:
+      - "read-only access for existing references"
+      - "replacement UKI should be identified"
+      - "migration path should be provided"
+    
+  archived:
+    description: "UKI archived for historical reference"
+    usage: "Historical preservation, do not use"
+    allowed_operations:
+      - "read-only historical access"
+      - "cannot be referenced in new UKIs"
+      - "metadata preserved for auditing"
+
+lifecycle_transition_rules:
+  active_to_deprecated:
+    trigger: "Better alternative available or requirements changed"
+    requirements:
+      - "Replacement UKI must be identified"
+      - "Migration plan must be documented"
+      - "Dependent UKIs must be notified"
+    
+  deprecated_to_archived:
+    trigger: "No active references remain"
+    requirements:
+      - "All dependent UKIs updated or archived"
+      - "Historical value assessment completed"
+      - "Archival metadata preserved"
+    
+  any_to_active:
+    trigger: "Knowledge becomes relevant again"
+    requirements:
+      - "Content review and validation required"
+      - "Version increment necessary"
+      - "Stakeholder approval needed"
 ```
 
-**Descrições dos Status:**
-
-| Status | Descrição | Uso |
-|--------|-----------|-----|
-| `active` | UKI ativa e em uso normal | Conhecimento atual e válido |
-| `deprecated` | UKI descontinuada mas ainda referenciada | Conhecimento obsoleto, evitar uso |
-| `archived` | UKI arquivada para consulta histórica | Preservação histórica, não usar |
-
----
-
-## 📌 Observações Finais
-
-* **Aplicação Obrigatória**: Todos os valores aqui definidos devem ser aplicados exatamente como descritos.
-* **Extensibilidade Controlada**: Este vocabulário pode ser estendido, mas somente com validação semântica centralizada.
-* **Validação Automatizada**: Sistemas automatizados devem validar os campos das UKIs com base nestes conjuntos controlados.
-* **Integração Normativa**: Este documento integra a base normativa do Protocolo Matrix e deve acompanhar qualquer implementação ou revisão futura do MEF.
-
----
-# English 🇺🇸
-
-> MEF Auxiliary Support Ontology (Matrix Embedding Framework)
-
-**Version:** 1.0
-**Status:** Active
-**Purpose:** Define the controlled vocabularies that must be used in UKI structures, ensuring semantic consistency, interoperability, and automatic validation across all Matrix protocol instances.
-
----
-
-## 🔖 1. Domains (`domain_of_influence` and `id`)
-
-**Reference vocabulary (non-exhaustive)** of semantic domains representing common areas of conceptual influence:
-
-**🚨 Important**: This is a **starter set/reference list**, not a closed taxonomy. Organizations can:
-- Use these domains as a foundation
-- Add specific domains from their reality
-- Modify or remove as needed
-- Define their own hierarchies in MOC
-
-**🏛️ MOC is the definitive source**: Active domains are those defined in the organizational Matrix Ontology Catalog.
-
+### **Organizational Customization Guide**
 ```yaml
-domains:
-  - strategy
-  - operations
-  - ethics
-  - finance
-  - security
-  - governance
-  - communication
-  - automation
-  - intelligence
+# --- Implementation Guide ---
+customization_methodology:
+  step_1_domain_analysis:
+    actions:
+      - "Analyze your organization's knowledge domains"
+      - "Identify unique knowledge types in your context"
+      - "Map important relationships for your business"
+    deliverables:
+      - "Domain taxonomy specific to organization"
+      - "Knowledge type classification system"
+      - "Relationship mapping for business context"
+    
+  step_2_moc_configuration:
+    actions:
+      - "Define hierarchies in organizational MOC"
+      - "Establish specific governance rules"
+      - "Configure appropriate evaluation criteria"
+    deliverables:
+      - "Organizational MOC specification"
+      - "Governance policy documentation"
+      - "Validation rule configuration"
+    
+  step_3_implementation:
+    actions:
+      - "Configure automated validation based on MOC"
+      - "Establish vocabulary evolution process"
+      - "Implement consistency monitoring"
+    deliverables:
+      - "Automated validation system"
+      - "Change management process"
+      - "Quality monitoring dashboard"
+
+industry_specific_examples:
+  fintech_organization:
+    domains: ["payments", "lending", "compliance", "fraud_detection", "customer_onboarding"]
+    types: ["regulation", "risk_assessment", "financial_product", "security_control"]
+    special_relationships: ["regulatory_compliance", "risk_mitigation"]
+    
+  healthcare_organization:
+    domains: ["clinical", "regulatory", "patient_privacy", "care_quality", "interoperability"]
+    types: ["clinical_guideline", "regulatory_requirement", "patient_protocol", "quality_metric"]
+    special_relationships: ["clinical_evidence", "regulatory_mandate"]
+    
+  manufacturing_organization:
+    domains: ["production", "quality_control", "supply_chain", "safety", "efficiency"]
+    types: ["standard_procedure", "quality_standard", "safety_protocol", "efficiency_metric"]
+    special_relationships: ["quality_dependency", "safety_requirement"]
 ```
-
-**📋 Domain Examples (FOR REFERENCE ONLY):**
-
-> ⚠️ **IMPORTANT**: The table below contains **ILLUSTRATIVE EXAMPLES ONLY**. These are **NOT mandatory values** nor closed taxonomy. Each organization defines its own domains in MOC.
-
-| Example Domain | Illustrative Description | Possible Area of Influence |
-|--------|-------------|-------------------|
-| `strategy` | High-level decisions, strategic planning | Organizational direction, long-term objectives |
-| `operations` | Operational processes, execution and procedures | Workflows, task execution |
-| `ethics` | Ethical considerations, compliance and responsibility | Regulatory compliance, social responsibility |
-| `finance` | Financial, budgetary and economic aspects | ROI, costs, investment decisions |
-
-**🔄 Your organization can use**: completely different terms like `innovation`, `quality`, `sustainability`, `customer-experience`, or any hierarchy specific to your context.
-| `security` | Security, protection and risk management | Access controls, vulnerability management |
-| `governance` | Governance, control and oversight | Control structures, organizational oversight |
-| `communication` | Communication, collaboration and relationships | Communication protocols, information flows |
-| `automation` | Automation, efficiency and process optimization | Automated processes, operational efficiency |
-| `intelligence` | Intelligence, analysis and decision making | Strategic insights, decision support |
 
 ---
 
-## 🧩 2. UKI Types (`type` and `id`)
+## 8. Cross-References
 
-Formal types of knowledge units (UKIs), used for both identification and structuring of inference and visualization:
-
-```yaml
-types:
-  - concept       # definition or theoretical model
-  - rule          # operational or normative rule
-  - metric        # quantitative indicator
-  - policy        # institutional or adaptive guideline
-  - procedure     # operational sequence
-  - glossary      # definition of terms or standards
-  - constraint    # formal limitation applied
-```
-
-**📋 Type Examples (FOR REFERENCE ONLY):**
-
-> ⚠️ **IMPORTANT**: The table below contains **ILLUSTRATIVE EXAMPLES ONLY**. These are **NOT mandatory values** nor closed taxonomy. Each organization defines its own types in MOC.
-
-| Example Type | Illustrative Description | Possible Use |
-|------|-------------|-------------|
-| `concept` | Definition or theoretical model | Conceptualization, thought structures |
-| `rule` | Operational or normative rule | Validation, decision logic, standards |
-| `metric` | Quantitative indicator | Measurement, evaluation, monitoring |
-| `policy` | Institutional or adaptive guideline | Organizational guidance, policies |
-| `procedure` | Operational sequence | Processes, workflows, execution |
-| `glossary` | Definition of terms or standards | Terminological standardization, references |
-| `constraint` | Formal limitation applied | Restrictions, limitations, controls |
-
-**🔄 Your organization can use**: completely different types like `template`, `standard`, `guideline`, `decision`, `pattern`, or any category specific to your context.
-
----
-
-## 🔗 3. Relationship Types (`relationships.type`)
-
-Formal relations between UKIs, used for semantic inference, graph navigation, and coherence validation:
-
-```yaml
-relationship_types:
-  - depends_on       # semantically depends on another UKI
-  - overrides        # replaces or nullifies content of another UKI
-  - conflicts_with   # intentionally contradicts another UKI
-  - complements      # expands or details another UKI
-  - amends           # corrects or partially updates
-  - precedes         # establishes order or priority
-  - equivalent_to    # represents semantic equivalence
-```
-
-**Relationship Descriptions:**
-
-| Type | Description | Primary Use |
-|------|-------------|-------------|
-| `depends_on` | Semantically depends on another UKI | Structural dependencies |
-| `overrides` | Replaces or nullifies content of another UKI | Direct replacements |
-| `conflicts_with` | Intentionally contradicts another UKI | Intentional incompatibilities |
-| `complements` | Expands or details another UKI | Collaborative extensions |
-| `amends` | Corrects or partially updates | Corrections and adjustments |
-| `precedes` | Establishes order or priority | Sequences and hierarchies |
-| `equivalent_to` | Represents semantic equivalence | Equivalences and synonyms |
-
----
-
-## 📉 4. Impact Severity Levels (`impact_analysis.severity`)
-
-```yaml
-severity_levels:
-  - low
-  - medium
-  - high
-  - critical
-```
-
-**Level Descriptions:**
-
-| Level | Description | Impact |
-|-------|-------------|--------|
-| `low` | Minor impact, informational or enhancement suggestions | Minimal business or technical impact |
-| `medium` | Moderate impact, affects specific functionality or processes | Localized impact on functionality or experience |
-| `high` | Significant impact, affects core functionality or operations | Substantial impact on system functionality |
-| `critical` | Critical impact, system failure or major disruption | Severe impact causing failure or major disruption |
-
----
-
-## ⏳ 5. Lifecycle (`status`)
-
-```yaml
-status_values:
-  - active
-  - deprecated
-  - archived
-```
-
-**Status Descriptions:**
-
-| Status | Description | Usage |
-|--------|-------------|-------|
-| `active` | UKI active and in normal use | Current and valid knowledge |
-| `deprecated` | UKI discontinued but still referenced | Obsolete knowledge, avoid use |
-| `archived` | UKI archived for historical reference | Historical preservation, do not use |
-
----
-
-## 📌 Final Notes
-
-* **Mandatory Application**: All values defined here must be applied exactly as described.
-* **Controlled Extensibility**: This vocabulary can be extended, but only with centralized semantic validation.
-* **Automated Validation**: Automated systems must validate UKI fields based on these controlled sets.
-* **Normative Integration**: This document integrates the normative base of the Matrix Protocol and must accompany any implementation or future revision of MEF.
+- [Matrix Protocol — Main Specification](MATRIX_PROTOCOL.md)  
+- [Matrix Protocol Integration Diagram](MATRIX_PROTOCOL_INTEGRATION_DIAGRAM.md)  
+- [Matrix Protocol Glossary](MATRIX_PROTOCOL_GLOSSARY.md)  
+- [Matrix Protocol Integration Diagram — Portuguese](MATRIX_PROTOCOL_INTEGRATION_DIAGRAM_PT.md)  
+- [Matrix Protocol Glossary — Portuguese](MATRIX_PROTOCOL_GLOSSARY_PT.md)  
+- [MEF — Matrix Embedding Framework](MEF_MATRIX_EMBEDDING_FRAMEWORK.md)  
+- [MOC — Matrix Ontology Catalog](MOC_MATRIX_ONTOLOGY_CATALOG.md)  
+- [ZOF — Zion Orchestration Framework](ZOF_ZION_ORCHESTRATION_FRAMEWORK.md)  
+- [OIF — Operator Intelligence Framework](OIF_OPERATOR_INTELLIGENCE_FRAMEWORK.md)  
