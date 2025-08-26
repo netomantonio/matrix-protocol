@@ -69,6 +69,47 @@ Every knowledge decision (rejection, promotion, depreciation, arbitration) must 
 4. **Authority Relativity**: Authority MUST always be derived, never absolute
 5. **Auditable Explainability**: Explainability MUST be mandatory and permanently recorded
 
+### MEP Conformity Metrics
+
+Implementations MUST provide quantitative conformity assessment for each MEP principle:
+
+#### Principle 1: Semantic Elasticity Conformity
+- **Metric**: MOC Configuration Flexibility Score
+- **Measurement**: Percentage of taxonomic elements configurable via MOC vs hardcoded
+- **Threshold**: ≥ 85% organizational configurability
+- **Validation**: Automated analysis of framework *_ref field validation sources
+
+#### Principle 2: Stratified Epistemology Conformity  
+- **Metric**: Maturity Stratification Coverage
+- **Measurement**: Percentage of knowledge units with valid maturity_ref assignments
+- **Threshold**: ≥ 95% coverage across all UKIs
+- **Validation**: MEF repository analysis for maturity_ref field compliance
+
+#### Principle 3: Responsible Promotion Conformity
+- **Metric**: Promotion Justification Completeness
+- **Measurement**: Percentage of promotions with documented promotion_rationale
+- **Threshold**: 100% promotion_rationale presence for version increments
+- **Validation**: MEF audit trail analysis for promotion event documentation
+
+#### Principle 4: Derived Authority Conformity
+- **Metric**: Authority Contextualization Rate
+- **Measurement**: Percentage of authority decisions citing MOC authority_ref sources
+- **Threshold**: 100% MOC-referenced authority validations
+- **Validation**: Authority Validation Service usage tracking and MOC citation analysis
+
+#### Principle 5: Necessary Explainability Conformity
+- **Metric**: Explainability Signal Completeness
+- **Measurement**: Percentage of state transitions with complete (context, decision, result) signals
+- **Threshold**: 100% signal recording across all ZOF workflows
+- **Validation**: ZOF workflow audit for explainability signal presence and quality
+
+#### Automated Conformity Assessment
+Implementations MUST provide:
+- **Daily conformity dashboards** showing current scores against thresholds
+- **Alert systems** for conformity violations requiring immediate attention
+- **Trend analysis** showing conformity evolution over time
+- **Root cause analysis** for conformity degradation incidents
+
 ### Framework Complementarity
 MEP guides philosophy; frameworks execute implementation:
 

@@ -156,6 +156,93 @@ These terms are used by multiple frameworks and have unified definitions:
 - **Capabilities**: flow state management, Oracle consultation, enrichment evaluation, explainability recording
 - **Related Terms**: Zion Intelligence, Canonical States, Flow Orchestration
 
+---
+
+## MAL (Matrix Arbiter Layer) Terms
+
+### **Arbitration Event**
+- **Definition**: Normalized input describing a conflict or concurrency condition requiring MAL decision
+- **Primary Framework**: MAL (Matrix Arbiter Layer)
+- **Used By**: ZOF (conflict detection), MEF (Decision Record persistence), OIF (outcome explanation)
+- **Related Terms**: Horizontal Conflict, Concurrent Enrichment, Promotion Contention, Decision Record
+
+### **Decision Record**
+- **Definition**: Signed, immutable outcome with winner/loser designation, rationale, and references
+- **Primary Framework**: MAL (decision creation)
+- **Used By**: MEF (persistence), OIF (explanation), MOC (policy validation)
+- **Related Terms**: Arbitration Event, Epistemic Rationale, Precedence Applied, MAL Outcomes
+
+### **Horizontal Conflict (H1)**
+- **Definition**: Two or more UKIs of equivalent scope level that conflict semantically
+- **Primary Framework**: MAL (conflict classification)
+- **Used By**: ZOF (conflict detection), MEF (relationship persistence)
+- **Related Terms**: Concurrent Enrichment, Promotion Contention, Semantic Conflicts, Scope Equivalence
+
+### **Concurrent Enrichment (H2)**
+- **Definition**: Two or more flows attempting to enrich overlapping semantics simultaneously
+- **Primary Framework**: MAL (conflict classification)
+- **Used By**: ZOF (concurrency detection), OIF (user notification)
+- **Related Terms**: Horizontal Conflict, Safe Default, Temporal Threshold, Authority Precedence
+
+### **Promotion Contention (H3)**
+- **Definition**: Competing proposals to promote distinct UKIs to higher governance level
+- **Primary Framework**: MAL (conflict classification)
+- **Used By**: MEF (promotion workflow), MOC (authority validation)
+- **Related Terms**: Knowledge Promotion, Authority Escalation, Evidence Density, Cross-scope Promotion
+
+### **Precedence Applied**
+- **Definition**: Ordered tie-break rules applied by MAL following MOC configuration (P1-P6)
+- **Primary Framework**: MAL (decision logic)
+- **Used By**: MOC (policy configuration), OIF (explanation)
+- **Related Terms**: Authority Weight, Scope Specificity, Maturity Level, Temporal Recency, Evidence Density
+
+### **Epistemic Rationale**
+- **Definition**: MEP-aligned justification for arbitration decisions with MOC node citations
+- **Primary Framework**: MAL (decision documentation)
+- **Used By**: MEP (epistemological compliance), OIF (explainability)
+- **Related Terms**: Derived Authority, MOC Nodes, Evidence References, Explainability Requirements
+
+### **Safe Default**
+- **Definition**: Non-blocking outcome applied when MAL cannot decide within timeout (Outcome = no enrich, Status = pending arbitration)
+- **Primary Framework**: MAL (timeout handling)
+- **Used By**: ZOF (workflow continuation), OIF (user notification)
+- **Related Terms**: Arbitration Timeout, Non-blocking Experience, Escalation Instructions
+
+### **Arbitration Explanation Template**
+- **Definition**: Structured OIF template for explaining MAL decisions with mandatory fields
+- **Primary Framework**: OIF (user communication)
+- **Used By**: MAL (outcome communication), MOC (template validation)
+- **Fields**: decision_id, outcome, winner/losers, precedence_applied, epistemic_rationale
+- **Related Terms**: User Explanation, Decision Communication, Transparency Requirements
+
+---
+
+## Extended Framework Terms
+
+### **Cross-boundary Enrichment**
+- **Definition**: Enrichment operations that cross multiple scope or domain boundaries requiring extended authority validation
+- **Primary Framework**: ZOF (cross-boundary rules)
+- **Used By**: MOC (authority validation), MAL (conflict resolution)
+- **Related Terms**: Multi-scope Operations, Cross-domain Validation, Authority Escalation, Hierarchical Crossing
+
+### **Promotion Rationale**
+- **Definition**: Mandatory epistemological justification documenting why UKI promotion is warranted
+- **Primary Framework**: MEF (promotion workflow)
+- **Used By**: MEP (responsible promotion), MOC (validation criteria)
+- **Related Terms**: Knowledge Promotion, Epistemological Justification, Version Evolution, Change Impact
+
+### **Taxonomy Evolution Feedback**
+- **Definition**: MOC mechanism for updating taxonomies based on UKI promotion patterns and usage evidence
+- **Primary Framework**: MOC (taxonomy management)
+- **Used By**: MEF (promotion analysis), ZOF (pattern detection)
+- **Related Terms**: Promotion Patterns, Taxonomic Refinement, Hierarchical Gaps, Usage Evidence
+
+### **Conformity Metrics**
+- **Definition**: Quantitative assessment criteria for measuring adherence to MEP principles
+- **Primary Framework**: MEP (compliance measurement)
+- **Used By**: All frameworks (conformity validation)
+- **Related Terms**: Semantic Elasticity Score, Maturity Coverage, Promotion Completeness, Authority Contextualization
+
 ### **MOC (Matrix Ontology Catalog)**
 
 #### **Configurable Hierarchies**
@@ -201,17 +288,25 @@ These terms are used by multiple frameworks and have unified definitions:
 
 | **Term** | **Framework** | **Page Reference** |
 |----------|---------------|-------------------|
+| Arbitration Event | MAL | MAL Terms |
+| Arbitration Explanation Template | OIF | MAL Terms |
 | Authority Validation | MOC | Cross-Framework Terms |
 | Authority Validation Service | MOC | Cross-Framework Terms |
 | can_enrich() Function | ZOF | Framework-Specific Terms |
 | Canonical Events | ZOF | Framework-Specific Terms |
 | Canonical States | ZOF | Cross-Framework Terms |
+| Concurrent Enrichment (H2) | MAL | MAL Terms |
 | Configurable Hierarchies | MOC | Framework-Specific Terms |
+| Conformity Metrics | MEP | Extended Framework Terms |
+| Cross-boundary Enrichment | ZOF | Extended Framework Terms |
+| Decision Record | MAL | MAL Terms |
 | Derived Authority | MEP | Cross-Framework Terms |
 | Epistemological Humility | MEP | Framework-Specific Terms |
+| Epistemic Rationale | MAL | MAL Terms |
 | EvaluateForEnrich | ZOF | Cross-Framework Terms |
 | Explainability Signals | ZOF | Cross-Framework Terms |
 | Hierarchical Context | MOC | Cross-Framework Terms |
+| Horizontal Conflict (H1) | MAL | MAL Terms |
 | Intelligence Archetypes | OIF | Framework-Specific Terms |
 | Knowledge Agent | OIF | Framework-Specific Terms |
 | Knowledge Enrichment | MEF | Cross-Framework Terms |
@@ -222,12 +317,17 @@ These terms are used by multiple frameworks and have unified definitions:
 | Ontological Relationships | MEF | Cross-Framework Terms |
 | Organizational Governance | MOC | Framework-Specific Terms |
 | Organizational MOC | MOC | Cross-Framework Terms |
+| Precedence Applied | MAL | MAL Terms |
+| Promotion Contention (H3) | MAL | MAL Terms |
+| Promotion Rationale | MEF | Extended Framework Terms |
 | Responsible Promotion | MEP | Framework-Specific Terms |
+| Safe Default | MAL | MAL Terms |
 | Scope Mode | ZOF | Framework-Specific Terms |
 | Scope Reference | MEF | Cross-Framework Terms |
 | Semantic Elasticity | MEP | Framework-Specific Terms |
 | Semantic Versioning | MEF | Framework-Specific Terms |
 | Stratified Epistemology | MEP | Framework-Specific Terms |
+| Taxonomy Evolution Feedback | MOC | Extended Framework Terms |
 | UKI | MEF | Cross-Framework Terms |
 | Workflow Agent | OIF | Framework-Specific Terms |
 
@@ -261,3 +361,4 @@ These terms are used by multiple frameworks and have unified definitions:
 - [Matrix Protocol — Main Specification](MATRIX_PROTOCOL.md)  
 - [Matrix Protocol Integration Diagram — Portuguese](MATRIX_PROTOCOL_INTEGRATION_DIAGRAM_PT.md)  
 - [Matrix Protocol Glossary — Portuguese](MATRIX_PROTOCOL_GLOSSARY_PT.md)
+- [MAL — Matrix Arbiter Layer](MAL_MATRIX_ARBITER_LAYER.md)

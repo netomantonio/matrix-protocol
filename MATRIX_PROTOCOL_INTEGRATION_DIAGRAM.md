@@ -80,6 +80,11 @@ graph TB
     MEP_AUTH[👥 Derived Authority<br/>MEP]
     MEP_EXPL[💡 Mandatory Explainability<br/>MEP]
     
+    %% MAL Layer - Arbitration
+    MAL_ARB[⚖️ Conflict Arbitrator<br/>MAL]
+    MAL_DEC[📋 Decision Records<br/>MAL]
+    MAL_POL[📊 Precedence Policies<br/>MAL]
+    
     %% Integration Flow
     User --> OIF_WA
     OIF_WA --> ZOF_INT
@@ -95,9 +100,20 @@ graph TB
     ZOF_DEC --> ZOF_ACT
     ZOF_ACT --> ZOF_EVL
     
-    ZOF_EVL --> MOC_CRIT
+    %% MAL Arbitration Flow
+    ZOF_EVL -->|"Conflict Detection<br/>(H1/H2/H3)"| MAL_ARB
+    MAL_POL --> MAL_ARB
+    MOC_HIER --> MAL_ARB
+    MEP_PRINC --> MAL_ARB
+    MAL_ARB --> MAL_DEC
+    MAL_DEC --> MEF_REL
+    MAL_DEC --> OIF_EXP
+    
+    %% Normal Flow Continuation
+    ZOF_EVL -->|"No Conflicts"| MOC_CRIT
     MOC_CRIT --> MEP_PRINC
     MEP_PRINC --> ZOF_EVL
+    MAL_ARB -->|"Arbitration Complete"| ZOF_EVL
     
     ZOF_EVL --> ZOF_ENR
     ZOF_ENR --> MEF_VER
@@ -116,6 +132,7 @@ graph TB
     MEP_AUTH -.-> MOC_AUTH
     MEP_AUTH -.-> OIF_WA
     MEP_AUTH -.-> ZOF_EVL
+    MEP_AUTH -.-> MAL_ARB
     
     %% Styling
     classDef user fill:#e1f5fe
@@ -124,6 +141,7 @@ graph TB
     classDef mef fill:#fff3e0
     classDef moc fill:#fce4ec
     classDef mep fill:#f1f8e9
+    classDef mal fill:#ffebee
     
     class User user
     class OIF_KA,OIF_WA,OIF_EXP oif
@@ -131,6 +149,7 @@ graph TB
     class MEF_UKI,MEF_VER,MEF_REL mef
     class MOC_AUTH,MOC_HIER,MOC_CRIT moc
     class MEP_PRINC,MEP_AUTH,MEP_EXPL mep
+    class MAL_ARB,MAL_DEC,MAL_POL mal
 ```
 
 ---
@@ -148,6 +167,11 @@ graph TB
 | **OIF → MEP** | Explainability | Derived Authority | Ensure contextual, non-absolute responses |
 | **ZOF → MEP** | Enrichment Decision | Epistemological Justification | Apply MEP principles in enrichment evaluation |
 | **MEF → MEP** | Knowledge Promotion | Responsible Promotion | Document epistemological justification for UKI evolution |
+| **ZOF → MAL** | Conflict Detection | Arbitration Invocation | Invoke MAL when EvaluateForEnrich detects H1/H2/H3 conflicts |
+| **MAL → MEF** | Decision Persistence | Decision Record Storage | Persist arbitration decisions as immutable audit records |
+| **MAL → OIF** | Outcome Communication | Arbitration Explanation | Explain arbitration outcomes using structured templates |
+| **MOC → MAL** | Policy Configuration | Precedence Rule Supply | Provide arbitration policies and authority hierarchies |
+| **MEP → MAL** | Epistemic Foundation | Rationale Generation | Guide epistemological justification in arbitration decisions |
 
 ---
 
@@ -243,7 +267,74 @@ oif_explanation:
     similar authentication requirements."
 ```
 
-### **Example 2: Authority Escalation Scenario**
+### **Example 2: MAL Arbitration Scenario**
+
+```yaml
+# Concurrent JWT Implementation Conflict
+user_story: "Two teams implementing JWT authentication simultaneously"
+
+# 1. ZOF Conflict Detection during EvaluateForEnrich
+zof_conflict_detection:
+  conflict_type: "H2_concurrent_enrichment"
+  candidates:
+    - flow_id: "team-frontend-jwt-001"
+      uki_target: "uki:technical:pattern:jwt-authentication"
+      user: {scope: "team-frontend", authority: "developer"}
+    - flow_id: "team-backend-jwt-002"
+      uki_target: "uki:technical:pattern:jwt-authentication"
+      user: {scope: "team-backend", authority: "tech_lead"}
+  
+  mal_invocation: "Local resolution failed, invoking MAL"
+
+# 2. MAL Arbitration Process
+mal_arbitration_event:
+  event_id: "mal-evt-concurrent-jwt-001"
+  event_type: "H2"
+  policy_ref: "moc:arbitration:concurrent_enrichment"
+  
+  arbitration_decision:
+    outcome: "winner"
+    winner: "team-backend-jwt-002"
+    loser: "team-frontend-jwt-001"
+    precedence_applied:
+      - "P1_authority": "tech_lead > developer"
+    actions:
+      - "allow_enrich:team-backend-jwt-002"
+      - "defer_enrich:team-frontend-jwt-001"
+    
+    epistemic_rationale:
+      summary: "Higher authority precedence in concurrent scenario"
+      moc_nodes_cited: ["moc:authority:tech_lead", "moc:domain:technical"]
+
+# 3. OIF Arbitration Explanation
+oif_arbitration_template:
+  decision_id: "mal-evt-concurrent-jwt-001"
+  outcome: "winner"
+  winner: "team-backend JWT implementation"
+  losers: ["team-frontend JWT implementation"]
+  precedence_applied: "Authority precedence: tech_lead > developer"
+  
+  user_explanation: |
+    "Arbitration completed for concurrent JWT implementations.
+    
+    ✅ Winner: Backend team implementation (tech_lead authority)
+    ⏸️ Deferred: Frontend team implementation 
+    📋 Next Steps: Frontend team should coordinate with backend team
+    🔗 Reference: MOC authority hierarchy for technical domain"
+
+# 4. MEF Decision Record Persistence
+mef_decision_record:
+  decision_id: "mal-dec-concurrent-jwt-001"
+  relationships_created:
+    - type: "conflicts_with"
+      source: "team-frontend-jwt-001"
+      target: "team-backend-jwt-002"
+      resolution: "authority_precedence"
+  
+  audit_trail: "Complete MAL arbitration recorded for future reference"
+```
+
+### **Example 3: Authority Escalation Scenario**
 
 ```yaml
 # Organization-Level Policy Creation Attempt
@@ -291,6 +382,7 @@ zof_workflow_modification:
 - [OIF — Operator Intelligence Framework](OIF_OPERATOR_INTELLIGENCE_FRAMEWORK.md)  
 - [MOC — Matrix Ontology Catalog](MOC_MATRIX_ONTOLOGY_CATALOG.md)  
 - [MEP — Matrix Epistemic Principle](MEP_MATRIX_EPISTEMIC_PRINCIPLE.md)  
-- [Matrix Protocol Glossary](MATRIX_PROTOCOL_GLOSSARY.md)  
+- [Matrix Protocol Glossary](MATRIX_PROTOCOL_GLOSSARY.md)
+- [MAL — Matrix Arbiter Layer](MAL_MATRIX_ARBITER_LAYER.md)  
 - [Matrix Protocol Integration Diagram — Portuguese](MATRIX_PROTOCOL_INTEGRATION_DIAGRAM_PT.md)  
 - [Matrix Protocol Glossary — Portuguese](MATRIX_PROTOCOL_GLOSSARY_PT.md)

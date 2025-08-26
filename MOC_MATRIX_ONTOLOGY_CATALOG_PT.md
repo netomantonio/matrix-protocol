@@ -119,6 +119,8 @@ Esse serviço não executa decisões ou orquestrações (papel do ZOF/OIF), mas 
 
 Implementações MOC DEVEM fornecer configuração para políticas de arbitragem MAL para garantir resolução consistente de conflitos.
 
+⚠️ **REQUISITO OBRIGATÓRIO**: Esta seção é **OBRIGATÓRIA** para todas as implementações MOC. Organizações DEVEM configurar políticas de arbitragem para garantir resolução determinística de conflitos e prevenir divergências de interpretação.
+
 #### Configuração Obrigatória de Arbitragem
 ```yaml
 # --- Configuração Normativa ---
@@ -174,6 +176,57 @@ arbitration_policies:
 - Hierarquias de autoridade MOC DEVEM ser usadas para cálculo de peso P1
 - Timeout de arbitragem DEVE ser respeitado por MAL
 - Mudanças de política DEVEM disparar atualizações de configuração MAL
+
+### 🔄 Feedback de Evolução Taxonômica (Normativo)
+
+O MOC DEVE implementar mecanismos de feedback para atualização taxonômica baseada em padrões de promoção de UKIs.
+
+#### Análise de Padrões de Promoção
+```yaml
+# --- Configuração Normativa ---
+promotion_analysis:
+  monitoring_window_days: 90              # Janela de análise para padrões de promoção
+  promotion_threshold_triggers:
+    frequent_promotions:                   # Muitas promoções do mesmo tipo
+      min_count: 10
+      same_source_scope: true
+      same_target_scope: true
+      action: "suggest_taxonomy_refinement"
+    
+    cross_scope_patterns:                  # Promoções cruzando hierarquias
+      pattern_frequency: 5
+      cross_boundary_type: ["scope", "domain"]
+      action: "analyze_taxonomy_gaps"
+    
+    authority_escalation_frequency:        # Escalações frequentes
+      escalation_count: 8
+      time_window_days: 30
+      action: "review_authority_hierarchy"
+```
+
+#### Feedback Loop para Evolução Taxonômica
+- **Detecção Automática**: Sistema DEVE monitorar padrões de promoção e identificar inconsistências taxonômicas
+- **Análise de Impacto**: MOC DEVE analisar como promoções sucessivas indicam lacunas ou desalinhamentos hierárquicos
+- **Proposta de Evolução**: Sistema DEVE gerar propostas de refinamento taxonômico baseadas em evidência de uso
+- **Aprovação Governada**: Mudanças taxonômicas DEVEM seguir processo de aprovação organizacional
+- **Migração Controlada**: Atualizações MOC DEVEM incluir plano de migração para UKIs existentes
+
+#### Critérios para Evolução Taxonômica
+```yaml
+# --- Critérios Normativos ---
+evolution_criteria:
+  taxonomy_refinement_indicators:
+    - "Promoções frequentes de squad → tribe → org (sugere nível intermediário ausente)"
+    - "Promoções cross-domain indicando problemas de fronteira de domínio"
+    - "Escalações de autoridade sugerindo lacunas hierárquicas"
+    - "Conflitos semânticos em MAL indicando sobreposição taxonômica"
+  
+  evolution_validation_requirements:
+    - "Análise de impacto em UKIs existentes"
+    - "Definição de caminho de migração para conhecimento afetado"
+    - "Aprovação de stakeholders em níveis hierárquicos afetados"
+    - "Plano de rollback em caso de problemas de evolução"
+```
 
 ---
 

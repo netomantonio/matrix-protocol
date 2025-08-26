@@ -92,6 +92,91 @@ Cada transição de estado DEVE registrar:
 ### Consulta Oracle Obrigatória
 O estado **Understand** DEVE sempre consultar o Oracle (UKIs) antes de qualquer decisão.
 
+### Função can_enrich?() Requisitos
+- DEVE implementar avaliação de novidade semântica
+- DEVE implementar avaliação de valor prático
+- DEVE implementar validação de autoridade via MOC
+- PODE implementar critérios organizacionais adicionais
+
+### Regras de Transição de Estado
+- Transições de estado DEVEM ser sequenciais e não podem pular estados
+- Cada estado DEVE completar antes de transicionar para o próximo estado
+- Estado Understand DEVE receber resultados de consulta Oracle antes de prosseguir
+- EvaluateForEnrich DEVE completar avaliação antes de permitir estado Enrich
+- Avaliações falhadas PODEM terminar o fluxo ou requerer remediação
+- Arbitragem MAL DEVE ser invocada na detecção de conflito durante EvaluateForEnrich
+- Decision Records MAL DEVEM ser aplicados através de ações apropriadas (gate_enrich, deprecate, partition_scope, etc.)
+
+### Implementação de Modo de Escopo
+- **Modo Restrito**: Conhecimento permanece dentro do nível de escopo de origem
+- **Modo Propagado**: Conhecimento pode cascatear para níveis de escopo superiores via promoção
+- Modo de escopo DEVE ser declarado durante criação de UKI
+- Promoção entre escopos DEVE seguir regras de governança MOC
+
+### 🌐 Enriquecimento Multi-scope Cross-domain (Normativo)
+
+ZOF DEVE implementar regras específicas para operações de enriquecimento que cruzam múltiplas fronteiras de escopo ou domínio.
+
+#### Detecção de Enriquecimento Cross-boundary
+```yaml
+# --- Configuração Normativa ---
+cross_boundary_detection:
+  scope_crossing:
+    source_scope: "team"              # UKI origina do escopo team
+    enrichment_target_scope: "tribe"   # Enriquecimento visa escopo tribe
+    classification: "scope_crossing"
+    
+  domain_crossing:
+    source_domain: "technical"         # UKI origina do domínio technical
+    enrichment_target_domain: "business" # Enriquecimento visa domínio business
+    classification: "domain_crossing"
+    
+  multi_boundary_crossing:
+    source: {scope: "team", domain: "technical"}
+    target: {scope: "tribe", domain: "business"}
+    classification: "multi_boundary_crossing"
+```
+
+#### Validação de Autoridade para Enriquecimento Cross-boundary
+- **Verificação de Autoridade Hierárquica**: Usuário DEVE ter autoridade em AMBAS as hierarquias origem e destino
+- **Validação Cross-domain**: Para cruzamento de domínio, usuário DEVE ter domain_access para ambos os domínios no MOC
+- **Caminho de Escalação**: Se usuário carecer de autoridade cross-boundary, DEVE rotear para caminho de escalação via MOC
+- **Aprovação Conjunta**: Cruzamento multi-boundary PODE requerer aprovação de autoridades em múltiplas hierarquias
+
+#### Regras de Enriquecimento Cross-boundary
+```yaml
+# --- Regras Normativas ---
+cross_boundary_enrichment_rules:
+  scope_crossing_rules:
+    upward_promotion:                    # team → tribe, tribe → org
+      authority_requirement: "source_scope_authority + promotion_rights"
+      approval_process: "hierarchical_escalation"
+      rationale_requirement: "mandatory_promotion_rationale"
+    
+    lateral_crossing:                    # team-a → team-b
+      authority_requirement: "both_scope_authority OR superior_authority"
+      approval_process: "peer_approval OR escalation"
+      conflict_resolution: "invoke_MAL_if_contested"
+  
+  domain_crossing_rules:
+    technical_to_business:
+      authority_requirement: "multi_domain_access"
+      validation_criteria: "business_value_assessment + technical_accuracy"
+      review_process: "cross_domain_review_committee"
+    
+    cross_domain_conflict_resolution:
+      detection: "semantic_conflicts_across_domains"
+      resolution: "invoke_MAL_with_cross_domain_context"
+      outcome_application: "domain_specific_actions"
+```
+
+#### EvaluateForEnrich para Operações Cross-boundary
+- **Critérios Estendidos**: Enriquecimento cross-boundary DEVE aplicar critérios de avaliação adicionais do MOC
+- **Análise de Impacto**: DEVE avaliar impacto em ambas as hierarquias origem e destino
+- **Detecção de Conflito**: DEVE detectar potenciais conflitos semânticos através de fronteiras
+- **Validação de Autoridade**: DEVE validar autoridade para todos os níveis hierárquicos afetados
+- **Invocação MAL**: DEVE invocar MAL para conflitos cross-boundary que não podem ser resolvidos localmente
+
 ---
 
 ## 5. Interoperabilidade

@@ -112,6 +112,70 @@ The **Understand** state MUST always consult the Oracle (UKIs) before any decisi
 - Scope mode MUST be declared during UKI creation
 - Promotion between scopes MUST follow MOC governance rules
 
+### 🌐 Multi-scope Cross-domain Enrichment (Normative)
+
+ZOF MUST implement specific rules for enrichment operations that cross multiple scope or domain boundaries.
+
+#### Cross-boundary Enrichment Detection
+```yaml
+# --- Normative Configuration ---
+cross_boundary_detection:
+  scope_crossing:
+    source_scope: "team"              # UKI originates from team scope
+    enrichment_target_scope: "tribe"   # Enrichment targets tribe scope
+    classification: "scope_crossing"
+    
+  domain_crossing:
+    source_domain: "technical"         # UKI originates from technical domain
+    enrichment_target_domain: "business" # Enrichment targets business domain
+    classification: "domain_crossing"
+    
+  multi_boundary_crossing:
+    source: {scope: "team", domain: "technical"}
+    target: {scope: "tribe", domain: "business"}
+    classification: "multi_boundary_crossing"
+```
+
+#### Authority Validation for Cross-boundary Enrichment
+- **Hierarchical Authority Check**: User MUST have authority in BOTH source and target hierarchies
+- **Cross-domain Validation**: For domain crossing, user MUST have domain_access to both domains in MOC
+- **Escalation Path**: If user lacks cross-boundary authority, MUST route to escalation path via MOC
+- **Joint Approval**: Multi-boundary crossing MAY require approval from authorities in multiple hierarchies
+
+#### Cross-boundary Enrichment Rules
+```yaml
+# --- Normative Rules ---
+cross_boundary_enrichment_rules:
+  scope_crossing_rules:
+    upward_promotion:                    # team → tribe, tribe → org
+      authority_requirement: "source_scope_authority + promotion_rights"
+      approval_process: "hierarchical_escalation"
+      rationale_requirement: "mandatory_promotion_rationale"
+    
+    lateral_crossing:                    # team-a → team-b
+      authority_requirement: "both_scope_authority OR superior_authority"
+      approval_process: "peer_approval OR escalation"
+      conflict_resolution: "invoke_MAL_if_contested"
+  
+  domain_crossing_rules:
+    technical_to_business:
+      authority_requirement: "multi_domain_access"
+      validation_criteria: "business_value_assessment + technical_accuracy"
+      review_process: "cross_domain_review_committee"
+    
+    cross_domain_conflict_resolution:
+      detection: "semantic_conflicts_across_domains"
+      resolution: "invoke_MAL_with_cross_domain_context"
+      outcome_application: "domain_specific_actions"
+```
+
+#### EvaluateForEnrich for Cross-boundary Operations
+- **Extended Criteria**: Cross-boundary enrichment MUST apply additional evaluation criteria from MOC
+- **Impact Analysis**: MUST assess impact on both source and target hierarchies
+- **Conflict Detection**: MUST detect potential semantic conflicts across boundaries
+- **Authority Validation**: MUST validate authority for all affected hierarchical levels
+- **MAL Invocation**: MUST invoke MAL for cross-boundary conflicts that cannot be resolved locally
+
 ---
 
 ## 5. Interoperability

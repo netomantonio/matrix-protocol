@@ -69,6 +69,47 @@ Toda decisão sobre conhecimento (rejeição, promoção, depreciação, arbitra
 4. **Relatividade Autoridade**: Autoridade DEVE sempre ser derivada, nunca absoluta
 5. **Explicabilidade Auditável**: Explicabilidade DEVE ser mandatória e permanentemente registrada
 
+### Métricas de Conformidade MEP
+
+Implementações DEVEM fornecer avaliação quantitativa de conformidade para cada princípio MEP:
+
+#### Princípio 1: Conformidade de Elasticidade Semântica
+- **Métrica**: Score de Flexibilidade de Configuração MOC
+- **Medição**: Porcentagem de elementos taxonômicos configuráveis via MOC vs hardcoded
+- **Limiar**: ≥ 85% configurabilidade organizacional
+- **Validação**: Análise automatizada de fontes de validação de campos *_ref dos frameworks
+
+#### Princípio 2: Conformidade de Epistemologia Estratificada
+- **Métrica**: Cobertura de Estratificação de Maturidade
+- **Medição**: Porcentagem de unidades de conhecimento com atribuições válidas de maturity_ref
+- **Limiar**: ≥ 95% cobertura em todos os UKIs
+- **Validação**: Análise de repositório MEF para conformidade de campo maturity_ref
+
+#### Princípio 3: Conformidade de Promoção Responsável
+- **Métrica**: Completude de Justificação de Promoção
+- **Medição**: Porcentagem de promoções com promotion_rationale documentado
+- **Limiar**: 100% presença de promotion_rationale para incrementos de versão
+- **Validação**: Análise de trilha de auditoria MEF para documentação de eventos de promoção
+
+#### Princípio 4: Conformidade de Autoridade Derivada
+- **Métrica**: Taxa de Contextualização de Autoridade
+- **Medição**: Porcentagem de decisões de autoridade citando fontes authority_ref do MOC
+- **Limiar**: 100% validações de autoridade referenciadas ao MOC
+- **Validação**: Rastreamento de uso do Serviço de Validação de Autoridade e análise de citação MOC
+
+#### Princípio 5: Conformidade de Explicabilidade Necessária
+- **Métrica**: Completude de Sinais de Explicabilidade
+- **Medição**: Porcentagem de transições de estado com sinais completos (contexto, decisão, resultado)
+- **Limiar**: 100% registro de sinais em todos os workflows ZOF
+- **Validação**: Auditoria de workflow ZOF para presença e qualidade de sinais de explicabilidade
+
+#### Avaliação Automatizada de Conformidade
+Implementações DEVEM fornecer:
+- **Dashboards de conformidade diários** mostrando scores atuais contra limiares
+- **Sistemas de alerta** para violações de conformidade requerendo atenção imediata
+- **Análise de tendências** mostrando evolução de conformidade ao longo do tempo
+- **Análise de causa raiz** para incidentes de degradação de conformidade
+
 ### Complementaridade com Frameworks
 O MEP orienta a filosofia; frameworks executam a implementação:
 

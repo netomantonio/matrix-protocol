@@ -158,6 +158,93 @@ Estes termos são utilizados por múltiplos frameworks e possuem definições un
 - **Capacidades**: gerenciamento de estado de fluxo, consulta ao Oráculo, avaliação de enriquecimento, registro de explicabilidade
 - **Termos Relacionados**: Inteligência Zion, Estados Canônicos, Orquestração de Fluxo
 
+---
+
+## Termos MAL (Matrix Arbiter Layer)
+
+### **Evento de Arbitragem**
+- **Definição**: Entrada normalizada descrevendo condição de conflito ou concorrência que requer decisão MAL
+- **Framework Primário**: MAL (Matrix Arbiter Layer)
+- **Usado Por**: ZOF (detecção de conflito), MEF (persistência de Decision Record), OIF (explicação de resultado)
+- **Termos Relacionados**: Conflito Horizontal, Enriquecimento Concorrente, Contenção de Promoção, Registro de Decisão
+
+### **Registro de Decisão**
+- **Definição**: Resultado assinado e imutável com designação de vencedor/perdedor, justificativa e referências
+- **Framework Primário**: MAL (criação de decisão)
+- **Usado Por**: MEF (persistência), OIF (explicação), MOC (validação de política)
+- **Termos Relacionados**: Evento de Arbitragem, Justificativa Epistêmica, Precedência Aplicada, Resultados MAL
+
+### **Conflito Horizontal (H1)**
+- **Definição**: Dois ou mais UKIs de nível de escopo equivalente que entram em conflito semanticamente
+- **Framework Primário**: MAL (classificação de conflito)
+- **Usado Por**: ZOF (detecção de conflito), MEF (persistência de relacionamento)
+- **Termos Relacionados**: Enriquecimento Concorrente, Contenção de Promoção, Conflitos Semânticos, Equivalência de Escopo
+
+### **Enriquecimento Concorrente (H2)**
+- **Definição**: Dois ou mais fluxos tentando enriquecer semânticas sobrepostas simultaneamente
+- **Framework Primário**: MAL (classificação de conflito)
+- **Usado Por**: ZOF (detecção de concorrência), OIF (notificação de usuário)
+- **Termos Relacionados**: Conflito Horizontal, Padrão Seguro, Limiar Temporal, Precedência de Autoridade
+
+### **Contenção de Promoção (H3)**
+- **Definição**: Propostas concorrentes para promover UKIs distintos a nível de governança superior
+- **Framework Primário**: MAL (classificação de conflito)
+- **Usado Por**: MEF (workflow de promoção), MOC (validação de autoridade)
+- **Termos Relacionados**: Promoção de Conhecimento, Escalação de Autoridade, Densidade de Evidência, Promoção Cross-scope
+
+### **Precedência Aplicada**
+- **Definição**: Regras de desempate ordenadas aplicadas pela MAL seguindo configuração MOC (P1-P6)
+- **Framework Primário**: MAL (lógica de decisão)
+- **Usado Por**: MOC (configuração de política), OIF (explicação)
+- **Termos Relacionados**: Peso de Autoridade, Especificidade de Escopo, Nível de Maturidade, Recência Temporal, Densidade de Evidência
+
+### **Justificativa Epistêmica**
+- **Definição**: Justificação alinhada ao MEP para decisões de arbitragem com citações de nós MOC
+- **Framework Primário**: MAL (documentação de decisão)
+- **Usado Por**: MEP (conformidade epistemológica), OIF (explicabilidade)
+- **Termos Relacionados**: Autoridade Derivada, Nós MOC, Referências de Evidência, Requisitos de Explicabilidade
+
+### **Padrão Seguro**
+- **Definição**: Resultado não-bloqueante aplicado quando MAL não consegue decidir dentro do timeout (Outcome = no enrich, Status = pending arbitration)
+- **Framework Primário**: MAL (tratamento de timeout)
+- **Usado Por**: ZOF (continuação de workflow), OIF (notificação de usuário)
+- **Termos Relacionados**: Timeout de Arbitragem, Experiência Não-bloqueante, Instruções de Escalação
+
+### **Template de Explicação de Arbitragem**
+- **Definição**: Template estruturado OIF para explicar decisões MAL com campos obrigatórios
+- **Framework Primário**: OIF (comunicação com usuário)
+- **Usado Por**: MAL (comunicação de resultado), MOC (validação de template)
+- **Campos**: decision_id, outcome, winner/losers, precedence_applied, epistemic_rationale
+- **Termos Relacionados**: Explicação de Usuário, Comunicação de Decisão, Requisitos de Transparência
+
+---
+
+## Termos de Framework Estendidos
+
+### **Enriquecimento Cross-boundary**
+- **Definição**: Operações de enriquecimento que cruzam múltiplas fronteiras de escopo ou domínio requerendo validação estendida de autoridade
+- **Framework Primário**: ZOF (regras cross-boundary)
+- **Usado Por**: MOC (validação de autoridade), MAL (resolução de conflito)
+- **Termos Relacionados**: Operações Multi-scope, Validação Cross-domain, Escalação de Autoridade, Cruzamento Hierárquico
+
+### **Justificativa de Promoção**
+- **Definição**: Justificação epistemológica obrigatória documentando por que promoção de UKI é justificada
+- **Framework Primário**: MEF (workflow de promoção)
+- **Usado Por**: MEP (promoção responsável), MOC (critérios de validação)
+- **Termos Relacionados**: Promoção de Conhecimento, Justificação Epistemológica, Evolução de Versão, Impacto de Mudança
+
+### **Feedback de Evolução Taxonômica**
+- **Definição**: Mecanismo MOC para atualizar taxonomias baseado em padrões de promoção de UKI e evidência de uso
+- **Framework Primário**: MOC (gerenciamento de taxonomia)
+- **Usado Por**: MEF (análise de promoção), ZOF (detecção de padrão)
+- **Termos Relacionados**: Padrões de Promoção, Refinamento Taxonômico, Lacunas Hierárquicas, Evidência de Uso
+
+### **Métricas de Conformidade**
+- **Definição**: Critérios de avaliação quantitativa para medir aderência aos princípios MEP
+- **Framework Primário**: MEP (medição de conformidade)
+- **Usado Por**: Todos os frameworks (validação de conformidade)
+- **Termos Relacionados**: Score de Elasticidade Semântica, Cobertura de Maturidade, Completude de Promoção, Contextualização de Autoridade
+
 ### **MOC (Matrix Ontology Catalog)**
 
 #### **Hierarquias Configuráveis**

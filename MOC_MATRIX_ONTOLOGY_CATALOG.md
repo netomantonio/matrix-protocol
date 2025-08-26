@@ -117,6 +117,8 @@ This service does not execute orchestration or decision-making (ZOF, OIF roles),
 
 MOC implementations MUST provide configuration for MAL arbitration policies to ensure consistent conflict resolution.
 
+⚠️ **MANDATORY REQUIREMENT**: This section is **REQUIRED** for all MOC implementations. Organizations MUST configure arbitration policies to ensure deterministic conflict resolution and prevent interpretation divergences.
+
 #### Mandatory Arbitration Configuration
 ```yaml
 # --- Normative Configuration ---
@@ -172,6 +174,57 @@ arbitration_policies:
 - MOC authority hierarchies MUST be used for P1 weight calculation
 - Arbitration timeout MUST be enforced by MAL
 - Policy changes MUST trigger MAL configuration updates
+
+### 🔄 Taxonomy Evolution Feedback (Normative)
+
+MOC MUST implement feedback mechanisms for taxonomic updates based on UKI promotion patterns.
+
+#### Promotion Pattern Analysis
+```yaml
+# --- Normative Configuration ---
+promotion_analysis:
+  monitoring_window_days: 90              # Analysis window for promotion patterns
+  promotion_threshold_triggers:
+    frequent_promotions:                   # Many promotions of same type
+      min_count: 10
+      same_source_scope: true
+      same_target_scope: true
+      action: "suggest_taxonomy_refinement"
+    
+    cross_scope_patterns:                  # Promotions crossing hierarchies
+      pattern_frequency: 5
+      cross_boundary_type: ["scope", "domain"]
+      action: "analyze_taxonomy_gaps"
+    
+    authority_escalation_frequency:        # Frequent escalations
+      escalation_count: 8
+      time_window_days: 30
+      action: "review_authority_hierarchy"
+```
+
+#### Feedback Loop for Taxonomic Evolution
+- **Automatic Detection**: System MUST monitor promotion patterns and identify taxonomic inconsistencies
+- **Impact Analysis**: MOC MUST analyze how successive promotions indicate hierarchical gaps or misalignments
+- **Evolution Proposals**: System MUST generate taxonomic refinement proposals based on usage evidence
+- **Governed Approval**: Taxonomic changes MUST follow organizational approval process
+- **Controlled Migration**: MOC updates MUST include migration plan for existing UKIs
+
+#### Criteria for Taxonomic Evolution
+```yaml
+# --- Normative Criteria ---
+evolution_criteria:
+  taxonomy_refinement_indicators:
+    - "Frequent promotions from squad → tribe → org (suggests missing intermediate level)"
+    - "Cross-domain promotions indicating domain boundary issues"
+    - "Authority escalations suggesting hierarchy gaps"
+    - "Semantic conflicts in MAL indicating taxonomy overlap"
+  
+  evolution_validation_requirements:
+    - "Impact analysis on existing UKIs"
+    - "Migration path definition for affected knowledge"
+    - "Stakeholder approval across affected hierarchical levels"
+    - "Rollback plan in case of evolution issues"
+```
 
 ---
 

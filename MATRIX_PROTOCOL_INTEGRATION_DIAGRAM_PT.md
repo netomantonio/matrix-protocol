@@ -82,6 +82,11 @@ graph TB
     MEP_AUTH[👥 Autoridade Derivada<br/>MEP]
     MEP_EXPL[💡 Explicabilidade Obrigatória<br/>MEP]
     
+    %% Camada MAL - Arbitragem
+    MAL_ARB[⚖️ Árbitro de Conflitos<br/>MAL]
+    MAL_DEC[📋 Registros de Decisão<br/>MAL]
+    MAL_POL[📊 Políticas de Precedência<br/>MAL]
+    
     %% Fluxo de Integração
     User --> OIF_WA
     OIF_WA --> ZOF_INT
@@ -97,9 +102,20 @@ graph TB
     ZOF_DEC --> ZOF_ACT
     ZOF_ACT --> ZOF_EVL
     
-    ZOF_EVL --> MOC_CRIT
+    %% Fluxo de Arbitragem MAL
+    ZOF_EVL -->|"Detecção de Conflito<br/>(H1/H2/H3)"| MAL_ARB
+    MAL_POL --> MAL_ARB
+    MOC_HIER --> MAL_ARB
+    MEP_PRINC --> MAL_ARB
+    MAL_ARB --> MAL_DEC
+    MAL_DEC --> MEF_REL
+    MAL_DEC --> OIF_EXP
+    
+    %% Continuação do Fluxo Normal
+    ZOF_EVL -->|"Sem Conflitos"| MOC_CRIT
     MOC_CRIT --> MEP_PRINC
     MEP_PRINC --> ZOF_EVL
+    MAL_ARB -->|"Arbitragem Completa"| ZOF_EVL
     
     ZOF_EVL --> ZOF_ENR
     ZOF_ENR --> MEF_VER
@@ -118,6 +134,7 @@ graph TB
     MEP_AUTH -.-> MOC_AUTH
     MEP_AUTH -.-> OIF_WA
     MEP_AUTH -.-> ZOF_EVL
+    MEP_AUTH -.-> MAL_ARB
     
     %% Estilização
     classDef user fill:#e1f5fe
@@ -126,6 +143,7 @@ graph TB
     classDef mef fill:#fff3e0
     classDef moc fill:#fce4ec
     classDef mep fill:#f1f8e9
+    classDef mal fill:#ffebee
     
     class User user
     class OIF_KA,OIF_WA,OIF_EXP oif
@@ -133,6 +151,7 @@ graph TB
     class MEF_UKI,MEF_VER,MEF_REL mef
     class MOC_AUTH,MOC_HIER,MOC_CRIT moc
     class MEP_PRINC,MEP_AUTH,MEP_EXPL mep
+    class MAL_ARB,MAL_DEC,MAL_POL mal
 ```
 
 ---
@@ -150,6 +169,11 @@ graph TB
 | **OIF → MEP** | Explicabilidade | Autoridade Derivada | Garantir respostas contextuais, não absolutas |
 | **ZOF → MEP** | Decisão de Enriquecimento | Justificativa Epistemológica | Aplicar princípios MEP na avaliação de enriquecimento |
 | **MEF → MEP** | Promoção de Conhecimento | Promoção Responsável | Documentar justificativa epistemológica para evolução de UKI |
+| **ZOF → MAL** | Detecção de Conflito | Invocação de Arbitragem | Invocar MAL quando EvaluateForEnrich detecta conflitos H1/H2/H3 |
+| **MAL → MEF** | Persistência de Decisão | Armazenamento de Registro de Decisão | Persistir decisões de arbitragem como registros de auditoria imutáveis |
+| **MAL → OIF** | Comunicação de Resultado | Explicação de Arbitragem | Explicar resultados de arbitragem usando templates estruturados |
+| **MOC → MAL** | Configuração de Política | Fornecimento de Regras de Precedência | Fornecer políticas de arbitragem e hierarquias de autoridade |
+| **MEP → MAL** | Fundamento Epistêmico | Geração de Justificativa | Orientar justificação epistemológica em decisões de arbitragem |
 
 ---
 
@@ -245,7 +269,74 @@ oif_explanation:
     em requisitos similares de autenticação."
 ```
 
-### **Exemplo 2: Cenário de Escalação de Autoridade**
+### **Exemplo 2: Cenário de Arbitragem MAL**
+
+```yaml
+# Conflito de Implementação JWT Concorrente
+user_story: "Dois times implementando autenticação JWT simultaneamente"
+
+# 1. Detecção de Conflito ZOF durante EvaluateForEnrich
+zof_conflict_detection:
+  conflict_type: "H2_concurrent_enrichment"
+  candidates:
+    - flow_id: "team-frontend-jwt-001"
+      uki_target: "uki:technical:pattern:jwt-authentication"
+      user: {scope: "team-frontend", authority: "developer"}
+    - flow_id: "team-backend-jwt-002"
+      uki_target: "uki:technical:pattern:jwt-authentication"
+      user: {scope: "team-backend", authority: "tech_lead"}
+  
+  mal_invocation: "Resolução local falhou, invocando MAL"
+
+# 2. Processo de Arbitragem MAL
+mal_arbitration_event:
+  event_id: "mal-evt-concurrent-jwt-001"
+  event_type: "H2"
+  policy_ref: "moc:arbitration:concurrent_enrichment"
+  
+  arbitration_decision:
+    outcome: "winner"
+    winner: "team-backend-jwt-002"
+    loser: "team-frontend-jwt-001"
+    precedence_applied:
+      - "P1_authority": "tech_lead > developer"
+    actions:
+      - "allow_enrich:team-backend-jwt-002"
+      - "defer_enrich:team-frontend-jwt-001"
+    
+    epistemic_rationale:
+      summary: "Precedência de autoridade superior em cenário concorrente"
+      moc_nodes_cited: ["moc:authority:tech_lead", "moc:domain:technical"]
+
+# 3. Explicação de Arbitragem OIF
+oif_arbitration_template:
+  decision_id: "mal-evt-concurrent-jwt-001"
+  outcome: "winner"
+  winner: "implementação JWT do time backend"
+  losers: ["implementação JWT do time frontend"]
+  precedence_applied: "Precedência de autoridade: tech_lead > developer"
+  
+  user_explanation: |
+    "Arbitragem completada para implementações JWT concorrentes.
+    
+    ✅ Vencedor: Implementação time backend (autoridade tech_lead)
+    ⏸️ Adiado: Implementação time frontend 
+    📋 Próximos Passos: Time frontend deve coordenar com time backend
+    🔗 Referência: Hierarquia de autoridade MOC para domínio técnico"
+
+# 4. Persistência de Registro de Decisão MEF
+mef_decision_record:
+  decision_id: "mal-dec-concurrent-jwt-001"
+  relationships_created:
+    - type: "conflicts_with"
+      source: "team-frontend-jwt-001"
+      target: "team-backend-jwt-002"
+      resolution: "authority_precedence"
+  
+  audit_trail: "Arbitragem MAL completa registrada para referência futura"
+```
+
+### **Exemplo 3: Cenário de Escalação de Autoridade**
 
 ```yaml
 # Tentativa de Criação de Política Organizacional
@@ -294,3 +385,4 @@ zof_workflow_modification:
 - [MOC — Matrix Ontology Catalog](MOC_MATRIX_ONTOLOGY_CATALOG.md)  
 - [MEP — Matrix Epistemic Principle](MEP_MATRIX_EPISTEMIC_PRINCIPLE.md)  
 - [Glossário do Protocolo Matrix](MATRIX_PROTOCOL_GLOSSARY_PT.md)
+- [MAL — Matrix Arbiter Layer](MAL_MATRIX_ARBITER_LAYER.md)
