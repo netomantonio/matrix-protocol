@@ -97,6 +97,45 @@ All intelligence archetypes MUST:
 - Cite specific MOC nodes in explanations
 - Implement epistemological humility in responses
 
+### 🧩 Archetype Levels (Normative)
+
+The Operator Intelligence Framework (OIF) defines **three levels of archetypes**.  
+This classification establishes a clear distinction between elements that are **core to the Matrix Protocol** and those that are **contextually derived by organizations**.
+
+#### 1. Canonical Archetypes (Mandatory)
+- **Knowledge Agent (KAG)**  
+- **Workflow Agent (WAG)**  
+
+These archetypes are **always present** in the OIF and constitute the **irreducible minimum** of the Matrix Protocol.  
+They are **protocol-wide**, independent of organizational context, and **MUST** be implemented in every deployment.
+
+#### 2. Specialized Archetypes (Configurable)
+- Defined by organizations through the **MOC (Matrix Ontology Catalog)**.  
+- Always parameterized with `domain_ref` and `scope_ref`.  
+- Their authority is **derivative**, validated against MOC authority maps.  
+- They **MUST NOT** override canonical archetypes, but can extend them with domain-specific functions (e.g., Security Guidance Agent).  
+- Specialized archetypes **MUST** produce outputs conforming to OIF explicability templates.
+
+#### 3. Ephemeral Archetypes (Experimental, Optional)
+- Created **ad-hoc** during explorations, innovation cycles, or temporary contexts.  
+- Valid only within the session or restricted scope defined in the MOC.  
+- They **MUST NOT** persist in the MEF or generate enduring UKIs.  
+- Their status is **non-canonical** and **MUST** be explicitly flagged as `ephemeral: true`.  
+- Ephemeral archetypes are intended for **experimentation and prototyping**, never for governance-critical flows.
+
+#### 🔗 Integration Rules
+- **MEP (Epistemic Principle)**: establishes that **all archetypes derive authority** from context; canonical archetypes derive it from the protocol itself.  
+- **MOC (Ontology Catalog)**: provides definitions, scopes, and authority maps for specialized and ephemeral archetypes.  
+- **MEF (Embedding Framework)**: may store outputs from canonical and specialized archetypes; ephemeral archetypes are explicitly excluded.  
+- **ZOF (Orchestration Framework)**: orchestrates flows across archetypes, respecting authority validation from MOC.  
+- **OIF (Operator Intelligence Framework)**: maintains explicability, ensuring outputs clearly distinguish archetype level (`canonical`, `specialized`, or `ephemeral`).
+
+#### ⚖️ Normative Constraints
+1. **Canonical archetypes MUST always be implemented.**  
+2. **Specialized archetypes MUST be validated via MOC** and cannot supersede canonical archetypes.  
+3. **Ephemeral archetypes MUST NOT persist** beyond their originating session or scope.  
+4. All archetypes MUST comply with OIF explicability standards.
+
 ### Archetype Lifecycle Management
 - Archetypes MUST be versioned and follow semantic versioning
 - Configuration changes MUST be validated against MOC rules

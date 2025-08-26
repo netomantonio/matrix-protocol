@@ -90,6 +90,45 @@ Implementações DEVEM incluir métricas de:
 - **Filtragem Hierárquica**: Precisão no respeito às hierarquias MOC
 - **Autoridade Derivada**: Taxa de contextualização e evitação de verdades absolutas
 
+### 🧩 Níveis de Arquétipos (Normativo)
+
+O Framework de Inteligência Operador (OIF) define **três níveis de arquétipos**.  
+Esta classificação estabelece uma distinção clara entre elementos que são **centrais ao Protocolo Matrix** e aqueles que são **contextualmente derivados pelas organizações**.
+
+#### 1. Arquétipos Canônicos (Obrigatórios)
+- **Knowledge Agent (KAG)**  
+- **Workflow Agent (WAG)**  
+
+Estes arquétipos estão **sempre presentes** no OIF e constituem o **mínimo irredutível** do Protocolo Matrix.  
+São **transversais ao protocolo**, independentes de contexto organizacional, e **DEVEM** ser implementados em toda implantação.
+
+#### 2. Arquétipos Especializados (Configuráveis)
+- Definidos pelas organizações através do **MOC (Matrix Ontology Catalog)**.  
+- Sempre parametrizados com `domain_ref` e `scope_ref`.  
+- Sua autoridade é **derivativa**, validada contra mapas de autoridade MOC.  
+- **NÃO DEVEM** sobrescrever arquétipos canônicos, mas podem estendê-los com funções específicas de domínio (ex: Security Guidance Agent).  
+- Arquétipos especializados **DEVEM** produzir outputs conformes aos templates de explicabilidade OIF.
+
+#### 3. Arquétipos Efêmeros (Experimentais, Opcionais)
+- Criados **ad-hoc** durante explorações, ciclos de inovação ou contextos temporários.  
+- Válidos apenas dentro da sessão ou escopo restrito definido no MOC.  
+- **NÃO DEVEM** persistir no MEF ou gerar UKIs duradouros.  
+- Seu status é **não-canônico** e **DEVE** ser explicitamente marcado como `ephemeral: true`.  
+- Arquétipos efêmeros são destinados à **experimentação e prototipagem**, nunca para fluxos críticos de governança.
+
+#### 🔗 Regras de Integração
+- **MEP (Matrix Epistemic Principle)**: estabelece que **todos os arquétipos derivam autoridade** do contexto; arquétipos canônicos a derivam do próprio protocolo.  
+- **MOC (Matrix Ontology Catalog)**: fornece definições, escopos e mapas de autoridade para arquétipos especializados e efêmeros.  
+- **MEF (Matrix Embedding Framework)**: pode armazenar outputs de arquétipos canônicos e especializados; arquétipos efêmeros são explicitamente excluídos.  
+- **ZOF (Zion Orchestration Framework)**: orquestra fluxos entre arquétipos, respeitando validação de autoridade do MOC.  
+- **OIF (Operator Intelligence Framework)**: mantém explicabilidade, garantindo que outputs distingam claramente o nível do arquétipo (`canonical`, `specialized`, ou `ephemeral`).
+
+#### ⚖️ Restrições Normativas
+1. **Arquétipos canônicos DEVEM sempre ser implementados.**  
+2. **Arquétipos especializados DEVEM ser validados via MOC** e não podem superar arquétipos canônicos.  
+3. **Arquétipos efêmeros NÃO DEVEM persistir** além de sua sessão ou escopo de origem.  
+4. Todos os arquétipos DEVEM cumprir com os padrões de explicabilidade OIF.
+
 ---
 
 ## 5. Interoperabilidade
