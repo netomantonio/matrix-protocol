@@ -113,6 +113,65 @@ This service does not execute orchestration or decision-making (ZOF, OIF roles),
 - The **OIF** MUST explain validation decisions to users, citing relevant MOC nodes  
 - The **MEF** MUST validate UKI creation authority via this service before persisting knowledge
 
+### 🔄 Lifecycle Management (Normative)
+
+MOC MUST provide configuration for knowledge lifecycle management to ensure proper temporal governance of UKIs.
+
+#### Lifecycle Configuration
+```yaml
+# --- Normative Configuration ---
+lifecycle_management:
+  default_lifecycle_policies:
+    quarterly_review:                       # EXAMPLE - organization-dependent
+      review_frequency_days: 90
+      auto_reminder: true
+      required_stakeholders: ["domain_owner", "content_author"]
+      evaluation_criteria: ["accuracy", "relevance", "completeness"]
+      
+    annual_validation:                      # EXAMPLE - organization-dependent
+      review_frequency_days: 365
+      mandatory_revalidation: true
+      required_evidence: ["usage_metrics", "stakeholder_feedback"]
+      escalation_required: false
+      
+    sunset_after_2y:                       # EXAMPLE - organization-dependent
+      deprecation_warning_days: 60
+      final_removal_days: 730
+      migration_plan_required: true
+      alternative_uki_required: true
+      stakeholder_notification: true
+      
+    continuous_monitoring:                  # EXAMPLE - organization-dependent
+      monitoring_frequency_days: 30
+      automated_validation: true
+      threshold_triggers: ["low_usage", "conflict_frequency", "promotion_patterns"]
+      
+  lifecycle_transition_rules:
+    draft_to_validated:
+      lifecycle_change_allowed: true
+      authority_escalation: false
+      review_period_extension: true
+      
+    validated_to_deprecated:
+      lifecycle_change_allowed: true
+      authority_escalation: true
+      mandatory_migration_plan: true
+      stakeholder_approval_required: true
+      
+  governance_integration:
+    moc_authority_validation: true          # Validate lifecycle changes via MOC authority
+    mal_arbitration_lifecycle: true         # Consider lifecycle in MAL arbitration
+    promotion_lifecycle_impact: true       # Analyze lifecycle impact on promotions
+```
+
+#### Lifecycle Integration Requirements
+- **MEF Integration**: All UKIs MUST reference organizational lifecycle policies via lifecycle_ref
+- **MAL Integration**: Lifecycle status MUST be considered in arbitration decisions
+- **ZOF Integration**: Lifecycle policies MUST be evaluated during EvaluateForEnrich checkpoint
+- **OIF Integration**: Lifecycle status MUST be communicated to users in explanations
+
+> **Important**: The lifecycle examples above (`quarterly_review`, `sunset_after_2y`, etc.) are **illustrative only**. Each organization defines its own lifecycle policies according to specific governance needs while maintaining MOC structure requirements.
+
 ### ⚖️ Arbitration Policies Configuration (MAL Integration)
 
 MOC implementations MUST provide configuration for MAL arbitration policies to ensure consistent conflict resolution.

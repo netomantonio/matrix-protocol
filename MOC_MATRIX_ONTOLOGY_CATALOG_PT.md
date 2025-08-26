@@ -115,6 +115,65 @@ Esse serviço não executa decisões ou orquestrações (papel do ZOF/OIF), mas 
 - O **OIF** DEVE explicar decisões de validação aos usuários, citando nós relevantes do MOC  
 - O **MEF** DEVE validar autoridade de criação de UKI via este serviço antes de persistir conhecimento
 
+### 🔄 Gestão de Ciclo de Vida (Normativo)
+
+O MOC DEVE fornecer configuração para gestão de ciclo de vida do conhecimento para garantir governança temporal adequada dos UKIs.
+
+#### Configuração de Ciclo de Vida
+```yaml
+# --- Configuração Normativa ---
+lifecycle_management:
+  default_lifecycle_policies:
+    quarterly_review:                       # EXEMPLO - dependente da organização
+      review_frequency_days: 90
+      auto_reminder: true
+      required_stakeholders: ["domain_owner", "content_author"]
+      evaluation_criteria: ["accuracy", "relevance", "completeness"]
+      
+    annual_validation:                      # EXEMPLO - dependente da organização
+      review_frequency_days: 365
+      mandatory_revalidation: true
+      required_evidence: ["usage_metrics", "stakeholder_feedback"]
+      escalation_required: false
+      
+    sunset_after_2y:                       # EXEMPLO - dependente da organização
+      deprecation_warning_days: 60
+      final_removal_days: 730
+      migration_plan_required: true
+      alternative_uki_required: true
+      stakeholder_notification: true
+      
+    continuous_monitoring:                  # EXEMPLO - dependente da organização
+      monitoring_frequency_days: 30
+      automated_validation: true
+      threshold_triggers: ["low_usage", "conflict_frequency", "promotion_patterns"]
+      
+  lifecycle_transition_rules:
+    draft_to_validated:
+      lifecycle_change_allowed: true
+      authority_escalation: false
+      review_period_extension: true
+      
+    validated_to_deprecated:
+      lifecycle_change_allowed: true
+      authority_escalation: true
+      mandatory_migration_plan: true
+      stakeholder_approval_required: true
+      
+  governance_integration:
+    moc_authority_validation: true          # Valida mudanças de ciclo via autoridade MOC
+    mal_arbitration_lifecycle: true         # Considera ciclo de vida na arbitragem MAL
+    promotion_lifecycle_impact: true       # Analisa impacto do ciclo nas promoções
+```
+
+#### Requisitos de Integração de Ciclo de Vida
+- **Integração MEF**: Todos os UKIs DEVEM referenciar políticas organizacionais de ciclo de vida via lifecycle_ref
+- **Integração MAL**: Status do ciclo de vida DEVE ser considerado em decisões de arbitragem
+- **Integração ZOF**: Políticas de ciclo de vida DEVEM ser avaliadas durante o checkpoint EvaluateForEnrich
+- **Integração OIF**: Status do ciclo de vida DEVE ser comunicado aos usuários nas explicações
+
+> **Importante**: Os exemplos de ciclo de vida acima (`quarterly_review`, `sunset_after_2y`, etc.) são **meramente ilustrativos**. Cada organização define suas próprias políticas de ciclo de vida de acordo com necessidades específicas de governança, mantendo os requisitos estruturais do MOC.
+
 ### ⚖️ Configuração de Políticas de Arbitragem (Integração MAL)
 
 Implementações MOC DEVEM fornecer configuração para políticas de arbitragem MAL para garantir resolução consistente de conflitos.
