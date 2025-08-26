@@ -48,7 +48,11 @@ Toda decisão MAL DEVE incluir justificação epistemológica alinhada com princ
 Todas as decisões de arbitragem DEVEM ser persistidas como Registros de Decisão imutáveis com rastreabilidade completa aos UKIs de entrada, políticas MOC e cadeias de raciocínio.
 
 ### Experiência de Usuário Não-Bloqueante
-Se a MAL não puder finalizar decisões dentro de janelas de tempo configuradas, o ZOF DEVE prosseguir com padrões seguros (tipicamente sem enriquecimento) enquanto o OIF informa usuários sobre status de arbitragem pendente.
+Se a MAL não puder decidir dentro do arbitration_timeout configurado, o ZOF DEVE aplicar o resultado padrão seguro:
+- Outcome = no enrich
+- Status = pending arbitration
+
+O OIF DEVE notificar o usuário que a arbitragem está pendente, incluindo instruções de escalação do MOC se disponíveis.
 
 ---
 
@@ -61,7 +65,14 @@ O ZOF DEVE invocar a MAL quando detectar tipos de conflito H1, H2 ou H3 após co
 
 ### Fronteiras de Autoridade de Arbitragem
 - A MAL DEVE tomar decisões finais sobre conflitos dentro de seu escopo
+- A MAL NÃO DEVE comunicar resultados diretamente aos usuários
 - O OIF NÃO DEVE tentar arbitragem; DEVE apenas explicar resultados da MAL
+- O OIF DEVE renderizar todos os resultados MAL usando um Template de Explicação de Arbitragem que inclua pelo menos:
+  - decision_id
+  - outcome
+  - winner/losers (se aplicável)
+  - precedence_applied
+  - epistemic_rationale com moc_nodes citados
 - O MEF DEVE persistir todas as decisões MAL como Registros de Decisão imutáveis
 - O MOC DEVE fornecer configuração de política mas NÃO DEVE sobrescrever decisões MAL
 
@@ -75,8 +86,16 @@ Todo Evento de Arbitragem DEVE conter:
 - **policy_ref**: Referência opcional a política de arbitragem MOC específica
 
 ### Hierarquia de Política de Precedência
-A MAL DEVE aplicar regras de precedência na seguinte ordem padrão (MOC pode sobrescrever):
 
+A MAL DEVE aplicar regras de precedência conforme configurado no MOC.
+
+Se policy_ref for fornecido no Evento de Arbitragem, a MAL DEVE resolver usando a política referenciada do MOC.
+
+Se ausente, a MAL PODE usar sua precedência padrão canônica (P1–P6).
+
+Organizações DEVEM sempre configurar políticas de arbitragem no MOC para sobrescrever padrões.
+
+Ordem de precedência padrão canônica:
 1. **P1 Peso de Autoridade**: Nó de autoridade superior na hierarquia MOC vence
 2. **P2 Especificidade de Escopo**: Escopo mais específico vence para instruções locais; escopo mais amplo vence para regras globais obrigatórias
 3. **P3 Nível de Maturidade**: validated > endorsed > draft/experimental
@@ -92,13 +111,27 @@ A MAL DEVE produzir um de quatro resultados:
 - **defer**: Requer sobrescrita humana ou escalação
 
 ### Requisitos de Persistência e Comunicação
-- O MEF DEVE armazenar Registros de Decisão com relacionamentos de conflito (conflicts_with, supersedes, partitioned_by_scope)
-- O OIF DEVE receber mensagens estruturadas para explicar decisões usando templates padronizados
+
+A MAL NÃO DEVE introduzir termos ontológicos fora do MOC.
+
+Todos os resultados devem referenciar campos de ontologia existentes:
+- scope_ref (particionamento)
+- authority_ref (hierarquia de autoridade)
+- lifecycle_ref (regras de promoção/depreciação)
+
+Relacionamentos (conflicts_with, supersedes) DEVEM ser persistidos no MEF, sempre citando referências MOC.
+
+- O MEF DEVE armazenar Registros de Decisão com relacionamentos de conflito usando termos ontológicos MOC
+- O OIF DEVE receber mensagens estruturadas para explicar decisões usando Templates de Explicação de Arbitragem
+- Templates de Explicação de Arbitragem DEVEM incluir campos mínimos obrigatórios: decision_id, outcome, winner/losers, precedence_applied, epistemic_rationale com moc_nodes citados
 - Todas as decisões DEVEM incluir justificativa epistêmica referenciando nós MOC e evidência MEF
 
 ### Restrições de Tempo e Consistência
 - A MAL DEVE completar arbitragem dentro de arbitration_timeout configurado no MOC
-- Em timeout, o ZOF DEVE aplicar padrões seguros e notificar estado de arbitragem pendente
+- Se a MAL não puder decidir dentro do arbitration_timeout configurado, o ZOF DEVE aplicar o resultado padrão seguro:
+  - Outcome = no enrich
+  - Status = pending arbitration
+- O OIF DEVE notificar o usuário que a arbitragem está pendente, incluindo instruções de escalação do MOC se disponíveis
 - Registros de Decisão DEVEM ser imutáveis uma vez persistidos
 
 ---

@@ -46,7 +46,11 @@ Every MAL decision MUST include epistemological justification aligned with MEP p
 All arbitration decisions MUST be persisted as immutable Decision Records with complete traceability to input UKIs, MOC policies, and reasoning chains.
 
 ### Non-blocking User Experience
-If MAL cannot finalize decisions within configured time windows, ZOF MUST proceed with safe defaults (typically no enrichment) while OIF informs users of pending arbitration status.
+If MAL cannot decide within the configured arbitration_timeout, ZOF MUST apply the safe default outcome:
+- Outcome = no enrich
+- Status = pending arbitration
+
+OIF MUST notify the user that arbitration is pending, including escalation instructions from the MOC if available.
 
 ---
 
@@ -59,7 +63,14 @@ ZOF MUST invoke MAL when it detects conflict types H1, H2, or H3 after EvaluateF
 
 ### Arbitration Authority Boundaries
 - MAL MUST make final decisions on conflicts within its scope
+- MAL MUST NOT communicate outcomes directly to users
 - OIF MUST NOT attempt arbitration; it MUST only explain MAL outcomes
+- OIF MUST render all MAL outcomes using an Arbitration Explanation Template that includes at least:
+  - decision_id
+  - outcome
+  - winner/losers (if applicable)
+  - precedence_applied
+  - epistemic_rationale with moc_nodes cited
 - MEF MUST persist all MAL decisions as immutable Decision Records
 - MOC MUST provide policy configuration but MUST NOT override MAL decisions
 
@@ -73,8 +84,16 @@ Every Arbitration Event MUST contain:
 - **policy_ref**: Optional reference to specific MOC arbitration policy
 
 ### Precedence Policy Hierarchy
-MAL MUST apply precedence rules in the following default order (MOC may override):
 
+MAL MUST apply precedence rules as configured in the MOC.
+
+If policy_ref is provided in the Arbitration Event, MAL MUST resolve using the referenced policy from the MOC.
+
+If absent, MAL MAY fallback to its canonical default precedence (P1–P6).
+
+Organizations SHOULD always configure arbitration policies in the MOC to override defaults.
+
+Canonical default precedence order:
 1. **P1 Authority Weight**: Higher authority node in MOC hierarchy wins
 2. **P2 Scope Specificity**: More specific scope wins for local instructions; broader scope wins for mandatory global rules
 3. **P3 Maturity Level**: validated > endorsed > draft/experimental
@@ -90,13 +109,27 @@ MAL MUST produce one of four outcomes:
 - **defer**: Requires human override or escalation
 
 ### Persistence and Communication Requirements
-- MEF MUST store Decision Records with conflict relationships (conflicts_with, supersedes, partitioned_by_scope)
-- OIF MUST receive structured messages to explain decisions using standardized templates
+
+MAL MUST NOT introduce ontological terms outside of the MOC.
+
+All outcomes must reference existing ontology fields:
+- scope_ref (partitioning)
+- authority_ref (authority hierarchy)  
+- lifecycle_ref (promotion/deprecation rules)
+
+Relationships (conflicts_with, supersedes) MUST be persisted in the MEF, always citing MOC references.
+
+- MEF MUST store Decision Records with conflict relationships using MOC ontological terms
+- OIF MUST receive structured messages to explain decisions using Arbitration Explanation Templates
+- Arbitration Explanation Templates MUST include minimum required fields: decision_id, outcome, winner/losers, precedence_applied, epistemic_rationale with moc_nodes cited
 - All decisions MUST include epistemic rationale referencing MOC nodes and MEF evidence
 
 ### Time Constraints and Consistency
 - MAL MUST complete arbitration within arbitration_timeout configured in MOC
-- On timeout, ZOF MUST apply safe defaults and notify pending arbitration state
+- If MAL cannot decide within the configured arbitration_timeout, ZOF MUST apply the safe default outcome:
+  - Outcome = no enrich
+  - Status = pending arbitration
+- OIF MUST notify the user that arbitration is pending, including escalation instructions from the MOC if available
 - Decision Records MUST be immutable once persisted
 
 ---
@@ -360,7 +393,7 @@ decision_record:
     - "P5_evidence": "Different technical contexts require different approaches"
   
   actions:
-    - "partition_scope:domain_specific"
+    - "partition_scope_ref:domain_specific"
     - "add_relationship:complements"
     - "require_consistency:security_principles"
   
