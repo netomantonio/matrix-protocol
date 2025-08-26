@@ -69,46 +69,48 @@ Every knowledge decision (rejection, promotion, depreciation, arbitration) must 
 4. **Authority Relativity**: Authority MUST always be derived, never absolute
 5. **Auditable Explainability**: Explainability MUST be mandatory and permanently recorded
 
-### MEP Conformity Metrics
+### Epistemic Conformance
 
-Implementations MUST provide quantitative conformity assessment for each MEP principle:
+Framework implementations MUST demonstrate qualitative adherence to MEP principles through **presence validation** rather than quantitative thresholds. Organizations define assessment methods via MOC while maintaining these universal conformance criteria:
 
-#### Principle 1: Semantic Elasticity Conformity
-- **Metric**: MOC Configuration Flexibility Score
-- **Measurement**: Percentage of taxonomic elements configurable via MOC vs hardcoded
-- **Threshold**: ≥ 85% organizational configurability
-- **Validation**: Automated analysis of framework *_ref field validation sources
+#### Principle 1: Semantic Elasticity Conformance
+- **Criterion**: Framework references MOC for taxonomic validation
+- **Evidence**: *_ref fields validated against organizational MOC, not hardcoded values
+- **Validation**: Local configuration capability present and functional
+- **Assessment**: "Does the framework avoid fixed taxonomic structures?"
 
-#### Principle 2: Stratified Epistemology Conformity  
-- **Metric**: Maturity Stratification Coverage
-- **Measurement**: Percentage of knowledge units with valid maturity_ref assignments
-- **Threshold**: ≥ 95% coverage across all UKIs
-- **Validation**: MEF repository analysis for maturity_ref field compliance
+#### Principle 2: Stratified Epistemology Conformance
+- **Criterion**: maturity_ref field present in knowledge structures
+- **Evidence**: Maturity hierarchy sourced from organizational MOC
+- **Validation**: Promotion workflows respect epistemological maturity progression
+- **Assessment**: "Does knowledge carry traceable maturity levels?"
 
-#### Principle 3: Responsible Promotion Conformity
-- **Metric**: Promotion Justification Completeness
-- **Measurement**: Percentage of promotions with documented promotion_rationale
-- **Threshold**: 100% promotion_rationale presence for version increments
-- **Validation**: MEF audit trail analysis for promotion event documentation
+#### Principle 3: Responsible Promotion Conformance
+- **Criterion**: promotion_rationale field required for version increments
+- **Evidence**: Epistemological justification present and non-empty
+- **Validation**: Change impact documented with reasoning
+- **Assessment**: "Is knowledge evolution accompanied by explicit justification?"
 
-#### Principle 4: Derived Authority Conformity
-- **Metric**: Authority Contextualization Rate
-- **Measurement**: Percentage of authority decisions citing MOC authority_ref sources
-- **Threshold**: 100% MOC-referenced authority validations
-- **Validation**: Authority Validation Service usage tracking and MOC citation analysis
+#### Principle 4: Derived Authority Conformance
+- **Criterion**: Authority decisions cite MOC authority_ref sources
+- **Evidence**: No absolute authority claims in system responses
+- **Validation**: Contextual authority validation implemented
+- **Assessment**: "Is all authority derived from organizational context?"
 
-#### Principle 5: Necessary Explainability Conformity
-- **Metric**: Explainability Signal Completeness
-- **Measurement**: Percentage of state transitions with complete (context, decision, result) signals
-- **Threshold**: 100% signal recording across all ZOF workflows
-- **Validation**: ZOF workflow audit for explainability signal presence and quality
+#### Principle 5: Necessary Explainability Conformance
+- **Criterion**: epistemic_rationale present in epistemological decisions
+- **Evidence**: Explainability signals (context, decision, result) recorded
+- **Validation**: Audit trail maintained for epistemological decisions
+- **Assessment**: "Are knowledge decisions explicable and auditable?"
 
-#### Automated Conformity Assessment
-Implementations MUST provide:
-- **Daily conformity dashboards** showing current scores against thresholds
-- **Alert systems** for conformity violations requiring immediate attention
-- **Trend analysis** showing conformity evolution over time
-- **Root cause analysis** for conformity degradation incidents
+#### Conformance Validation Approach
+Implementations SHOULD provide:
+- **Presence verification**: Binary validation of required epistemological elements
+- **Audit trail examination**: Evidence of epistemological justification recording
+- **MOC integration assessment**: Verification of organizational context derivation
+- **Explainability trace**: Ability to trace epistemological decision reasoning
+
+> **Note**: Conformance assessment methods are intentionally **non-quantitative** to preserve semantic elasticity. Organizations customize assessment approaches via MOC while ensuring epistemological principles are verifiably present.
 
 ### Framework Complementarity
 MEP guides philosophy; frameworks execute implementation:

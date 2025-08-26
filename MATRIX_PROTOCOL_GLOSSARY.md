@@ -237,11 +237,11 @@ These terms are used by multiple frameworks and have unified definitions:
 - **Used By**: MEF (promotion analysis), ZOF (pattern detection)
 - **Related Terms**: Promotion Patterns, Taxonomic Refinement, Hierarchical Gaps, Usage Evidence
 
-### **Conformity Metrics**
-- **Definition**: Quantitative assessment criteria for measuring adherence to MEP principles
-- **Primary Framework**: MEP (compliance measurement)
-- **Used By**: All frameworks (conformity validation)
-- **Related Terms**: Semantic Elasticity Score, Maturity Coverage, Promotion Completeness, Authority Contextualization
+### **Epistemic Conformance**
+- **Definition**: Qualitative assessment criteria for verifying adherence to MEP principles through presence validation rather than quantitative thresholds
+- **Primary Framework**: MEP (philosophical compliance)
+- **Used By**: All frameworks (conformance validation)
+- **Related Terms**: Presence Validation, Epistemological Audit Trail, MOC Integration Assessment, Explainability Trace
 
 ### **MOC (Matrix Ontology Catalog)**
 
@@ -297,7 +297,7 @@ These terms are used by multiple frameworks and have unified definitions:
 | Canonical States | ZOF | Cross-Framework Terms |
 | Concurrent Enrichment (H2) | MAL | MAL Terms |
 | Configurable Hierarchies | MOC | Framework-Specific Terms |
-| Conformity Metrics | MEP | Extended Framework Terms |
+| Epistemic Conformance | MEP | Extended Framework Terms |
 | Cross-boundary Enrichment | ZOF | Extended Framework Terms |
 | Decision Record | MAL | MAL Terms |
 | Derived Authority | MEP | Cross-Framework Terms |

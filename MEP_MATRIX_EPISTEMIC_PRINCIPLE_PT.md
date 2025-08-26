@@ -69,46 +69,48 @@ Toda decisão sobre conhecimento (rejeição, promoção, depreciação, arbitra
 4. **Relatividade Autoridade**: Autoridade DEVE sempre ser derivada, nunca absoluta
 5. **Explicabilidade Auditável**: Explicabilidade DEVE ser mandatória e permanentemente registrada
 
-### Métricas de Conformidade MEP
+### Conformidade Epistêmica
 
-Implementações DEVEM fornecer avaliação quantitativa de conformidade para cada princípio MEP:
+Implementações de framework DEVEM demonstrar aderência qualitativa aos princípios MEP através de **validação de presença** em vez de limiares quantitativos. Organizações definem métodos de avaliação via MOC mantendo estes critérios universais de conformidade:
 
 #### Princípio 1: Conformidade de Elasticidade Semântica
-- **Métrica**: Score de Flexibilidade de Configuração MOC
-- **Medição**: Porcentagem de elementos taxonômicos configuráveis via MOC vs hardcoded
-- **Limiar**: ≥ 85% configurabilidade organizacional
-- **Validação**: Análise automatizada de fontes de validação de campos *_ref dos frameworks
+- **Critério**: Framework referencia MOC para validação taxonômica
+- **Evidência**: Campos *_ref validados contra MOC organizacional, não valores hardcoded
+- **Validação**: Capacidade de configuração local presente e funcional
+- **Avaliação**: "O framework evita estruturas taxonômicas fixas?"
 
 #### Princípio 2: Conformidade de Epistemologia Estratificada
-- **Métrica**: Cobertura de Estratificação de Maturidade
-- **Medição**: Porcentagem de unidades de conhecimento com atribuições válidas de maturity_ref
-- **Limiar**: ≥ 95% cobertura em todos os UKIs
-- **Validação**: Análise de repositório MEF para conformidade de campo maturity_ref
+- **Critério**: Campo maturity_ref presente em estruturas de conhecimento
+- **Evidência**: Hierarquia de maturidade derivada do MOC organizacional
+- **Validação**: Workflows de promoção respeitam progressão de maturidade epistemológica
+- **Avaliação**: "O conhecimento carrega níveis de maturidade rastreáveis?"
 
 #### Princípio 3: Conformidade de Promoção Responsável
-- **Métrica**: Completude de Justificação de Promoção
-- **Medição**: Porcentagem de promoções com promotion_rationale documentado
-- **Limiar**: 100% presença de promotion_rationale para incrementos de versão
-- **Validação**: Análise de trilha de auditoria MEF para documentação de eventos de promoção
+- **Critério**: Campo promotion_rationale obrigatório para incrementos de versão
+- **Evidência**: Justificação epistemológica presente e não-vazia
+- **Validação**: Impacto de mudança documentado com raciocínio
+- **Avaliação**: "A evolução do conhecimento é acompanhada de justificação explícita?"
 
 #### Princípio 4: Conformidade de Autoridade Derivada
-- **Métrica**: Taxa de Contextualização de Autoridade
-- **Medição**: Porcentagem de decisões de autoridade citando fontes authority_ref do MOC
-- **Limiar**: 100% validações de autoridade referenciadas ao MOC
-- **Validação**: Rastreamento de uso do Serviço de Validação de Autoridade e análise de citação MOC
+- **Critério**: Decisões de autoridade citam fontes authority_ref do MOC
+- **Evidência**: Nenhuma reivindicação de autoridade absoluta em respostas do sistema
+- **Validação**: Validação de autoridade contextual implementada
+- **Avaliação**: "Toda autoridade é derivada do contexto organizacional?"
 
 #### Princípio 5: Conformidade de Explicabilidade Necessária
-- **Métrica**: Completude de Sinais de Explicabilidade
-- **Medição**: Porcentagem de transições de estado com sinais completos (contexto, decisão, resultado)
-- **Limiar**: 100% registro de sinais em todos os workflows ZOF
-- **Validação**: Auditoria de workflow ZOF para presença e qualidade de sinais de explicabilidade
+- **Critério**: epistemic_rationale presente em decisões epistemológicas
+- **Evidência**: Sinais de explicabilidade (contexto, decisão, resultado) registrados
+- **Validação**: Trilha de auditoria mantida para decisões epistemológicas
+- **Avaliação**: "As decisões de conhecimento são explicáveis e auditáveis?"
 
-#### Avaliação Automatizada de Conformidade
+#### Abordagem de Validação de Conformidade
 Implementações DEVEM fornecer:
-- **Dashboards de conformidade diários** mostrando scores atuais contra limiares
-- **Sistemas de alerta** para violações de conformidade requerendo atenção imediata
-- **Análise de tendências** mostrando evolução de conformidade ao longo do tempo
-- **Análise de causa raiz** para incidentes de degradação de conformidade
+- **Verificação de presença**: Validação binária de elementos epistemológicos obrigatórios
+- **Exame de trilha de auditoria**: Evidência de registro de justificação epistemológica
+- **Avaliação de integração MOC**: Verificação de derivação de contexto organizacional
+- **Rastreamento de explicabilidade**: Capacidade de rastrear raciocínio de decisões epistemológicas
+
+> **Nota**: Métodos de avaliação de conformidade são intencionalmente **não-quantitativos** para preservar elasticidade semântica. Organizações customizam abordagens de avaliação via MOC enquanto garantem que princípios epistemológicos sejam verificavelmente presentes.
 
 ### Complementaridade com Frameworks
 O MEP orienta a filosofia; frameworks executam a implementação:

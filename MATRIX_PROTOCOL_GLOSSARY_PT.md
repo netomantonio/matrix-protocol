@@ -239,11 +239,11 @@ Estes termos são utilizados por múltiplos frameworks e possuem definições un
 - **Usado Por**: MEF (análise de promoção), ZOF (detecção de padrão)
 - **Termos Relacionados**: Padrões de Promoção, Refinamento Taxonômico, Lacunas Hierárquicas, Evidência de Uso
 
-### **Métricas de Conformidade**
-- **Definição**: Critérios de avaliação quantitativa para medir aderência aos princípios MEP
-- **Framework Primário**: MEP (medição de conformidade)
+### **Conformidade Epistêmica**
+- **Definição**: Critérios de avaliação qualitativa para verificar aderência aos princípios MEP através de validação de presença em vez de limiares quantitativos
+- **Framework Primário**: MEP (conformidade filosófica)
 - **Usado Por**: Todos os frameworks (validação de conformidade)
-- **Termos Relacionados**: Score de Elasticidade Semântica, Cobertura de Maturidade, Completude de Promoção, Contextualização de Autoridade
+- **Termos Relacionados**: Validação de Presença, Trilha de Auditoria Epistemológica, Avaliação de Integração MOC, Rastreamento de Explicabilidade
 
 ### **MOC (Matrix Ontology Catalog)**
 
