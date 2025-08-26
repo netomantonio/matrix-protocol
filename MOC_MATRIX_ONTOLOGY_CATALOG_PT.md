@@ -287,6 +287,53 @@ evolution_criteria:
     - "Plano de rollback em caso de problemas de evolução"
 ```
 
+#### 🧬 Evolução Ontológica (Normativo)
+
+**Princípio Central**: Promoções sucessivas de UKIs fornecem feedback para refinamento taxonômico, mas mudanças taxonômicas NUNCA são automáticas. O MOC permanece como única fonte de verdade para ontologias organizacionais.
+
+##### Loop de Feedback Promoção ↔ Ontologia
+```yaml
+# --- Configuração Normativa ---
+ontology_evolution:
+  feedback_mechanism:
+    promotion_pattern_detection:       # Detecção automática
+      enabled: true
+      analysis_frequency_days: 30
+      pattern_threshold_analysis: true
+      
+    taxonomy_suggestion_generation:    # Propostas automáticas
+      enabled: true
+      evidence_aggregation: true
+      impact_pre_analysis: true
+      stakeholder_identification: true
+      
+    ontology_update_authority:         # Controle curatorial manual
+      automatic_updates: false         # NUNCA automático
+      curatorial_approval_required: true
+      organizational_governance: true
+      change_impact_validation: true
+
+  curatorial_governance:
+    approval_authority: ["architecture_committee", "ontology_curators"]
+    evidence_review_required: true
+    stakeholder_consultation: true
+    controlled_migration_planning: true
+    rollback_capability_required: true
+    
+  framework_separation:
+    mef_role: "promotion_registration"    # MEF registra promoções apenas
+    mal_role: "conflict_arbitration"      # MAL arbitra conflitos apenas  
+    moc_role: "taxonomic_authority"       # MOC é única fonte de verdade
+    promotion_feedback_flow: "mef → analysis → proposals → moc_curation"
+```
+
+##### Garantias de Evolução
+- **Sem Contradição**: Promoção é registro MEF; taxonomia é autoridade MOC
+- **Controle Curatorial**: Todas as mudanças taxonômicas requerem aprovação organizacional
+- **Baseado em Evidências**: Padrões de promoção informam mas nunca alteram taxonomias automaticamente  
+- **Migração Controlada**: Mudanças incluem análise de impacto e planos de migração
+- **Integridade de Framework**: Separação clara entre registro de promoção e autoridade taxonômica
+
 ---
 
 ## 5. Interoperabilidade

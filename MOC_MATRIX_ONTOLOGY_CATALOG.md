@@ -285,6 +285,53 @@ evolution_criteria:
     - "Rollback plan in case of evolution issues"
 ```
 
+#### 🧬 Ontology Evolution (Normative)
+
+**Core Principle**: Successive UKI promotions provide feedback for taxonomic refinement, but taxonomic changes are NEVER automatic. MOC remains the single source of truth for organizational ontologies.
+
+##### Promotion ↔ Ontology Feedback Loop
+```yaml
+# --- Normative Configuration ---
+ontology_evolution:
+  feedback_mechanism:
+    promotion_pattern_detection:       # Automatic detection
+      enabled: true
+      analysis_frequency_days: 30
+      pattern_threshold_analysis: true
+      
+    taxonomy_suggestion_generation:    # Automatic proposals
+      enabled: true
+      evidence_aggregation: true
+      impact_pre_analysis: true
+      stakeholder_identification: true
+      
+    ontology_update_authority:         # Manual curatorial control
+      automatic_updates: false         # NEVER automatic
+      curatorial_approval_required: true
+      organizational_governance: true
+      change_impact_validation: true
+
+  curatorial_governance:
+    approval_authority: ["architecture_committee", "ontology_curators"]
+    evidence_review_required: true
+    stakeholder_consultation: true
+    controlled_migration_planning: true
+    rollback_capability_required: true
+    
+  framework_separation:
+    mef_role: "promotion_registration"    # MEF registers promotions only
+    mal_role: "conflict_arbitration"      # MAL arbitrates conflicts only  
+    moc_role: "taxonomic_authority"       # MOC is single source of truth
+    promotion_feedback_flow: "mef → analysis → proposals → moc_curation"
+```
+
+##### Evolution Guarantees
+- **No Contradiction**: Promotion is MEF registration; taxonomy is MOC authority
+- **Curatorial Control**: All taxonomic changes require organizational approval
+- **Evidence-Based**: Promotion patterns inform but never automatically change taxonomies  
+- **Controlled Migration**: Changes include impact analysis and migration plans
+- **Framework Integrity**: Clear separation between promotion registration and taxonomic authority
+
 ---
 
 ## 5. Interoperability
