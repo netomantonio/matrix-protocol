@@ -184,6 +184,50 @@ session_lifetime: true
 persistence_allowed: false
 ```
 
+### 📋 Arbitration Explanation Template (Normative)
+
+OIF implementations MUST provide a standardized template for explaining MAL arbitration decisions to users.
+
+#### Mandatory Template Fields
+```yaml
+# --- Normative Interface ---
+arbitration_explanation_template:
+  decision_id: string                 # Required: MAL decision identifier
+  event_type: enum[H1, H2, H3]        # Required: Conflict type
+  outcome: enum[winner, coexist, reject_all, defer]  # Required: Arbitration result
+  
+  summary: string                     # Required: User-friendly explanation
+  reason_code: string                 # Required: Structured reason identifier
+  
+  winner: string                      # Conditional: Chosen UKI (if outcome=winner)
+  losers: array[string]               # Conditional: Defeated UKIs (if applicable)
+  
+  precedence_explanation:             # Required: Applied precedence rules
+    - rule: string                    # P1, P2, P3, etc.
+      description: string             # Human-readable explanation
+      impact: string                  # How this rule affected the decision
+  
+  moc_references:                     # Required: Referenced authority nodes
+    - node_id: string                 # MOC node identifier  
+      node_type: enum[scope, domain, authority, policy]
+      relevance: string               # Why this node was relevant
+  
+  next_steps: string                  # Required: Recommended user actions
+  escalation_path: string             # Optional: Available escalation options
+  
+  metadata:
+    decided_at: ISO8601               # Decision timestamp
+    user_authority: string            # User's authority level
+    user_scope: array[string]         # User's accessible scopes
+```
+
+#### Template Usage Requirements
+- OIF MUST render arbitration explanations using this template structure
+- All explanations MUST include epistemic rationale aligned with MEP principles
+- Explanations MUST cite specific MOC nodes for transparency
+- OIF MUST NOT perform arbitration; it MUST only explain MAL decisions
+- Templates MUST be configurable per organization while maintaining core structure
+
 ### Archetype Lifecycle Management
 - Archetypes MUST be versioned and follow semantic versioning
 - Configuration changes MUST be validated against MOC rules
@@ -202,10 +246,11 @@ persistence_allowed: false
 
 OIF intelligence archetypes bridge human-AI interaction across all Matrix Protocol frameworks:
 
-- **MEF (Matrix Embedding Framework)**: Knowledge Agents consume UKIs for semantic search and relationship mapping; archetypes validate UKI creation authority; process structured knowledge for contextual filtering
-- **ZOF (Zion Orchestration Framework)**: Workflow Agents orchestrate canonical states execution; handle Oracle consultation during Understand state; manage EvaluateForEnrich checkpoint evaluation
-- **MOC (Matrix Ontology Catalog)**: Source of hierarchical context for all archetype operations; provides authority validation rules; defines escalation paths for superior authority requirements
-- **MEP (Matrix Epistemic Principle)**: Implements derived authority principles in archetype responses; ensures epistemological humility through contextual explanations; mandates explainability in all intelligence operations
+- **MEF (Matrix Embedding Framework)**: Knowledge Agents consume UKIs for semantic search and relationship mapping; archetypes validate UKI creation authority; process structured knowledge for contextual filtering; provides Decision Record data for arbitration explanations
+- **ZOF (Zion Orchestration Framework)**: Workflow Agents orchestrate canonical states execution; handle Oracle consultation during Understand state; manage EvaluateForEnrich checkpoint evaluation; invokes MAL and delegates explanation to OIF
+- **MOC (Matrix Ontology Catalog)**: Source of hierarchical context for all archetype operations; provides authority validation rules; defines escalation paths for superior authority requirements; configures arbitration explanation templates
+- **MEP (Matrix Epistemic Principle)**: Implements derived authority principles in archetype responses; ensures epistemological humility through contextual explanations; mandates explainability in all intelligence operations; guides arbitration explanation rationale
+- **MAL (Matrix Arbiter Layer)**: Provides Decision Records that OIF MUST explain to users via Arbitration Explanation Templates; OIF maintains epistemic humility by not overriding MAL determinations; ensures arbitration transparency
 
 See [Matrix Protocol Integration Diagram](MATRIX_PROTOCOL_INTEGRATION_DIAGRAM.md) for intelligence archetype interaction patterns.
 
@@ -643,3 +688,4 @@ capability_composition_rules:
 - [ZOF — Zion Orchestration Framework](ZOF_ZION_ORCHESTRATION_FRAMEWORK.md)  
 - [MOC — Matrix Ontology Catalog](MOC_MATRIX_ONTOLOGY_CATALOG.md)  
 - [MEP — Matrix Epistemic Principle](MEP_MATRIX_EPISTEMIC_PRINCIPLE.md)  
+- [MAL — Matrix Arbiter Layer](MAL_MATRIX_ARBITER_LAYER.md)  

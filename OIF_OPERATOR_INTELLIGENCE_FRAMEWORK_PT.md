@@ -177,14 +177,59 @@ session_lifetime: true
 persistence_allowed: false
 ```
 
+### 📋 Template de Explicação de Arbitragem (Extensão Normativa)
+
+Implementações OIF DEVEM fornecer um template padronizado para explicar decisões de arbitragem MAL aos usuários.
+
+#### Campos Obrigatórios do Template
+```yaml
+# --- Interface Normativa ---
+arbitration_explanation_template:
+  decision_id: string                 # Obrigatório: Identificador da decisão MAL
+  event_type: enum[H1, H2, H3]        # Obrigatório: Tipo de conflito
+  outcome: enum[winner, coexist, reject_all, defer]  # Obrigatório: Resultado da arbitragem
+  
+  summary: string                     # Obrigatório: Explicação amigável ao usuário
+  reason_code: string                 # Obrigatório: Identificador de razão estruturado
+  
+  winner: string                      # Condicional: UKI escolhido (se outcome=winner)
+  losers: array[string]               # Condicional: UKIs derrotados (se aplicável)
+  
+  precedence_explanation:             # Obrigatório: Regras de precedência aplicadas
+    - rule: string                    # P1, P2, P3, etc.
+      description: string             # Explicação legível
+      impact: string                  # Como esta regra afetou a decisão
+  
+  moc_references:                     # Obrigatório: Nós de autoridade referenciados
+    - node_id: string                 # Identificador do nó MOC
+      node_type: enum[scope, domain, authority, policy]
+      relevance: string               # Por que este nó foi relevante
+  
+  next_steps: string                  # Obrigatório: Ações recomendadas ao usuário
+  escalation_path: string             # Opcional: Opções de escalonamento disponíveis
+  
+  metadata:
+    decided_at: ISO8601               # Timestamp da decisão
+    user_authority: string            # Nível de autoridade do usuário
+    user_scope: array[string]         # Escopos acessíveis ao usuário
+```
+
+#### Requisitos de Uso do Template
+- OIF DEVE renderizar explicações de arbitragem usando esta estrutura de template
+- Todas as explicações DEVEM incluir justificativas epistêmicas alinhadas aos princípios MEP
+- Explicações DEVEM citar nós MOC específicos para transparência
+- OIF NÃO DEVE executar arbitragem; DEVE apenas explicar decisões MAL
+- Templates DEVEM ser configuráveis por organização mantendo estrutura central
+
 ---
 
 ## 5. Interoperabilidade
 
-- **MEF (Matrix Embedding Framework)**: Arquétipos consomem e produzem UKIs estruturadas
-- **ZOF (Zion Orchestration Framework)**: Workflow Agents orquestram fluxos ZOF
-- **MOC (Matrix Ontology Catalog)**: Fonte de governança e controle de acesso para todos os arquétipos
-- **MEP (Matrix Epistemic Principle)**: Fundamentos epistemológicos para explicabilidade e autoridade derivada
+- **MEF (Matrix Embedding Framework)**: Arquétipos consomem e produzem UKIs estruturadas; fornece dados de Decision Record para explicações de arbitragem
+- **ZOF (Zion Orchestration Framework)**: Workflow Agents orquestram fluxos ZOF; invoca MAL e delega explicação ao OIF
+- **MOC (Matrix Ontology Catalog)**: Fonte de governança e controle de acesso para todos os arquétipos; configura templates de explicação de arbitragem
+- **MEP (Matrix Epistemic Principle)**: Fundamentos epistemológicos para explicabilidade e autoridade derivada; guia justificativas de explicação de arbitragem
+- **MAL (Matrix Arbiter Layer)**: Fornece Decision Records que OIF DEVE explicar aos usuários via Templates de Explicação de Arbitragem; OIF mantém humildade epistêmica não sobrescrevendo determinações MAL; garante transparência de arbitragem
 
 ---
 
@@ -398,3 +443,4 @@ derived_authority_implementation:
 - [ZOF — Zion Orchestration Framework](ZOF_ZION_ORCHESTRATION_FRAMEWORK.md)  
 - [MOC — Matrix Ontology Catalog](MOC_MATRIX_ONTOLOGY_CATALOG.md)  
 - [MEP — Matrix Epistemic Principle](MEP_MATRIX_EPISTEMIC_PRINCIPLE.md)  
+- [MAL — Matrix Arbiter Layer](MAL_MATRIX_ARBITER_LAYER.md)  

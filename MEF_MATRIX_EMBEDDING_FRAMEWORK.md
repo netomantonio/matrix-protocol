@@ -84,6 +84,13 @@ Every UKI MUST contain:
 - maturity_ref MUST follow organizational MOC maturity hierarchy
 - Implementations MUST validate MOC references before UKI creation
 
+### Decision Record Persistence (MAL Integration)
+- MEF implementations MUST persist MAL Decision Records as immutable audit trail
+- Decision Records MUST be stored with complete arbitration metadata
+- UKIs resulting from MAL arbitration MUST reference the corresponding Decision Record
+- Decision Record relationships (conflicts_with, supersedes, partitioned_by_scope) MUST be maintained
+- Decision Records MUST NOT be modifiable after creation
+
 ---
 
 ## 5. Interoperability
@@ -92,8 +99,9 @@ MEF integrates with all Matrix Protocol frameworks through structured knowledge 
 
 - **MOC (Matrix Ontology Catalog)**: Defines organizational taxonomies referenced by *_ref fields; validates UKI hierarchical references; provides governance rules for knowledge creation and promotion
 - **MEP (Matrix Epistemic Principle)**: Provides epistemological foundations for versioning and promotion; guides responsible promotion through promotion_rationale requirements; implements stratified epistemology via maturity_ref
-- **ZOF (Zion Orchestration Framework)**: Consumes UKIs during Understand state Oracle consultation; produces new UKIs during Enrich state; validates enrichment through EvaluateForEnrich checkpoint
-- **OIF (Operator Intelligence Framework)**: Uses UKIs to feed Knowledge Agent semantic search and relationship mapping; processes UKI metadata for contextual filtering and explanation generation
+- **ZOF (Zion Orchestration Framework)**: Consumes UKIs during Understand state Oracle consultation; produces new UKIs during Enrich state; validates enrichment through EvaluateForEnrich checkpoint; invokes MAL for conflict resolution
+- **OIF (Operator Intelligence Framework)**: Uses UKIs to feed Knowledge Agent semantic search and relationship mapping; processes UKI metadata for contextual filtering and explanation generation; accesses Decision Record data for arbitration explanations
+- **MAL (Matrix Arbiter Layer)**: Relies on MEF to persist immutable Decision Records as audit trail; MEF maintains arbitration outcome relationships (conflicts_with, supersedes, partitioned_by_scope); provides evidence density data for MAL precedence evaluation
 
 See [Matrix Protocol Integration Diagram](MATRIX_PROTOCOL_INTEGRATION_DIAGRAM.md) for complete end-to-end integration flows.
 
@@ -304,3 +312,4 @@ knowledge_sources:
 - [MEP — Matrix Epistemic Principle](MEP_MATRIX_EPISTEMIC_PRINCIPLE.md)  
 - [ZOF — Zion Orchestration Framework](ZOF_ZION_ORCHESTRATION_FRAMEWORK.md)  
 - [OIF — Operator Intelligence Framework](OIF_OPERATOR_INTELLIGENCE_FRAMEWORK.md)  
+- [MAL — Matrix Arbiter Layer](MAL_MATRIX_ARBITER_LAYER.md)  

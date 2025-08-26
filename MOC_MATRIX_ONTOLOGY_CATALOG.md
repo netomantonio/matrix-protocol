@@ -113,6 +113,66 @@ This service does not execute orchestration or decision-making (ZOF, OIF roles),
 - The **OIF** MUST explain validation decisions to users, citing relevant MOC nodes  
 - The **MEF** MUST validate UKI creation authority via this service before persisting knowledge
 
+### ⚖️ Arbitration Policies Configuration (MAL Integration)
+
+MOC implementations MUST provide configuration for MAL arbitration policies to ensure consistent conflict resolution.
+
+#### Mandatory Arbitration Configuration
+```yaml
+# --- Normative Configuration ---
+arbitration_policies:
+  default_precedence_order:           # Default P1-P6 order (MAL may override)
+    - "P1_authority_weight"           # Higher MOC authority wins
+    - "P2_scope_specificity"          # Context-dependent scope precedence
+    - "P3_maturity_level"             # validated > endorsed > draft
+    - "P4_temporal_recency"           # More recent wins (respecting lifecycle)
+    - "P5_evidence_density"           # More MEF evidence/references wins
+    - "P6_deterministic_fallback"     # Lexicographic UKI identifier
+  
+  scope_specificity_rules:            # P2 configuration
+    local_instructions:               # squad > tribe > org for local guidance
+      precedence_order: ["squad", "tribe", "organization"]
+    mandatory_rules:                  # org > tribe > squad for mandatory policies
+      precedence_order: ["organization", "tribe", "squad"]
+    context_mapping:
+      - types: ["guideline", "example", "template"]
+        rule: "local_instructions"
+      - types: ["policy", "constraint", "decision"]  
+        rule: "mandatory_rules"
+  
+  authority_weight_mapping:           # P1 configuration
+    hierarchical_levels:
+      - level: "organization"
+        weight: 1000
+        authorities: ["cto", "architecture_committee"]
+      - level: "tribe"  
+        weight: 500
+        authorities: ["tribe_lead", "senior_architect"]
+      - level: "squad"
+        weight: 100
+        authorities: ["squad_lead", "tech_lead", "developer"]
+  
+  arbitration_timeout: 2000           # Milliseconds for MAL decision
+  
+  conflict_type_policies:             # Specific policies per conflict type
+    H1_horizontal_conflicts:
+      enable_coexistence: true        # Allow scope partitioning
+      require_deprecation: false      # Don't force winner-take-all
+    H2_concurrent_enrichment:
+      temporal_threshold_ms: 30000    # Consider concurrent if within 30s
+      authority_precedence: true      # Higher authority wins in concurrent scenario
+    H3_promotion_contention:
+      evidence_weight_multiplier: 1.5 # External evidence gets extra weight
+      cross_scope_validation: true    # Validate promotion across scope boundaries
+```
+
+#### MAL Integration Requirements
+- MAL MUST consult MOC arbitration policies for precedence rule application
+- MOC scope specificity rules MUST be applied for P2 evaluation
+- MOC authority hierarchies MUST be used for P1 weight calculation
+- Arbitration timeout MUST be enforced by MAL
+- Policy changes MUST trigger MAL configuration updates
+
 ---
 
 ## 5. Interoperability
@@ -120,9 +180,10 @@ This service does not execute orchestration or decision-making (ZOF, OIF roles),
 MOC serves as the governance foundation that enables organizational customization across all frameworks:
 
 - **MEF (Matrix Embedding Framework)**: Validates all *_ref field references against MOC hierarchies; enforces organizational taxonomy constraints; provides governance rules for UKI creation and promotion workflows
-- **ZOF (Zion Orchestration Framework)**: Supplies evaluation criteria for EvaluateForEnrich checkpoint; validates user authority for enrichment operations; defines organizational workflow governance rules
-- **OIF (Operator Intelligence Framework)**: Provides hierarchical context for intelligence filtering; validates user authority for archetype operations; supplies escalation paths for authority requirements
+- **ZOF (Zion Orchestration Framework)**: Supplies evaluation criteria for EvaluateForEnrich checkpoint; validates user authority for enrichment operations; defines organizational workflow governance rules; invokes MAL with MOC-configured arbitration policies
+- **OIF (Operator Intelligence Framework)**: Provides hierarchical context for intelligence filtering; validates user authority for archetype operations; supplies escalation paths for authority requirements; uses MOC nodes in arbitration explanations
 - **MEP (Matrix Epistemic Principle)**: Implements organizational context for derived authority; provides taxonomic foundation for epistemological stratification; enables local flexibility with global coherence
+- **MAL (Matrix Arbiter Layer)**: Consumes MOC arbitration policies for precedence rule configuration; applies MOC authority hierarchies for P1 evaluation; uses MOC scope specificity rules for P2 evaluation; respects MOC timeout and conflict type policies
 
 See [Matrix Protocol Integration Diagram](MATRIX_PROTOCOL_INTEGRATION_DIAGRAM.md) for MOC validation and governance flows.
 
@@ -348,3 +409,4 @@ change_process:
 - [ZOF — Zion Orchestration Framework](ZOF_ZION_ORCHESTRATION_FRAMEWORK.md)  
 - [OIF — Operator Intelligence Framework](OIF_OPERATOR_INTELLIGENCE_FRAMEWORK.md)  
 - [MEP — Matrix Epistemic Principle](MEP_MATRIX_EPISTEMIC_PRINCIPLE.md)  
+- [MAL — Matrix Arbiter Layer](MAL_MATRIX_ARBITER_LAYER.md)  

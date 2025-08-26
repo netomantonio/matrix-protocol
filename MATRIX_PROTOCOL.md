@@ -71,6 +71,13 @@ Implementations MUST include:
 2. **Zion Layer**: MUST implement conceptual workflows via ZOF
 3. **Operator Layer**: MUST implement intelligence archetypes via OIF
 
+### Mandatory Arbitration Layer
+Implementations MUST include:
+- **MAL (Matrix Arbiter Layer)**: MUST handle conflict and concurrency arbitration when local governance rules cannot resolve disputes
+- Engines MUST invoke MAL on unresolved conflicts (H1/H2/H3) after EvaluateForEnrich checkpoint
+- MAL decisions MUST be persisted as immutable Decision Records via MEF
+- MAL explanations MUST be delegated to OIF for user communication
+
 ### Mandatory Canonical States
 All ZOF workflows MUST follow the sequence:
 - **Intake**: Context and requirements capture
@@ -98,11 +105,12 @@ All ZOF workflows MUST follow the sequence:
 
 The Matrix Protocol achieves seamless integration through three interdependent layers with cross-cutting governance:
 
-- **MEF (Matrix Embedding Framework)**: Implements Oracle Layer with versioned knowledge structuring; provides UKI format consumed by ZOF workflows; enables OIF knowledge processing; validates against MOC taxonomies; materializes MEP principles
-- **ZOF (Zion Orchestration Framework)**: Implements Zion Layer with technology-independent workflows; orchestrates Oracle consultation via MEF; executes through OIF archetypes; validates via MOC criteria; applies MEP epistemology
-- **OIF (Operator Intelligence Framework)**: Implements Operator Layer with governance-aware intelligence; processes MEF knowledge structures; executes ZOF workflows; respects MOC hierarchies; expresses MEP principles
-- **MOC (Matrix Ontology Catalog)**: Provides configurable organizational taxonomies enabling local flexibility; validates all framework operations; defines authority rules; enables organizational customization while maintaining protocol coherence
-- **MEP (Matrix Epistemic Principle)**: Establishes epistemological foundations ensuring derived authority, responsible promotion, and mandatory explainability across all framework operations
+- **MEF (Matrix Embedding Framework)**: Implements Oracle Layer with versioned knowledge structuring; provides UKI format consumed by ZOF workflows; enables OIF knowledge processing; validates against MOC taxonomies; materializes MEP principles; persists MAL Decision Records
+- **ZOF (Zion Orchestration Framework)**: Implements Zion Layer with technology-independent workflows; orchestrates Oracle consultation via MEF; executes through OIF archetypes; validates via MOC criteria; applies MEP epistemology; invokes MAL for conflict resolution
+- **OIF (Operator Intelligence Framework)**: Implements Operator Layer with governance-aware intelligence; processes MEF knowledge structures; executes ZOF workflows; respects MOC hierarchies; expresses MEP principles; explains MAL arbitration decisions
+- **MOC (Matrix Ontology Catalog)**: Provides configurable organizational taxonomies enabling local flexibility; validates all framework operations; defines authority rules; enables organizational customization while maintaining protocol coherence; configures MAL arbitration policies
+- **MEP (Matrix Epistemic Principle)**: Establishes epistemological foundations ensuring derived authority, responsible promotion, and mandatory explainability across all framework operations; guides MAL epistemic rationale
+- **MAL (Matrix Arbiter Layer)**: Provides deterministic conflict and concurrency arbitration when local governance fails; invoked by ZOF on H1/H2/H3 conflicts; persisted by MEF; explained by OIF; configured by MOC; aligned with MEP
 
 See [Matrix Protocol Integration Diagram](MATRIX_PROTOCOL_INTEGRATION_DIAGRAM.md) for complete three-layer integration visualization.
 
@@ -320,4 +328,5 @@ The next step **can only be taken by you**.
 - [OIF — Operator Intelligence Framework](OIF_OPERATOR_INTELLIGENCE_FRAMEWORK.md)  
 - [MOC — Matrix Ontology Catalog](MOC_MATRIX_ONTOLOGY_CATALOG.md)  
 - [MEP — Matrix Epistemic Principle](MEP_MATRIX_EPISTEMIC_PRINCIPLE.md)  
+- [MAL — Matrix Arbiter Layer](MAL_MATRIX_ARBITER_LAYER.md)  
 - [Ontology MEF Support](Ontology_MEF_Support.md)  

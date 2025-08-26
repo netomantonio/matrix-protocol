@@ -72,6 +72,13 @@ Toda UKI DEVE conter:
 - DEVE incluir description específica para cada relacionamento
 - DEVE referenciar UKIs válidas no formato correto
 
+### Persistência de Decision Record (Integração MAL)
+- Implementações MEF DEVEM persistir Decision Records MAL como trilha de auditoria imutável
+- Decision Records DEVEM ser armazenados com metadados completos de arbitragem
+- UKIs resultantes de arbitragem MAL DEVEM referenciar o Decision Record correspondente
+- Relacionamentos de Decision Record (conflicts_with, supersedes, partitioned_by_scope) DEVEM ser mantidos
+- Decision Records NÃO DEVEM ser modificáveis após criação
+
 ---
 
 ## 5. Interoperabilidade

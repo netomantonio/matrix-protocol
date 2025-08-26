@@ -73,6 +73,13 @@ Implementações DEVEM incluir:
 2. **Camada Zion**: DEVE implementar workflows conceituais via ZOF
 3. **Camada Operador**: DEVE implementar arquétipos de inteligência via OIF
 
+### Camada de Arbitragem Obrigatória
+Implementações DEVEM incluir:
+- **MAL (Matrix Arbiter Layer)**: DEVE gerenciar arbitragem de conflitos e concorrência quando regras de governança locais não conseguem resolver disputas
+- Engines DEVEM invocar MAL em conflitos não resolvidos (H1/H2/H3) após checkpoint EvaluateForEnrich
+- Decisões MAL DEVEM ser persistidas como Decision Records imutáveis via MEF
+- Explicações MAL DEVEM ser delegadas ao OIF para comunicação com usuários
+
 ### Estados Canônicos Obrigatórios
 Todos os workflows ZOF DEVEM seguir a sequência:
 - **Intake**: Captura de contexto e requisitos
@@ -98,11 +105,12 @@ Todos os workflows ZOF DEVEM seguir a sequência:
 
 ## 5. Interoperabilidade
 
-- **MEF (Matrix Embedding Framework)**: Implementa a Camada Oráculo com estruturação de conhecimento versionado
-- **ZOF (Zion Orchestration Framework)**: Implementa a Camada Zion com workflows conceituais independentes de tecnologia
-- **OIF (Operator Intelligence Framework)**: Implementa a Camada Operador com arquétipos de inteligência cientes de governança
-- **MOC (Matrix Ontology Catalog)**: Fornece taxonomias organizacionais configuráveis para todas as camadas
-- **MEP (Matrix Epistemic Principle)**: Estabelece fundamentos epistemológicos para todo o protocolo
+- **MEF (Matrix Embedding Framework)**: Implementa a Camada Oráculo com estruturação de conhecimento versionado; persiste Decision Records MAL
+- **ZOF (Zion Orchestration Framework)**: Implementa a Camada Zion com workflows conceituais independentes de tecnologia; invoca MAL para resolução de conflitos
+- **OIF (Operator Intelligence Framework)**: Implementa a Camada Operador com arquétipos de inteligência cientes de governança; explica decisões de arbitragem MAL
+- **MOC (Matrix Ontology Catalog)**: Fornece taxonomias organizacionais configuráveis para todas as camadas; configura políticas de arbitragem MAL
+- **MEP (Matrix Epistemic Principle)**: Estabelece fundamentos epistemológicos para todo o protocolo; guia justificativas epistêmicas MAL
+- **MAL (Matrix Arbiter Layer)**: Fornece arbitragem determinística de conflitos e concorrência quando governança local falha; invocada pelo ZOF; persistida pelo MEF; explicada pelo OIF; configurada pelo MOC; alinhada ao MEP
 
 ---
 
@@ -265,3 +273,4 @@ O próximo passo **só pode ser dado por você**.
 - [OIF — Operator Intelligence Framework](OIF_OPERATOR_INTELLIGENCE_FRAMEWORK.md)  
 - [MOC — Matrix Ontology Catalog](MOC_MATRIX_ONTOLOGY_CATALOG.md)  
 - [MEP — Matrix Epistemic Principle](MEP_MATRIX_EPISTEMIC_PRINCIPLE.md)  
+- [MAL — Matrix Arbiter Layer](MAL_MATRIX_ARBITER_LAYER.md)  

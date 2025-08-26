@@ -79,6 +79,8 @@ All ZOF workflows MUST follow the canonical states sequence without exception.
 - MUST consult criteria defined in organizational MOC
 - MUST generate epistemological justification for decisions
 - MUST respect MOC authorities and scopes
+- MUST detect conflict types H1/H2/H3 and invoke MAL if local resolution fails
+- MUST apply MAL decisions when arbitration is required
 
 ### Mandatory Explainability Signals
 Each state transition MUST record:
@@ -101,6 +103,8 @@ The **Understand** state MUST always consult the Oracle (UKIs) before any decisi
 - Understand state MUST receive Oracle consultation results before proceeding
 - EvaluateForEnrich MUST complete evaluation before allowing Enrich state
 - Failed evaluations MAY terminate flow or require remediation
+- MAL arbitration MUST be invoked on conflict detection during EvaluateForEnrich
+- MAL Decision Records MUST be applied through appropriate actions (gate_enrich, deprecate, partition_scope, etc.)
 
 ### Scope Mode Implementation
 - **Restricted mode**: Knowledge remains within originating scope level
@@ -114,10 +118,11 @@ The **Understand** state MUST always consult the Oracle (UKIs) before any decisi
 
 ZOF orchestrates workflows that span all Matrix Protocol frameworks through canonical states:
 
-- **MEF (Matrix Embedding Framework)**: Consumes UKIs during Understand state Oracle consultation; produces structured UKIs during Enrich state; maintains semantic relationships between motivating and created knowledge
-- **MOC (Matrix Ontology Catalog)**: Provides evaluation criteria for EvaluateForEnrich checkpoint; validates user authority for enrichment operations; defines organizational taxonomies for workflow context
-- **OIF (Operator Intelligence Framework)**: Workflow Agents execute canonical states; Knowledge Agents handle Oracle consultation; intelligence archetypes provide governance-aware workflow orchestration
-- **MEP (Matrix Epistemic Principle)**: Guides epistemological justification in EvaluateForEnrich; ensures derived authority principles in enrichment decisions; mandates explainability through signal recording
+- **MEF (Matrix Embedding Framework)**: Consumes UKIs during Understand state Oracle consultation; produces structured UKIs during Enrich state; maintains semantic relationships between motivating and created knowledge; persists MAL Decision Records
+- **MOC (Matrix Ontology Catalog)**: Provides evaluation criteria for EvaluateForEnrich checkpoint; validates user authority for enrichment operations; defines organizational taxonomies for workflow context; configures MAL arbitration policies
+- **OIF (Operator Intelligence Framework)**: Workflow Agents execute canonical states; Knowledge Agents handle Oracle consultation; intelligence archetypes provide governance-aware workflow orchestration; explains MAL arbitration outcomes to users
+- **MEP (Matrix Epistemic Principle)**: Guides epistemological justification in EvaluateForEnrich; ensures derived authority principles in enrichment decisions; mandates explainability through signal recording; provides foundation for MAL epistemic rationale
+- **MAL (Matrix Arbiter Layer)**: Invoked by ZOF when EvaluateForEnrich detects unresolvable conflicts (H1/H2/H3); provides deterministic arbitration decisions; returns actions for ZOF execution (gate_enrich, deprecate, partition_scope)
 
 See [Matrix Protocol Integration Diagram](MATRIX_PROTOCOL_INTEGRATION_DIAGRAM.md) for detailed workflow integration patterns.
 
@@ -213,6 +218,65 @@ evaluate_for_enrich_execution:
     can_enrich_result: "APPROVED"
     enrichment_scope: "team"
     justification: "Novel implementation approach with reusable value within authorized scope"
+```
+
+### **MAL Conflict Resolution in EvaluateForEnrich**
+```yaml
+# --- Illustrative Example ---
+evaluate_for_enrich_with_conflict:
+  conflict_detection:
+    - conflict_type: "H1"  # Horizontal conflict
+      description: "Two equivalent-scope UKIs conflict on same topic"
+      candidates:
+        - existing_uki: "uki:squad-x:pattern:jwt-implementation-basic"
+        - proposed_uki: "uki:squad-x:pattern:jwt-implementation-advanced"
+      
+    local_resolution_attempts:
+      - authority_check: "Both at squad level - equivalent authority"
+      - scope_check: "Both squad-x scope - no hierarchy difference" 
+      - maturity_check: "Both validated - no maturity difference"
+      - result: "UNRESOLVABLE_LOCALLY"
+    
+    mal_invocation:
+      event_id: "mal-evt-zof-20250826-001"
+      event_type: "H1"
+      arbitration_request:
+        candidates:
+          - uki_ref: "uki:squad-x:pattern:jwt-implementation-basic"
+            scope_ref: "squad-x"
+            maturity_level: "validated"
+            evidence_refs: ["doc:team-requirements-v1"]
+          - uki_ref: "uki:squad-x:pattern:jwt-implementation-advanced"
+            scope_ref: "squad-x" 
+            maturity_level: "validated"
+            evidence_refs: ["doc:security-audit-2025", "uki:org:policy:security-standards"]
+        user_moc_context:
+          scopes: ["squad-x", "tribe-alpha"]
+          authority: "developer"
+        operation: "enrich"
+    
+    mal_decision_received:
+      decision_id: "mal-dec-20250826-h1-001"
+      outcome: "winner"
+      winner: "uki:squad-x:pattern:jwt-implementation-advanced"
+      precedence_applied: ["P5_evidence", "P1_authority"]
+      actions:
+        - "deprecate:uki:squad-x:pattern:jwt-implementation-basic"
+        - "allow_enrich:uki:squad-x:pattern:jwt-implementation-advanced"
+      
+    zof_actions_execution:
+      - action: "deprecate"
+        target: "uki:squad-x:pattern:jwt-implementation-basic"
+        result: "UKI marked as deprecated with replacement reference"
+      - action: "allow_enrich"
+        target: "uki:squad-x:pattern:jwt-implementation-advanced"
+        result: "Enrichment approved, proceeding to Review state"
+        
+    final_decision:
+      can_enrich_result: "APPROVED_BY_MAL"
+      enrichment_scope: "squad-x"
+      arbitration_ref: "mal-dec-20250826-h1-001"
+      justification: "MAL resolved conflict in favor of advanced implementation based on stronger security evidence"
 ```
 
 ### **Minimum can_enrich?() Profile - Initial Adoption**
@@ -510,3 +574,4 @@ matrix_component_integration:
 - [MOC — Matrix Ontology Catalog](MOC_MATRIX_ONTOLOGY_CATALOG.md)  
 - [OIF — Operator Intelligence Framework](OIF_OPERATOR_INTELLIGENCE_FRAMEWORK.md)  
 - [MEP — Matrix Epistemic Principle](MEP_MATRIX_EPISTEMIC_PRINCIPLE.md)  
+- [MAL — Matrix Arbiter Layer](MAL_MATRIX_ARBITER_LAYER.md)  

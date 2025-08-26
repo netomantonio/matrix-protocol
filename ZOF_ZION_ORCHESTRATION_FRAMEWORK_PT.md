@@ -80,6 +80,8 @@ Todos os workflows ZOF DEVEM seguir a sequência de estados canônicos sem exce�
 - DEVE consultar critérios definidos no MOC organizacional
 - DEVE gerar justificativa epistemológica para decisões
 - DEVE respeitar autoridades e escopos do MOC
+- DEVE detectar tipos de conflito H1/H2/H3 e invocar MAL se resolução local falhar
+- DEVE aplicar decisões MAL quando arbitragem for necessária
 
 ### Sinais de Explicabilidade Obrigatórios
 Cada transição de estado DEVE registrar:
@@ -94,10 +96,11 @@ O estado **Understand** DEVE sempre consultar o Oracle (UKIs) antes de qualquer 
 
 ## 5. Interoperabilidade
 
-- **MEF (Matrix Embedding Framework)**: Fornece estrutura UKI consumida e produzida pelos workflows
-- **MOC (Matrix Ontology Catalog)**: Define taxonomias e critérios para checkpoint EvaluateForEnrich
-- **OIF (Operator Intelligence Framework)**: Implementa arquétipos que executam workflows ZOF
-- **MEP (Matrix Epistemic Principle)**: Estabelece fundamentos epistemológicos para enriquecimento
+- **MEF (Matrix Embedding Framework)**: Fornece estrutura UKI consumida e produzida pelos workflows; persiste Decision Records MAL
+- **MOC (Matrix Ontology Catalog)**: Define taxonomias e critérios para checkpoint EvaluateForEnrich; configura políticas de arbitragem MAL
+- **OIF (Operator Intelligence Framework)**: Implementa arquétipos que executam workflows ZOF; explica resultados de arbitragem MAL aos usuários
+- **MEP (Matrix Epistemic Principle)**: Estabelece fundamentos epistemológicos para enriquecimento; fornece base para justificativas epistêmicas MAL
+- **MAL (Matrix Arbiter Layer)**: Invocada pelo ZOF quando EvaluateForEnrich detecta conflitos não resolúveis (H1/H2/H3); fornece decisões de arbitragem determinística; retorna ações para execução ZOF (gate_enrich, deprecate, partition_scope)
 
 ---
 
@@ -244,3 +247,4 @@ benefits:
 - [MOC — Matrix Ontology Catalog](MOC_MATRIX_ONTOLOGY_CATALOG.md)  
 - [OIF — Operator Intelligence Framework](OIF_OPERATOR_INTELLIGENCE_FRAMEWORK.md)  
 - [MEP — Matrix Epistemic Principle](MEP_MATRIX_EPISTEMIC_PRINCIPLE.md)  
+- [MAL — Matrix Arbiter Layer](MAL_MATRIX_ARBITER_LAYER.md)  

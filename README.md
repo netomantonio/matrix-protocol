@@ -45,6 +45,7 @@ O protocolo é orientado pelo **Matrix Epistemic Principle (MEP)** — um manife
 | **[MEF_MATRIX_EMBEDDING_FRAMEWORK.md](MEF_MATRIX_EMBEDDING_FRAMEWORK.md)** | Estruturação de conhecimento versionado | ✅ Ativo |
 | **[ZOF_ZION_ORCHESTRATION_FRAMEWORK.md](ZOF_ZION_ORCHESTRATION_FRAMEWORK.md)** | Workflows conceituais para equipes IA-orientadas | ✅ Ativo |
 | **[OIF_OPERATOR_INTELLIGENCE_FRAMEWORK.md](OIF_OPERATOR_INTELLIGENCE_FRAMEWORK.md)** | Arquétipos de inteligência artificial | ✅ Ativo |
+| **[MAL_MATRIX_ARBITER_LAYER.md](MAL_MATRIX_ARBITER_LAYER.md)** | Arbitragem de conflitos e concorrência | 🔄 Rascunho |
 
 ### 📖 Material de Suporte
 
@@ -130,6 +131,7 @@ The protocol is guided by the **Matrix Epistemic Principle (MEP)** — an access
 | **[MEF_MATRIX_EMBEDDING_FRAMEWORK.md](MEF_MATRIX_EMBEDDING_FRAMEWORK.md)** | Versioned knowledge structuring | ✅ Active |
 | **[ZOF_ZION_ORCHESTRATION_FRAMEWORK.md](ZOF_ZION_ORCHESTRATION_FRAMEWORK.md)** | Conceptual workflows for AI-oriented teams | ✅ Active |
 | **[OIF_OPERATOR_INTELLIGENCE_FRAMEWORK.md](OIF_OPERATOR_INTELLIGENCE_FRAMEWORK.md)** | Artificial intelligence archetypes | ✅ Active |
+| **[MAL_MATRIX_ARBITER_LAYER.md](MAL_MATRIX_ARBITER_LAYER.md)** | Conflict & concurrency arbitration | 🔄 Draft |
 
 ### 📖 Support Material
 
