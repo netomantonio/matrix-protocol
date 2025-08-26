@@ -136,6 +136,54 @@ They are **protocol-wide**, independent of organizational context, and **MUST** 
 3. **Ephemeral archetypes MUST NOT persist** beyond their originating session or scope.  
 4. All archetypes MUST comply with OIF explicability standards.
 
+### 🔧 Archetype Metadata (Normative Extension)
+
+Each archetype definition in the OIF MUST include a field `archetype_level` to explicitly declare its canonical status.
+
+#### Field Specification
+- **Field name**: `archetype_level`
+- **Allowed values**:  
+  - `canonical` → reserved for Knowledge Agent (KAG) and Workflow Agent (WAG).  
+  - `specialized` → domain- or scope-specific archetypes defined via MOC.  
+  - `ephemeral` → ad-hoc archetypes, temporary, non-persistent.  
+
+#### Normative Archetype Definitions
+```yaml
+# Canonical Archetypes (Protocol Core)
+archetype_id: kag
+archetype_name: Knowledge Agent
+archetype_level: canonical
+domain_ref: global
+scope_ref: all
+specialization: "MEF knowledge comprehension and organization"
+
+archetype_id: wag
+archetype_name: Workflow Agent
+archetype_level: canonical
+domain_ref: global
+scope_ref: all
+specialization: "ZOF conceptual flow orchestration"
+
+# Specialized Archetype Example
+archetype_id: gad.security
+archetype_name: Guidance Agent - Security
+archetype_level: specialized
+domain_ref: security
+scope_ref: organization
+specialization: "Domain-specific security guidance and policy compliance"
+moc_validation_required: true
+
+# Ephemeral Archetype Example
+archetype_id: gad.prototype
+archetype_name: Prototype Agent
+archetype_level: ephemeral
+domain_ref: experimental
+scope_ref: sandbox
+specialization: "Ad-hoc prototyping and exploration"
+session_lifetime: true
+persistence_allowed: false
+```
+
 ### Archetype Lifecycle Management
 - Archetypes MUST be versioned and follow semantic versioning
 - Configuration changes MUST be validated against MOC rules
@@ -179,6 +227,9 @@ Examples are provided for clarity and MAY be adapted to local contexts, but MUST
 ```yaml
 # --- Illustrative Example ---
 knowledge_agent_archetype:
+  archetype_id: kag
+  archetype_name: "Knowledge Agent"
+  archetype_level: canonical
   specialization: "Comprehension, organization, and MEF knowledge relationships"
   moc_integration: "Access control based on organizational hierarchies"
   
@@ -232,6 +283,9 @@ knowledge_agent_archetype:
 ```yaml
 # --- Illustrative Example ---
 workflow_agent_archetype:
+  archetype_id: wag
+  archetype_name: "Workflow Agent"
+  archetype_level: canonical
   specialization: "Orchestration of ZOF conceptual flows"
   checkpoint_execution: "Execution of EvaluateForEnrich with MOC criteria"
   
@@ -521,9 +575,14 @@ archetype_templates:
       6. Define escalation and feedback mechanisms
     
     example_specialized_archetype:
-      name: "Security Intelligence Agent"
+      archetype_id: gad.security
+      archetype_name: "Security Intelligence Agent"
+      archetype_level: specialized
+      domain_ref: security
+      scope_ref: organization
       domain_specialization: "security"
       moc_authority_requirements: ["security_lead", "architect"]
+      moc_validation_required: true
       specialized_capabilities:
         - "threat_pattern_recognition"
         - "security_policy_compliance_checking"

@@ -129,6 +129,54 @@ São **transversais ao protocolo**, independentes de contexto organizacional, e 
 3. **Arquétipos efêmeros NÃO DEVEM persistir** além de sua sessão ou escopo de origem.  
 4. Todos os arquétipos DEVEM cumprir com os padrões de explicabilidade OIF.
 
+### 🔧 Metadados de Arquétipos (Extensão Normativa)
+
+Cada definição de arquétipo no OIF DEVE incluir um campo `archetype_level` para declarar explicitamente seu status canônico.
+
+#### Especificação do Campo
+- **Nome do campo**: `archetype_level`
+- **Valores permitidos**:  
+  - `canonical` → reservado para Knowledge Agent (KAG) e Workflow Agent (WAG).  
+  - `specialized` → arquétipos específicos de domínio ou escopo definidos via MOC.  
+  - `ephemeral` → arquétipos ad-hoc, temporários, não-persistentes.  
+
+#### Definições Normativas de Arquétipos
+```yaml
+# Arquétipos Canônicos (Core do Protocolo)
+archetype_id: kag
+archetype_name: Knowledge Agent
+archetype_level: canonical
+domain_ref: global
+scope_ref: all
+specialization: "Compreensão e organização de conhecimento MEF"
+
+archetype_id: wag
+archetype_name: Workflow Agent
+archetype_level: canonical
+domain_ref: global
+scope_ref: all
+specialization: "Orquestração de fluxos conceituais ZOF"
+
+# Exemplo de Arquétipo Especializado
+archetype_id: gad.security
+archetype_name: Guidance Agent - Security
+archetype_level: specialized
+domain_ref: security
+scope_ref: organization
+specialization: "Orientação específica de segurança e conformidade de políticas"
+moc_validation_required: true
+
+# Exemplo de Arquétipo Efêmero
+archetype_id: gad.prototype
+archetype_name: Prototype Agent
+archetype_level: ephemeral
+domain_ref: experimental
+scope_ref: sandbox
+specialization: "Prototipagem e exploração ad-hoc"
+session_lifetime: true
+persistence_allowed: false
+```
+
 ---
 
 ## 5. Interoperabilidade
@@ -156,6 +204,9 @@ Os exemplos são fornecidos para fins de clareza e PODEM ser adaptados aos conte
 ```yaml
 # --- Exemplo Ilustrativo ---
 knowledge_agent_archetype:
+  archetype_id: kag
+  archetype_name: "Knowledge Agent"
+  archetype_level: canonical
   specialization: "Compreensão, organização e relacionamento de conhecimento MEF"
   moc_integration: "Controle de acesso baseado em hierarquias organizacionais"
   
@@ -189,6 +240,9 @@ knowledge_agent_archetype:
 ```yaml
 # --- Exemplo Ilustrativo ---
 workflow_agent_archetype:
+  archetype_id: wag
+  archetype_name: "Workflow Agent"
+  archetype_level: canonical
   specialization: "Orquestração de fluxos conceituais ZOF"
   checkpoint_execution: "Execução do EvaluateForEnrich com critérios MOC"
   
