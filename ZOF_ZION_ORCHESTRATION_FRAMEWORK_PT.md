@@ -82,6 +82,7 @@ Todos os workflows ZOF DEVEM seguir a sequência de estados canônicos sem exce�
 - DEVE respeitar autoridades e escopos do MOC
 - DEVE detectar tipos de conflito H1/H2/H3 e invocar MAL se resolução local falhar
 - DEVE aplicar decisões MAL quando arbitragem for necessária
+- DEVE aplicar validação scope_mode para cenários de enriquecimento multi-escopo
 
 ### Sinais de Explicabilidade Obrigatórios
 Cada transição de estado DEVE registrar:
@@ -175,7 +176,77 @@ cross_boundary_enrichment_rules:
 - **Análise de Impacto**: DEVE avaliar impacto em ambas as hierarquias origem e destino
 - **Detecção de Conflito**: DEVE detectar potenciais conflitos semânticos através de fronteiras
 - **Validação de Autoridade**: DEVE validar autoridade para todos os níveis hierárquicos afetados
+- **Modo de Validação de Escopo**: DEVE aplicar configuração scope_mode para cenários multi-escopo
 - **Invocação MAL**: DEVE invocar MAL para conflitos cross-boundary que não podem ser resolvidos localmente
+
+#### 🎯 Configuração de Modo de Escopo (Normativo)
+
+O ZOF DEVE implementar validação scope_mode para operações de enriquecimento que afetam múltiplos escopos.
+
+##### Tipos de Modo de Escopo
+```yaml
+# --- Configuração Normativa ---
+scope_mode_validation:
+  validation_types:
+    any:                               # Satisfazer um escopo é suficiente
+      description: "Enriquecimento aprovado se QUALQUER escopo afetado validar com sucesso"
+      use_case: "Compartilhamento amplo de conhecimento, colaboração inter-equipes"
+      authority_requirement: "minimum_scope_authority"
+      validation_logic: "Operação OR em todos os escopos afetados"
+      
+    all:                               # Todos os escopos devem validar
+      description: "Enriquecimento aprovado apenas se TODOS os escopos afetados validarem com sucesso"
+      use_case: "Governança rigorosa, conhecimento crítico de conformidade"
+      authority_requirement: "maximum_scope_authority"
+      validation_logic: "Operação AND em todos os escopos afetados"
+
+  configuration_source: "política organizacional MOC"
+  default_behavior: "all"              # Padrão conservador para segurança
+  
+  scope_mode_determination:
+    explicit_configuration:            # Organização define scope_mode no MOC
+      source: "configuração evaluation_criteria do MOC"
+      precedence: "highest"
+      
+    knowledge_type_based:              # Baseado no tipo de UKI (policy vs guideline)
+      policy_knowledge: "all"          # Políticas requerem validação de todos os escopos
+      guideline_knowledge: "any"       # Guidelines podem usar validação de qualquer escopo
+      precedence: "medium"
+      
+    fallback_default: "all"            # Fallback conservador
+    precedence: "lowest"
+```
+
+##### Exemplos de Aplicação do Modo de Escopo
+```yaml
+# --- Exemplos Ilustrativos ---
+scope_mode_scenarios:
+  scenario_1_cross_team_guideline:
+    context: "Guideline de desenvolvimento da team-a enriquecendo escopo team-b"
+    affected_scopes: ["team-a", "team-b"]
+    knowledge_type: "guideline"
+    scope_mode: "any"                  # Validação de qualquer equipe suficiente
+    validation_result: "APROVADO se team-a OU team-b validar"
+    
+  scenario_2_organizational_policy:
+    context: "Política de segurança afetando múltiplos níveis organizacionais"
+    affected_scopes: ["squad", "tribe", "organization"]
+    knowledge_type: "policy"
+    scope_mode: "all"                  # Todos os níveis devem validar
+    validation_result: "APROVADO apenas se squad E tribe E organization validarem"
+    
+  scenario_3_domain_crossing:
+    context: "Conhecimento técnico enriquecendo domínio business"
+    affected_scopes: ["technical", "business"]
+    knowledge_type: "pattern"
+    scope_mode: "any"                  # Compartilhamento cross-domain encorajado
+    validation_result: "APROVADO se technical OU business validar"
+```
+
+##### Integração com Autoridade MOC
+- **Mapeamento de Autoridade**: scope_mode DEVE respeitar hierarquias de autoridade MOC para cada escopo afetado
+- **Caminhos de Escalação**: Falha de validação no modo "all" DEVE fornecer caminhos de escalação do MOC
+- **Trilha de Auditoria**: Todas as decisões de validação de escopo DEVEM ser registradas com justificativa scope_mode
 
 ---
 

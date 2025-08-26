@@ -81,6 +81,7 @@ All ZOF workflows MUST follow the canonical states sequence without exception.
 - MUST respect MOC authorities and scopes
 - MUST detect conflict types H1/H2/H3 and invoke MAL if local resolution fails
 - MUST apply MAL decisions when arbitration is required
+- MUST apply scope_mode validation for multi-scope enrichment scenarios
 
 ### Mandatory Explainability Signals
 Each state transition MUST record:
@@ -174,7 +175,77 @@ cross_boundary_enrichment_rules:
 - **Impact Analysis**: MUST assess impact on both source and target hierarchies
 - **Conflict Detection**: MUST detect potential semantic conflicts across boundaries
 - **Authority Validation**: MUST validate authority for all affected hierarchical levels
+- **Scope Validation Mode**: MUST apply scope_mode configuration for multi-scope scenarios
 - **MAL Invocation**: MUST invoke MAL for cross-boundary conflicts that cannot be resolved locally
+
+#### 🎯 Scope Mode Configuration (Normative)
+
+ZOF MUST implement scope_mode validation for enrichment operations that affect multiple scopes.
+
+##### Scope Mode Types
+```yaml
+# --- Normative Configuration ---
+scope_mode_validation:
+  validation_types:
+    any:                               # Satisfy one scope is sufficient
+      description: "Enrichment approved if ANY affected scope validates successfully"
+      use_case: "Broad knowledge sharing, cross-team collaboration"
+      authority_requirement: "minimum_scope_authority"
+      validation_logic: "OR operation across all affected scopes"
+      
+    all:                               # All scopes must validate
+      description: "Enrichment approved only if ALL affected scopes validate successfully"
+      use_case: "Strict governance, compliance-critical knowledge"
+      authority_requirement: "maximum_scope_authority"
+      validation_logic: "AND operation across all affected scopes"
+
+  configuration_source: "MOC organizational policy"
+  default_behavior: "all"              # Conservative default for safety
+  
+  scope_mode_determination:
+    explicit_configuration:            # Organization sets scope_mode in MOC
+      source: "MOC evaluation_criteria configuration"
+      precedence: "highest"
+      
+    knowledge_type_based:              # Based on UKI type (policy vs guideline)
+      policy_knowledge: "all"          # Policies require all scope validation
+      guideline_knowledge: "any"       # Guidelines can use any scope validation
+      precedence: "medium"
+      
+    fallback_default: "all"            # Conservative fallback
+    precedence: "lowest"
+```
+
+##### Scope Mode Application Examples
+```yaml
+# --- Illustrative Examples ---
+scope_mode_scenarios:
+  scenario_1_cross_team_guideline:
+    context: "Development guideline from team-a enriching team-b scope"
+    affected_scopes: ["team-a", "team-b"]
+    knowledge_type: "guideline"
+    scope_mode: "any"                  # Either team validation sufficient
+    validation_result: "APPROVED if team-a OR team-b validates"
+    
+  scenario_2_organizational_policy:
+    context: "Security policy affecting multiple organizational levels"
+    affected_scopes: ["squad", "tribe", "organization"]
+    knowledge_type: "policy"
+    scope_mode: "all"                  # All levels must validate
+    validation_result: "APPROVED only if squad AND tribe AND organization validate"
+    
+  scenario_3_domain_crossing:
+    context: "Technical knowledge enriching business domain"
+    affected_scopes: ["technical", "business"]
+    knowledge_type: "pattern"
+    scope_mode: "any"                  # Cross-domain sharing encouraged
+    validation_result: "APPROVED if technical OR business validates"
+```
+
+##### Integration with MOC Authority
+- **Authority Mapping**: scope_mode MUST respect MOC authority hierarchies for each affected scope
+- **Escalation Paths**: Failed validation in "all" mode MUST provide escalation paths from MOC
+- **Audit Trail**: All scope validation decisions MUST be recorded with scope_mode rationale
 
 ---
 
