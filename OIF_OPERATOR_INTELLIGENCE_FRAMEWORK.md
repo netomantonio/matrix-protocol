@@ -135,6 +135,7 @@ They are **protocol-wide**, independent of organizational context, and **MUST** 
 2. **Specialized archetypes MUST be validated via MOC** and cannot supersede canonical archetypes.  
 3. **Ephemeral archetypes MUST NOT persist** beyond their originating session or scope.  
 4. All archetypes MUST comply with OIF explicability standards.
+5. **Canonical archetype prompts MUST NEVER be overridden or modified.**
 
 ### 🔧 Archetype Metadata (Normative Extension)
 
@@ -183,6 +184,90 @@ specialization: "Ad-hoc prototyping and exploration"
 session_lifetime: true
 persistence_allowed: false
 ```
+
+### 🔒 Canonical Prompt Preservation (Normative)
+
+OIF MUST implement immutable prompt protection for canonical archetypes to preserve protocol integrity while enabling organizational customization through specialized archetypes.
+
+#### Archetype Customization Matrix
+```yaml
+# --- Normative Customization Rules ---
+archetype_customization_matrix:
+  canonical_archetypes:
+    prompt_modification: FORBIDDEN      # Core prompts are immutable
+    behavioral_extension: FORBIDDEN     # Cannot change core behavior
+    organizational_context: ALLOWED     # Can reference organizational MOC
+    output_formatting: LIMITED          # Only presentation layer changes
+    domain_specialization: FORBIDDEN    # Must remain domain-agnostic
+    
+  specialized_archetypes:
+    prompt_modification: ALLOWED        # Can customize prompts via MOC
+    behavioral_extension: ALLOWED       # Can extend base behaviors
+    organizational_context: REQUIRED    # Must integrate with MOC
+    output_formatting: ALLOWED          # Full formatting control
+    domain_specialization: REQUIRED     # Must be domain-specific
+    
+  ephemeral_archetypes:
+    prompt_modification: UNRESTRICTED   # Ad-hoc modification allowed
+    behavioral_extension: UNRESTRICTED  # Experimental behaviors allowed
+    organizational_context: OPTIONAL    # May bypass MOC validation
+    output_formatting: UNRESTRICTED     # Full formatting freedom
+    domain_specialization: OPTIONAL     # Can be domain-agnostic
+```
+
+#### Prompt Immutability Enforcement
+```yaml
+# --- Normative Protection Rules ---
+canonical_prompt_protection:
+  immutability_scope:
+    core_system_prompt: IMMUTABLE       # Base archetype instructions never change
+    knowledge_access_patterns: IMMUTABLE # How archetypes access MEF/Oracle
+    workflow_integration: IMMUTABLE     # How archetypes integrate with ZOF
+    authority_validation: IMMUTABLE     # How archetypes validate MOC authority
+    
+  permitted_variations:
+    response_formatting: SURFACE_ONLY   # Presentation changes only
+    language_localization: ALLOWED      # Multi-language support
+    organizational_references: CONTEXT_ONLY # MOC node references in examples
+    
+  enforcement_mechanism:
+    validation_checkpoint: "archetype_instantiation"
+    authority_source: "protocol_specification"
+    override_authority: NONE            # No override possible
+    violation_response: REJECT_INSTANTIATION
+```
+
+#### Specialized Archetype Extension Patterns
+```yaml
+# --- Normative Extension Rules ---
+specialized_extension_patterns:
+  inheritance_model: "composition_over_modification"
+  base_archetype_preservation: MANDATORY
+  
+  allowed_extensions:
+    domain_specific_knowledge:
+      source: "MOC domain hierarchies"
+      validation: "domain experts via MOC authority"
+      
+    organizational_context:
+      source: "MOC scope and governance rules"
+      validation: "organizational hierarchy via MOC"
+      
+    specialized_workflows:
+      source: "ZOF organizational flow definitions"
+      validation: "workflow authorities via MOC"
+      
+  extension_validation:
+    moc_approval_required: true
+    canonical_archetype_integrity_check: true
+    semantic_consistency_validation: true
+    authority_scope_verification: true
+```
+
+#### Archetype Level Governance
+- **Canonical**: Protocol-level governance; no organizational override allowed
+- **Specialized**: Organizational governance via MOC; must extend, not replace, canonical behavior
+- **Ephemeral**: Session-level governance; no persistent validation required
 
 ### 📋 Arbitration Explanation Template (Normative)
 

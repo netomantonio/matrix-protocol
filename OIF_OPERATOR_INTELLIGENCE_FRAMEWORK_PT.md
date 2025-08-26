@@ -128,6 +128,7 @@ São **transversais ao protocolo**, independentes de contexto organizacional, e 
 2. **Arquétipos especializados DEVEM ser validados via MOC** e não podem superar arquétipos canônicos.  
 3. **Arquétipos efêmeros NÃO DEVEM persistir** além de sua sessão ou escopo de origem.  
 4. Todos os arquétipos DEVEM cumprir com os padrões de explicabilidade OIF.
+5. **Prompts de arquétipos canônicos NUNCA DEVEM ser sobrescritos ou modificados.**
 
 ### 🔧 Metadados de Arquétipos (Extensão Normativa)
 
@@ -176,6 +177,90 @@ specialization: "Prototipagem e exploração ad-hoc"
 session_lifetime: true
 persistence_allowed: false
 ```
+
+### 🔒 Preservação de Prompts Canônicos (Normativo)
+
+O OIF DEVE implementar proteção imutável de prompts para arquétipos canônicos para preservar a integridade do protocolo enquanto permite customização organizacional através de arquétipos especializados.
+
+#### Matriz de Customização de Arquétipos
+```yaml
+# --- Regras de Customização Normativas ---
+archetype_customization_matrix:
+  canonical_archetypes:
+    prompt_modification: PROIBIDO       # Prompts centrais são imutáveis
+    behavioral_extension: PROIBIDO      # Não pode alterar comportamento central
+    organizational_context: PERMITIDO   # Pode referenciar MOC organizacional
+    output_formatting: LIMITADO         # Apenas mudanças na camada de apresentação
+    domain_specialization: PROIBIDO     # Deve permanecer domain-agnóstico
+    
+  specialized_archetypes:
+    prompt_modification: PERMITIDO      # Pode customizar prompts via MOC
+    behavioral_extension: PERMITIDO     # Pode estender comportamentos base
+    organizational_context: OBRIGATÓRIO # Deve integrar com MOC
+    output_formatting: PERMITIDO        # Controle completo de formatação
+    domain_specialization: OBRIGATÓRIO  # Deve ser domain-específico
+    
+  ephemeral_archetypes:
+    prompt_modification: IRRESTRITO     # Modificação ad-hoc permitida
+    behavioral_extension: IRRESTRITO    # Comportamentos experimentais permitidos
+    organizational_context: OPCIONAL    # Pode contornar validação MOC
+    output_formatting: IRRESTRITO       # Liberdade completa de formatação
+    domain_specialization: OPCIONAL     # Pode ser domain-agnóstico
+```
+
+#### Aplicação de Imutabilidade de Prompts
+```yaml
+# --- Regras de Proteção Normativas ---
+canonical_prompt_protection:
+  immutability_scope:
+    core_system_prompt: IMUTÁVEL        # Instruções base do arquétipo nunca mudam
+    knowledge_access_patterns: IMUTÁVEL # Como arquétipos acessam MEF/Oracle
+    workflow_integration: IMUTÁVEL      # Como arquétipos integram com ZOF
+    authority_validation: IMUTÁVEL      # Como arquétipos validam autoridade MOC
+    
+  permitted_variations:
+    response_formatting: APENAS_SUPERFICIE # Mudanças apenas de apresentação
+    language_localization: PERMITIDO    # Suporte multi-idioma
+    organizational_references: APENAS_CONTEXTO # Referências a nós MOC em exemplos
+    
+  enforcement_mechanism:
+    validation_checkpoint: "archetype_instantiation"
+    authority_source: "protocol_specification"
+    override_authority: NENHUMA         # Nenhum override possível
+    violation_response: REJEITAR_INSTANCIAÇÃO
+```
+
+#### Padrões de Extensão de Arquétipos Especializados
+```yaml
+# --- Regras de Extensão Normativas ---
+specialized_extension_patterns:
+  inheritance_model: "composição_sobre_modificação"
+  base_archetype_preservation: OBRIGATÓRIO
+  
+  allowed_extensions:
+    domain_specific_knowledge:
+      source: "hierarquias de domínio MOC"
+      validation: "especialistas de domínio via autoridade MOC"
+      
+    organizational_context:
+      source: "regras de escopo e governança MOC"
+      validation: "hierarquia organizacional via MOC"
+      
+    specialized_workflows:
+      source: "definições de fluxo organizacional ZOF"
+      validation: "autoridades de workflow via MOC"
+      
+  extension_validation:
+    moc_approval_required: true
+    canonical_archetype_integrity_check: true
+    semantic_consistency_validation: true
+    authority_scope_verification: true
+```
+
+#### Governança de Nível de Arquétipo
+- **Canônico**: Governança no nível do protocolo; nenhum override organizacional permitido
+- **Especializado**: Governança organizacional via MOC; deve estender, não substituir, comportamento canônico
+- **Efêmero**: Governança no nível de sessão; nenhuma validação persistente requerida
 
 ### 📋 Template de Explicação de Arbitragem (Extensão Normativa)
 
