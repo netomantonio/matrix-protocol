@@ -227,6 +227,86 @@ arbitration_policies:
       cross_scope_validation: true    # Validate promotion across scope boundaries
 ```
 
+#### Named Arbitration Policy Examples
+```yaml
+# --- Organizational Policy Examples ---
+named_arbitration_policies:
+  "moc:arbitration:security_conflicts":
+    description: "High-authority precedence for security-critical knowledge"
+    precedence_order:
+      - "P1_authority_weight"         # Security requires highest authority first
+      - "P3_maturity_level"           # Validated security knowledge prioritized
+      - "P2_scope_specificity"        # Organization-wide security over local
+      - "P4_temporal_recency"
+      - "P5_evidence_density"
+      - "P6_deterministic_fallback"
+    authority_weight_multiplier: 2.0  # Double weight for security authorities
+    maturity_minimum_required: "validated"
+    
+  "moc:arbitration:concurrent_enrichment":
+    description: "Temporal and authority-based resolution for concurrent updates"
+    precedence_order:
+      - "P4_temporal_recency"         # Most recent wins in concurrent scenarios
+      - "P1_authority_weight"         # Then highest authority
+      - "P3_maturity_level"
+      - "P2_scope_specificity"
+      - "P5_evidence_density"
+      - "P6_deterministic_fallback"
+    temporal_window_ms: 30000         # 30-second concurrency window
+    authority_tiebreaker: true
+    
+  "moc:arbitration:promotion_contention":
+    description: "Evidence-heavy evaluation for knowledge promotion conflicts"
+    precedence_order:
+      - "P5_evidence_density"         # Evidence first for promotions
+      - "P1_authority_weight"         # Authority validates evidence
+      - "P3_maturity_level"           # Maturity progression respected
+      - "P2_scope_specificity"
+      - "P4_temporal_recency"
+      - "P6_deterministic_fallback"
+    evidence_density_multiplier: 1.5  # Extra weight for evidence
+    cross_scope_validation: true
+    
+  "moc:arbitration:lifecycle_governance":
+    description: "Lifecycle-aware precedence for knowledge evolution"
+    precedence_order:
+      - "P7_lifecycle_stage"          # Custom: Lifecycle takes precedence
+      - "P1_authority_weight"         # Authority manages lifecycle
+      - "P3_maturity_level"
+      - "P2_scope_specificity"
+      - "P4_temporal_recency"
+      - "P5_evidence_density"
+      - "P6_deterministic_fallback"
+    lifecycle_respect_rules: true
+    sunset_precedence: false          # Sunset knowledge doesn't win
+```
+
+#### Policy Reference Namespace Structure
+```yaml
+# --- Normative Namespace Specification ---
+policy_reference_structure:
+  namespace_format: "moc:arbitration:{policy_name}"
+  
+  standard_policies:                  # Common organizational policies
+    - "moc:arbitration:security_conflicts"
+    - "moc:arbitration:concurrent_enrichment"
+    - "moc:arbitration:promotion_contention"
+    - "moc:arbitration:lifecycle_governance"
+    - "moc:arbitration:cross_domain_resolution"
+    
+  custom_policy_naming:
+    format: "moc:arbitration:{organization}_{domain}_{purpose}"
+    examples:
+      - "moc:arbitration:acme_technical_reviews"
+      - "moc:arbitration:corp_business_policies"
+      - "moc:arbitration:startup_rapid_iteration"
+      
+  policy_inheritance:
+    default_fallback: "default_precedence_order"
+    policy_override: "named policy completely replaces default"
+    policy_extension: "named policy modifies specific precedence rules"
+```
+
 #### MAL Integration Requirements
 - MAL MUST consult MOC arbitration policies for precedence rule application
 - MOC scope specificity rules MUST be applied for P2 evaluation

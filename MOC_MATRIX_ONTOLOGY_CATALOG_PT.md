@@ -229,6 +229,86 @@ arbitration_policies:
       cross_scope_validation: true    # Validar promoção além dos limites de escopo
 ```
 
+#### Exemplos de Políticas de Arbitragem Nomeadas
+```yaml
+# --- Exemplos de Políticas Organizacionais ---
+named_arbitration_policies:
+  "moc:arbitration:security_conflicts":
+    description: "Precedência de alta autoridade para conhecimento crítico de segurança"
+    precedence_order:
+      - "P1_authority_weight"         # Segurança requer maior autoridade primeiro
+      - "P3_maturity_level"           # Conhecimento de segurança validado priorizado
+      - "P2_scope_specificity"        # Segurança organizacional sobre local
+      - "P4_temporal_recency"
+      - "P5_evidence_density"
+      - "P6_deterministic_fallback"
+    authority_weight_multiplier: 2.0  # Peso dobrado para autoridades de segurança
+    maturity_minimum_required: "validated"
+    
+  "moc:arbitration:concurrent_enrichment":
+    description: "Resolução temporal e baseada em autoridade para atualizações concorrentes"
+    precedence_order:
+      - "P4_temporal_recency"         # Mais recente vence em cenários concorrentes
+      - "P1_authority_weight"         # Então maior autoridade
+      - "P3_maturity_level"
+      - "P2_scope_specificity"
+      - "P5_evidence_density"
+      - "P6_deterministic_fallback"
+    temporal_window_ms: 30000         # Janela de concorrência de 30 segundos
+    authority_tiebreaker: true
+    
+  "moc:arbitration:promotion_contention":
+    description: "Avaliação com foco em evidências para conflitos de promoção de conhecimento"
+    precedence_order:
+      - "P5_evidence_density"         # Evidência primeiro para promoções
+      - "P1_authority_weight"         # Autoridade valida evidência
+      - "P3_maturity_level"           # Progressão de maturidade respeitada
+      - "P2_scope_specificity"
+      - "P4_temporal_recency"
+      - "P6_deterministic_fallback"
+    evidence_density_multiplier: 1.5  # Peso extra para evidência
+    cross_scope_validation: true
+    
+  "moc:arbitration:lifecycle_governance":
+    description: "Precedência consciente de ciclo de vida para evolução de conhecimento"
+    precedence_order:
+      - "P7_lifecycle_stage"          # Customizado: Ciclo de vida tem precedência
+      - "P1_authority_weight"         # Autoridade gerencia ciclo de vida
+      - "P3_maturity_level"
+      - "P2_scope_specificity"
+      - "P4_temporal_recency"
+      - "P5_evidence_density"
+      - "P6_deterministic_fallback"
+    lifecycle_respect_rules: true
+    sunset_precedence: false          # Conhecimento em sunset não vence
+```
+
+#### Estrutura de Namespace de Referência de Política
+```yaml
+# --- Especificação de Namespace Normativa ---
+policy_reference_structure:
+  namespace_format: "moc:arbitration:{policy_name}"
+  
+  standard_policies:                  # Políticas organizacionais comuns
+    - "moc:arbitration:security_conflicts"
+    - "moc:arbitration:concurrent_enrichment"
+    - "moc:arbitration:promotion_contention"
+    - "moc:arbitration:lifecycle_governance"
+    - "moc:arbitration:cross_domain_resolution"
+    
+  custom_policy_naming:
+    format: "moc:arbitration:{organization}_{domain}_{purpose}"
+    examples:
+      - "moc:arbitration:acme_technical_reviews"
+      - "moc:arbitration:corp_business_policies"
+      - "moc:arbitration:startup_rapid_iteration"
+      
+  policy_inheritance:
+    default_fallback: "default_precedence_order"
+    policy_override: "política nomeada substitui completamente o padrão"
+    policy_extension: "política nomeada modifica regras específicas de precedência"
+```
+
 #### Requisitos de Integração MAL
 - MAL DEVE consultar políticas de arbitragem MOC para aplicação de regras de precedência
 - Regras de especificidade de escopo MOC DEVEM ser aplicadas para avaliação P2
