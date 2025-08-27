@@ -1,203 +1,267 @@
-schema: "1.0"
-moc_id: "moc:squad-payments:v1.0"
-moc_name: "Squad Payments - Matrix Ontology Catalog"
-version: "1.0.0"
-created_date: 2024-03-25
-last_modified: 2024-03-25
+moc_version: "1.0"
 organization: "Example E-commerce Company"
-responsible_team: "Squad Payments"
+created_date: "2024-03-25"
+last_modified: "2024-03-25"
+version: "1.0.0"
 
-description: |
-  Matrix Ontology Catalog para a Squad de Pagamentos, definindo taxonomias,
-  hierarquias e estruturas organizacionais para gestão de conhecimento
-  relacionado a pagamentos, gateways e transações financeiras.
+hierarchies:
+  scope:
+    metadata:
+      concept: "Knowledge reach and visibility"
+      governance_rules: |
+        Defines the organizational reach and access control for knowledge.
+        Squad-level knowledge can be promoted to tribe or organization levels
+        based on validation and stakeholder approval.
+    nodes:
+      - id: "squad-payments"
+        label: "Squad Payments"
+        parent: "tribe-commerce"
+        level: 1
+        governance:
+          visibility: ["squad_members", "tribe_leads", "architecture_committee"]
+          propagation: "restricted"
+          authority_required: "tech_lead"
+          promotion_criteria:
+            - "Validated in production for at least 30 days"
+            - "Demonstrates value across multiple use cases"
+            - "Approved by relevant stakeholders"
+      
+      - id: "tribe-commerce"
+        label: "Commerce Tribe"
+        parent: "organization"
+        level: 1
+        governance:
+          visibility: ["tribe_members", "organization_leads"]
+          propagation: "automatic"
+          authority_required: "tribe_lead"
+      
+      - id: "organization"
+        label: "Organization"
+        parent: null
+        level: 0
+        governance:
+          visibility: ["all_members"]
+          propagation: "automatic"
+          authority_required: "architecture_committee"
 
-scopes:
-  squad-payments:
-    name: "Squad Payments"
-    description: "Conhecimento específico da squad de pagamentos"
-    level: "squad"
-    parent: "tribe-commerce"
-    modes:
-      - restricted: "Conhecimento sensível restrito à squad"
-      - propagated: "Conhecimento que pode ser promovido para níveis superiores"
-    governance:
-      approval_required: true
-      reviewers: ["tech-lead-payments", "product-owner-payments"]
-      promotion_criteria:
-        - organizational_impact: "Afeta múltiplas squads ou tribos"
-        - validation_status: "Validado em produção por pelo menos 30 dias"
-        - stakeholder_approval: "Aprovado por stakeholders relevantes"
+  domain:
+    metadata:
+      concept: "Knowledge area and specialization"
+      governance_rules: |
+        Classifies knowledge by functional domain with specific ownership
+        and review responsibilities for each area.
+    nodes:
+      - id: "business"
+        label: "Business Rules"
+        parent: null
+        level: 0
+        governance:
+          owners: ["product_managers", "business_analysts"]
+          reviewers: ["stakeholders", "compliance_team"]
+          validation_required: true
+      
+      - id: "technical"
+        label: "Technical Patterns"
+        parent: null
+        level: 0
+        governance:
+          owners: ["engineering_team", "tech_leads"]
+          reviewers: ["architects", "security_team"]
+          validation_required: true
+      
+      - id: "product"
+        label: "Product Guidelines"
+        parent: null
+        level: 0
+        governance:
+          owners: ["product_team", "ux_designers"]
+          reviewers: ["product_managers", "user_research"]
+          validation_required: false
+      
+      - id: "strategy"
+        label: "Strategic Decisions"
+        parent: null
+        level: 0
+        governance:
+          owners: ["leadership_team", "product_strategy"]
+          reviewers: ["board", "executive_committee"]
+          validation_required: true
+      
+      - id: "culture"
+        label: "Culture & Processes"
+        parent: null
+        level: 0
+        governance:
+          owners: ["engineering_managers", "hr_team"]
+          reviewers: ["team_leads", "culture_committee"]
+          validation_required: false
 
-domains:
-  business:
-    name: "Regras de Negócio"
-    description: "Políticas, regras e decisões de negócio relacionadas a pagamentos"
-    examples: ["cálculos de taxa", "políticas de refund", "regras de fraude"]
-    
-  technical:
-    name: "Padrões Técnicos"
-    description: "Arquitetura, integrações e implementações técnicas"
-    examples: ["integração com gateways", "circuit breakers", "webhooks"]
-    
-  product:
-    name: "Produto e UX"
-    description: "Funcionalidades, interfaces e experiência do usuário"
-    examples: ["fluxos de checkout", "interfaces de pagamento", "modais"]
-    
-  strategy:
-    name: "Estratégia"
-    description: "Decisões estratégicas e direcionamentos de longo prazo"
-    examples: ["escolha de gateways", "roadmap de pagamentos", "parcerias"]
-    
-  culture:
-    name: "Cultura e Processos"
-    description: "Processos de trabalho, boas práticas e cultura da squad"
-    examples: ["code review", "deployment", "incident response"]
+  maturity:
+    metadata:
+      concept: "Validation and reliability level"
+      governance_rules: |
+        Epistemological stratification ensuring knowledge quality progression.
+        Each level requires specific validation criteria and authority approval.
+    nodes:
+      - id: "draft"
+        label: "Draft"
+        parent: null
+        level: 0
+        governance:
+          auto_promotion: false
+          validation_required: false
+          creation_authority: "any_team_member"
+          review_frequency_days: 30
+      
+      - id: "validated"
+        label: "Validated"
+        parent: "draft"
+        level: 1
+        governance:
+          auto_promotion: false
+          validation_required: true
+          authority_required: "domain_expert"
+          reviewers_required: 2
+          evidence_required: ["practical_examples", "peer_review"]
+          review_frequency_days: 90
+      
+      - id: "approved"
+        label: "Approved"
+        parent: "validated"
+        level: 2
+        governance:
+          auto_promotion: false
+          validation_required: true
+          authority_required: "architecture_committee"
+          evidence_required: ["production_validation", "stakeholder_approval"]
+          review_frequency_days: 180
 
-types:
-  business_rule:
-    name: "Regra de Negócio"
-    description: "Regras formais que governam comportamentos e decisões de negócio"
-    applies_to: ["business", "product"]
-    required_fields: ["examples", "relationships"]
-    
-  pattern:
-    name: "Padrão"
-    description: "Soluções reutilizáveis para problemas recorrentes"
-    applies_to: ["technical", "strategy", "culture"]
-    required_fields: ["examples", "relationships"]
-    
-  guideline:
-    name: "Diretriz"
-    description: "Orientações e boas práticas recomendadas"
-    applies_to: ["product", "culture", "technical"]
-    required_fields: ["examples"]
-    
-  procedure:
-    name: "Procedimento"
-    description: "Sequências estruturadas de ações para realizar tarefas específicas"
-    applies_to: ["culture", "technical", "business"]
-    required_fields: ["examples", "relationships"]
-    
-  decision:
-    name: "Decisão"
-    description: "Decisões arquiteturais ou estratégicas documentadas"
-    applies_to: ["strategy", "technical", "business"]
-    required_fields: ["examples", "relationships"]
-    
-  template:
-    name: "Template"
-    description: "Modelos padronizados para estruturar trabalho"
-    applies_to: ["culture", "product", "technical"]
-    required_fields: ["examples"]
+  type:
+    metadata:
+      concept: "Knowledge type classification"
+      governance_rules: |
+        Defines the structural and functional classification of knowledge units
+        based on their purpose and application within the organization.
+    nodes:
+      - id: "business_rule"
+        label: "Business Rule"
+        parent: null
+        level: 0
+        governance:
+          required_fields: ["examples", "relationships"]
+          applies_to_domains: ["business", "product"]
+          validation_authority: "product_managers"
+      
+      - id: "pattern"
+        label: "Pattern"
+        parent: null
+        level: 0
+        governance:
+          required_fields: ["examples", "relationships"]
+          applies_to_domains: ["technical", "strategy", "culture"]
+          validation_authority: "tech_leads"
+      
+      - id: "procedure"
+        label: "Procedure"
+        parent: null
+        level: 0
+        governance:
+          required_fields: ["examples", "relationships"]
+          applies_to_domains: ["culture", "technical", "business"]
+          validation_authority: "process_owners"
+      
+      - id: "guideline"
+        label: "Guideline"
+        parent: null
+        level: 0
+        governance:
+          required_fields: ["examples"]
+          applies_to_domains: ["product", "culture", "technical"]
+          validation_authority: "domain_experts"
+      
+      - id: "decision"
+        label: "Decision"
+        parent: null
+        level: 0
+        governance:
+          required_fields: ["examples", "relationships"]
+          applies_to_domains: ["strategy", "technical", "business"]
+          validation_authority: "architects"
+      
+      - id: "template"
+        label: "Template"
+        parent: null
+        level: 0
+        governance:
+          required_fields: ["examples"]
+          applies_to_domains: ["culture", "product", "technical"]
+          validation_authority: "domain_experts"
 
-contexts:
-  discovery:
-    name: "Descoberta"
-    description: "Exploração inicial de problemas e oportunidades"
-    
-  implementation:
-    name: "Implementação"
-    description: "Desenvolvimento e execução de soluções"
-    
-  refinement:
-    name: "Refinamento"
-    description: "Melhoria e otimização de soluções existentes"
-    
-  qa:
-    name: "Garantia de Qualidade"
-    description: "Validação, teste e verificação de qualidade"
-    
-  documentation:
-    name: "Documentação"
-    description: "Registro e compartilhamento de conhecimento"
-    
-  support:
-    name: "Suporte"
-    description: "Manutenção e resolução de problemas em produção"
-
-maturity_levels:
-  draft:
-    name: "Rascunho"
-    description: "Conhecimento em desenvolvimento, ainda não validado"
-    requirements: ["created_date", "content"]
-    
-  validated:
-    name: "Validado"
-    description: "Conhecimento testado e aprovado para uso"
-    requirements: ["examples", "relationships", "validation_evidence"]
-    
-  deprecated:
-    name: "Descontinuado"
-    description: "Conhecimento obsoleto, mantido apenas para referência histórica"
-    requirements: ["deprecation_reason", "replacement_reference"]
-
-relationship_types:
-  implements:
-    name: "Implementa"
-    description: "UKI implementa ou realiza outro UKI"
-    bidirectional: false
-    
-  depends_on:
-    name: "Depende de"
-    description: "UKI depende funcionalmente de outro UKI"
-    bidirectional: false
-    
-  relates_to:
-    name: "Relaciona-se com"
-    description: "UKI tem relação conceitual com outro UKI"
-    bidirectional: true
-    
-  extends:
-    name: "Estende"
-    description: "UKI estende ou especializa outro UKI"
-    bidirectional: false
-    
-  replaces:
-    name: "Substitui"
-    description: "UKI substitui outro UKI obsoleto"
-    bidirectional: false
-    
-  complements:
-    name: "Complementa"
-    description: "UKI complementa funcionalmente outro UKI"
-    bidirectional: true
-    
-  conflicts_with:
-    name: "Conflita com"
-    description: "UKI tem conflito ou incompatibilidade com outro UKI"
-    bidirectional: true
+  evaluation_criteria:
+    metadata:
+      concept: "Criteria for EvaluateForEnrich checkpoint"
+      governance_rules: |
+        Defines the semantic and practical value criteria used by ZOF
+        EvaluateForEnrich checkpoint to determine knowledge enrichment worthiness.
+    nodes:
+      - id: "business_impact"
+        label: "Business Impact"
+        parent: null
+        level: 0
+        governance:
+          threshold: "medium"
+          evaluators: ["product_managers", "business_analysts"]
+          weight: 0.4
+          criteria:
+            - "Affects revenue or cost structure"
+            - "Impacts customer experience"
+            - "Enables new business capabilities"
+      
+      - id: "reusability"
+        label: "Reusability"
+        parent: null
+        level: 0
+        governance:
+          threshold: "high"
+          evaluators: ["architects", "tech_leads"]
+          weight: 0.3
+          criteria:
+            - "Applicable across multiple domains/squads"
+            - "Solves recurring problems"
+            - "Provides template for similar solutions"
+      
+      - id: "regulatory_compliance"
+        label: "Regulatory Compliance"
+        parent: null
+        level: 0
+        governance:
+          threshold: "critical"
+          evaluators: ["compliance_team", "legal"]
+          weight: 0.3
+          criteria:
+            - "Addresses regulatory requirements"
+            - "Mitigates compliance risks"
+            - "Enables audit trail maintenance"
 
 governance:
-  versioning:
-    schema: "semantic"
-    increment_rules:
-      major: "Mudanças que quebram compatibilidade ou alteram significado fundamental"
-      minor: "Adições que mantêm compatibilidade com versões anteriores"
-      patch: "Correções menores que não afetam funcionalidade"
-      
-  lifecycle:
-    creation: "Qualquer membro da squad pode criar UKI draft"
-    validation: "Tech lead ou product owner deve aprovar mudança para validated"
-    promotion: "Comitê de arquitetura deve aprovar promoção para escopo superior"
-    deprecation: "Tech lead deve aprovar marcação como deprecated"
-    
-  quality_gates:
-    draft_to_validated:
-      - "Pelo menos 2 exemplos práticos documentados"
-      - "Relacionamentos com outros UKIs identificados"
-      - "Revisão por par técnico"
-      - "Teste em ambiente não-produtivo quando aplicável"
-    
-    validation_requirements:
-      - "Conteúdo atualizado nos últimos 90 dias"
-      - "Pelo menos 1 exemplo de uso real documentado"
-      - "Relacionamentos bidirecionais validados"
-
-integration:
-  mef_compliance: "1.0"
-  supported_formats: ["yaml"]
-  validation_tools: ["mef-validator", "relationship-checker"]
+  version_control:
+    change_approval_required: true
+    change_authority: "architecture_committee"
+    impact_analysis_required: true
+    notification_required: ["affected_squads", "stakeholders"]
   
-domain_of_influence: "squad-payments"
+  audit_trail:
+    track_changes: true
+    change_notifications: ["all_users"]
+    retention_period_days: 2555  # 7 years for compliance
+    validation_frequency_days: 90
+  
+  conflict_resolution:
+    escalation_path: ["tech_lead", "tribe_lead", "architecture_committee", "cto"]
+    resolution_timeout_days: 14
+    arbitration_policy: "moc:arbitration:security_conflicts"
+    
+  lifecycle_management:
+    node_deprecation_notice_days: 90
+    migration_plan_required: true
+    backwards_compatibility_period_days: 180

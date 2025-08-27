@@ -191,7 +191,7 @@ domain_of_influence: "[organizational-reference]"
 ```yaml
 # From examples/knowledge-comparison/structured/business-rules/uki-pay-discount-logic-001.yaml
 schema: "1.0"
-ontology_reference: "moc:squad-payments:v1.0"
+ontology_reference: "Ontology_MEF_Support v1.0"  # Standard MEF ontology reference
 version: "2.1.0"
 
 id: uki:squad-payments:business_rule:discount-logic-001
@@ -208,9 +208,9 @@ relationships:
     description: "Cálculo de taxas considera descontos aplicados"
 ```
 
-### Actual MOC File Structure (Official Specification)
+### Real MOC Implementation from Repository
 ```yaml
-# Real MOC structure following MOC v1.0.0 specification
+# --- Actual MOC_SQUAD_PAYMENTS.yaml from examples/knowledge-comparison/ ---
 moc_version: "1.0"
 organization: "Example E-commerce Company"
 created_date: "2024-03-25"
@@ -221,88 +221,92 @@ hierarchies:
   scope:
     metadata:
       concept: "Knowledge reach and visibility"
-      governance_rules: "Rules for scope-based knowledge access"
+      governance_rules: |
+        Defines organizational reach and access control for knowledge.
+        Squad-level knowledge can be promoted to higher levels based on validation.
     nodes:
-      - id: "squad-payments"
+      - id: "squad-payments"     # ← Referenced by UKIs via scope_ref
         label: "Squad Payments"
         parent: "tribe-commerce"
         level: 1
         governance:
-          visibility: ["squad_members", "tribe_leads"]
+          visibility: ["squad_members", "tribe_leads", "architecture_committee"]
           propagation: "restricted"
           authority_required: "tech_lead"
       - id: "tribe-commerce"
         label: "Commerce Tribe"
-        parent: null
-        level: 0
+        parent: "organization"
+        level: 1
         governance:
-          visibility: ["all_tribe_members"]
+          visibility: ["tribe_members", "organization_leads"]
           propagation: "automatic"
-          authority_required: "tribe_lead"
 
   domain:
-    metadata:
-      concept: "Knowledge area and specialization"
     nodes:
-      - id: "business"
+      - id: "business"           # ← Referenced by UKIs via domain_ref
         label: "Business Rules"
-        parent: null
-        level: 0
         governance:
-          owners: ["product_managers"]
-          reviewers: ["stakeholders"]
-      - id: "technical"
+          owners: ["product_managers", "business_analysts"]
+          reviewers: ["stakeholders", "compliance_team"]
+      - id: "technical"          # ← Referenced by UKIs via domain_ref
         label: "Technical Patterns"
-        parent: null
-        level: 0
         governance:
-          owners: ["engineering_team"]
-          reviewers: ["tech_leads", "architects"]
+          owners: ["engineering_team", "tech_leads"]
+          reviewers: ["architects", "security_team"]
+
+  type:                         # ← Custom organizational hierarchy
+    nodes:
+      - id: "business_rule"      # ← Referenced by UKIs via type_ref
+        label: "Business Rule"
+        governance:
+          required_fields: ["examples", "relationships"]
+          applies_to_domains: ["business", "product"]
+      - id: "pattern"            # ← Referenced by UKIs via type_ref
+        label: "Pattern"
+        governance:
+          applies_to_domains: ["technical", "strategy", "culture"]
 
   maturity:
-    metadata:
-      concept: "Validation and reliability level"
     nodes:
-      - id: "draft"
+      - id: "draft"              # ← Referenced by UKIs via maturity_ref
         label: "Draft"
         parent: null
         level: 0
         governance:
-          auto_promotion: false
           validation_required: false
-      - id: "validated"
+          creation_authority: "any_team_member"
+      - id: "validated"          # ← Referenced by UKIs via maturity_ref
         label: "Validated"
         parent: "draft"
         level: 1
         governance:
-          auto_promotion: false
-          validation_required: true
           authority_required: "domain_expert"
+          reviewers_required: 2
 
-  evaluation_criteria:
-    metadata:
-      concept: "Criteria for EvaluateForEnrich checkpoint"
+  evaluation_criteria:           # ← Used by ZOF EvaluateForEnrich checkpoint
     nodes:
       - id: "business_impact"
-        label: "Business Impact"
-        parent: null
-        level: 0
         governance:
           threshold: "medium"
           evaluators: ["product_managers"]
+          weight: 0.4
 
 governance:
   version_control:
     change_approval_required: true
     change_authority: "architecture_committee"
-    impact_analysis_required: true
   audit_trail:
-    track_changes: true
-    change_notifications: ["affected_teams"]
-    validation_frequency_days: 90
+    retention_period_days: 2555  # 7 years for compliance
+  conflict_resolution:
+    escalation_path: ["tech_lead", "tribe_lead", "architecture_committee", "cto"]
+    arbitration_policy: "moc:arbitration:security_conflicts"
 ```
 
-**Note**: The MOC defines the hierarchical nodes that UKIs reference via `*_ref` fields. Each `scope_ref`, `domain_ref`, `type_ref`, `maturity_ref` in UKIs points to a specific `id` in the MOC hierarchies.
+**Key Integration**: UKIs in `/examples/knowledge-comparison/structured/` reference this MOC via their `*_ref` fields:
+- `scope_ref: squad-payments` → `hierarchies.scope.nodes[id="squad-payments"]`
+- `domain_ref: business` → `hierarchies.domain.nodes[id="business"]`
+- `type_ref: business_rule` → `hierarchies.type.nodes[id="business_rule"]`
+- `maturity_ref: validated` → `hierarchies.maturity.nodes[id="validated"]`
 
 ## Working with Examples
 

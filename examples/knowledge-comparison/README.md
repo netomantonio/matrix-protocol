@@ -18,50 +18,63 @@ Demonstrar como o MEF transforma conhecimento caótico e disperso em:
 
 ## 🏗️ Estrutura Foundacional: MOC (Matrix Ontology Catalog)
 
-### `MOC_SQUAD_PAYMENTS.yaml` - Ontologia Organizacional
+### `MOC_SQUAD_PAYMENTS.yaml` - Ontologia Organizacional (MOC v1.0.0)
 
-Antes de qualquer UKI ser criado, o **Matrix Ontology Catalog (MOC)** define a taxonomia organizacional que governa todos os conhecimentos da squad:
+Antes de qualquer UKI ser criado, o **Matrix Ontology Catalog (MOC)** define a taxonomia organizacional seguindo a especificação oficial:
 
-#### 🎯 Escopo e Governança
+#### 📋 Estrutura Oficial MOC
 ```yaml
-scopes:
-  squad-payments:
-    name: "Squad Payments"
-    level: "squad"
-    parent: "tribe-commerce"
-    modes:
-      - restricted: "Conhecimento sensível restrito à squad"
-      - propagated: "Conhecimento candidato à promoção para níveis superiores"
+moc_version: "1.0"
+organization: "Example E-commerce Company" 
+version: "1.0.0"
+
+hierarchies:
+  scope:
+    metadata:
+      concept: "Knowledge reach and visibility"
+    nodes:
+      - id: "squad-payments"      # ← UKIs referenciam via scope_ref
+        label: "Squad Payments"
+        parent: "tribe-commerce"
+        level: 1
+        governance:
+          visibility: ["squad_members", "tribe_leads"]
+          propagation: "restricted"
 ```
 
-#### 📊 Domínios Definidos
-- **business:** Regras de negócio e políticas
-- **technical:** Padrões técnicos e arquitetura  
-- **product:** Funcionalidades e UX
-- **strategy:** Direcionamentos estratégicos
-- **culture:** Processos e práticas da squad
+#### 🏛️ 5 Hierarquias Implementadas
 
-#### 📋 Tipos de Conhecimento
-- **business_rule:** Regras formais de negócio
-- **pattern:** Soluções reutilizáveis
-- **procedure:** Sequências estruturadas de ações
-- **guideline:** Boas práticas recomendadas
-- **decision:** Decisões arquiteturais documentadas
+**1. `scope`** - Alcance e visibilidade do conhecimento
+- `squad-payments` → `tribe-commerce` → `organization`
 
-#### 🔄 Relacionamentos Semânticos
-- **implements:** UKI implementa outro UKI
-- **depends_on:** Dependência funcional
-- **relates_to:** Relação conceitual
-- **extends:** Especialização de UKI
-- **complements:** Funcionalidade complementar
+**2. `domain`** - Áreas funcionais de conhecimento  
+- `business`, `technical`, `product`, `strategy`, `culture`
+
+**3. `type`** - Classificação estrutural do conhecimento
+- `business_rule`, `pattern`, `procedure`, `guideline`, `decision`, `template`
+
+**4. `maturity`** - Níveis de maturidade epistemológica
+- `draft` → `validated` → `approved`
+
+**5. `evaluation_criteria`** - Critérios para EvaluateForEnrich checkpoint
+- `business_impact`, `reusability`, `regulatory_compliance`
+
+#### 🔗 Integração UKI ↔ MOC
+```yaml
+# Como UKIs referenciam o MOC
+scope_ref: squad-payments    # → hierarchies.scope.nodes[id="squad-payments"]
+domain_ref: business         # → hierarchies.domain.nodes[id="business"] 
+type_ref: business_rule      # → hierarchies.type.nodes[id="business_rule"]
+maturity_ref: validated      # → hierarchies.maturity.nodes[id="validated"]
+```
 
 ### 🎯 Por Que o MOC é Fundamental
 
-1. **Consistência Taxonômica:** Garante que todos os UKIs sigam a mesma estrutura organizacional
-2. **Governança Explícita:** Define quem pode criar, validar e promover conhecimento
-3. **Evolução Controlada:** Estabelece critérios para maturidade e promoção de conhecimento
-4. **Auditoria e Compliance:** Habilita rastreabilidade completa de mudanças
-5. **Integração Organizacional:** Permite promoção hierárquica de conhecimento local para organizacional
+1. **Especificação Oficial:** Implementa exatamente MOC v1.0.0 com `hierarchies` → `nodes` → `governance`
+2. **Referências Válidas:** Todos os `*_ref` dos UKIs apontam para `id` existentes no MOC
+3. **Governança Estruturada:** Cada node define autoridade, visibilidade e critérios de promoção
+4. **Epistemologia Aplicada:** Maturity levels implementam princípios MEP de estratificação
+5. **Auditoria Organizacional:** Retenção de 7 anos para compliance regulatório
 
 ## 📁 Estrutura dos Exemplos
 
