@@ -82,6 +82,29 @@ Every organizational MOC MUST contain:
 - Hierarchical levels MUST be sequential (0, 1, 2...)
 - Governance rules MUST be defined for all nodes
 
+### Level Semantics Configuration (Normative)
+
+The `level` field in MOC nodes is **organizationally-defined** following MEP Principle 1 (Semantic Elasticity). Organizations MUST define their local interpretation of `level` values to enable consistent framework integration.
+
+#### Semantic Flexibility
+- **Purpose**: Each organization defines what `level` represents in their context
+- **Common interpretations**: hierarchy depth, authority weight, functional priority, maturity progression
+- **Framework integration**: MAL P1/P2 precedence rules MUST consult local MOC semantics
+- **Local documentation**: Organizations MUST document their `level` semantics in metadata
+
+#### Configuration Requirements
+Organizations MUST provide:
+- **Semantic definition**: Clear explanation of what `level` values represent
+- **Ordering rules**: Whether higher/lower levels indicate precedence 
+- **Framework mappings**: How MAL authority/specificity evaluation should interpret levels
+- **Examples**: Concrete cases showing level usage in decision scenarios
+
+#### Framework Integration Guidelines
+- **MAL P1 (Authority Weight)**: Consult MOC to determine if higher/lower level = higher authority
+- **MAL P2 (Scope Specificity)**: Consult MOC to determine if higher/lower level = more specific scope
+- **ZOF Authority Validation**: Use MOC-defined level semantics for permission checks
+- **OIF Contextual Filtering**: Apply organizational level interpretation for response filtering
+
 ### Change Control Rules
 - MOC alterations MUST be versioned
 - Impact on dependent UKIs MUST be analyzed

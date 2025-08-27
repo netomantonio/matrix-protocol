@@ -12,6 +12,10 @@ hierarchies:
         Defines the organizational reach and access control for knowledge.
         Squad-level knowledge can be promoted to tribe or organization levels
         based on validation and stakeholder approval.
+      level_semantics: |
+        For scope hierarchy: level represents organizational depth (0=root, 1=child, 2=grandchild).
+        Lower level = broader organizational reach. Higher level = more specific scope.
+        Used by MAL P2 for scope specificity evaluation.
     nodes:
       - id: "squad-payments"
         label: "Squad Payments"
@@ -50,6 +54,10 @@ hierarchies:
       governance_rules: |
         Classifies knowledge by functional domain with specific ownership
         and review responsibilities for each area.
+      level_semantics: |
+        For domain hierarchy: level represents functional priority (all domains at level 0).
+        Level 0 = equal functional priority across domains.
+        Used by MAL P1 for authority evaluation via ownership roles.
     nodes:
       - id: "business"
         label: "Business Rules"
@@ -102,6 +110,10 @@ hierarchies:
       governance_rules: |
         Epistemological stratification ensuring knowledge quality progression.
         Each level requires specific validation criteria and authority approval.
+      level_semantics: |
+        For maturity hierarchy: level represents epistemological progression (0=lowest, 2=highest).
+        Higher level = higher epistemological maturity and reliability.
+        Used by MAL P3 for maturity-based precedence evaluation.
     nodes:
       - id: "draft"
         label: "Draft"
@@ -203,6 +215,10 @@ hierarchies:
       governance_rules: |
         Defines the semantic and practical value criteria used by ZOF
         EvaluateForEnrich checkpoint to determine knowledge enrichment worthiness.
+      level_semantics: |
+        For evaluation_criteria hierarchy: level represents evaluation priority (all criteria at level 0).
+        Level 0 = equal evaluation priority, differentiated by weight values.
+        Used by ZOF EvaluateForEnrich for weighted criteria assessment.
     nodes:
       - id: "business_impact"
         label: "Business Impact"

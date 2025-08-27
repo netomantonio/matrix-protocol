@@ -57,7 +57,7 @@ The Matrix Protocol integrates **6 major components** with deep cross-framework 
 **5 Fundamental Epistemological Principles:**
 
 #### 1. 🔄 **Semantic Elasticity**
-Knowledge adapts to organizational contexts without global rigidity. No fixed taxonomies.
+Knowledge adapts to organizational contexts without global rigidity. No fixed taxonomies. **Level semantics are organizationally-defined via MOC.**
 
 #### 2. 📊 **Stratified Epistemology** 
 All knowledge carries maturity levels (draft → validated → approved). Hierarchy is epistemological.
@@ -66,7 +66,7 @@ All knowledge carries maturity levels (draft → validated → approved). Hierar
 Knowledge evolution requires explicit epistemological justification. No neutral promotions.
 
 #### 4. 👥 **Derived Authority**
-No absolute truths. All authority derives from organizational context via MOC.
+No absolute truths. All authority derives from organizational context via MOC. **Level interpretations are contextual.**
 
 #### 5. 💡 **Necessary Explainability**
 Every decision generates auditable epistemological narrative. Explainability is mandatory.
@@ -74,6 +74,7 @@ Every decision generates auditable epistemological narrative. Explainability is 
 ### MOC (Matrix Ontology Catalog) - Governance Foundation
 - **Authority Validation Service**: Determines who can perform operations
 - **Arbitration Policy Configuration**: Defines precedence rules for MAL
+- **Level Semantics Configuration**: Organizations define what `level` values mean locally
 - **Lifecycle Management**: Governs knowledge temporal evolution
 - **Taxonomic Evolution Feedback**: Self-improving hierarchies based on usage patterns
 
@@ -228,7 +229,7 @@ hierarchies:
       - id: "squad-payments"     # ← Referenced by UKIs via scope_ref
         label: "Squad Payments"
         parent: "tribe-commerce"
-        level: 1
+        level: 1                     # ← Organization defines: depth-based (1=more specific)
         governance:
           visibility: ["squad_members", "tribe_leads", "architecture_committee"]
           propagation: "restricted"
@@ -236,7 +237,7 @@ hierarchies:
       - id: "tribe-commerce"
         label: "Commerce Tribe"
         parent: "organization"
-        level: 1
+        level: 1                     # ← Same depth as squad (both children of org)
         governance:
           visibility: ["tribe_members", "organization_leads"]
           propagation: "automatic"
@@ -271,14 +272,14 @@ hierarchies:
       - id: "draft"              # ← Referenced by UKIs via maturity_ref
         label: "Draft"
         parent: null
-        level: 0
+        level: 0                     # ← Organization defines: progression-based (0=lowest maturity)
         governance:
           validation_required: false
           creation_authority: "any_team_member"
       - id: "validated"          # ← Referenced by UKIs via maturity_ref
         label: "Validated"
         parent: "draft"
-        level: 1
+        level: 1                     # ← Higher level = more mature/reliable
         governance:
           authority_required: "domain_expert"
           reviewers_required: 2
