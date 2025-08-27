@@ -1,0 +1,279 @@
+schema: "1.0"
+ontology_reference: "moc:squad-payments:v1.0"
+id: uki:squad-payments:procedure:performance-optimization-017
+title: "Procedimento de Otimização de Performance"
+version: 1.3.0
+created_date: 2024-03-25
+last_modified: 2024-03-25
+change_summary: "Adição de técnicas de cache específicas baseadas em bottlenecks identificados"
+change_impact: minor
+previous_version: 1.2.0
+
+scope_ref: squad-payments
+domain_ref: technical
+type_ref: procedure
+maturity_ref: validated
+status: active
+
+content: |
+  ## Baselines de Performance
+  
+  ### SLAs Estabelecidos
+  **Payment Processing:**
+  - P50 latency: < 2s
+  - P95 latency: < 5s  
+  - P99 latency: < 10s
+  - Success rate: > 98%
+  
+  **Database Queries:**
+  - Simple queries: < 100ms
+  - Complex reports: < 2s
+  - Connection acquisition: < 50ms
+  
+  **External API Calls:**
+  - Gateway calls: < 3s
+  - Currency API: < 1s
+  - Fraud detection: < 500ms
+  
+  ## Performance Monitoring
+  
+  ### Key Performance Indicators
+  **Application Level:**
+  - Request/response times per endpoint
+  - Thread pool utilization
+  - Memory usage patterns
+  - GC frequency and duration
+  
+  **Database Level:**
+  - Query execution times
+  - Connection pool metrics
+  - Index usage statistics
+  - Lock wait times
+  
+  **External Dependencies:**
+  - Gateway response times
+  - Network latency
+  - Timeout frequency
+  - Circuit breaker activations
+  
+  ## Optimization Strategies
+  
+  ### Database Optimization
+  
+  **Query Optimization:**
+  ```sql
+  -- Add missing indexes identified in slow query log
+  CREATE INDEX CONCURRENTLY idx_payments_created_gateway 
+    ON payments(created_at, gateway_type) 
+    WHERE status = 'completed';
+  
+  -- Optimize frequent report query
+  CREATE MATERIALIZED VIEW daily_payment_summary AS
+    SELECT DATE(created_at) as date, 
+           gateway_type,
+           COUNT(*) as transaction_count,
+           SUM(amount) as total_amount
+    FROM payments 
+    WHERE created_at >= CURRENT_DATE - INTERVAL '90 days'
+    GROUP BY DATE(created_at), gateway_type;
+  ```
+  
+  **Connection Pool Tuning:**
+  ```properties
+  # Optimized for payment workload
+  spring.datasource.hikari.maximum-pool-size=50
+  spring.datasource.hikari.minimum-idle=10
+  spring.datasource.hikari.connection-timeout=20000
+  spring.datasource.hikari.idle-timeout=300000
+  spring.datasource.hikari.max-lifetime=1200000
+  ```
+  
+  ### Application-Level Caching
+  
+  **Redis Cache Strategy:**
+  ```java
+  @Cacheable(value = "currency-rates", key = "#fromCurrency + '_' + #toCurrency")
+  public BigDecimal getExchangeRate(String fromCurrency, String toCurrency) {
+      // TTL: 1 hour, fallback to database if Redis unavailable
+  }
+  
+  @Cacheable(value = "payment-status", key = "#paymentId", unless = "#result.status == 'PROCESSING'")
+  public PaymentStatus getPaymentStatus(String paymentId) {
+      // Don't cache transient states, TTL: 5 minutes
+  }
+  ```
+  
+  **Cache Patterns:**
+  - **Write-through:** Currency exchange rates
+  - **Write-behind:** Audit log entries  
+  - **Cache-aside:** Payment status queries
+  - **Refresh-ahead:** Fraud detection rules
+  
+  ### JVM Tuning
+  
+  **Memory Configuration:**
+  ```bash
+  # Production JVM settings
+  -Xms2048m -Xmx4096m
+  -XX:+UseG1GC
+  -XX:MaxGCPauseMillis=200
+  -XX:+UseStringDeduplication
+  -XX:+OptimizeStringConcat
+  ```
+  
+  **Garbage Collection Monitoring:**
+  - GC pause time target: < 200ms
+  - GC frequency: < 1/minute for major collections
+  - Heap utilization: < 80% sustained
+  
+  ## Load Testing Procedures
+  
+  ### Test Scenarios
+  
+  **Normal Load Test:**
+  - 1000 concurrent users
+  - 50 requests/second sustained
+  - Mixed payment types (70% credit card, 30% PIX)
+  - 30-minute duration
+  
+  **Peak Load Test:**
+  - 2500 concurrent users  
+  - 150 requests/second peak
+  - Black Friday traffic simulation
+  - 1-hour duration with ramp-up/down
+  
+  **Stress Test:**
+  - Increase load until system breaks
+  - Identify bottlenecks and failure points
+  - Measure recovery time after load reduction
+  
+  ### Performance Test Automation
+  ```yaml
+  # JMeter test configuration
+  load_test_config:
+    threads: 1000
+    ramp_up_period: 300s
+    duration: 1800s
+    
+    test_scenarios:
+      - name: "create_payment"
+        weight: 60%
+        endpoint: "/api/payments"
+        
+      - name: "check_status"  
+        weight: 30%
+        endpoint: "/api/payments/{id}/status"
+        
+      - name: "process_refund"
+        weight: 10%
+        endpoint: "/api/refunds"
+  ```
+  
+  ## Performance Issue Investigation
+  
+  ### Diagnostic Tools
+  
+  **Application Profiling:**
+  - Java Flight Recorder for CPU/memory analysis
+  - APM tools (New Relic/DataDog) for distributed tracing
+  - Custom metrics for business logic bottlenecks
+  
+  **Database Analysis:**
+  ```sql
+  -- Identify slow queries
+  SELECT query, calls, total_time, mean_time
+  FROM pg_stat_statements 
+  ORDER BY total_time DESC 
+  LIMIT 10;
+  
+  -- Check index usage
+  SELECT schemaname, tablename, indexname, idx_tup_read, idx_tup_fetch
+  FROM pg_stat_user_indexes 
+  ORDER BY idx_tup_read DESC;
+  ```
+  
+  ### Common Bottlenecks and Solutions
+  
+  **Database Connection Exhaustion:**
+  - **Symptom:** Connection timeouts, thread blocking
+  - **Solution:** Increase pool size, optimize query patterns
+  - **Prevention:** Connection leak detection, query optimization
+  
+  **Memory Leaks:**
+  - **Symptom:** Increasing heap usage, frequent GC
+  - **Solution:** Heap dump analysis, code review
+  - **Prevention:** Memory profiling in staging
+  
+  **Gateway Timeouts:**
+  - **Symptom:** High latency, timeout errors
+  - **Solution:** Adjust timeout settings, implement circuit breaker
+  - **Prevention:** Gateway health monitoring, fallback strategies
+  
+  ## Capacity Planning
+  
+  ### Growth Projections
+  **Current metrics (March 2024):**
+  - 50,000 transactions/month
+  - Average ticket: R$ 125
+  - Peak: 150 transactions/hour
+  
+  **Projected growth (12 months):**
+  - 150,000 transactions/month (3x growth)
+  - Need to support 450 transactions/hour peak
+  - Infrastructure scaling required
+  
+  ### Scaling Strategies
+  
+  **Horizontal Scaling:**
+  - Add application instances behind load balancer
+  - Database read replicas for reporting queries
+  - Redis cluster for cache distribution
+  
+  **Vertical Scaling:**
+  - Increase CPU/memory for existing instances
+  - Temporary solution for immediate needs
+  - Monitor resource utilization trends
+  
+  ## Performance Review Process
+  
+  ### Weekly Performance Review
+  **Metrics analysis:**
+  - Compare current week vs baseline
+  - Identify performance regressions
+  - Review slow query reports
+  - Analyze error rate trends
+  
+  ### Monthly Optimization Sprint
+  **Activities:**
+  - Load testing with updated traffic patterns
+  - Database maintenance (VACUUM, ANALYZE)
+  - Cache hit ratio optimization
+  - JVM tuning validation
+  
+  ### Quarterly Capacity Assessment
+  **Strategic planning:**
+  - Resource utilization forecasting
+  - Infrastructure scaling decisions
+  - Performance SLA review
+  - Technology upgrade evaluation
+
+examples:
+  - input: "P95 latency increased from 3s to 8s, database queries slow"
+    output: "Run slow query analysis → identify missing indexes → add indexes → validate improvement"
+  - input: "Memory usage increasing steadily, GC frequency high"
+    output: "Generate heap dump → analyze with MAT → identify leaks → fix code → monitor"
+  - input: "Black Friday approaching, expecting 5x traffic"
+    output: "Run load tests → identify bottlenecks → scale infrastructure → validate capacity"
+
+related_to:
+  - target: uki:squad-payments:procedure:monitoring-alerts-016
+    type: depends_on
+    description: "Performance optimization usa métricas do sistema de monitoramento"
+  - target: uki:squad-payments:technical_pattern:gateway-integration-007
+    type: relates_to
+    description: "Otimização inclui tuning específico de integração com gateways"
+  - target: uki:squad-payments:procedure:deployment-process-015
+    type: relates_to
+    description: "Performance testing integrado ao processo de deployment"
+
+domain_of_influence: "engineering_teams"

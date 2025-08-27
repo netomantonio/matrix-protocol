@@ -1,0 +1,170 @@
+ANOTAÇÕES DIVERSAS - Squad Pagamentos
+(arquivo pessoal do João - não oficial)
+
+=== BUG FIXES PENDING ===
+- webhook stripe às vezes chega 2x (implementar idempotency)
+- currency conversion EUR bugada (usar API diferente?)
+- timeout paypal muito alto (configurar 30s)
+- logs não têm IP do usuário (compliance pediu)
+
+=== IDEIAS FEATURES ===  
+- split payment (dividir conta entre amigos)
+- save payment method (guardar cartão cliente)
+- recurring payments (assinatura mensal)  
+- buy now pay later (parcelar sem juros)
+
+💡 LEMBRAR: testar essas ideias com Maria na próxima planning
+
+=== PERFORMANCE ISSUES ===
+Gateway lento ultimamente:
+- Stripe: média 8s (antes era 3s)  
+- PayPal: média 5s (OK)
+- Timeout cliente: 15s (muito baixo?)
+
+Database queries lentas:
+- SELECT * FROM payments WHERE created_at > X (sem índice!)
+- Relatório vendas demora 45s (Pedro fez cache)
+- Connection pool às vezes esgota (aumentar de 20 para 50?)
+
+=== TECH DEBT ===
+- Spring Boot 2.4 → 3.1 (breaking changes, cuidado)
+- Java 11 → 17 (LTS)  
+- Dependencies vulneráveis (mvn dependency:check)
+- Dockerfile multi-stage (reduzir imagem)
+- Circuit breaker (hystrix descontinuado, usar resilience4j)
+
+=== MONITORING ===
+Métricas importantes:
+- Latency p95 gateways
+- Error rate por endpoint  
+- Database connection pool usage
+- Memory/CPU app
+- Chargeback rate mensal
+
+Alertas configurar:
+- Latency > 10s → Slack #alerts  
+- Error rate > 5% → PagerDuty
+- Gateway down → SMS time plantão
+- Database slow query → email DBA
+
+=== REUNIÃO COM COMPLIANCE (15/03) ===
+Roberto falou:
+- PCI audit em abril (preparar documentação)
+- Logs de acesso dados cartão obrigatório
+- Criptografia TLS 1.3 mínimo
+- Senhas não podem ser padrão (óbvio!)
+- Backup logs 7 anos (regulamentação)
+
+Action items:
+- João: revisar código, remover hardcoded passwords
+- Pedro: implementar audit log
+- Carlos: configurar TLS 1.3
+- Ana: documentar processos
+- Maria: treinamento PCI para todos
+
+=== CUSTOMER FEEDBACK ===
+Reclamações comuns:
+- "Pagamento demora muito" (performance)
+- "Erro na finalização" (timeout?)  
+- "Desconto não aplicou" (bug conhecido)
+- "Refund demora 7 dias" (política, não bug)
+
+Sugestões clientes:
+- PIX como meio pagamento (prioridade alta!)
+- Apple Pay / Google Pay
+- Split payment
+- Salvar cartão próxima compra
+
+=== TODO PESSOAL ===
+- [x] Implementar retry webhook ✓
+- [x] Corrigir CVV validation ✓  
+- [ ] Documentar API refund
+- [ ] Criar testes carga
+- [ ] Estudar machine learning fraude
+- [ ] Revisar arquitetura microserviços
+
+=== NÚMEROS IMPORTANTES ===
+Volume mensal: ~50k transações
+Ticket médio: R$ 125
+Conversion rate: 78% (benchmark: 80%)
+Chargeback rate: 0.8% (aceitável < 1%)
+Refund rate: 3.2% (benchmark: 2-5%)
+
+Por gateway:
+- Stripe: 60% volume, 2.1s latência média
+- PayPal: 40% volume, 1.8s latência média
+
+=== SECRETS & CONFIGS ===
+⚠️ NÃO COMMITAR ISSO!
+
+Stripe:
+- pk_live_51H... (production public key)  
+- sk_live_51H... (production secret key)
+- whsec_1... (webhook secret)
+
+PayPal:  
+- Client ID: ATz... (production)
+- Client Secret: EL6... (production)
+
+Database:
+- Host: payments-db.prod.internal
+- User: app_user
+- Password: P@ssw0rd123! (trocar isso!)
+
+=== USEFUL COMMANDS ===
+
+Start local:
+./mvnw spring-boot:run -Dspring.profiles.active=local
+
+Run tests:  
+./mvnw test -Dtest=PaymentServiceTest
+
+Deploy staging:
+kubectl apply -f k8s/staging/
+
+Check logs:
+kubectl logs -f payments-api-pod
+
+Database backup:
+pg_dump payments_prod > backup_$(date +%Y%m%d).sql
+
+Redis flush cache:
+redis-cli FLUSHDB
+
+=== LINKS BOOKMARK ===
+- Stripe docs: https://stripe.com/docs/api
+- PayPal docs: https://developer.paypal.com/docs/api/overview/  
+- Spring Boot: https://docs.spring.io/spring-boot/docs/current/reference/
+- PCI Standards: https://www.pcisecuritystandards.org/
+- Postman collection: shared link no team
+
+=== RANDOM THOUGHTS ===
+- Arquitetura atual é monolito, mas funciona
+- Microserviços seria overkill agora (só 5 pessoas time)
+- Event sourcing interessante para auditoria
+- CQRS talvez para relatórios pesados
+- GraphQL? Nah, REST funciona bem
+
+Time é bom, mas poderia ter mais sêniors.
+Lucas é junior mas aprende rápido.
+Roberta (QA) chegou há pouco, mas parece boa.
+
+Maior problema: tech debt acumulado.
+Pedro saindo foi complicado (muito knowledge tácito).
+
+Próximos 6 meses focar:
+1. Stability & performance  
+2. Compliance & security
+3. PIX integration
+4. Code quality
+
+=== CONTATOS ÚTEIS ===
+- Stripe: sarah.johnson@stripe.com (AM)
+- PayPal: support ticket system  
+- AWS: enterprise support
+- PCI: roberto.santos@company.com (compliance)
+- Legal: juridico@company.com
+
+---
+ÚLTIMA ATUALIZAÇÃO: 20/03/2024 23:47 
+(anotações pessoais, não compartilhar com outros times)

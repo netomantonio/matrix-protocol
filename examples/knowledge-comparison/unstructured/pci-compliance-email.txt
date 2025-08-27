@@ -1,0 +1,61 @@
+De: compliance@company.com
+Para: squad-payments@company.com
+Assunto: [URGENTE] Adequações PCI DSS - Prazo 30 dias
+Data: 12/03/2024 14:35
+
+Pessoal da Squad Pagamentos,
+
+A auditoria PCI DSS está marcada para 15/04/2024. Identifiquei alguns pontos que precisam ser corrigidos URGENTEMENTE:
+
+CRÍTICOS (prazo: 20/03):
+1. Logs de acesso aos dados de cartão não estão sendo gerados
+2. Criptografia de dados em trânsito não está em todas as APIs (algumas ainda HTTP)
+3. Senhas padrão em ambiente de produção (sério, pessoal?)
+4. Acesso administrativo sem dupla autenticação
+
+IMPORTANTES (prazo: 30/03):
+1. Documentação de processos desatualizada (wiki é de 2022)
+2. Treinamento da equipe - ninguém fez o curso PCI obrigatório
+3. Testes de penetração não foram executados este ano
+4. Backup dos logs não está funcionando há 2 meses
+
+OBSERVAÇÕES TÉCNICAS:
+- SSL Certificate do gateway de teste venceu (não crítico mas feio)
+- Algoritmo de hash das senhas é SHA-1 (vulnerável, mudar para SHA-256)
+- Tokens de sessão não expiram (configurar 30min máximo)
+- Database connection strings com senha hardcoded no código (GRAVES!)
+
+PERFORMANCE NOTADA:
+Por falar nisso, o gateway de pagamento está lento. Transações que antes levavam 2-3 segundos agora estão em 8-10 segundos. Isso pode afetar a experiência do usuário e não é diretamente PCI, mas vocês deviam investigar.
+
+Também notei que webhooks do Stripe às vezes chegam duplicados. Não sei se é problema do lado deles ou nosso, mas pode causar double-billing.
+
+AÇÕES NECESSÁRIAS:
+1. João (Tech Lead) - coordenar correções técnicas
+2. Maria (PO) - aprovar horas extras se necessário  
+3. Pedro (Dev Senior) - revisar todo código que toca dados sensíveis
+4. Ana (QA) - validar correções e documentar testes
+5. Carlos (DevOps) - infraestrutura e monitoramento
+6. TODOS - fazer treinamento PCI até 25/03
+
+CONSEQUÊNCIAS DO NÃO CUMPRIMENTO:
+- Suspensão do processamento de cartões
+- Multas de até R$ 500.000
+- Perda da certificação (impacto em novos clientes)
+- Auditoria mais rigorosa no próximo ano
+
+Link para treinamento: https://compliance.company.com/pci-training (cada um fazer com seu login)
+
+Certificado deve ser enviado para compliance@company.com após conclusão.
+
+Em caso de dúvidas, estou disponível no Teams ou ramal 4455.
+
+Abs,
+Roberto Santos
+Compliance Officer
+
+---
+
+P.S.: Pessoal de DevOps, o servidor de backup está com alerta há 3 dias. Não é PCI mas resolve logo isso por favor.
+
+P.P.S.: Maria, aquele processo de aprovação manual para refunds acima de R$ 1000 que vocês implementaram está ajudando muito com compliance. Continue assim!

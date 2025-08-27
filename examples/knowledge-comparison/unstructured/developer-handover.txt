@@ -1,0 +1,112 @@
+HANDOVER NOTES - Pedro Silva (Dev Senior)
+Saída: 29/03/2024
+Entregando para: Lucas (assumindo projetos) e João (contexto técnico)
+
+=== CONHECIMENTO CRÍTICO QUE NÃO ESTÁ DOCUMENTADO ===
+
+WEBHOOK DO STRIPE:
+- Aquela gambiarra no webhook handler (line 247 do PaymentController.java) PRECISA ser revista
+- Às vezes Stripe envia o mesmo webhook 3x seguidas, implementei um debounce manual com Redis
+- Chave no Redis: "webhook_dedupe_{transaction_id}" com TTL de 300s
+- SEM ISSO A COBRANÇA FICA DUPLICADA!!! Muito importante
+
+GATEWAY FAILOVER:
+- Implementei failover manual Stripe -> PayPal quando Stripe retorna 503
+- Não está documentado porque "era temporário" (há 8 meses...)
+- Lógica no PaymentService.java método processPayment()
+- Funciona 90% das vezes, mas PayPal às vezes rejeita transação que Stripe aceitaria
+
+CURRENCY CONVERSION:
+- Bug conhecido na conversão EUR -> BRL
+- API externa (exchangerate-api.io) às vezes retorna cotação de ontem
+- Workaround: cache de 1 hora + fallback para cotação fixa 6.2
+- Cliente europeu reclama mas "funciona"
+- TODO: trocar por API mais confiável
+
+PERFORMANCE HACKS:
+- Database query do relatório de vendas demora 30s
+- Implementei cache no Redis com TTL de 10min  
+- Chave: "sales_report_{date}_{gateway}"
+- NÃO APAGAR ESSE CACHE! Sem ele dashboard trava
+
+IDEMPOTENCY:
+- Implementei idempotency nas APIs mas só para POST /payments
+- Header: "Idempotency-Key" (UUID)
+- Store no banco por 24h na tabela payment_idempotency
+- Outros endpoints não têm (PUT, PATCH, DELETE)
+
+MONITORAMENTO:
+- Health check endpoint (/health) não valida conexão com gateways
+- Só verifica database e Redis
+- Gateway pode estar down e health retorna 200 OK
+- Falei com Carlos mas nunca foi priorizado
+
+SECRETS & CONFIG:
+- Chaves API do Stripe estão no application.properties (SIM, HARDCODED!)
+- Compliance reclama mas "é temporário" há 6 meses
+- PayPal client_id está em variável ambiente (PAYPAL_CLIENT)
+- Senha banco PostgreSQL também hardcoded (vergonha!)
+
+=== BUGS CONHECIDOS (NÃO CRITICOSS) ===
+
+- Refund de valor parcial não atualiza stock corretamente
+- Log de auditoria não registra IP do usuário admin
+- CVV validation aceita "000" (Ana já sabe)
+- Timeout do PayPal às vezes é 45s, deveria ser 30s
+- Webhook retry não implementado (se falhar, perdeu)
+
+=== TECHNICAL DEBT ===
+
+- Spring Boot 2.4 (versão antiga, deveria ser 3.x)
+- JUnit testes só cobrem 40% do PaymentService
+- Dependência Apache Commons 3.12 tem CVE conhecido
+- Dockerfile multi-stage build não implementado
+- Circuit breaker não configurado (quando gateway cai, aplicação trava)
+
+=== CONTATOS IMPORTANTES ===
+
+Stripe:
+- Suporte: developers@stripe.com
+- Gerente conta: sarah.johnson@stripe.com (fala português)
+- Slack interno: #integration-stripe
+
+PayPal:
+- Suporte técnico: developer-support@paypal.com  
+- Gerente: michael.torres@paypal.com
+- Portal dev: https://developer.paypal.com (login: company.dev@ourcompany.com)
+
+Exchange Rate API:
+- Support: support@exchangerate-api.io
+- Plan: Professional (500 requests/month) 
+- API Key está no código (sim, péssima prática)
+
+=== EMERGÊNCIAS ===
+
+Se gateway principal cair:
+1. Verificar status em https://status.stripe.com
+2. Ativar failover manual no admin panel
+3. Avisar no Slack #incidents
+4. Monitorar double billing 
+
+Se webhook parar de chegar:
+1. Verificar endpoint https://ourapi.com/webhooks/stripe
+2. Revalidar URL no dashboard Stripe
+3. Checar se Redis está funcionando (dedupe)
+
+Se conversão de moeda travar:
+1. Forçar cache refresh: DELETE key "currency_*" no Redis
+2. Verificar se exchangerate-api.io está up
+3. Fallback manual: EUR = 6.2 BRL (aproximação OK)
+
+=== DADOS DE ACESSO ===
+
+- Stripe Dashboard: login company.stripe@ourcompany.com (senha compartilhada no 1Password)
+- PayPal Developer: login company.paypal@ourcompany.com  
+- Redis prod: redis-prod.internal:6379 (sem senha, dentro da VPC)
+- PostgreSQL: payments-db.internal:5432/payments_prod
+
+João, qualquer coisa me chama no WhatsApp (11) 99999-9999 ou pedro.silva.dev@gmail.com
+
+Boa sorte! O código funciona mas precisa de muito amor.
+
+Pedro

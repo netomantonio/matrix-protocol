@@ -1,0 +1,203 @@
+schema: "1.0"
+moc_id: "moc:squad-payments:v1.0"
+moc_name: "Squad Payments - Matrix Ontology Catalog"
+version: "1.0.0"
+created_date: 2024-03-25
+last_modified: 2024-03-25
+organization: "Example E-commerce Company"
+responsible_team: "Squad Payments"
+
+description: |
+  Matrix Ontology Catalog para a Squad de Pagamentos, definindo taxonomias,
+  hierarquias e estruturas organizacionais para gestão de conhecimento
+  relacionado a pagamentos, gateways e transações financeiras.
+
+scopes:
+  squad-payments:
+    name: "Squad Payments"
+    description: "Conhecimento específico da squad de pagamentos"
+    level: "squad"
+    parent: "tribe-commerce"
+    modes:
+      - restricted: "Conhecimento sensível restrito à squad"
+      - propagated: "Conhecimento que pode ser promovido para níveis superiores"
+    governance:
+      approval_required: true
+      reviewers: ["tech-lead-payments", "product-owner-payments"]
+      promotion_criteria:
+        - organizational_impact: "Afeta múltiplas squads ou tribos"
+        - validation_status: "Validado em produção por pelo menos 30 dias"
+        - stakeholder_approval: "Aprovado por stakeholders relevantes"
+
+domains:
+  business:
+    name: "Regras de Negócio"
+    description: "Políticas, regras e decisões de negócio relacionadas a pagamentos"
+    examples: ["cálculos de taxa", "políticas de refund", "regras de fraude"]
+    
+  technical:
+    name: "Padrões Técnicos"
+    description: "Arquitetura, integrações e implementações técnicas"
+    examples: ["integração com gateways", "circuit breakers", "webhooks"]
+    
+  product:
+    name: "Produto e UX"
+    description: "Funcionalidades, interfaces e experiência do usuário"
+    examples: ["fluxos de checkout", "interfaces de pagamento", "modais"]
+    
+  strategy:
+    name: "Estratégia"
+    description: "Decisões estratégicas e direcionamentos de longo prazo"
+    examples: ["escolha de gateways", "roadmap de pagamentos", "parcerias"]
+    
+  culture:
+    name: "Cultura e Processos"
+    description: "Processos de trabalho, boas práticas e cultura da squad"
+    examples: ["code review", "deployment", "incident response"]
+
+types:
+  business_rule:
+    name: "Regra de Negócio"
+    description: "Regras formais que governam comportamentos e decisões de negócio"
+    applies_to: ["business", "product"]
+    required_fields: ["examples", "relationships"]
+    
+  pattern:
+    name: "Padrão"
+    description: "Soluções reutilizáveis para problemas recorrentes"
+    applies_to: ["technical", "strategy", "culture"]
+    required_fields: ["examples", "relationships"]
+    
+  guideline:
+    name: "Diretriz"
+    description: "Orientações e boas práticas recomendadas"
+    applies_to: ["product", "culture", "technical"]
+    required_fields: ["examples"]
+    
+  procedure:
+    name: "Procedimento"
+    description: "Sequências estruturadas de ações para realizar tarefas específicas"
+    applies_to: ["culture", "technical", "business"]
+    required_fields: ["examples", "relationships"]
+    
+  decision:
+    name: "Decisão"
+    description: "Decisões arquiteturais ou estratégicas documentadas"
+    applies_to: ["strategy", "technical", "business"]
+    required_fields: ["examples", "relationships"]
+    
+  template:
+    name: "Template"
+    description: "Modelos padronizados para estruturar trabalho"
+    applies_to: ["culture", "product", "technical"]
+    required_fields: ["examples"]
+
+contexts:
+  discovery:
+    name: "Descoberta"
+    description: "Exploração inicial de problemas e oportunidades"
+    
+  implementation:
+    name: "Implementação"
+    description: "Desenvolvimento e execução de soluções"
+    
+  refinement:
+    name: "Refinamento"
+    description: "Melhoria e otimização de soluções existentes"
+    
+  qa:
+    name: "Garantia de Qualidade"
+    description: "Validação, teste e verificação de qualidade"
+    
+  documentation:
+    name: "Documentação"
+    description: "Registro e compartilhamento de conhecimento"
+    
+  support:
+    name: "Suporte"
+    description: "Manutenção e resolução de problemas em produção"
+
+maturity_levels:
+  draft:
+    name: "Rascunho"
+    description: "Conhecimento em desenvolvimento, ainda não validado"
+    requirements: ["created_date", "content"]
+    
+  validated:
+    name: "Validado"
+    description: "Conhecimento testado e aprovado para uso"
+    requirements: ["examples", "relationships", "validation_evidence"]
+    
+  deprecated:
+    name: "Descontinuado"
+    description: "Conhecimento obsoleto, mantido apenas para referência histórica"
+    requirements: ["deprecation_reason", "replacement_reference"]
+
+relationship_types:
+  implements:
+    name: "Implementa"
+    description: "UKI implementa ou realiza outro UKI"
+    bidirectional: false
+    
+  depends_on:
+    name: "Depende de"
+    description: "UKI depende funcionalmente de outro UKI"
+    bidirectional: false
+    
+  relates_to:
+    name: "Relaciona-se com"
+    description: "UKI tem relação conceitual com outro UKI"
+    bidirectional: true
+    
+  extends:
+    name: "Estende"
+    description: "UKI estende ou especializa outro UKI"
+    bidirectional: false
+    
+  replaces:
+    name: "Substitui"
+    description: "UKI substitui outro UKI obsoleto"
+    bidirectional: false
+    
+  complements:
+    name: "Complementa"
+    description: "UKI complementa funcionalmente outro UKI"
+    bidirectional: true
+    
+  conflicts_with:
+    name: "Conflita com"
+    description: "UKI tem conflito ou incompatibilidade com outro UKI"
+    bidirectional: true
+
+governance:
+  versioning:
+    schema: "semantic"
+    increment_rules:
+      major: "Mudanças que quebram compatibilidade ou alteram significado fundamental"
+      minor: "Adições que mantêm compatibilidade com versões anteriores"
+      patch: "Correções menores que não afetam funcionalidade"
+      
+  lifecycle:
+    creation: "Qualquer membro da squad pode criar UKI draft"
+    validation: "Tech lead ou product owner deve aprovar mudança para validated"
+    promotion: "Comitê de arquitetura deve aprovar promoção para escopo superior"
+    deprecation: "Tech lead deve aprovar marcação como deprecated"
+    
+  quality_gates:
+    draft_to_validated:
+      - "Pelo menos 2 exemplos práticos documentados"
+      - "Relacionamentos com outros UKIs identificados"
+      - "Revisão por par técnico"
+      - "Teste em ambiente não-produtivo quando aplicável"
+    
+    validation_requirements:
+      - "Conteúdo atualizado nos últimos 90 dias"
+      - "Pelo menos 1 exemplo de uso real documentado"
+      - "Relacionamentos bidirecionais validados"
+
+integration:
+  mef_compliance: "1.0"
+  supported_formats: ["yaml"]
+  validation_tools: ["mef-validator", "relationship-checker"]
+  
+domain_of_influence: "squad-payments"

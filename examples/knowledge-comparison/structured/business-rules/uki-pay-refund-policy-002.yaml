@@ -1,0 +1,86 @@
+schema: "1.0"
+ontology_reference: "moc:squad-payments:v1.0"
+version: "3.0.0"
+
+id: uki:squad-payments:business_rule:refund-policy-002
+title: "Política de Refund e Prazos"
+scope_ref: squad-payments
+scope_mode: "propagated"
+domain_ref: business
+type_ref: business_rule
+maturity_ref: validated
+
+created_date: 2024-03-25
+last_modified: 2024-03-25
+change_summary: "Unificação de prazos conflitantes e definição de SLA por gateway"
+change_impact: major
+status: active
+
+content: |
+  ## Prazo de Solicitação de Refund
+  
+  **Padrão unificado:** 14 dias corridos a partir da data de compra
+  **Justificativa:** Alinhamento com concorrência e melhoria de UX
+  **Exceções:**
+  - Cliente VIP (programa fidelidade): 30 dias corridos
+  - Produtos digitais: 7 dias corridos (não reversíveis)
+  
+  ## Processamento de Refund por Gateway
+  
+  **Stripe:**
+  - SLA: 3-5 dias úteis
+  - Refund parcial: permitido (máximo 1x por transação)
+  - Automatização: < R$ 100 (automático), >= R$ 100 (aprovação manual)
+  
+  **PayPal:**  
+  - SLA: 2-3 dias úteis
+  - Refund parcial: permitido (sem limite de quantidade)
+  - Automatização: < R$ 200 (automático), >= R$ 200 (aprovação manual)
+  
+  ## Regras de Negócio
+  
+  **Aprovação manual obrigatória:**
+  - Valores >= R$ 1.000,00 (qualquer gateway)
+  - Refunds múltiplos mesmo cliente (> 3 no mês)
+  - Suspeita de fraude ou chargeback histórico
+  
+  **Refund proporcional:**
+  - Quando há desconto aplicado, refund considera valor original
+  - Frete: reembolsado apenas em refund total
+  - Taxa conveniência: não reembolsada
+  
+  ## Validações Obrigatórias
+  
+  - Verificar se transação está dentro do prazo
+  - Confirmar que transação foi capturada com sucesso
+  - Validar se não há chargeback em andamento
+  - Verificar saldo disponível no gateway
+
+examples:
+  - input: "Compra R$ 800 com desconto 10%, refund total após 10 dias"
+    output: "Aprovado: reembolso R$ 800 (valor pago), prazo 3-5 dias (Stripe)"
+  - input: "Cliente VIP, compra R$ 1.200, refund após 20 dias"
+    output: "Aprovado: dentro prazo 30 dias VIP, aprovação manual obrigatória"
+  - input: "Refund parcial R$ 50 de compra R$ 150, PayPal"
+    output: "Aprovado: automático < R$ 200, processamento 2-3 dias"
+
+relationships:
+  - type: relates_to
+    target: uki:squad-payments:business_rule:discount-logic-001
+    description: "Desconto afeta cálculo proporcional de refund"
+    
+  - type: depends_on
+    target: uki:squad-payments:technical_pattern:gateway-integration-007
+    description: "Implementação depende de APIs específicas dos gateways"
+    
+  - type: relates_to
+    target: uki:squad-payments:procedure:incident-response-014
+    description: "Falhas em refund seguem processo de incident response"
+
+promotion:
+  promotion_rationale: |
+    Política afeta múltiplas squads (atendimento, financeiro).
+    Demonstrou valor organizacional e foi validada por stakeholders.
+    Candidata à promoção para escopo tribe.
+
+domain_of_influence: "engineering_teams"

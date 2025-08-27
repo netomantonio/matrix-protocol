@@ -1,0 +1,182 @@
+schema: "1.0"
+ontology_reference: "moc:squad-payments:v1.0"
+id: uki:squad-payments:procedure:pci-compliance-013
+title: "Procedimento de Conformidade PCI DSS"
+version: 2.0.0
+created_date: 2024-03-25
+last_modified: 2024-03-25
+change_summary: "Atualização baseada em auditoria 2024 e checklist de compliance officer"
+change_impact: major
+previous_version: 1.5.0
+
+scope_ref: squad-payments
+scope_mode: "restricted"
+domain_ref: technical
+type_ref: procedure
+maturity_ref: validated
+status: active
+
+content: |
+  ## Requisitos Críticos (SAQ-A-EP Level)
+  
+  ### 1. Criptografia de Dados
+  **Em trânsito:**
+  - TLS 1.3 obrigatório (mínimo TLS 1.2)
+  - Certificate pinning para APIs críticas
+  - Verificação de certificado rigorosa
+  
+  **Em repouso:**
+  - AES-256 para dados sensíveis
+  - Tokenização preferível à criptografia
+  - Chaves gerenciadas via HSM ou AWS KMS
+  
+  ### 2. Controle de Acesso
+  **Autenticação:**
+  - MFA obrigatório para acesso administrativo
+  - Senhas complexas (mínimo 12 caracteres)
+  - Rotação de credenciais a cada 90 dias
+  
+  **Autorização:**
+  - Princípio do menor privilégio
+  - Segregação de ambientes (dev/staging/prod)
+  - Acesso just-in-time para produção
+  
+  ### 3. Logging e Monitoramento
+  **Logs obrigatórios:**
+  - Todas tentativas de autenticação
+  - Acesso a dados de cartão (mesmo que tokenizados)
+  - Modificações de configuração
+  - Tentativas de acesso negadas
+  
+  **Retenção:**
+  - Logs de auditoria: 7 anos
+  - Logs operacionais: 1 ano
+  - Backups seguros e criptografados
+  
+  ## Checklist de Compliance
+  
+  ### Desenvolvimento
+  - [ ] Code review obrigatório para mudanças payment-related
+  - [ ] SAST tools integrados ao pipeline CI/CD  
+  - [ ] Dependency scanning para vulnerabilidades
+  - [ ] Secrets nunca hardcoded no código
+  - [ ] Data masking em logs implementado
+  
+  ### Infraestrutura
+  - [ ] Network segmentation (DMZ para payment processing)
+  - [ ] Firewall rules restritivas (whitelist approach)
+  - [ ] Regular vulnerability scanning
+  - [ ] Patch management automatizado
+  - [ ] Backup encryption habilitado
+  
+  ### Operacional
+  - [ ] Treinamento PCI DSS anual para toda equipe
+  - [ ] Incident response plan testado
+  - [ ] Change management process documentado
+  - [ ] Vendor risk assessment atualizado
+  - [ ] Physical security controls avaliados
+  
+  ## Processos Obrigatórios
+  
+  ### Quarterly Reviews
+  **Responsável:** Compliance Officer + Tech Lead
+  **Atividades:**
+  - Review de logs de acesso
+  - Análise de vulnerabilidades
+  - Validação de controles técnicos
+  - Update de documentação
+  
+  ### Annual Assessment
+  **Responsável:** Auditor externo
+  **Escopo:** Validação completa SAQ-A-EP
+  **Deliverables:**
+  - Report de conformidade
+  - Plano de ação para gaps
+  - Certificação PCI DSS
+  
+  ### Incident Response
+  **Security Incident:**
+  1. Isolamento imediato do sistema afetado
+  2. Preservação de evidências
+  3. Notificação compliance officer (1 hora)
+  4. Investigação forense
+  5. Report ao card brands (se aplicável)
+  
+  ## Tecnical Controls
+  
+  ### Database Security
+  ```sql
+  -- Encrypted connections only
+  REQUIRE SSL;
+  
+  -- Restricted user access
+  GRANT SELECT, INSERT, UPDATE ON payments.transactions TO app_user;
+  REVOKE ALL ON payments.audit_logs FROM app_user;
+  
+  -- Audit trail
+  CREATE TRIGGER audit_payment_access 
+    AFTER SELECT ON payments.transactions
+    FOR EACH ROW EXECUTE FUNCTION log_data_access();
+  ```
+  
+  ### Application Security
+  ```java
+  // PCI DSS compliant configuration
+  @Configuration
+  public class PCISecurityConfig {
+      
+      @Bean
+      public SecurityFilterChain filterChain(HttpSecurity http) {
+          return http
+              .requiresChannel(channel -> channel.anyRequest().requiresSecure())
+              .sessionManagement(session -> session
+                  .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                  .maximumSessions(1))
+              .headers(headers -> headers
+                  .frameOptions().deny()
+                  .contentTypeOptions().and()
+                  .httpStrictTransportSecurity(hstsConfig -> hstsConfig
+                      .maxAgeInSeconds(31536000)
+                      .includeSubdomains(true)))
+              .build();
+      }
+  }
+  ```
+  
+  ## Vendor Management
+  
+  ### Approved Vendors
+  **Payment Gateways:**
+  - Stripe (Level 1 PCI DSS certified)
+  - PayPal (Level 1 PCI DSS certified)
+  
+  **Cloud Providers:**
+  - AWS (PCI DSS Level 1 Service Provider)
+  - Redis Cloud (SOC 2 Type II compliant)
+  
+  ### Due Diligence Requirements
+  - Annual validation of PCI DSS certificates
+  - Review of security practices and incident history
+  - Contractual obligations for data protection
+  - Regular security assessments
+
+examples:
+  - input: "New developer joining team, needs payment system access"
+    output: "Complete PCI training → MFA setup → least privilege access → audit log review"
+  - input: "Security incident detected: suspicious database queries"
+    output: "Isolate DB → preserve logs → notify compliance (1h) → forensic investigation"  
+  - input: "Quarterly PCI review due, last assessment 3 months ago"
+    output: "Schedule review → audit logs → vulnerability scan → update documentation"
+
+relationships:
+  - target: uki:squad-payments:technical_pattern:security-headers-010
+    type: implements
+    description: "Security headers são controle técnico obrigatório PCI"
+  - target: uki:squad-payments:technical_pattern:error-handling-012
+    type: implements
+    description: "Data masking implementa requisito de proteção de dados PCI"
+  - target: uki:squad-payments:procedure:incident-response-014
+    type: relates_to
+    description: "Incident response específico para violações de segurança PCI"
+
+domain_of_influence: "engineering_teams"
