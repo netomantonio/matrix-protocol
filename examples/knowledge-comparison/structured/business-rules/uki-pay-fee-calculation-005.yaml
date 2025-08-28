@@ -1,0 +1,90 @@
+schema: "1.0"
+ontology_reference: "moc:squad-payments:v1.0"
+version: "1.2.0"
+
+id: uki:squad-payments:business_rule:fee-calculation-005
+title: "Cálculo de Taxas por Gateway e Modalidade"
+scope_ref: squad-payments
+scope_mode: "restricted"
+domain_ref: business
+type_ref: business_rule
+maturity_ref: draft
+
+created_date: 2024-03-25
+last_modified: 2024-03-25
+change_summary: "Adição de modalidade PIX e revisão de taxas negociadas"
+change_impact: minor
+status: active
+
+content: |
+  ## Taxas por Gateway
+  
+  ### Stripe
+  **Cartão de crédito:** 3.99% + R$ 0,39 por transação
+  **Cartão de débito:** 2.99% + R$ 0,39 por transação  
+  **PIX:** 0.99% (sem taxa fixa)
+  **Internacional:** 4.99% + R$ 0,39 + IOF
+  
+  ### PayPal  
+  **Cartão de crédito:** 4.49% + R$ 0,60 por transação
+  **Cartão de débito:** 3.49% + R$ 0,60 por transação
+  **PayPal balance:** 3.19% + R$ 0,60 por transação
+  **Internacional:** 5.49% + R$ 0,60 + IOF
+  
+  ## Repasse ao Cliente
+  
+  **Política atual:** Taxas absorvidas pela empresa (não repassadas)
+  **Exceção:** Transações internacionais (IOF repassado)
+  **Justificativa:** Melhoria de UX e competitividade
+  
+  ## Limites e Condições Especiais
+  
+  **PIX (apenas Stripe):**
+  - Limite mínimo: R$ 5,00
+  - Limite máximo: R$ 5.000,00 por transação
+  - Disponível: 24/7 incluindo fins de semana
+  
+  **Parcelamento:**
+  - Stripe: até 12x sem juros (empresa absorve)
+  - PayPal: até 6x sem juros
+  - Juros cliente: a partir da 13ª parcela (2.99% a.m.)
+  
+  ## Cálculo de MDR (Merchant Discount Rate)
+  
+  **Fórmula:** (Valor_Transação × Percentual) + Taxa_Fixa
+  **Arredondamento:** Sempre para cima, 2 casas decimais
+  **Antecipação:** Disponível com taxa adicional 2.5% a.m.
+  
+  ## Custos Internos (não cliente)
+  
+  **Chargeback:**
+  - Stripe: R$ 65,00 por ocorrência
+  - PayPal: R$ 45,00 por ocorrência  
+  - Cobertura: seguro de fraude cobre até R$ 10.000/mês
+  
+  **Estorno/Refund:**
+  - Taxa gateway não é devolvida
+  - Processamento interno: sem custo adicional
+
+examples:
+  - input: "Compra R$ 500,00 cartão crédito via Stripe"
+    output: "Taxa: R$ 20,34 (R$ 500 × 3.99% + R$ 0,39), cliente paga R$ 500"
+  - input: "PIX R$ 200,00 via Stripe"  
+    output: "Taxa: R$ 1,98 (R$ 200 × 0.99%), cliente paga R$ 200"
+  - input: "Compra internacional $100 (R$ 510) via PayPal"
+    output: "Taxa: R$ 28,59 + IOF, cliente paga R$ 510 + IOF"
+
+relationships:
+  - type: relates_to
+    target: uki:squad-payments:business_rule:currency-conversion-004
+    description: "Conversão de moeda afeta cálculo de taxas internacionais"
+    
+  - type: depends_on
+    target: uki:squad-payments:technical_pattern:gateway-integration-007
+    description: "Implementação técnica dos cálculos por gateway"
+    
+  - type: relates_to
+    target: uki:squad-payments:business_rule:refund-policy-002
+    description: "Política de refund considera que taxas não são devolvidas"
+
+domain_of_influence: "engineering_teams"

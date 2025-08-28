@@ -1,0 +1,51 @@
+Slack Thread: #squad-payments - Tópico: Refunds Policy
+
+[10:23] maria.po: pessoal, recebemos mais uma reclamação sobre prazo de refund. cliente disse que 7 dias é pouco
+
+[10:25] joao.techlead: nossa política é 7 dias úteis, não é?
+
+[10:26] ana.qa: sim, mas concorrência dá mais tempo. magalu dá 30 dias, amazon 15
+
+[10:45] pedro.senior: pessoal, tecnicamente conseguimos processar em 2-3 dias, o problema é processo manual
+
+[11:02] carlos.devops: no gateway atual demora mesmo. stripe demora, paypal é mais rápido
+
+[2 semanas depois...]
+
+[14:12] maria.po: gente, cliente VIP quer 14 dias. posso aprovar como exceção?
+
+[14:13] joao.techlead: pode, mas vamos revisar a política geral
+
+[14:15] ana.qa: +1 para revisar. 7 dias é muito restritivo
+
+[14:16] lucas.dev: sou novo aqui mas 7 dias é estranho mesmo
+
+[1 semana depois...]
+
+[09:33] roberta.qa: acabei de testar refund e demorou 5 dias, não 7. nossa SLA tá errada?
+
+[09:35] pedro.senior: depende do gateway. stripe demora mais
+
+[09:37] carlos.devops: paypal é mais rápido, 2-3 dias
+
+[09:40] joao.techlead: então temos SLAs diferentes por gateway? isso não tá documentado
+
+[09:42] maria.po: vamos padronizar isso. proposta: 14 dias independente do gateway
+
+[09:43] ana.qa: concordo. dá margem e melhora UX
+
+[09:45] pedro.senior: tecnicamente ok. só ajustar código
+
+[Mais tarde no mesmo dia...]
+
+[16:22] lucas.dev: implementei refund automático para valores < R$ 100. ok?
+
+[16:23] maria.po: não aprovou isso com ninguém!!! pode quebrar fluxo contábil
+
+[16:24] joao.techlead: lucas, qualquer mudança tem que passar por review
+
+[16:25] lucas.dev: desculpa, achei que era melhoria óbvia
+
+[16:26] ana.qa: vamos documentar melhor o processo
+
+[16:30] carlos.devops: rollback feito, sem impacto em prod

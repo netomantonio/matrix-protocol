@@ -1,0 +1,64 @@
+JIRA Ticket: PAYMENTS-1234
+Título: Implementar melhorias no sistema de detecção de fraude
+Status: Em Progresso
+Assignee: Ana Santos (QA)
+Reporter: Maria (PO)
+Data: 24/02/2024
+
+DESCRIÇÃO:
+Tivemos um aumento de 23% em chargebacks no último mês. Precisamos melhorar nosso sistema de detecção de fraude.
+
+Casos específicos identificados:
+1. Mesmo IP fez 15 compras com cartões diferentes em 2 horas (Friday night)
+2. Cliente usou 8 endereços de entrega diferentes no mesmo dia 
+3. Transação de R$ 12.000 passou sem revisão (nosso threshold é R$ 5000 mas não funcionou?)
+
+ANÁLISE ATUAL:
+- Regra de R$ 5000 não está pegando valores altos (BUG?)
+- IP blocking não está funcionando direito
+- Validação de endereço está muito permissiva
+- CVV validation passou cartão com CVV obviamente inválido (000)
+
+PROPOSTAS:
+1. Baixar threshold para R$ 3000 (mas pode gerar muita fricção)
+2. Implementar machine learning (talvez muito complexo agora)
+3. Integração com bureau de crédito (caro)
+4. Melhorar validações básicas (CVV, endereço)
+
+João (Tech Lead) comentou: "Threshold de R$ 5000 talvez seja alto mesmo. Vamos começar com R$ 3500 e monitorar por 2 semanas"
+
+Pedro (Dev Senior) adicionou: "Tem bug na validação de CVV. '000', '111', '999' estão passando. Vou corrigir essa semana"
+
+Carlos (DevOps) observou: "Logs de fraude estão muito básicos. Precisamos melhorar observabilidade para investigar casos suspeitos"
+
+IMPEDIMENTOS:
+- Não temos dados históricos estruturados para análise
+- API do bureau de crédito ainda não foi contratada  
+- Time de BI não tem disponibilidade para dashboard de fraude
+
+CRITÉRIOS DE ACEITE:
+- [ ] Threshold ajustado e testado
+- [ ] CVV validation corrigida
+- [ ] Logs de auditoria melhorados
+- [ ] Monitoramento de IPs suspeitos ativo
+- [ ] Documentação do processo atualizada
+
+TESTES:
+- Testar com cartões inválidos (CVV 000, 123, etc)
+- Simular múltiplas compras mesmo IP
+- Validar alertas para time de risco
+
+---
+COMENTÁRIOS:
+
+Ana Santos - 25/02: "Comecei os testes. CVV 000 realmente está passando. Absurdo."
+
+Pedro Silva - 26/02: "Fix do CVV pronto. Agora bloqueia: 000, 111, 222, 333, 444, 555, 666, 777, 888, 999 e sequências óbvias"
+
+João - 27/02: "Pedro, não esqueça de tratar caso onde CVV é campo obrigatório mas cliente não informa (null/empty)"
+
+Maria - 28/02: "Produto questionou se threshold muito baixo vai afetar conversão. Podemos A/B test?"
+
+Carlos - 01/03: "Configurei alertas no Slack quando transação > R$ 3500. Canal #fraude-alerts"
+
+Ana Santos - 02/03: "Encontrei outro problema: cliente pode usar mesmo cartão com dados levemente diferentes (João vs Joao vs J. Silva) e passar pela validação"

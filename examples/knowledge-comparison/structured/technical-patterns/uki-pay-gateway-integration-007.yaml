@@ -1,0 +1,119 @@
+schema: "1.0"
+ontology_reference: "moc:squad-payments:v1.0"
+version: "2.0.0"
+
+id: uki:squad-payments:technical_pattern:gateway-integration-007
+title: "Padrão de Integração com Gateways de Pagamento"
+scope_ref: squad-payments
+scope_mode: "restricted"
+domain_ref: technical
+type_ref: pattern
+maturity_ref: validated
+
+created_date: 2024-03-25
+last_modified: 2024-03-25
+change_summary: "Adição de circuit breaker e estratégia de failover baseada em lessons learned"
+change_impact: major
+status: active
+
+content: |
+  ## Arquitetura de Integração
+  
+  **Interface unificada:** PaymentGatewayInterface
+  **Implementações:** StripeGateway, PayPalGateway
+  **Padrão:** Strategy Pattern para seleção dinâmica
+  **Configuração:** Environment-based (dev/staging/prod)
+  
+  ## Circuit Breaker Pattern
+  
+  **Biblioteca:** Resilience4j
+  **Configuração por gateway:**
+  - Failure threshold: 50% em janela de 10 requests
+  - Timeout: 30 segundos (reduzido de 90s)  
+  - Half-open: 3 requests de teste
+  - Backoff: exponential starting 1s, max 60s
+  
+  **Estados:**
+  - CLOSED: Normal operation
+  - OPEN: Gateway indisponível, requests falham fast
+  - HALF_OPEN: Testando recuperação
+  
+  ## Failover Strategy
+  
+  **Failover automático:**
+  - Stripe principal → PayPal backup
+  - Trigger: Circuit breaker OPEN por > 2 minutos
+  - Fallback: Manual override via admin panel
+  
+  **Considerations:**
+  - PayPal pode rejeitar transação aceita por Stripe
+  - Webhooks diferentes por gateway
+  - Reconciliação deve considerar fonte
+  
+  ## Timeout Configuration
+  
+  **Connection timeout:** 5 segundos
+  **Read timeout:** 30 segundos (crítico para UX)
+  **Pool timeout:** 10 segundos  
+  **Keep-alive:** 30 segundos
+  
+  **Retry policy:**
+  - Max attempts: 3
+  - Backoff: 1s, 2s, 4s
+  - Retry on: IOException, SocketTimeoutException
+  - No retry: 4xx client errors
+  
+  ## Error Handling
+  
+  **Classificação de erros:**
+  - **Retriable:** 5xx, timeout, connection issues
+  - **Non-retriable:** 4xx client errors, fraud detection
+  - **Ambiguous:** 429 rate limit (retry with backoff)
+  
+  **Error response format:**
+  ```json
+  {
+    "error_code": "GATEWAY_TIMEOUT",
+    "message": "Payment gateway temporarily unavailable",
+    "retriable": true,
+    "gateway": "stripe"
+  }
+  ```
+  
+  ## Monitoring and Observability
+  
+  **Métricas obrigatórias:**
+  - Latency percentiles (p50, p95, p99)
+  - Error rate por gateway
+  - Circuit breaker state changes  
+  - Failover frequency
+  - Request volume per gateway
+  
+  **Alertas:**
+  - Latency p95 > 10s → Slack
+  - Error rate > 5% → PagerDuty
+  - Circuit breaker OPEN → SMS
+  - Failover ativado → Email + Slack
+
+examples:
+  - input: "Stripe retorna 503, circuit breaker CLOSED, 30% failure rate"
+    output: "Retry com backoff, se atingir 50% failures → OPEN → failover PayPal"
+  - input: "Timeout 35s em request Stripe, circuit breaker detecta"
+    output: "Request falha, contador errors++, próximos requests continuam testando"
+  - input: "PayPal rejeita transação R$ 500 que Stripe aceitaria"
+    output: "Log discrepância, retornar erro específico, não retry automático"
+
+relationships:
+  - type: implements
+    target: uki:squad-payments:business_rule:fee-calculation-005
+    description: "Implementa cálculos específicos de taxa por gateway"
+    
+  - type: relates_to
+    target: uki:squad-payments:technical_pattern:webhook-handling-009
+    description: "Webhooks complementam integração para confirmação async"
+    
+  - type: relates_to
+    target: uki:squad-payments:procedure:incident-response-014
+    description: "Falhas de gateway seguem processo de incident response"
+
+domain_of_influence: "engineering_teams"

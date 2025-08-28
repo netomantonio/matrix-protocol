@@ -1,0 +1,139 @@
+schema: "1.0"
+ontology_reference: "moc:squad-payments:v1.0"
+id: uki:squad-payments:technical_pattern:webhook-handling-009  
+title: "Padrão de Processamento de Webhooks de Gateway"
+version: 2.1.0
+created_date: 2024-03-25
+last_modified: 2024-03-25
+change_summary: "Implementação de deduplicação e validação de signature baseada em issues produção"
+change_impact: major
+previous_version: 2.0.0
+
+scope_ref: squad-payments
+domain_ref: technical
+type_ref: pattern
+maturity_ref: validated
+status: active
+
+content: |
+  ## Arquitetura de Webhook Processing
+  
+  **Endpoint pattern:** `/webhooks/{gateway}`
+  **Examples:** `/webhooks/stripe`, `/webhooks/paypal`
+  **Processing:** Async com queue para reliability
+  **Persistence:** Log completo para auditoria e debug
+  
+  ## Deduplicação (Anti-Double Processing)
+  
+  **Strategy:** Redis-based deduplication
+  **Key pattern:** `webhook_dedupe_{transaction_id}_{event_type}`
+  **TTL:** 300 seconds (5 minutes)
+  **Implementation:**
+  ```java
+  String dedupeKey = "webhook_dedupe_" + transactionId + "_" + eventType;
+  if (redisTemplate.opsForValue().setIfAbsent(dedupeKey, "processed", Duration.ofSeconds(300))) {
+      // Process webhook
+  } else {
+      // Duplicate detected, skip processing
+  }
+  ```
+  
+  ## Signature Validation
+  
+  ### Stripe Webhooks
+  **Algorithm:** HMAC-SHA256
+  **Header:** `Stripe-Signature`
+  **Secret:** Environment variable `STRIPE_WEBHOOK_SECRET`
+  **Tolerance:** 300 seconds for timestamp validation
+  
+  ### PayPal Webhooks  
+  **Algorithm:** RSA-SHA256
+  **Certificate:** Downloaded from PayPal API
+  **Header:** `PAYPAL-AUTH-ALGO`, `PAYPAL-TRANSMISSION-ID`
+  **Verification:** Certificate chain validation required
+  
+  ## Event Processing Pipeline
+  
+  **1. Validation Phase:**
+  - Signature verification (mandatory)
+  - Deduplication check (mandatory)
+  - Schema validation (recommended)
+  
+  **2. Business Logic Phase:**
+  - Payment status update
+  - Customer notification trigger
+  - Inventory management update
+  - Analytics event emission
+  
+  **3. Response Phase:**
+  - HTTP 200 OK (acknowledges receipt)
+  - Idempotent response for duplicates
+  - Error responses trigger gateway retry
+  
+  ## Error Handling and Retry
+  
+  **Gateway retry behavior:**
+  - Stripe: Exponential backoff up to 3 days
+  - PayPal: Linear retry up to 24 hours
+  
+  **Our retry policy:**
+  - Temporary errors: Return 5xx for gateway retry
+  - Permanent errors: Return 4xx to stop retries  
+  - Processing errors: Queue for manual review
+  
+  ## Event Types and Actions
+  
+  ### Payment Events
+  **payment_intent.succeeded (Stripe):**
+  - Update payment status to CONFIRMED
+  - Trigger order fulfillment
+  - Send confirmation email to customer
+  
+  **PAYMENT.CAPTURE.COMPLETED (PayPal):**
+  - Update payment status to CAPTURED  
+  - Release inventory reservation
+  - Update analytics dashboard
+  
+  ### Dispute Events
+  **charge.dispute.created:**
+  - Create chargeback case
+  - Notify risk management team
+  - Freeze related customer account
+  
+  ## Monitoring and Observability
+  
+  **Success metrics:**
+  - Webhook processing latency (p95 < 2s)
+  - Deduplication rate (should be low < 5%)
+  - Signature validation success rate (> 99.9%)
+  
+  **Error metrics:**
+  - Failed signature validations (security concern)
+  - Processing errors requiring manual intervention
+  - Gateway retry frequency (indicator of our reliability)
+  
+  **Alerting:**
+  - Failed signature validation → Immediate security alert
+  - Processing queue backlog > 100 → Operational alert  
+  - Deduplication rate > 15% → Investigation needed
+
+examples:
+  - input: "Stripe webhook: payment_intent.succeeded, duplicate transaction_id"
+    output: "Deduplication hit, return 200 OK immediately, no processing"
+  - input: "PayPal webhook: invalid signature, transaction valid"
+    output: "Return 401, log security event, do not process payment update"
+  - input: "Processing error during payment update (DB timeout)"
+    output: "Return 500, gateway will retry, queue for manual review"
+
+related_to:
+  - target: uki:squad-payments:technical_pattern:gateway-integration-007
+    type: complements
+    description: "Webhooks complementam integração síncrona para confirmação assíncrona"
+  - target: uki:squad-payments:technical_pattern:idempotency-keys-011
+    type: relates_to
+    description: "Deduplicação de webhook usa conceitos similares de idempotência"
+  - target: uki:squad-payments:procedure:incident-response-014
+    type: relates_to
+    description: "Falhas críticas de webhook seguem processo de incident response"
+
+domain_of_influence: "engineering_teams"

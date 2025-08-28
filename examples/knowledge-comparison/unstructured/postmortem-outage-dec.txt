@@ -1,0 +1,117 @@
+POST-MORTEM: OUTAGE SISTEMA PAGAMENTOS
+Incident ID: INC-2023-12-15-001
+Data: 15/12/2023 14:22 - 16:45 BRT
+Duração: 2h23min
+Impacto: 100% indisponibilidade processamento pagamentos
+Receita perdida estimada: R$ 45.000
+
+==== RESUMO EXECUTIVO ====
+
+Sistema de pagamentos ficou completamente indisponível por 2h23min devido a falha em cascata iniciada por timeout excessivo no gateway Stripe. Problema foi agravado por falta de circuit breaker e monitoramento inadequado.
+
+==== LINHA DO TEMPO ====
+
+14:22 - Primeiros alertas de timeout no Stripe
+14:25 - Aplicação começou a acumular threads bloqueadas  
+14:30 - Database pool esgotado (max 20 connections)
+14:35 - Sistema travou completamente
+14:40 - Time de plantão acionado via PagerDuty
+14:45 - Início investigação (Carlos e Pedro)
+15:20 - Causa raiz identificada (Stripe instável)
+15:25 - Tentativa restart aplicação (falhou)
+15:30 - Restart forçado com kill -9
+15:35 - Aplicação subiu mas ainda travando
+15:45 - Desabilitado Stripe, ativado PayPal como principal  
+16:00 - Sistema estável, processamento normalizado
+16:15 - Monitoramento intensivo iniciado
+16:45 - Declarado resolução completa
+
+==== CAUSA RAIZ ====
+
+1. Stripe API apresentou latência elevada (20-60s por request)
+2. Nossa aplicação não possui circuit breaker
+3. Threads ficaram bloqueadas aguardando response do Stripe
+4. Pool de database connections esgotou (threads bloquedas mantiveram conexões)
+5. Sistema travou completamente
+
+==== CONTRIBUTING FACTORS ====
+
+- Timeout configurado muito alto (90s)
+- Falta de circuit breaker pattern
+- Pool de conexões database mal dimensionado
+- Monitoramento não detectou degradação gradual
+- Processo de failover manual demorado
+- Runbook desatualizado (ainda mencionava PagSeguro que foi descontinuado)
+
+==== IMPACTO ====
+
+BUSINESS:
+- 2h23min sem processar pagamentos
+- 156 transações perdidas (clientes desistiram)
+- R$ 45.000 receita estimada perdida
+- 23 tickets suporte sobre "pagamento não funciona"
+- NPS do dia caiu de 8.2 para 6.1
+
+TÉCNICO:
+- Database travado (requareix restart)
+- Logs corrompidos (não conseguimos recuperar alguns)
+- Cache Redis perdido (restart forçado)
+- Monitoring alertas falsos por 3h após resolução
+
+==== AÇÕES CORRETIVAS IMEDIATAS ====
+
+✅ FEITO:
+- Timeout Stripe reduzido: 90s → 30s
+- Restart procedimento documentado e testado
+- Alertas configurados para latência > 10s
+- Failover PayPal testado e funcional
+
+==== AÇÕES PREVENTIVAS (PRAZO 30 DIAS) ====
+
+🚫 NÃO FEITO (até hoje):
+- [ ] Implementar circuit breaker pattern
+- [ ] Aumentar pool database: 20 → 50 connections  
+- [ ] Health check que valida conectividade gateways
+- [ ] Runbook atualizado com novos procedimentos
+- [ ] Monitoramento de thread pool utilization
+- [ ] Teste de carga simulando falha gateway
+
+==== LESSONS LEARNED ====
+
+1. Circuit breaker é CRÍTICO para integrações externas
+2. Monitoramento deve incluir dependências externas
+3. Timeout agressivo é melhor que timeout alto
+4. Failover deve ser automático, não manual
+5. Database pool precisa ser dimensionado considerando threads bloqueadas
+6. Runbooks precisam ser vivos, não documentos esquecidos
+
+==== MÉTRICAS ====
+
+MTTR (Mean Time to Recovery): 2h23min
+MTTD (Mean Time to Detection): 8 minutos  
+MTTF (Mean Time to Fix): 2h15min
+
+Meta MTTR: < 30 minutos
+Meta MTTD: < 5 minutos
+
+==== ACTION ITEMS ====
+
+PRIORIDADE ALTA:
+- Pedro: Circuit breaker implementation (PAYMENTS-1567)  
+- Carlos: Database pool tuning (OPS-445)
+- João: Health check endpoints (PAYMENTS-1568)
+
+PRIORIDADE MÉDIA:
+- Ana: Load testing scenarios (QA-223)
+- Maria: Runbook update (DOC-445)  
+- Time: Post-mortem review meeting (agendar)
+
+==== APROVAÇÃO ====
+
+Reviewed by: João Silva (Tech Lead)
+Approved by: Roberto Santos (Engineering Manager)  
+Date: 18/12/2023
+
+---
+
+NOTA PESSOAL (Pedro): Esse tipo de coisa vai acontecer de novo se não priorizarmos tech debt. Sistema está frágil demais.
